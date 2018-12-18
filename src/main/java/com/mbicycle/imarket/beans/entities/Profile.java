@@ -8,8 +8,8 @@ import javax.persistence.*;
 public class Profile {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_gen")
-    @SequenceGenerator(name = "seq_gen", sequenceName = "profile_id_seq", allocationSize = 1)
+    @SequenceGenerator(name = "profiles_sequence_generator", sequenceName = "profiles_id_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "profiles_sequence_generator")
     private int id;
 
     @Column(nullable = false, length = 20)
