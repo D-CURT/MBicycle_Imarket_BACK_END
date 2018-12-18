@@ -1,0 +1,45 @@
+section {
+  display: flex;
+  margin: auto;
+  width: inherit;
+  justify-content: space-between;
+  flex-direction: row;
+  padding-top: 1%;
+  background-color: white;
+}
+
+section * {
+  background-color: white;
+}
+
+section .section-left {
+  width: 40%;
+  height: 2em;
+  display: flex;
+
+}
+
+section .section-right {
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+section .section-right .search {
+  width: 210px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+section .section-right .product {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+section .section-right .product img {
+  width: 100px;
+  height: 100px;
+}
