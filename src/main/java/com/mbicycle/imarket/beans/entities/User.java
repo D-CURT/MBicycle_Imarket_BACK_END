@@ -1,7 +1,7 @@
 package com.mbicycle.imarket.beans.entities;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -11,10 +11,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_sequence_generator")
     private int id;
 
-    @Column(name = "login", nullable = false, unique = true, length = 20)
     private String login;
 
-    @Column(name = "password", nullable = false, length = 20)
     private String password;
 
     @ManyToMany(cascade = CascadeType.ALL)
@@ -23,7 +21,7 @@ public class User {
             joinColumns = @JoinColumn(name = "id_user"),
             inverseJoinColumns = @JoinColumn(name = "id_role")
     )
-    private Set<Role> roles;
+    private List<Role> roles;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Profile profile;
@@ -58,6 +56,10 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
     }
 
     @Override

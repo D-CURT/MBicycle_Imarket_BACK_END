@@ -11,21 +11,19 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "products_sequence_generator")
     private int id;
 
-    @Column(nullable = false, unique = true, length = 50)
     private String name;
 
-    @Column(name = "description_preview", length = 70)
+    @Column(name = "description_preview")
     private String descriptionPreview;
 
     @Column(name = "description_full")
     private String descriptionFull;
 
-    @Column(nullable = false, length = 20)
     private String price;
 
     private String picture;
 
-    @Column(name = "store_status", nullable = false)
+    @Column(name = "store_status")
     private String storeStatus;
 
     private String discount;

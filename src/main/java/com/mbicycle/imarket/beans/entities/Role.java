@@ -3,7 +3,7 @@ package com.mbicycle.imarket.beans.entities;
 import com.mbicycle.imarket.utils.RoleType;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "roles")
@@ -14,11 +14,11 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "roles_sequence_generator")
     private int id;
 
-    @Column(name = "role", nullable = false, unique = true, length = 8)
+    @Column(length = 8)
     private RoleType role;
 
     @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
+    private List<User> users;
 
     public Role() {
     }
@@ -43,7 +43,14 @@ public class Role {
         this.role = role;
     }
 
-    public Set<User> getUsers() {
+    public List<User> getUsers() {
         return users;
+    }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "role=" + role +
+                '}';
     }
 }

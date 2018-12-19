@@ -12,13 +12,10 @@ public class Profile {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "profiles_sequence_generator")
     private int id;
 
-    @Column(nullable = false, length = 20)
     private String name;
 
-    @Column(nullable = false, length = 30)
     private String email;
 
-    @Column(nullable = false, length = 20)
     private String phone;
 
     @OneToOne
