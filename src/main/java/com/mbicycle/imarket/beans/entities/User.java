@@ -7,9 +7,8 @@ import java.util.Set;
 @Table(name = "users")
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_gen")
-    @SequenceGenerator(name = "seq_gen", sequenceName = "user_id_seq", allocationSize = 1)
+    @SequenceGenerator(name = "users_sequence_generator", sequenceName = "users_id_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_sequence_generator")
     private int id;
 
     @Column(name = "login", nullable = false, unique = true, length = 20)
