@@ -35,6 +35,17 @@ public class Product {
     public Product() {
     }
 
+    public Product(String name, String descriptionPreview, String descriptionFull, String price, String picture, String storeStatus, String discount, Group group) {
+        this.name = name;
+        this.descriptionPreview = descriptionPreview;
+        this.descriptionFull = descriptionFull;
+        this.price = price;
+        this.picture = picture;
+        this.storeStatus = storeStatus;
+        this.discount = discount;
+        this.group = group;
+    }
+
     public int getId() {
         return id;
     }
@@ -121,4 +132,5 @@ public class Product {
                 ", group=" + group +
                 '}';
     }
+
 }

@@ -7,7 +7,8 @@ import java.util.List;
 @Table(name = "users")
 public class User {
 
-    @SequenceGenerator(name = "users_sequence_generator", sequenceName = "users_id_seq", allocationSize=1)
+    @Id
+    @SequenceGenerator(name = "users_sequence_generator", sequenceName = "users_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_sequence_generator")
     private int id;
 
@@ -64,6 +65,13 @@ public class User {
 
     @Override
     public String toString() {
-        return login + ';' + password;
+        return "User{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", roles=" + roles +
+                ", profile=" + profile +
+                '}';
     }
+
 }
