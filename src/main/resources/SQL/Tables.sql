@@ -4,7 +4,7 @@
 
 CREATE TABLE "users" (
     id INT PRIMARY KEY,
-    login TEXT NOT NULL,
+    login VARCHAR(20) NOT NULL,
     password bytea NOT NULL
 ); 
 
@@ -22,7 +22,7 @@ CREATE TABLE "profiles" (
     phone TEXT,
     address TEXT,
     id_user INT,
-    discriminator TEXT,
+    discriminator VARCHAR(2),
     FOREIGN KEY (id_user)
     	REFERENCES users (id) ON DELETE CASCADE
 ); 

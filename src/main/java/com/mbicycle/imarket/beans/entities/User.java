@@ -5,17 +5,14 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
-public class Users {
+public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_gen")
-    @SequenceGenerator(name = "seq_gen", sequenceName = "user_id_seq")
+    @SequenceGenerator(name = "users_sequence_generator", sequenceName = "users_id_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_sequence_generator")
     private int id;
 
-    @Column(name = "login", nullable = false, length = 20)
     private String login;
 
-    @Column(name = "password", nullable = false, length = 20)
     private String password;
 
     @ManyToMany(cascade = CascadeType.ALL)
@@ -24,12 +21,15 @@ public class Users {
             joinColumns = @JoinColumn(name = "id_user"),
             inverseJoinColumns = @JoinColumn(name = "id_role")
     )
-    private List<Roles> roles;
+    private List<Role> roles;
 
-    public Users() {
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Profile profile;
+
+    public User() {
     }
 
-    public Users(String login, String password) {
+    public User(String login, String password) {
         this.login = login;
         this.password = password;
     }
@@ -56,6 +56,10 @@ public class Users {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
     }
 
     @Override
