@@ -12,8 +12,8 @@ public class OrderByDateOpenedComparator implements Comparator<Order> {
 
     @Override
     public int compare(Order o1, Order o2) {
-        Date o1Date = o1.getDate_opened();
-        Date o2Date = o2.getDate_opened();
+        Date o1Date = o1.getDateOpened();
+        Date o2Date = o2.getDateOpened();
         return o1Date.compareTo(o2Date);
     }
 
