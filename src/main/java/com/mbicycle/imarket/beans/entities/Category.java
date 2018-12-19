@@ -20,6 +20,11 @@ public class Category {
     public Category() {
     }
 
+    public Category(String name, List<Group> groups) {
+        this.name = name;
+        this.groups = groups;
+    }
+
     public int getId() {
         return id;
     }
@@ -52,4 +57,5 @@ public class Category {
                 ", groups=" + groups +
                 '}';
     }
+
 }

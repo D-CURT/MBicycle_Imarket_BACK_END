@@ -25,31 +25,43 @@ public class Order {
     @Column(length = 8)
     private DeliveryType delivery;
 
-    @Column
+    @Column(name = "date_opened")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date date_opened;
+    private Date dateOpened;
 
-    @Column
+    @Column(name = "date_paid")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date date_paid;
+    private Date datePaid;
 
-    @Column
+    @Column(name = "date_ready")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date date_ready;
+    private Date dateReady;
 
-    @Column
+    @Column(name = "date_closed")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date date_closed;
+    private Date dateClosed;
 
-    @Column
+    @Column(name = "date_sent")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date date_sent;
+    private Date dateSent;
 
-    @Column
+    @Column(name = "date_got")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date date_got;
+    private Date dateGot;
 
     public Order() {
+    }
+
+    public Order(Profile profile, PaymentType payment, DeliveryType delivery, Date dateOpened, Date datePaid, Date dateReady, Date dateClosed, Date dateSent, Date dateGot) {
+        this.profile = profile;
+        this.payment = payment;
+        this.delivery = delivery;
+        this.dateOpened = dateOpened;
+        this.datePaid = datePaid;
+        this.dateReady = dateReady;
+        this.dateClosed = dateClosed;
+        this.dateSent = dateSent;
+        this.dateGot = dateGot;
     }
 
     public PaymentType getPayment() {
@@ -68,52 +80,52 @@ public class Order {
         this.delivery = delivery;
     }
 
-    public Date getDate_opened() {
-        return date_opened;
+    public Date getDateOpened() {
+        return dateOpened;
     }
 
-    public void setDate_opened(Date date_opened) {
-        this.date_opened = date_opened;
+    public void setDateOpened(Date dateOpened) {
+        this.dateOpened = dateOpened;
     }
 
-    public Date getDate_paid() {
-        return date_paid;
+    public Date getDatePaid() {
+        return datePaid;
     }
 
-    public void setDate_paid(Date date_paid) {
-        this.date_paid = date_paid;
+    public void setDatePaid(Date datePaid) {
+        this.datePaid = datePaid;
     }
 
-    public Date getDate_ready() {
-        return date_ready;
+    public Date getDateReady() {
+        return dateReady;
     }
 
-    public void setDate_ready(Date date_ready) {
-        this.date_ready = date_ready;
+    public void setDateReady(Date dateReady) {
+        this.dateReady = dateReady;
     }
 
-    public Date getDate_closed() {
-        return date_closed;
+    public Date getDateClosed() {
+        return dateClosed;
     }
 
-    public void setDate_closed(Date date_closed) {
-        this.date_closed = date_closed;
+    public void setDateClosed(Date dateClosed) {
+        this.dateClosed = dateClosed;
     }
 
-    public Date getDate_sent() {
-        return date_sent;
+    public Date getDateSent() {
+        return dateSent;
     }
 
-    public void setDate_sent(Date date_sent) {
-        this.date_sent = date_sent;
+    public void setDateSent(Date dateSent) {
+        this.dateSent = dateSent;
     }
 
-    public Date getDate_got() {
-        return date_got;
+    public Date getDateGot() {
+        return dateGot;
     }
 
-    public void setDate_got(Date date_got) {
-        this.date_got = date_got;
+    public void setDateGot(Date dateGot) {
+        this.dateGot = dateGot;
     }
 
     public int getId() {
@@ -126,17 +138,18 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Orders{" +
+        return "Order{" +
                 "id=" + id +
-                ", profiles=" + profile +
+                ", profile=" + profile +
                 ", payment=" + payment +
                 ", delivery=" + delivery +
-                ", date_opened=" + date_opened +
-                ", date_paid=" + date_paid +
-                ", date_ready=" + date_ready +
-                ", date_closed=" + date_closed +
-                ", date_sent=" + date_sent +
-                ", date_gott=" + date_got +
+                ", dateOpened=" + dateOpened +
+                ", datePaid=" + datePaid +
+                ", dateReady=" + dateReady +
+                ", dateClosed=" + dateClosed +
+                ", dateSent=" + dateSent +
+                ", dateGot=" + dateGot +
                 '}';
     }
+    
 }

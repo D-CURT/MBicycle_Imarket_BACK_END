@@ -10,7 +10,7 @@ import java.util.List;
 public class Role {
 
     @Id
-    @SequenceGenerator(name = "roles_sequence_generator", sequenceName = "roles_id_seq", allocationSize=1)
+    @SequenceGenerator(name = "roles_sequence_generator", sequenceName = "roles_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "roles_sequence_generator")
     private int id;
 
@@ -23,8 +23,9 @@ public class Role {
     public Role() {
     }
 
-    public Role(RoleType role) {
+    public Role(RoleType role, List<User> users) {
         this.role = role;
+        this.users = users;
     }
 
     public int getId() {
@@ -50,7 +51,10 @@ public class Role {
     @Override
     public String toString() {
         return "Role{" +
-                "role=" + role +
+                "id=" + id +
+                ", role=" + role +
+                ", users=" + users +
                 '}';
     }
+
 }

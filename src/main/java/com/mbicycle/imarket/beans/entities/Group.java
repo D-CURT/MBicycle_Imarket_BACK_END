@@ -24,6 +24,12 @@ public class Group {
     public Group() {
     }
 
+    public Group(String name, Category category, List<Product> products) {
+        this.name = name;
+        this.category = category;
+        this.products = products;
+    }
+
     public int getId() {
         return id;
     }
@@ -65,4 +71,5 @@ public class Group {
                 ", products=" + products +
                 '}';
     }
+
 }
