@@ -1,7 +1,7 @@
 package com.mbicycle.imarket.utils.comparators.order;
 
 import com.mbicycle.imarket.beans.entities.Order;
-import com.mbicycle.imarket.utils.annotations.EntityComparator;
+import backup.annotations.EntityComparator;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -12,8 +12,8 @@ public class OrderByDatePaidComparator implements Comparator<Order> {
 
     @Override
     public int compare(Order o1, Order o2) {
-        Date o1Date = o1.getDate_paid();
-        Date o2Date = o2.getDate_paid();
+        Date o1Date = o1.getDatePaid();
+        Date o2Date = o2.getDatePaid();
         return o1Date.compareTo(o2Date);
     }
 

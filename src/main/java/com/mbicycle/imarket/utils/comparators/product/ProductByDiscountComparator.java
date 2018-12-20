@@ -1,12 +1,10 @@
 package com.mbicycle.imarket.utils.comparators.product;
 
 import com.mbicycle.imarket.beans.entities.Product;
-import com.mbicycle.imarket.utils.annotations.EntityComparator;
 
 import java.util.Collections;
 import java.util.Comparator;
 
-@EntityComparator
 public class ProductByDiscountComparator implements Comparator<Product> {
 
     @Override

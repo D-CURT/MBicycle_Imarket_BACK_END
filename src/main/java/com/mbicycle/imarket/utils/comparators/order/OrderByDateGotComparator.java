@@ -1,7 +1,7 @@
 package com.mbicycle.imarket.utils.comparators.order;
 
 import com.mbicycle.imarket.beans.entities.Order;
-import com.mbicycle.imarket.utils.annotations.EntityComparator;
+import backup.annotations.EntityComparator;
 
 import java.util.Collections;
 import java.util.Comparator;
