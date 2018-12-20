@@ -1,5 +1,30 @@
+<<<<<<< HEAD
 *.iml
 *.xml
 /target/*
 /out/*
 /idea/*
+=======
+~*
+out/*
+target/*
+exclude/*
+
+!.mvn/wrapper/maven-wrapper.jar
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea/*
+.idea*
+*.iws
+*.iml
+*.ipr
+>>>>>>> 28c0bc416d2693a1695310a5b4dc4ffc68cb273d
