@@ -1,6 +1,7 @@
 package com.mbicycle.imarket.beans.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -18,9 +19,14 @@ public class Profile {
 
     private String phone;
 
+    private String address;
+
     @OneToOne
     @JoinColumn(name = "id_user")
     private User user;
+
+    @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Coupon> coupons;
 
     @Column(length = 2)
     private String discriminator;
@@ -68,12 +74,36 @@ public class Profile {
         this.phone = phone;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public List<Coupon> getCoupons() {
+        return coupons;
+    }
+
+    public void setCoupons(List<Coupon> coupons) {
+        this.coupons = coupons;
+    }
+
+    public String getDiscriminator() {
+        return discriminator;
+    }
+
+    public void setDiscriminator(String discriminator) {
+        this.discriminator = discriminator;
     }
 
     @Override

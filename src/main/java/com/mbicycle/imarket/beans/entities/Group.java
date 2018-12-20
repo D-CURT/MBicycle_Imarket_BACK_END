@@ -24,10 +24,9 @@ public class Group {
     public Group() {
     }
 
-    public Group(String name, Category category, List<Product> products) {
+    public Group(String name, Category category) {
         this.name = name;
         this.category = category;
-        this.products = products;
     }
 
     public int getId() {
