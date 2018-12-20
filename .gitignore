@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 *.iml
 *.xml
 /target/*
@@ -27,4 +26,3 @@ exclude/*
 *.iws
 *.iml
 *.ipr
->>>>>>> 28c0bc416d2693a1695310a5b4dc4ffc68cb273d
