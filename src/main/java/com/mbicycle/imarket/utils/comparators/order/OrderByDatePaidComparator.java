@@ -1,13 +1,13 @@
 package com.mbicycle.imarket.utils.comparators.order;
 
 import com.mbicycle.imarket.beans.entities.Order;
-import org.springframework.stereotype.Component;
+import com.mbicycle.imarket.utils.annotations.EntityComparator;
 
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 
-@Component
+@EntityComparator
 public class OrderByDatePaidComparator implements Comparator<Order> {
 
     @Override
