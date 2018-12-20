@@ -8,7 +8,7 @@ import javax.persistence.*;
 public class Profile {
 
     @Id
-    @SequenceGenerator(name = "profiles_sequence_generator", sequenceName = "profiles_id_seq", allocationSize=1)
+    @SequenceGenerator(name = "profiles_sequence_generator", sequenceName = "profiles_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "profiles_sequence_generator")
     private int id;
 
@@ -28,10 +28,12 @@ public class Profile {
     public Profile() {
     }
 
-    public Profile(String name, String email, String phone) {
+    public Profile(String name, String email, String phone, User user, String discriminator) {
         this.name = name;
         this.email = email;
         this.phone = phone;
+        this.user = user;
+        this.discriminator = discriminator;
     }
 
     public int getId() {
@@ -73,4 +75,17 @@ public class Profile {
     public void setUser(User user) {
         this.user = user;
     }
+
+    @Override
+    public String toString() {
+        return "Profile{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", user=" + user +
+                ", discriminator='" + discriminator + '\'' +
+                '}';
+    }
+
 }
