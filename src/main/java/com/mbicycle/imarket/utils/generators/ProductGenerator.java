@@ -1,10 +1,9 @@
-package com.mbicycle.imarket.generator;
+package com.mbicycle.imarket.utils.generators;
 
 import com.mbicycle.imarket.beans.entities.Category;
 import com.mbicycle.imarket.beans.entities.Group;
 import com.mbicycle.imarket.beans.entities.Product;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;

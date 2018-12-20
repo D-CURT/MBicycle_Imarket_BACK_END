@@ -1,8 +1,7 @@
 package com.mbicycle.imarket;
 
 import com.mbicycle.imarket.beans.entities.Product;
-import com.mbicycle.imarket.daos.ProductRepository;
-import com.mbicycle.imarket.generator.ProductGenerator;
+import com.mbicycle.imarket.utils.generators.ProductGenerator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
