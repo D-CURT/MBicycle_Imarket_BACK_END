@@ -1,3 +1,9 @@
+*.iml
+*.xml
+/target/*
+/out/*
+/idea/*
+=======
 ~*
 out/*
 target/*
