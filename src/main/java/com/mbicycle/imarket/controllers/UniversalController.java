@@ -43,10 +43,6 @@ public class UniversalController {
 
 
 
-    @GetMapping("/products/add")
-    public String getProductsAdd() {
-        return "-0-";
-    }    
     
     @GetMapping("/products/edit")
     public String getProductsEdit() {

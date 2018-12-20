@@ -129,7 +129,7 @@ public class Product {
                 ", picture=" + picture +
                 ", storeStatus='" + storeStatus + '\'' +
                 ", discount='" + discount + '\'' +
-                ", group=" + group +
+            //    ", group=" + group +
                 '}';
     }
 
