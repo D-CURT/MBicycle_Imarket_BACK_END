@@ -31,4 +31,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     @Query("")
     List<Product> getAllSortedByNameWithNameLikeAndTrueStoreStatusAndNotNullDiscount(String name);*/
+
+    Product findByName(String name);
 }

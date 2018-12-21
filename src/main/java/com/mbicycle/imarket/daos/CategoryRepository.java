@@ -10,4 +10,6 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
 /*
     @Query("")
     List<Category> getAllSortedByName();*/
+
+    Category findByName(String name);
 }

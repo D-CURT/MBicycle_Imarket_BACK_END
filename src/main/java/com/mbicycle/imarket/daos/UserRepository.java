@@ -8,10 +8,10 @@ import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
 
-    User findByLoginAndPassword(String name, String login);
+    User findByLoginAndPassword(String login, String password);
 
 //    @Query("")
 //    List<User> getAllSortedByLogin();
 
-    void deleteByLoginAndPassword(String name, String login);
+    void deleteByLoginAndPassword(String login, String password);
 }

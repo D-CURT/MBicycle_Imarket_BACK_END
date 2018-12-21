@@ -5,6 +5,7 @@ import com.mbicycle.imarket.utils.PaymentType;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "orders")
@@ -15,9 +16,13 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "orders_sequence_generator")
     private int id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_profile", nullable = false)
     private Profile profile;
+
+    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY
+            , cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderProduct> orderProducts;
 
     @Column(length = 5)
     private PaymentType payment;
@@ -52,7 +57,7 @@ public class Order {
     public Order() {
     }
 
-    public Order(Profile profile, PaymentType payment, DeliveryType delivery, Date dateOpened, Date datePaid, Date dateReady, Date dateClosed, Date dateSent, Date dateGot) {
+  /*  public Order(Profile profile, PaymentType payment, DeliveryType delivery, Date dateOpened, Date datePaid, Date dateReady, Date dateClosed, Date dateSent, Date dateGot) {
         this.profile = profile;
         this.payment = payment;
         this.delivery = delivery;
@@ -62,6 +67,26 @@ public class Order {
         this.dateClosed = dateClosed;
         this.dateSent = dateSent;
         this.dateGot = dateGot;
+    }*/
+
+    public Order(Profile profile) {
+        this.profile = profile;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
     }
 
     public PaymentType getPayment() {
@@ -128,28 +153,12 @@ public class Order {
         this.dateGot = dateGot;
     }
 
-    public int getId() {
-        return id;
+    public List<OrderProduct> getOrderProducts() {
+        return orderProducts;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    @Override
-    public String toString() {
-        return "Order{" +
-                "id=" + id +
-                ", profile=" + profile +
-                ", payment=" + payment +
-                ", delivery=" + delivery +
-                ", dateOpened=" + dateOpened +
-                ", datePaid=" + datePaid +
-                ", dateReady=" + dateReady +
-                ", dateClosed=" + dateClosed +
-                ", dateSent=" + dateSent +
-                ", dateGot=" + dateGot +
-                '}';
+    public void setOrderProducts(List<OrderProduct> orderProducts) {
+        this.orderProducts = orderProducts;
     }
     
 }
