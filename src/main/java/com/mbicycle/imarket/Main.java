@@ -13,7 +13,7 @@ import java.util.List;
 @SpringBootApplication/*(scanBasePackages = "com.mbicycle.imarket")*/
 public class Main {
     public static void main(String[] args) {
-     // SpringApplication.run(Main.class, args);
+      SpringApplication.run(Main.class, args);
 
       BaseGenerator generator = new BaseGenerator();
       List<Product> allProduct = generator.generateProduсts(1000); //parameter - count. It creates 2 categories with 2 groups
