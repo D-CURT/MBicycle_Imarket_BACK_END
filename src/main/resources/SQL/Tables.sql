@@ -4,7 +4,7 @@
 
 CREATE TABLE "users" (
     id INT PRIMARY KEY,
-    login VARCHAR(20) NOT NULL,
+    login TEXT NOT NULL,
     password bytea NOT NULL
 ); 
 

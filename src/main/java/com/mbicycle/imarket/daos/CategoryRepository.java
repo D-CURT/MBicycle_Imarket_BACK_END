@@ -11,4 +11,5 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
 /*
     @Query("")
     List<Category> getAllSortedByName();*/
+
 }

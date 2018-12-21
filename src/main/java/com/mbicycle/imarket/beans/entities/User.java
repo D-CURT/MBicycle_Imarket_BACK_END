@@ -24,7 +24,11 @@ public class User {
     )
     private List<Role> roles;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, optional = false)
+
+   /* @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, optional = false)*/
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+
     private Profile profile;
 
     public User() {
@@ -66,6 +70,5 @@ public class User {
     public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
-
-
 }
+

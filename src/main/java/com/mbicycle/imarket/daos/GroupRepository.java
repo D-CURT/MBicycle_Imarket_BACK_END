@@ -13,4 +13,5 @@ public interface GroupRepository extends JpaRepository<Group, Integer> {
 /*
     @Query("")
     List<Group> getAllSortedByName();*/
+
 }

@@ -14,11 +14,12 @@ public class Group {
 
     private String name;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_category", nullable = false)
     private Category category;
 
-    @OneToMany(mappedBy = "group")
+    @OneToMany(mappedBy = "group", cascade = CascadeType.REMOVE)
+
     private List<Product> products;
 
     public Group() {

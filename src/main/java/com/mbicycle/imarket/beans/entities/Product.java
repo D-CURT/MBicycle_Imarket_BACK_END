@@ -1,6 +1,7 @@
 package com.mbicycle.imarket.beans.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -28,14 +29,17 @@ public class Product {
 
     private int discount;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_group", nullable = false)
     private Group group;
+
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    private List<OrderProduct> orderProducts;
 
     public Product() {
     }
 
-    public Product(String name, String descriptionPreview, String descriptionFull, double price, String picture, boolean storeStatus, int discount, Group group) {
+    public Product(String name, String descriptionPreview, String descriptionFull, double price, String picture, boolean storeStatus, int discount, Group group, List<OrderProduct> orderProducts) {
         this.name = name;
         this.descriptionPreview = descriptionPreview;
         this.descriptionFull = descriptionFull;
@@ -44,6 +48,7 @@ public class Product {
         this.storeStatus = storeStatus;
         this.discount = discount;
         this.group = group;
+        this.orderProducts = orderProducts;
     }
 
     public int getId() {
@@ -116,5 +121,13 @@ public class Product {
 
     public void setGroup(Group group) {
         this.group = group;
+    }
+
+    public List<OrderProduct> getOrderProducts() {
+        return orderProducts;
+    }
+
+    public void setOrderProducts(List<OrderProduct> orderProducts) {
+        this.orderProducts = orderProducts;
     }
 }

@@ -31,36 +31,43 @@ public class ProductManagementTest {
     private ProductRepository productRepository;
 
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
         Category category = new Category(TEST_TEXT_PARAM);
 
         if (categoryRepository.findByName(TEST_TEXT_PARAM) == null) {
-            categoryRepository.save( category);
+            System.out.println("*** Saving Caterogy. ***");
+            categoryRepository.save(category);
+
         }
 
         category = categoryRepository.findByName(TEST_TEXT_PARAM);
         Group group = new Group(TEST_TEXT_PARAM, category);
 
         if (groupRepository.findByName(TEST_TEXT_PARAM) == null) {
+
+            System.out.println("*** Saving Group. ***");
+
             groupRepository.save(group);
         }
 
         group = groupRepository.findByName(TEST_TEXT_PARAM);
         Product product = new Product(TEST_TEXT_PARAM, TEST_TEXT_PARAM, TEST_TEXT_PARAM
-                , TEST_DOUBLE_PARAM, TEST_TEXT_PARAM, false, TEST_INT_PARAM, group);
+                , TEST_DOUBLE_PARAM, TEST_TEXT_PARAM, false, TEST_INT_PARAM, group, null);
         if ((productRepository.findByName(TEST_TEXT_PARAM)) == null) {
+            System.out.println("*** Saving Product. ***");
             productRepository.save(product);
         }
     }
 
     @After
-    public void tearDown() {
-        Product product;
-        if ((product = productRepository.findByName(TEST_TEXT_PARAM)) != null) {
-            productRepository.delete(product);
-            Category category = categoryRepository.findByName(TEST_TEXT_PARAM);
-            categoryRepository.delete(category);
-        }
+    public void tearDown() throws Exception {
+
+                    Category category;
+                    if((category = categoryRepository.findByName(TEST_TEXT_PARAM)) != null ) {
+                        System.out.println("*** Deleting Category (Also groups and products). ***");
+                        categoryRepository.delete(category);
+                    }
+
     }
 
     @Test

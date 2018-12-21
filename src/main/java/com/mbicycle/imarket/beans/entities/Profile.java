@@ -20,15 +20,18 @@ public class Profile {
 
     private String address;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false, orphanRemoval = true)
-    @JoinColumn(name = "id_user")
+    @OneToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "id_user", nullable = false)
     private User user;
 
-    @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "profile", fetch = FetchType.LAZY)
     private List<Coupon> coupons;
 
     @Column(length = 2)
     private String discriminator;
+
+    @OneToMany(mappedBy = "profile", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<Order> orders;
 
     public Profile() {
     }
@@ -106,6 +109,11 @@ public class Profile {
         this.discriminator = discriminator;
     }
 
+    public List<Order> getOrders() {
+        return orders;
+    }
 
-
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
 }
