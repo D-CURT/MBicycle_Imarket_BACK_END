@@ -15,7 +15,7 @@ public class Coupon {
 
     private String sum;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_profile", nullable = false)
     private Profile profile;
 

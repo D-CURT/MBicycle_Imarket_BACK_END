@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface GroupRepository extends JpaRepository<Group, Integer> {
-
+/*
     @Query("")
-    List<Group> getAllSortedByName();
+    List<Group> getAllSortedByName();*/
 }
