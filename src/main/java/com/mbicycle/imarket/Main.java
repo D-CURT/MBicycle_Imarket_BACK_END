@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.List;
 
-@SpringBootApplication
+@SpringBootApplication/*(scanBasePackages = "com.mbicycle.imarket")*/
 public class Main {
     public static void main(String[] args) {
       SpringApplication.run(Main.class, args);
