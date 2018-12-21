@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface ProfileRepository extends JpaRepository<Profile, Integer> {
-
+/*
     @Query("")
-    List<Profile> getAllSortedByName();
+    List<Profile> getAllSortedByName();*/
 }
