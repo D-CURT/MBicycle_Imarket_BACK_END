@@ -16,9 +16,9 @@ public class Main {
      // SpringApplication.run(Main.class, args);
 
       BaseGenerator generator = new BaseGenerator();
-      List<Product> allProduct = generator.generateProduсts();
-      List<User> allUsers = generator.generateUsers();
-      List<Order> allOrders = generator.generateOrders();
+      List<Product> allProduct = generator.generateProduсts(1000); //parameter - count. It creates 2 categories with 2 groups
+      List<User> allUsers = generator.generateUsers(1000); // parameter - count. Simultaneously, profiles are generated
+      List<Order> allOrders = generator.generateOrders(15); // parameter - percent!!! Always it have be past generateUsers, because they transmit profiles
 
     }
 }

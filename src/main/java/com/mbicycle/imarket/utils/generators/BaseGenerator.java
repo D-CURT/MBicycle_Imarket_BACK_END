@@ -17,7 +17,7 @@ public class BaseGenerator {
 
     }
 
-    public List<Product> generateProduсts() {
+    public List<Product> generateProduсts(int count) {
 
         List<Group> mobileGroups = new ArrayList<>();
         Group tabletGroup = new Group();
@@ -31,8 +31,8 @@ public class BaseGenerator {
         tabletGroup.setCategory(mobileCategory);
         phoneGroup.setCategory(mobileCategory);
 
-        List<Product> tablets = fillGroup(tabletGroup, 34);
-        List<Product> phones = fillGroup(phoneGroup, 41);
+        List<Product> tablets = fillGroup(tabletGroup, count);
+        List<Product> phones = fillGroup(phoneGroup, count);
 
         List<Group> householdGroups = new ArrayList<>(); //household appliances, irons, vacuum cleaners
         Group ironGroup = new Group();
@@ -46,8 +46,8 @@ public class BaseGenerator {
         ironGroup.setCategory(householdCategory);
         vacuumGroup.setCategory(householdCategory);
 
-        List<Product> irons = fillGroup(ironGroup, 25);
-        List<Product> vacuums = fillGroup(vacuumGroup, 52);
+        List<Product> irons = fillGroup(ironGroup, count);
+        List<Product> vacuums = fillGroup(vacuumGroup, count);
 
         List<Product> allProduct = new ArrayList<>();
         allProduct.addAll(tablets);
@@ -59,14 +59,14 @@ public class BaseGenerator {
     }
 
 
-    public List<User> generateUsers() {
+    public List<User> generateUsers(int count) {
 
         List<User> users = new ArrayList<>();
         Language ENG = Language.ENG;
         Language RUS = Language.RUS;
         Language DIGIT = Language.DIGIT;
 
-        for (int i = 0; i < 500; i++) {
+        for (int i = 0; i < count; i++) {
             User user = new User(getWord(ENG), getWord(ENG));
             List<Role> roles = new ArrayList<>();
             Role role = new Role();
@@ -108,10 +108,10 @@ public class BaseGenerator {
         return users;
     }
 
-    public List<Order> generateOrders() {
+    public List<Order> generateOrders(int procent) {
         List<Order> orders = new ArrayList<>();
         for (Profile profile : profiles) {
-            if (RND.nextInt(100) < 15) {
+            if (RND.nextInt(100) < procent) {
                 Order order = new Order(profile, PaymentType.NOW, DeliveryType.DELIVERY, getDate(), getDate(), getDate(), getDate(), getDate(), getDate());
             }
         }
