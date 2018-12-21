@@ -13,7 +13,7 @@ public class Coupon {
 
     private String description;
 
-    private String sum;
+    private int sum;
 
     @ManyToOne
     @JoinColumn(name = "id_profile", nullable = false)
@@ -22,7 +22,7 @@ public class Coupon {
     public Coupon() {
     }
 
-    public Coupon(String description, String sum) {
+    public Coupon(String description, int sum) {
         this.description = description;
         this.sum = sum;
     }
@@ -43,11 +43,11 @@ public class Coupon {
         this.description = description;
     }
 
-    public String getSum() {
+    public int getSum() {
         return sum;
     }
 
-    public void setSum(String sum) {
+    public void setSum(int sum) {
         this.sum = sum;
     }
 
