@@ -20,9 +20,8 @@ public class Category {
     public Category() {
     }
 
-    public Category(String name, List<Group> groups) {
+    public Category(String name) {
         this.name = name;
-        this.groups = groups;
     }
 
     public int getId() {
@@ -47,15 +46,6 @@ public class Category {
 
     public void setGroups(List<Group> groups) {
         this.groups = groups;
-    }
-
-    @Override
-    public String toString() {
-        return "Category{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", groups=" + groups +
-                '}';
     }
 
 }

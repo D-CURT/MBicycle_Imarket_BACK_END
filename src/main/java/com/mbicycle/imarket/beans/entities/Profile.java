@@ -4,8 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "discriminator")
+@Table(name = "profiles")
 public class Profile {
 
     @Id
@@ -21,7 +20,7 @@ public class Profile {
 
     private String address;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, optional = false, orphanRemoval = true)
     @JoinColumn(name = "id_user")
     private User user;
 
@@ -34,10 +33,11 @@ public class Profile {
     public Profile() {
     }
 
-    public Profile(String name, String email, String phone, User user, String discriminator) {
+    public Profile(String name, String email, String phone, String address, User user, String discriminator) {
         this.name = name;
         this.email = email;
         this.phone = phone;
+        this.address = address;
         this.user = user;
         this.discriminator = discriminator;
     }
@@ -106,16 +106,6 @@ public class Profile {
         this.discriminator = discriminator;
     }
 
-    @Override
-    public String toString() {
-        return "Profile{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
-                ", user=" + user +
-                ", discriminator='" + discriminator + '\'' +
-                '}';
-    }
+
 
 }

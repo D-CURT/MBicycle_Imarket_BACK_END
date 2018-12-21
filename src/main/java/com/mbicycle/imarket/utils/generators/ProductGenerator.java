@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Random;
 
 public class ProductGenerator {
-
+/*
     private static Random RND = new Random();
     private static String RUS = "абвгдеёжзийклмнопрстуфхцчъыьэюя";
     private static String ENG = "abcdefghijklmnopqrstuvwxyz";
@@ -66,12 +66,12 @@ public class ProductGenerator {
     private List<Product>  fillGroup(Group group, int procudtCount) {
         List<Product> result = new ArrayList<>();
         for (int i = 0; i < procudtCount; i++) {
-            Product product = new Product(getWord(), getSentense(8), getSentense(36),
+           *//* Product product = new Product(getWord(), getSentense(8), getSentense(36),
                     getStrDigit(2), getWord(), getWord(), getStrDigit(2),
                     group);
 
             System.out.println(product);
-            result.add(product);
+            result.add(product);*//*
         }
 
         return result;
@@ -116,5 +116,5 @@ public class ProductGenerator {
             builder.append(getOneDigit());
         }
         return builder.toString();
-    }
+    }*/
 }

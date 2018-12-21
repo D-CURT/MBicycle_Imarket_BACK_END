@@ -10,11 +10,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.persistence.Transient;
 import java.util.Arrays;
 import java.util.List;
 
@@ -37,7 +35,7 @@ public class ProfileRepositoryTest {
     public void setUp() {
         User user = new User(TEST_PARAM, TEST_PARAM);
         user.setRoles(ROLES);
-        Profile profile = new Profile(TEST_PARAM, TEST_PARAM, TEST_PARAM, user, "P");
+        Profile profile = new Profile(TEST_PARAM, TEST_PARAM, TEST_PARAM, TEST_PARAM, user, "GG");
         if (userRepository.findByLoginAndPassword(TEST_PARAM, TEST_PARAM) == null) {
             userRepository.save(user);
         }
