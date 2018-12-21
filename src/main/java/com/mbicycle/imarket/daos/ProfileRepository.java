@@ -11,8 +11,8 @@ import java.util.List;
 public interface ProfileRepository extends JpaRepository<Profile, Integer> {
 
     Profile findByUser(User user);
-/*
-    @Query("")
-    List<Profile> getAllSortedByName();*/
+
+    List<Profile> findByOrderByNameAsc();
+
     void deleteByUser(User user);
 }
