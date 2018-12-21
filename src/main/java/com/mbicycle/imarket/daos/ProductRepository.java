@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Integer> {
-
+/*
     @Query("")
     List<Product> getAllSortedByName();
 
@@ -30,5 +30,5 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     List<Product> getAllSortedByNameWithNameLikeAndNotNullDiscount(String name);
 
     @Query("")
-    List<Product> getAllSortedByNameWithNameLikeAndTrueStoreStatusAndNotNullDiscount(String name);
+    List<Product> getAllSortedByNameWithNameLikeAndTrueStoreStatusAndNotNullDiscount(String name);*/
 }

@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 public class UniversalController {
     
-    @Autowired
+  /*  @Autowired
     private CategoryRepository categoryRepository;
 
     @Autowired
@@ -103,5 +103,5 @@ public class UniversalController {
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<Product> getAllSortedByNameWithNameLikeAndTrueStoreStatusAndDiscount(@PathVariable String name) {
         return productRepository.getAllSortedByNameWithNameLikeAndTrueStoreStatusAndNotNullDiscount(name);
-    }
+    }*/
 }
