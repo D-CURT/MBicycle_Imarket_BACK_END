@@ -17,15 +17,14 @@ public class Role {
     @Column(length = 8)
     private RoleType role;
 
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(mappedBy = "roles", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<User> users;
 
     public Role() {
     }
 
-    public Role(RoleType role, List<User> users) {
+    public Role(RoleType role) {
         this.role = role;
-        this.users = users;
     }
 
     public int getId() {
@@ -46,15 +45,6 @@ public class Role {
 
     public List<User> getUsers() {
         return users;
-    }
-
-    @Override
-    public String toString() {
-        return "Role{" +
-                "id=" + id +
-                ", role=" + role +
-                ", users=" + users +
-                '}';
     }
 
 }

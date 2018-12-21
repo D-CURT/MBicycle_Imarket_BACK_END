@@ -1,3 +1,9 @@
+*.iml
+*.xml
+/target/*
+/out/*
+/idea/*
+=======
 ~*
 out/*
 target/*
@@ -20,3 +26,6 @@ exclude/*
 *.iws
 *.iml
 *.ipr
+
+### Diagram ###
+!src/main/resources/Diagram/*

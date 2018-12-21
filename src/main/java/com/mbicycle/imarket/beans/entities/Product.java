@@ -1,6 +1,7 @@
 package com.mbicycle.imarket.beans.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -19,23 +20,26 @@ public class Product {
     @Column(name = "description_full")
     private String descriptionFull;
 
-    private String price;
+    private double price;
 
     private String picture;
 
     @Column(name = "store_status")
-    private String storeStatus;
+    private boolean storeStatus;
 
-    private String discount;
+    private int discount;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_group", nullable = false)
     private Group group;
+
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    private List<OrderProduct> orderProducts;
 
     public Product() {
     }
 
-    public Product(String name, String descriptionPreview, String descriptionFull, String price, String picture, String storeStatus, String discount, Group group) {
+    public Product(String name, String descriptionPreview, String descriptionFull, double price, String picture, boolean storeStatus, int discount, Group group, List<OrderProduct> orderProducts) {
         this.name = name;
         this.descriptionPreview = descriptionPreview;
         this.descriptionFull = descriptionFull;
@@ -44,6 +48,7 @@ public class Product {
         this.storeStatus = storeStatus;
         this.discount = discount;
         this.group = group;
+        this.orderProducts = orderProducts;
     }
 
     public int getId() {
@@ -78,11 +83,11 @@ public class Product {
         this.descriptionFull = descriptionFull;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -94,19 +99,19 @@ public class Product {
         this.picture = picture;
     }
 
-    public String getStoreStatus() {
+    public boolean isStoreStatus() {
         return storeStatus;
     }
 
-    public void setStoreStatus(String storeStatus) {
+    public void setStoreStatus(boolean storeStatus) {
         this.storeStatus = storeStatus;
     }
 
-    public String getDiscount() {
+    public int getDiscount() {
         return discount;
     }
 
-    public void setDiscount(String discount) {
+    public void setDiscount(int discount) {
         this.discount = discount;
     }
 
@@ -118,19 +123,11 @@ public class Product {
         this.group = group;
     }
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", descriptionPreview='" + descriptionPreview + '\'' +
-                ", descriptionFull='" + descriptionFull + '\'' +
-                ", price=" + price +
-                ", picture=" + picture +
-                ", storeStatus='" + storeStatus + '\'' +
-                ", discount='" + discount + '\'' +
-                ", group=" + group +
-                '}';
+    public List<OrderProduct> getOrderProducts() {
+        return orderProducts;
     }
 
+    public void setOrderProducts(List<OrderProduct> orderProducts) {
+        this.orderProducts = orderProducts;
+    }
 }
