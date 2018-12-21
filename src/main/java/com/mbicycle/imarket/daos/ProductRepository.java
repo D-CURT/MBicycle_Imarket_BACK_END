@@ -4,9 +4,12 @@ import com.mbicycle.imarket.beans.entities.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
+@Transactional
 public interface ProductRepository extends JpaRepository<Product, Integer> {
+    Product findByName(String name);
 /*
     @Query("")
     List<Product> getAllSortedByName();
@@ -31,4 +34,5 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     @Query("")
     List<Product> getAllSortedByNameWithNameLikeAndTrueStoreStatusAndNotNullDiscount(String name);*/
+
 }

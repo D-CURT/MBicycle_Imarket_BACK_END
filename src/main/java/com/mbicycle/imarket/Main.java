@@ -13,7 +13,7 @@ public class Main {
     public static void main(String[] args) {
       SpringApplication.run(Main.class, args);
       ProductGenerator proGen = new ProductGenerator();
-      List<Product> allProduct = proGen.generate();
+     /* List<Product> allProduct = proGen.generate();*/
 
     }
 }

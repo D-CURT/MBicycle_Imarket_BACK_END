@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Random;
 
 public class ProductGenerator {
-
+/*
     private static Random RND = new Random();
     private static String RUS = "абвгдеёжзийклмнопрстуфхцчъыьэюя";
     private static String ENG = "abcdefghijklmnopqrstuvwxyz";
@@ -31,7 +31,7 @@ public class ProductGenerator {
         mobileGroups.add(tabletGroup);
         mobileGroups.add(phoneGroup);
 
-        Category mobileCategory = new Category("Мобильные девайсы", mobileGroups);
+        Category mobileCategory = new Category("Мобильные девайсы");
         tabletGroup.setCategory(mobileCategory);
         phoneGroup.setCategory(mobileCategory);
 
@@ -46,7 +46,7 @@ public class ProductGenerator {
         householdGroups.add(tabletGroup);
         householdGroups.add(phoneGroup);
 
-        Category householdCategory = new Category("Бытовая техника", householdGroups);
+        Category householdCategory = new Category("Бытовая техника");
         ironGroup.setCategory(householdCategory);
         vacuumGroup.setCategory(householdCategory);
 
@@ -66,12 +66,21 @@ public class ProductGenerator {
     private List<Product>  fillGroup(Group group, int procudtCount) {
         List<Product> result = new ArrayList<>();
         for (int i = 0; i < procudtCount; i++) {
-            Product product = new Product(getWord(), getSentense(8), getSentense(36),
+<<<<<<< HEAD
+           *//* Product product = new Product(getWord(), getSentense(8), getSentense(36),
                     getStrDigit(2), getWord(), getWord(), getStrDigit(2),
                     group);
 
             System.out.println(product);
-            result.add(product);
+            result.add(product);*//*
+=======
+//            Product product = new Product(getWord(), getSentense(8), getSentense(36),
+//                    getStrDigit(2), getWord(), getWord(), getStrDigit(2),
+//                    group);
+
+//            System.out.println(product);
+//            result.add(product);
+>>>>>>> ed9695dbe0fa3cfd58ecdeed235c9e598e5c53e0
         }
 
         return result;
@@ -116,5 +125,5 @@ public class ProductGenerator {
             builder.append(getOneDigit());
         }
         return builder.toString();
-    }
+    }*/
 }
