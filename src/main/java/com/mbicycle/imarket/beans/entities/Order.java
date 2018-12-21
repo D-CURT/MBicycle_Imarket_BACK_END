@@ -57,7 +57,7 @@ public class Order {
     public Order() {
     }
 
-  /*  public Order(Profile profile, PaymentType payment, DeliveryType delivery, Date dateOpened, Date datePaid, Date dateReady, Date dateClosed, Date dateSent, Date dateGot) {
+    public Order(Profile profile, PaymentType payment, DeliveryType delivery, Date dateOpened, Date datePaid, Date dateReady, Date dateClosed, Date dateSent, Date dateGot) {
         this.profile = profile;
         this.payment = payment;
         this.delivery = delivery;
@@ -67,10 +67,6 @@ public class Order {
         this.dateClosed = dateClosed;
         this.dateSent = dateSent;
         this.dateGot = dateGot;
-    }*/
-
-    public Order(Profile profile) {
-        this.profile = profile;
     }
 
     public int getId() {
@@ -160,5 +156,4 @@ public class Order {
     public void setOrderProducts(List<OrderProduct> orderProducts) {
         this.orderProducts = orderProducts;
     }
-    
 }

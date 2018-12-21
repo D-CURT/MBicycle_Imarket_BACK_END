@@ -30,7 +30,7 @@ public class Profile {
     @Column(length = 2)
     private String discriminator;
 
-    @OneToMany(mappedBy = "profile", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "profile", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> orders;
 
     public Profile() {

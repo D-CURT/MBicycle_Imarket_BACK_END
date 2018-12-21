@@ -2,6 +2,8 @@ package com.mbicycle.imarket.daos;
 
 import com.mbicycle.imarket.Main;
 import com.mbicycle.imarket.beans.entities.*;
+import com.mbicycle.imarket.utils.DeliveryType;
+import com.mbicycle.imarket.utils.PaymentType;
 import com.mbicycle.imarket.utils.RoleType;
 import org.junit.After;
 import org.junit.Before;
@@ -32,6 +34,12 @@ public class OrderManagementTest {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private ProductRepository productRepository;
+
+    @Autowired
+    private OrderProductRepository orderProductRepository;
+
     @Before
     public void setUp() {
         User user = new User(TEST_PARAM, TEST_PARAM);
@@ -47,17 +55,23 @@ public class OrderManagementTest {
             System.out.println("*** Save Profile. ***");
             profileRepository.save(profile);
         }
-
-        Order order = new Order(profile);
-        OrderProduct op = new OrderProduct();
-        order.setOrderProducts(Collections.singletonList(op));
-
-        if ((order = orderRepository.findByProfile(profile)) == null) {
+        Order order;
+        if (orderRepository.findByProfile(profile) == null) {
             System.out.println("*** Save order. ***");
+            order = new Order();
+            order.setProfile(profile);
+
             orderRepository.save(order);
         }
 
+        order = orderRepository.findByProfile(profile);
 
+        OrderProduct orderProduct = new OrderProduct();
+        orderProduct.setOrder(order);
+        if (orderProductRepository.findByOrder(order) == null) {
+            System.out.println("*** Save OrderProduct ***");
+            orderProductRepository.save(orderProduct);
+        }
     }
 
     @After
@@ -68,8 +82,10 @@ public class OrderManagementTest {
             System.out.println("*** Profile is null ***");
         }
         else {
-            System.out.println("*** DELETING ***");
-            profileRepository.delete(profile);
+            if (orderRepository.findByProfile(profile) != null) {
+                System.out.println("*** DELETING PROFILE***");
+                profileRepository.delete(profile);
+            }
         }
     }
 

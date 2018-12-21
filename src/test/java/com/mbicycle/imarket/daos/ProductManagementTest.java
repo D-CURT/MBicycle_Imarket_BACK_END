@@ -18,8 +18,6 @@ import static org.junit.Assert.*;
 @SpringBootTest(classes = Main.class)
 public class ProductManagementTest {
     private static final String TEST_TEXT_PARAM = "test";
-    private static final double TEST_DOUBLE_PARAM = 2.2;
-    private static final int TEST_INT_PARAM = 1;
 
     @Autowired
     private CategoryRepository categoryRepository;
@@ -31,7 +29,7 @@ public class ProductManagementTest {
     private ProductRepository productRepository;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         Category category = new Category(TEST_TEXT_PARAM);
 
         if (categoryRepository.findByName(TEST_TEXT_PARAM) == null) {
@@ -51,8 +49,9 @@ public class ProductManagementTest {
         }
 
         group = groupRepository.findByName(TEST_TEXT_PARAM);
-        Product product = new Product(TEST_TEXT_PARAM, TEST_TEXT_PARAM, TEST_TEXT_PARAM
-                , TEST_DOUBLE_PARAM, TEST_TEXT_PARAM, false, TEST_INT_PARAM, group, null);
+        Product product = new Product();
+        product.setName(TEST_TEXT_PARAM);
+        product.setGroup(group);
         if ((productRepository.findByName(TEST_TEXT_PARAM)) == null) {
             System.out.println("*** Saving Product. ***");
             productRepository.save(product);
