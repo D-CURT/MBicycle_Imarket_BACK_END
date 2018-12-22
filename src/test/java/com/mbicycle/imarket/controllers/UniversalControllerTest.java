@@ -76,22 +76,12 @@ public class UniversalControllerTest {
     public void check_of_getting_sorted_users_list() throws Exception {
         final List<User> EXPECTED_USER_LIST = userRepository.findByOrderByLoginAsc();
 
-        byte[] responseBytes = mvc.perform(MockMvcRequestBuilders.get("/users/allUsersSortedByLogin")
-                .param("offset", "0")
-                .param("count", "1024"))
-                .andExpect(status().isOk())
-                .andReturn()
-                .getResponse()
-                .getContentAsByteArray();
-
-        ObjectMapper mapper = createMapper();
-        ObjectNode[] nodes = mapper.readValue(responseBytes, ObjectNode[].class);
-
         List<User> actualUserList = new ArrayList<>();
-        for (JsonNode node: nodes) {
+        ObjectMapper mapper = createMapper();
+
+        for (JsonNode node: fillResultList(mvc, "/users/allUsersSortedByLogin", mapper)) {
             actualUserList.add(mapper.treeToValue(node, User.class));
         }
-
         assertThat(actualUserList, is(equalTo(EXPECTED_USER_LIST)));
         System.out.println(EXPECTED_USER_LIST);
     }
@@ -100,5 +90,17 @@ public class UniversalControllerTest {
         return new ObjectMapper()
                 .configure(ACCEPT_SINGLE_VALUE_AS_ARRAY, true)
                 .configure(FAIL_ON_UNKNOWN_PROPERTIES, false);
+    }
+
+    private ObjectNode[] fillResultList(MockMvc mvc, String mapping, ObjectMapper mapper) throws Exception {
+        byte[] responseBytes = mvc.perform(MockMvcRequestBuilders.get(mapping)
+                .param("offset", "0")
+                .param("count", "1024"))
+                .andExpect(status().isOk())
+                .andReturn()
+                .getResponse()
+                .getContentAsByteArray();
+
+        return mapper.readValue(responseBytes, ObjectNode[].class);
     }
 }
