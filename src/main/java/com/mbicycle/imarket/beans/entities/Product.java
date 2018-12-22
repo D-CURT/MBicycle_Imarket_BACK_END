@@ -40,22 +40,22 @@ public class Product {
     }
 
     public Product(String name, String descriptionPreview, String descriptionFull, double price, String picture, boolean storeStatus, int discount, Group group, List<OrderProduct> orderProducts) {
-        this.name = name;
-        this.descriptionPreview = descriptionPreview;
-        this.descriptionFull = descriptionFull;
-        this.price = price;
-        this.picture = picture;
-        this.storeStatus = storeStatus;
-        this.discount = discount;
-        this.group = group;
-        this.orderProducts = orderProducts;
+        setName(name);
+        setDescriptionPreview(descriptionPreview);
+        setDescriptionFull(descriptionFull);
+        setPrice(price);
+        setPicture(picture);
+        setStoreStatus(storeStatus);
+        setDiscount(discount);
+        setGroup(group);
+        setOrderProducts(orderProducts);
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public final void setId(int id) {
         this.id = id;
     }
 
@@ -63,7 +63,7 @@ public class Product {
         return name;
     }
 
-    public void setName(String name) {
+    public final void setName(String name) {
         this.name = name;
     }
 
@@ -71,7 +71,7 @@ public class Product {
         return descriptionPreview;
     }
 
-    public void setDescriptionPreview(String descriptionPreview) {
+    public final void setDescriptionPreview(String descriptionPreview) {
         this.descriptionPreview = descriptionPreview;
     }
 
@@ -79,7 +79,7 @@ public class Product {
         return descriptionFull;
     }
 
-    public void setDescriptionFull(String descriptionFull) {
+    public final void setDescriptionFull(String descriptionFull) {
         this.descriptionFull = descriptionFull;
     }
 
@@ -87,7 +87,7 @@ public class Product {
         return price;
     }
 
-    public void setPrice(double price) {
+    public final void setPrice(double price) {
         this.price = price;
     }
 
@@ -95,7 +95,7 @@ public class Product {
         return picture;
     }
 
-    public void setPicture(String picture) {
+    public final void setPicture(String picture) {
         this.picture = picture;
     }
 
@@ -103,7 +103,7 @@ public class Product {
         return storeStatus;
     }
 
-    public void setStoreStatus(boolean storeStatus) {
+    public final void setStoreStatus(boolean storeStatus) {
         this.storeStatus = storeStatus;
     }
 
@@ -111,7 +111,7 @@ public class Product {
         return discount;
     }
 
-    public void setDiscount(int discount) {
+    public final void setDiscount(int discount) {
         this.discount = discount;
     }
 
@@ -119,7 +119,7 @@ public class Product {
         return group;
     }
 
-    public void setGroup(Group group) {
+    public final void setGroup(Group group) {
         this.group = group;
     }
 
@@ -127,7 +127,7 @@ public class Product {
         return orderProducts;
     }
 
-    public void setOrderProducts(List<OrderProduct> orderProducts) {
+    public final void setOrderProducts(List<OrderProduct> orderProducts) {
         this.orderProducts = orderProducts;
     }
 }

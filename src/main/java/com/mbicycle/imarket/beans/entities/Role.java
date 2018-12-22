@@ -17,7 +17,7 @@ public class Role {
     @Column(length = 8)
     private RoleType role;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "id_user"),
@@ -29,14 +29,14 @@ public class Role {
     }
 
     public Role(RoleType role) {
-        this.role = role;
+        setRole(role);
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public final void setId(int id) {
         this.id = id;
     }
 
@@ -44,7 +44,7 @@ public class Role {
         return role;
     }
 
-    public void setRole(RoleType role) {
+    public final void setRole(RoleType role) {
         this.role = role;
     }
 

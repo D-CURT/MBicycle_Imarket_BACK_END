@@ -25,15 +25,15 @@ public class Group {
     }
 
     public Group(String name, Category category) {
-        this.name = name;
-        this.category = category;
+        setName(name);
+        setCategory(category);
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public final void setId(int id) {
         this.id = id;
     }
 
@@ -41,7 +41,7 @@ public class Group {
         return name;
     }
 
-    public void setName(String name) {
+    public final void setName(String name) {
         this.name = name;
     }
 
@@ -49,7 +49,7 @@ public class Group {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public final void setCategory(Category category) {
         this.category = category;
     }
 
@@ -57,7 +57,7 @@ public class Group {
         return products;
     }
 
-    public void setProducts(List<Product> products) {
+    public final void setProducts(List<Product> products) {
         this.products = products;
     }
 }

@@ -21,14 +21,14 @@ public class Category {
     }
 
     public Category(String name) {
-        this.name = name;
+        setName(name);
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public final void setId(int id) {
         this.id = id;
     }
 
@@ -36,7 +36,7 @@ public class Category {
         return name;
     }
 
-    public void setName(String name) {
+    public final void setName(String name) {
         this.name = name;
     }
 
@@ -44,7 +44,7 @@ public class Category {
         return groups;
     }
 
-    public void setGroups(List<Group> groups) {
+    public final void setGroups(List<Group> groups) {
         this.groups = groups;
     }
 

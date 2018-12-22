@@ -58,22 +58,22 @@ public class Order {
     }
 
     public Order(Profile profile, PaymentType payment, DeliveryType delivery, Date dateOpened, Date datePaid, Date dateReady, Date dateClosed, Date dateSent, Date dateGot) {
-        this.profile = profile;
-        this.payment = payment;
-        this.delivery = delivery;
-        this.dateOpened = dateOpened;
-        this.datePaid = datePaid;
-        this.dateReady = dateReady;
-        this.dateClosed = dateClosed;
-        this.dateSent = dateSent;
-        this.dateGot = dateGot;
+        setProfile(profile);
+        setPayment(payment);
+        setDelivery(delivery);
+        setDateOpened(dateOpened);
+        setDatePaid(datePaid);
+        setDateReady(dateReady);
+        setDateClosed(dateClosed);
+        setDateSent(dateSent);
+        setDateGot(dateGot);
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public final void setId(int id) {
         this.id = id;
     }
 
@@ -81,7 +81,7 @@ public class Order {
         return profile;
     }
 
-    public void setProfile(Profile profile) {
+    public final void setProfile(Profile profile) {
         this.profile = profile;
     }
 
@@ -89,7 +89,7 @@ public class Order {
         return payment;
     }
 
-    public void setPayment(PaymentType payment) {
+    public final void setPayment(PaymentType payment) {
         this.payment = payment;
     }
 
@@ -97,7 +97,7 @@ public class Order {
         return delivery;
     }
 
-    public void setDelivery(DeliveryType delivery) {
+    public final void setDelivery(DeliveryType delivery) {
         this.delivery = delivery;
     }
 
@@ -105,7 +105,7 @@ public class Order {
         return dateOpened;
     }
 
-    public void setDateOpened(Date dateOpened) {
+    public final void setDateOpened(Date dateOpened) {
         this.dateOpened = dateOpened;
     }
 
@@ -113,7 +113,7 @@ public class Order {
         return datePaid;
     }
 
-    public void setDatePaid(Date datePaid) {
+    public final void setDatePaid(Date datePaid) {
         this.datePaid = datePaid;
     }
 
@@ -121,7 +121,7 @@ public class Order {
         return dateReady;
     }
 
-    public void setDateReady(Date dateReady) {
+    public final void setDateReady(Date dateReady) {
         this.dateReady = dateReady;
     }
 
@@ -129,7 +129,7 @@ public class Order {
         return dateClosed;
     }
 
-    public void setDateClosed(Date dateClosed) {
+    public final void setDateClosed(Date dateClosed) {
         this.dateClosed = dateClosed;
     }
 
@@ -137,7 +137,7 @@ public class Order {
         return dateSent;
     }
 
-    public void setDateSent(Date dateSent) {
+    public final void setDateSent(Date dateSent) {
         this.dateSent = dateSent;
     }
 
@@ -145,7 +145,7 @@ public class Order {
         return dateGot;
     }
 
-    public void setDateGot(Date dateGot) {
+    public final void setDateGot(Date dateGot) {
         this.dateGot = dateGot;
     }
 
@@ -153,7 +153,7 @@ public class Order {
         return orderProducts;
     }
 
-    public void setOrderProducts(List<OrderProduct> orderProducts) {
+    public final void setOrderProducts(List<OrderProduct> orderProducts) {
         this.orderProducts = orderProducts;
     }
 }

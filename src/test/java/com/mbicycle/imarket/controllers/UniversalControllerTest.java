@@ -69,7 +69,6 @@ public class UniversalControllerTest {
         this.users = users;
         for (int i = users.length - 1; i >= 0; i--) {
             User currentUser = users[i];
-            currentUser.setRoles(ROLES);
             String login = currentUser.getLogin();
             String password = currentUser.getPassword();
             if (userRepository.findByLoginAndPassword(login, password) == null) {
@@ -80,7 +79,7 @@ public class UniversalControllerTest {
 
     @After
     public void tearDown() {
-        roleRepository.delete(users[0].getRoles().get(0));
+        Arrays.stream(users).forEach(user -> userRepository.delete(user));
     }
 
     @Test

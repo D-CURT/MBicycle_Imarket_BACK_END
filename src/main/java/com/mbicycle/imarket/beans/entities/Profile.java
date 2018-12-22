@@ -37,19 +37,19 @@ public class Profile {
     }
 
     public Profile(String name, String email, String phone, String address, User user, String discriminator) {
-        this.name = name;
-        this.email = email;
-        this.phone = phone;
-        this.address = address;
-        this.user = user;
-        this.discriminator = discriminator;
+        setName(name);
+        setEmail(email);
+        setPhone(phone);
+        setAddress(address);
+        setUser(user);
+        setDiscriminator(discriminator);
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public final void setId(int id) {
         this.id = id;
     }
 
@@ -57,7 +57,7 @@ public class Profile {
         return name;
     }
 
-    public void setName(String name) {
+    public final void setName(String name) {
         this.name = name;
     }
 
@@ -65,7 +65,7 @@ public class Profile {
         return email;
     }
 
-    public void setEmail(String email) {
+    public final void setEmail(String email) {
         this.email = email;
     }
 
@@ -73,7 +73,7 @@ public class Profile {
         return phone;
     }
 
-    public void setPhone(String phone) {
+    public final void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -81,7 +81,7 @@ public class Profile {
         return address;
     }
 
-    public void setAddress(String address) {
+    public final void setAddress(String address) {
         this.address = address;
     }
 
@@ -89,7 +89,7 @@ public class Profile {
         return user;
     }
 
-    public void setUser(User user) {
+    public final void setUser(User user) {
         this.user = user;
     }
 
@@ -97,7 +97,7 @@ public class Profile {
         return coupons;
     }
 
-    public void setCoupons(List<Coupon> coupons) {
+    public final void setCoupons(List<Coupon> coupons) {
         this.coupons = coupons;
     }
 
@@ -105,7 +105,7 @@ public class Profile {
         return discriminator;
     }
 
-    public void setDiscriminator(String discriminator) {
+    public final void setDiscriminator(String discriminator) {
         this.discriminator = discriminator;
     }
 
@@ -113,7 +113,7 @@ public class Profile {
         return orders;
     }
 
-    public void setOrders(List<Order> orders) {
+    public final void setOrders(List<Order> orders) {
         this.orders = orders;
     }
 }

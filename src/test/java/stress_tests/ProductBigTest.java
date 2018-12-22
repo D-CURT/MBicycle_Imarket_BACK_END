@@ -1,9 +1,12 @@
-package com.mbicycle.imarket.daos;
+package stress_tests;
 
 import com.mbicycle.imarket.Main;
 import com.mbicycle.imarket.beans.entities.Category;
 import com.mbicycle.imarket.beans.entities.Group;
 import com.mbicycle.imarket.beans.entities.Product;
+import com.mbicycle.imarket.daos.CategoryRepository;
+import com.mbicycle.imarket.daos.GroupRepository;
+import com.mbicycle.imarket.daos.ProductRepository;
 import com.mbicycle.imarket.utils.generators.BaseGenerator;
 import org.junit.After;
 import org.junit.Before;
