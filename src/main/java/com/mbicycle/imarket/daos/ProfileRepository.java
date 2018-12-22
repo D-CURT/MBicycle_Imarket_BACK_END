@@ -5,12 +5,14 @@ import com.mbicycle.imarket.beans.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 public interface ProfileRepository extends JpaRepository<Profile, Integer> {
 
     Profile findByUser(User user);
-/*
-    @Query("")
-    List<Profile> getAllSortedByName();*/
+
+    List<Profile> findByOrderByNameAsc();
+
+    void deleteByUser(User user);
 }

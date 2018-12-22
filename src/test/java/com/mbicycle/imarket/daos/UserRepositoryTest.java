@@ -51,6 +51,4 @@ public class UserRepositoryTest {
         User user = repository.findByLoginAndPassword(USER_LOGIN, USER_PASSWORD);
         assertNotNull(user);
     }
-
-
 }

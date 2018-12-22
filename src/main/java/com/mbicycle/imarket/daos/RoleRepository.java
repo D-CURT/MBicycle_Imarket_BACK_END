@@ -8,6 +8,5 @@ import java.util.List;
 
 public interface RoleRepository extends JpaRepository<Role, Integer> {
 
-//    @Query("")
-//    List<Role> getAllSortedByRole();
+    List<Role> findByOrderByRoleAsc();
 }

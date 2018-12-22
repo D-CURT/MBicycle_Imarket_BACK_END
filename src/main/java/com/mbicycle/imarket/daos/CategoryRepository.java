@@ -7,7 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
-/*
-    @Query("")
-    List<Category> getAllSortedByName();*/
+    Category findByName(String name);
+
+    List<Category> findByOrderByNameAsc();
+
 }
