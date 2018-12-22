@@ -27,7 +27,8 @@ public class BaseGenerator {
         mobileGroups.add(tabletGroup);
         mobileGroups.add(phoneGroup);
 
-        Category mobileCategory = new Category("Мобильные девайсы", mobileGroups);
+        Category mobileCategory = new Category("Мобильные девайсы");
+        mobileCategory.setGroups(mobileGroups);
         tabletGroup.setCategory(mobileCategory);
         phoneGroup.setCategory(mobileCategory);
 
@@ -42,7 +43,8 @@ public class BaseGenerator {
         householdGroups.add(tabletGroup);
         householdGroups.add(phoneGroup);
 
-        Category householdCategory = new Category("Бытовая техника", householdGroups);
+        Category householdCategory = new Category("Бытовая техника");
+        householdCategory.setGroups(householdGroups);
         ironGroup.setCategory(householdCategory);
         vacuumGroup.setCategory(householdCategory);
 
@@ -87,13 +89,11 @@ public class BaseGenerator {
 
 
             user.setRoles(roles);
-
-            Profile profile = new Profile(getWord(ENG), getWord(ENG), getWord(DIGIT), user, getWord(RUS));
+            Profile profile = new Profile(getWord(ENG), getWord(ENG), getWord(DIGIT), getWord(RUS), user, getWord(RUS));
 
             List<Coupon> coupons = new ArrayList<>();
             for (int j = 0; j < RND.nextInt(4); j++) {
-                Coupon coupon = new Coupon(getSentense(RUS, 8), RND.nextInt(20));
-                coupon.setProfile(profile);
+                Coupon coupon = new Coupon(getSentense(RUS, 8), RND.nextInt(20), profile);
                 coupons.add(coupon);
             }
             profile.setCoupons(coupons);
@@ -120,16 +120,17 @@ public class BaseGenerator {
 
     private List<Product> fillGroup(Group group, int procudtCount) {
         Language RUS = Language.RUS;
+        Language ENG = Language.ENG;
         List<Product> result = new ArrayList<>();
         for (int i = 0; i < procudtCount; i++) {
             Product product = new Product(getWord(RUS), getSentense(RUS, 8), getSentense(RUS, 36),
-                    getDigit(100), getWord(RUS), getWord(RUS), getDigit(1000),
-                    group);
+                    getDigit(1000), getWord(ENG), true, getDigit(100), group, null);
             System.out.println(product);
             result.add(product);
         }
         return result;
     }
+
 
 
     private String getWord(Language language) {
