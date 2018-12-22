@@ -44,6 +44,9 @@ public class UniversalControllerTest {
     private static final String SECOND_USER_PASSWORD = "321";
     private static final String THIRD_USER_LOGIN = "BBB";
     private static final String THIRD_USER_PASSWORD = "213";
+    private static final List<Role> ROLES =
+            Arrays.asList(new Role(RoleType.CUSTOMER)
+                        , new Role(RoleType.ADMIN));
     private User[] users;
 
     @Autowired
@@ -66,6 +69,7 @@ public class UniversalControllerTest {
         this.users = users;
         for (int i = users.length - 1; i >= 0; i--) {
             User currentUser = users[i];
+            currentUser.setRoles(ROLES);
             String login = currentUser.getLogin();
             String password = currentUser.getPassword();
             if (userRepository.findByLoginAndPassword(login, password) == null) {
