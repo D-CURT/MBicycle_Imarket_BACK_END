@@ -30,4 +30,4 @@ exclude/*
 !src/main/resources/Diagram/*
 
 ### Properties ###
-!src/main/resources/application.properties
+src/main/resources/application.properties
