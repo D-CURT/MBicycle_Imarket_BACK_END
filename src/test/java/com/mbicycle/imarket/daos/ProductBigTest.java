@@ -35,7 +35,7 @@ public class ProductBigTest {
 
 
             BaseGenerator generator = new BaseGenerator();
-            List<Product> allProduct = generator.generateProduсts(25000);
+            List<Product> allProduct = generator.generateProduсts(1_000);
             List<Category> categories = generator.getCategories(); // get these 2 categories, it have to past generateProduсts()
             List<Group> groups = generator.getGroups(); // get these 2 * 2 = 4 categories, it have to past generateProduсts()
             categoryRepository.saveAll(categories);
