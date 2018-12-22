@@ -1,6 +1,7 @@
 package com.mbicycle.imarket.beans.entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,7 +18,7 @@ public class User {
 
     private String password;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "id_user"),
@@ -67,6 +68,20 @@ public class User {
     public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
+
+    /*   public List<UserRoles> getUserRoles() {
+        return userRoles;
+    }
+
+    public void setUserRoles(List<UserRoles> userRoles) {
+        this.userRoles = userRoles;
+    }*/
+
+    /*public List<Role> getRoles() {
+        List<Role> roles =  new ArrayList<>();
+        userRoles.forEach(userRoles1 -> roles.add(userRoles1.getRole()));
+        return roles;
+    }*/
 
     @Override
     public String toString() {

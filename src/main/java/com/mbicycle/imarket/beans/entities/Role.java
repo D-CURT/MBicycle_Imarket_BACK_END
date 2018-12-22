@@ -17,7 +17,7 @@ public class Role {
     @Column(length = 8)
     private RoleType role;
 
-    @ManyToMany(mappedBy = "roles", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<User> users;
 
     public Role() {

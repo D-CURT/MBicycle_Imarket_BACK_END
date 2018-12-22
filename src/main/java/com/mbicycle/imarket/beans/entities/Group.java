@@ -19,7 +19,6 @@ public class Group {
     private Category category;
 
     @OneToMany(mappedBy = "group", cascade = CascadeType.REMOVE)
-
     private List<Product> products;
 
     public Group() {

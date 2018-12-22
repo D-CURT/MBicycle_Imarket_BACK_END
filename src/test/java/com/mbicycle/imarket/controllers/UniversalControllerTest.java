@@ -4,8 +4,12 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.mbicycle.imarket.Main;
+import com.mbicycle.imarket.beans.entities.Role;
 import com.mbicycle.imarket.beans.entities.User;
+import com.mbicycle.imarket.daos.ProfileRepository;
+import com.mbicycle.imarket.daos.RoleRepository;
 import com.mbicycle.imarket.daos.UserRepository;
+import com.mbicycle.imarket.utils.RoleType;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,10 +22,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.fasterxml.jackson.databind.DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY;
 import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
+import static com.mbicycle.imarket.utils.generators.tests.TestObjectsCreator.createUser;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
@@ -31,6 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = Main.class)
 @AutoConfigureMockMvc
 public class UniversalControllerTest {
+//    private static final List<Role> ROLES = Arrays.asList(new Role(RoleType.CUSTOMER), new Role(RoleType.ADMIN));
     private static final String FIRST_USER_LOGIN = "AAA";
     private static final String FIRST_USER_PASSWORD = "123";
     private static final String SECOND_USER_LOGIN = "CCC";
@@ -45,11 +52,17 @@ public class UniversalControllerTest {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
+    private ProfileRepository profileRepository;
+
     @Before
     public void setUp() {
-        User[] users = {new User(FIRST_USER_LOGIN, FIRST_USER_PASSWORD)
-                      , new User(SECOND_USER_LOGIN, SECOND_USER_PASSWORD)
-                      , new User(THIRD_USER_LOGIN, THIRD_USER_PASSWORD)};
+        User[] users = {createUser(FIRST_USER_LOGIN, FIRST_USER_PASSWORD)
+                      , createUser(SECOND_USER_LOGIN, SECOND_USER_PASSWORD)
+                      , createUser(THIRD_USER_LOGIN, THIRD_USER_PASSWORD)};
         this.users = users;
         for (int i = users.length - 1; i >= 0; i--) {
             User currentUser = users[i];
@@ -63,18 +76,12 @@ public class UniversalControllerTest {
 
     @After
     public void tearDown() {
-        for (User user: users) {
-            String login = user.getLogin();
-            String password = user.getPassword();
-            if ((user = userRepository.findByLoginAndPassword(login, password)) != null) {
-                userRepository.delete(user);
-            }
-        }
+        roleRepository.delete(users[0].getRoles().get(0));
     }
 
     @Test
-    public void check_of_getting_sorted_users_list() throws Exception {
-        final List<User> EXPECTED_USER_LIST = userRepository.findByOrderByLoginAsc();
+    public void check_of_getting_sorted_by_login_users_list() throws Exception {
+        final List<User> EXPECTED_USER_LIST_ASC = userRepository.findByOrderByLoginAsc();
 
         List<User> actualUserList = new ArrayList<>();
         ObjectMapper mapper = createMapper();
@@ -82,8 +89,12 @@ public class UniversalControllerTest {
         for (JsonNode node: fillResultList(mvc, "/users/allUsersSortedByLogin", mapper)) {
             actualUserList.add(mapper.treeToValue(node, User.class));
         }
-        assertThat(actualUserList, is(equalTo(EXPECTED_USER_LIST)));
-        System.out.println(EXPECTED_USER_LIST);
+        assertThat(actualUserList, is(equalTo(EXPECTED_USER_LIST_ASC)));
+        System.out.println(EXPECTED_USER_LIST_ASC);
+    }
+
+    public void check_of_getting_sorted_by_name_profile_list() {
+
     }
 
     private ObjectMapper createMapper() {
