@@ -32,9 +32,7 @@ public class UserRepositoryTest {
     public void setUp() {
         User user = new User(USER_LOGIN, USER_PASSWORD);
         user.setRoles(ROLES);
-        System.out.println(repository.findByLoginAndPassword(USER_LOGIN, USER_PASSWORD));
         if (repository.findByLoginAndPassword(USER_LOGIN, USER_PASSWORD) == null) {
-            System.out.println(repository.findByLoginAndPassword(USER_LOGIN, USER_PASSWORD));
             repository.save(user);
         }
     }
