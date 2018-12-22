@@ -13,18 +13,19 @@ public class Coupon {
 
     private String description;
 
-    private int sum;
+    private Integer sum;
 
-    @ManyToOne
-    @JoinColumn(name = "id_profile", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_profile", nullable = true)
     private Profile profile;
 
     public Coupon() {
     }
 
-    public Coupon(String description, int sum) {
+    public Coupon(String description, Integer sum, Profile profile) {
         this.description = description;
         this.sum = sum;
+        this.profile = profile;
     }
 
     public int getId() {
@@ -43,11 +44,11 @@ public class Coupon {
         this.description = description;
     }
 
-    public int getSum() {
+    public Integer getSum() {
         return sum;
     }
 
-    public void setSum(int sum) {
+    public void setSum(Integer sum) {
         this.sum = sum;
     }
 
@@ -59,13 +60,4 @@ public class Coupon {
         this.profile = profile;
     }
 
-    @Override
-    public String toString() {
-        return "Coupon{" +
-                "id=" + id +
-                ", description='" + description + '\'' +
-                ", sum='" + sum + '\'' +
-                ", profile=" + profile +
-                '}';
-    }
 }

@@ -11,15 +11,20 @@ public class OrderProduct {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_products_sequence_generator")
     private int id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_order")
     private Order order;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_product")
     private Product product;
 
     public OrderProduct() {
+    }
+
+    public OrderProduct(Order order, Product product) {
+        this.order = order;
+        this.product = product;
     }
 
     public int getId() {
@@ -30,20 +35,21 @@ public class OrderProduct {
         this.id = id;
     }
 
+
     public Order getOrder() {
         return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     public Product getProduct() {
         return product;
     }
 
-    @Override
-    public String toString() {
-        return "OrderProduct{" +
-                "id=" + id +
-                ", order=" + order +
-                ", product=" + product +
-                '}';
+    public void setProduct(Product product) {
+        this.product = product;
     }
+
 }

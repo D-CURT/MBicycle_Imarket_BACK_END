@@ -1,34 +1,30 @@
 package com.mbicycle.imarket.daos;
 
+import com.mbicycle.imarket.beans.entities.Group;
 import com.mbicycle.imarket.beans.entities.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Integer> {
+    Product findByName(String name);
 
-    @Query("")
-    List<Product> getAllSortedByName();
+    List<Product> findByOrderByNameAsc();
 
-    @Query("")
-    List<Product> getAllSortedByPrice();
+    List<Product> findByOrderByPriceAsc();
 
-    @Query("")
-    List<Product> getAllWithGroupSortedByName(String group);
+    List<Product> findByGroupOrderByNameAsc(Group group);
 
-    @Query("")
-    List<Product> getAllWithGroupSortedByPrice(String group);
+    List<Product> findByGroupOrderByPriceAsc(Group group);
 
-    @Query("")
-    List<Product> getAllSortedByNameWithNameLike(String name);
+    List<Product> findByNameLikeOrderByNameAsc(String name);
 
-    @Query("")
-    List<Product> getAllSortedByNameWithNameLikeAndTrueStoreStatus(String name);
+    List<Product> findByNameLikeAndStoreStatusIsTrueOrderByNameAsc(String name);
 
-    @Query("")
-    List<Product> getAllSortedByNameWithNameLikeAndNotNullDiscount(String name);
+    List<Product> findByNameLikeAndDiscountIsNotNullOrderByNameAsc(String name);
 
-    @Query("")
-    List<Product> getAllSortedByNameWithNameLikeAndTrueStoreStatusAndNotNullDiscount(String name);
+    List<Product> findByNameLikeAndStoreStatusIsTrueAndDiscountIsNotNullOrderByNameAsc(String name);
+
 }

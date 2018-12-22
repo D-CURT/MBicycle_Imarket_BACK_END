@@ -10,10 +10,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.List;
 
-@SpringBootApplication/*(scanBasePackages = "com.mbicycle.imarket")*/
+@SpringBootApplication
 public class Main {
+
     public static void main(String[] args) {
       SpringApplication.run(Main.class, args);
+
 
 
       //Example BaseGenerator API

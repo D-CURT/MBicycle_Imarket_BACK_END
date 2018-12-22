@@ -26,3 +26,6 @@ exclude/*
 *.iws
 *.iml
 *.ipr
+
+### Diagram ###
+!src/main/resources/Diagram/*
