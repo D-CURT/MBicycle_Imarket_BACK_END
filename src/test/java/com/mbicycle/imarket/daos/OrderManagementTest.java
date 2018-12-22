@@ -90,7 +90,7 @@ public class OrderManagementTest {
     }
 
     @Test
-    public void check_of_profile() {
+    public void check_of_order() {
         User user = userRepository.findByLoginAndPassword(TEST_PARAM, TEST_PARAM);
         Profile profile = profileRepository.findByUser(user);
         Order order = orderRepository.findByProfile(profile);
