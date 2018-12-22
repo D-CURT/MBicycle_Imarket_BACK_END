@@ -20,7 +20,6 @@ import static org.junit.Assert.assertNotNull;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Main.class)
 public class ProductBigTest {
-    private static final String TEST_TEXT_PARAM = "test";
 
     @Autowired
     private CategoryRepository categoryRepository;
@@ -33,53 +32,26 @@ public class ProductBigTest {
 
     @Before
     public void setUp() {
-        Category category = new Category(TEST_TEXT_PARAM);
 
-        if (categoryRepository.findByName(TEST_TEXT_PARAM) == null) {
-            System.out.println("*** Saving Caterogy. ***");
-            categoryRepository.save(category);
-
-        }
-
-        category = categoryRepository.findByName(TEST_TEXT_PARAM);
-        Group group = new Group(TEST_TEXT_PARAM, category);
-
-        if (groupRepository.findByName(TEST_TEXT_PARAM) == null) {
-
-            System.out.println("*** Saving Group. ***");
-
-            groupRepository.save(group);
-
-        }
-
-        group = groupRepository.findByName(TEST_TEXT_PARAM);
-        Product product = new Product();
-        product.setName(TEST_TEXT_PARAM);
-        product.setGroup(group);
-        if ((productRepository.findByName(TEST_TEXT_PARAM)) == null) {
-            System.out.println("*** Saving Product. ***");
-            productRepository.save(product);
 
             BaseGenerator generator = new BaseGenerator();
-            List<Product> allProduct = generator.generateProduсts(1000);
+            List<Product> allProduct = generator.generateProduсts(25000);
+            List<Category> categories = generator.getCategories(); // get these 2 categories, it have to past generateProduсts()
+            List<Group> groups = generator.getGroups(); // get these 2 * 2 = 4 categories, it have to past generateProduсts()
+            categoryRepository.saveAll(categories);
+            groupRepository.saveAll(groups);
             productRepository.saveAll(allProduct);
-        }
+
     }
 
     @After
     public void tearDown() throws Exception {
 
-                    Category category;
-                    if((category = categoryRepository.findByName(TEST_TEXT_PARAM)) != null ) {
-                        System.out.println("*** Deleting Category (Also groups and products). ***");
-                        categoryRepository.delete(category);
-                    }
-
     }
 
     @Test
     public void check_of_adding_product() {
-        Product product = productRepository.findByName(TEST_TEXT_PARAM);
-        assertNotNull(product);
+//        Product product = productRepository.findByName(TEST_TEXT_PARAM);
+//        assertNotNull(product);
     }
 }

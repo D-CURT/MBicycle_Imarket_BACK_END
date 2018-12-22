@@ -12,9 +12,19 @@ public class BaseGenerator {
     private static Random RND = new Random();
     private List<Profile> profiles = new ArrayList<>();
 
+    private List<Category> categories = new ArrayList<>();
+    private List<Group> groups = new ArrayList<>();
 
     public BaseGenerator() {
 
+    }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public List<Group> getGroups() {
+        return groups;
     }
 
     public List<Product> generateProduсts(int count) {
@@ -56,6 +66,14 @@ public class BaseGenerator {
         allProduct.addAll(phones);
         allProduct.addAll(irons);
         allProduct.addAll(vacuums);
+
+        categories.add(mobileCategory);
+        categories.add(householdCategory);
+
+        groups.add(tabletGroup);
+        groups.add(phoneGroup);
+        groups.add(ironGroup);
+        groups.add(vacuumGroup);
 
         return allProduct;
     }
@@ -146,7 +164,11 @@ public class BaseGenerator {
     private String getSentense(Language language, int wordCount) {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < wordCount; i++) {
-            builder.append(getWord(language)).append(' ');
+            String word = getWord(language);
+            if (builder.length()+word.length() > 255){
+                break;
+            }
+            builder.append(word).append(' ');
         }
         return builder.toString();
     }
@@ -170,4 +192,6 @@ public class BaseGenerator {
         return calendar.getTime();
 
     }
+
+
 }
