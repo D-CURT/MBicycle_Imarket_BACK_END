@@ -28,6 +28,3 @@ exclude/*
 
 ### Diagram ###
 !src/main/resources/Diagram/*
-
-### Properties ###
-!src/main/resources/application.properties
