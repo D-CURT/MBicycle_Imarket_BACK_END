@@ -40,9 +40,7 @@ public class BigBaseTest {
 
     @Before
     public void setUp() {
-
         System.out.println("*** Creating base data ***");
-
         BaseGenerator generator = new BaseGenerator();
         List<Product> allProduct = generator.generateProduсts(countProductForOneGroup);
         List<Category> categories = generator.getCategories(); // get these 2 categories, it have to past generateProduсts()
@@ -55,9 +53,7 @@ public class BigBaseTest {
 
     @After
     public void tearDown() {
-
         System.out.println("*** Deleting base data ***");
-
         productRepository.deleteAllInBatch();
         groupRepository.deleteAllInBatch();
         categoryRepository.deleteAllInBatch();
