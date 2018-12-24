@@ -74,20 +74,13 @@ public class UniversalController {
     @GetMapping(value = "/products/allProductsWithGroupSortedByName/{groupName}"
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<Product> getAllProductsWithGroupSortedByName(@PathVariable String groupName) {
-        Group group = new Group();
-        if (groupRepository.findByName(groupName) == null) {
-            group.setName(groupName);
-            groupRepository.save(group);
-        }
-
-        group = groupRepository.findByName(groupName);
-        return productRepository.findByGroupOrderByNameAsc(group);
+        return productRepository.findByGroupOrderByNameAsc(groupByName(groupName));
     }
 
-    @GetMapping(value = "/products/allProductsWithGroupSortedByPrice"
+    @GetMapping(value = "/products/allProductsWithGroupSortedByPrice/{groupName}"
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<Product> getAllProductsWithGroupSortedByPrice(@RequestBody Group group) {
-        return productRepository.findByGroupOrderByPriceAsc(group);
+    public List<Product> getAllProductsWithGroupSortedByPrice(@PathVariable String groupName) {
+        return productRepository.findByGroupOrderByPriceAsc(groupByName(groupName));
     }
 
     @GetMapping(value = "/products/allProductsSortedByNameWithNameLike/{name}"
@@ -112,5 +105,15 @@ public class UniversalController {
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<Product> getAllSortedByNameWithNameLikeAndTrueStoreStatusAndDiscount(@PathVariable String name) {
         return productRepository.findByNameLikeAndStoreStatusIsTrueAndDiscountIsNotNullOrderByNameAsc(name);
+    }
+
+    private Group groupByName(String name) {
+        Group group = new Group();
+        if (groupRepository.findByName(name) == null) {
+            group.setName(name);
+            groupRepository.save(group);
+        }
+
+        return groupRepository.findByName(name);
     }
 }

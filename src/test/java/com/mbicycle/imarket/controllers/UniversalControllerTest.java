@@ -209,6 +209,25 @@ public class UniversalControllerTest {
         assertThat(actualProductList, is(equalTo(expectedProductList)));
     }
 
+    @Test
+    public void check_of_getting_products_by_group_sorted_by_price() throws Exception {
+        String mapping = "/products/allProductsWithGroupSortedByPrice/";
+        List<Product> expectedProductList = new ArrayList<>();
+        List<Product> actualProductList = new ArrayList<>();
+        for (Product product: products) {
+            expectedProductList.add(
+                    productRepository.findByGroupOrderByPriceAsc(
+                            product.getGroup()).get(ZERO));
+            actualProductList.add(actualList(
+                    mapping + product.getGroup()
+                                              .getName()
+                    , Product.class).get(ZERO));
+        }
+
+        assertThat(actualProductList.size(), is(greaterThan(ZERO)));
+        assertThat(actualProductList, is(equalTo(expectedProductList)));
+    }
+
     private ObjectMapper createMapper() {
         return new ObjectMapper()
                 .configure(ACCEPT_SINGLE_VALUE_AS_ARRAY, true)
