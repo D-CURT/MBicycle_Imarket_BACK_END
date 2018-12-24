@@ -88,20 +88,26 @@ public class UniversalControllerTest {
 
     @Test
     public void check_of_getting_sorted_by_login_users_list() throws Exception {
-        final List<User> EXPECTED_USER_LIST_ASC = userRepository.findByOrderByLoginAsc();
-
+        final List<User> EXPECTED_USER_LIST = userRepository.findByOrderByLoginAsc();
         List<User> actualUserList = new ArrayList<>();
         ObjectMapper mapper = createMapper();
 
         for (JsonNode node: fillResultList(mvc, "/users/allUsersSortedByLogin", mapper)) {
             actualUserList.add(mapper.treeToValue(node, User.class));
         }
-        assertThat(actualUserList, is(equalTo(EXPECTED_USER_LIST_ASC)));
+        assertThat(actualUserList, is(equalTo(EXPECTED_USER_LIST)));
     }
 
-    public void check_of_getting_sorted_by_name_profile_list() {
+    @Test
+    public void check_of_getting_sorted_by_name_profile_list() throws Exception {
+        final List<Profile> EXPECTED_PROFILE_LIST = profileRepository.findByOrderByNameAsc();
+        List<Profile> actualProfileList = new ArrayList<>();
+        ObjectMapper mapper = createMapper();
 
-
+        for (JsonNode node: fillResultList(mvc, "/profiles/allProfilesSortedByName", mapper)) {
+            actualProfileList.add(mapper.treeToValue(node, Profile.class));
+        }
+        assertThat(actualProfileList, is(equalTo(EXPECTED_PROFILE_LIST)));
     }
 
     private ObjectMapper createMapper() {
@@ -113,7 +119,7 @@ public class UniversalControllerTest {
     private ObjectNode[] fillResultList(MockMvc mvc, String mapping, ObjectMapper mapper) throws Exception {
         byte[] responseBytes = mvc.perform(MockMvcRequestBuilders.get(mapping)
                 .param("offset", "0")
-                .param("count", "1024"))
+                .param("count", "2048"))
                 .andExpect(status().isOk())
                 .andReturn()
                 .getResponse()

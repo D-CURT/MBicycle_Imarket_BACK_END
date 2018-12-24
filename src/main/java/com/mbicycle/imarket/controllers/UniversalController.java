@@ -41,7 +41,7 @@ public class UniversalController {
         return userRepository.findByOrderByLoginAsc();
     }
 
-    @GetMapping("profiles/allProfilesSortedByName")
+    @GetMapping("/profiles/allProfilesSortedByName")
     public List<Profile> getAllProfilesSortedByName() {
         return profileRepository.findByOrderByNameAsc();
     }
@@ -61,23 +61,23 @@ public class UniversalController {
         return groupRepository.findByOrderByNameAsc();
     }
 
-    @GetMapping("products/allProductsSortedByName")
+    @GetMapping("/products/allProductsSortedByName")
     public List<Product> getAllProductsSortedByName() {
         return productRepository.findByOrderByNameAsc();
     }
 
-    @GetMapping("products/allProductsSortedByPrice")
+    @GetMapping("/products/allProductsSortedByPrice")
     public List<Product> getAllProductsSortedByPrice() {
         return productRepository.findByOrderByPriceAsc();
     }
 
-    @GetMapping(value = "products/allProductsWithGroupSortedByName"
+    @GetMapping(value = "/products/allProductsWithGroupSortedByName"
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<Product> getAllProductsWithGroupSortedByName(@RequestBody Group group) {
         return productRepository.findByGroupOrderByNameAsc(group);
     }
 
-    @GetMapping(value = "products/allProductsWithGroupSortedByPrice"
+    @GetMapping(value = "/products/allProductsWithGroupSortedByPrice"
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<Product> getAllProductsWithGroupSortedByPrice(@RequestBody Group group) {
         return productRepository.findByGroupOrderByPriceAsc(group);
