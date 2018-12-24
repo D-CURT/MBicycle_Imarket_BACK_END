@@ -33,7 +33,7 @@ public class Product {
     @JoinColumn(name = "id_group", nullable = false)
     private Group group;
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "product")
     private List<OrderProduct> orderProducts;
 
     public Product() {

@@ -18,7 +18,7 @@ public class User {
 
     private String password;
 
-    @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "users", cascade = CascadeType.ALL)
     private List<Role> roles;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, optional = false)

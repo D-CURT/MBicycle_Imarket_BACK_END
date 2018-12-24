@@ -20,7 +20,7 @@ public class Order {
     @JoinColumn(name = "id_profile", nullable = false)
     private Profile profile;
 
-    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY
+    @OneToMany(mappedBy = "order"
             , cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderProduct> orderProducts;
 

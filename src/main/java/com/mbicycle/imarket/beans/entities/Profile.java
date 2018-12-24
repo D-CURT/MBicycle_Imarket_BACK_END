@@ -25,7 +25,7 @@ public class Profile {
     @JoinColumn(name = "id_user", nullable = false)
     private User user;
 
-    @OneToMany(mappedBy = "profile", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "profile")
     private List<Coupon> coupons;
 
     @Column(length = 2)
