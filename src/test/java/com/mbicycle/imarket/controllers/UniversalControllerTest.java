@@ -55,6 +55,9 @@ public class UniversalControllerTest {
     private UserRepository userRepository;
 
     @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
     private ProfileRepository profileRepository;
 
     @Before
@@ -84,6 +87,7 @@ public class UniversalControllerTest {
     @After
     public void tearDown() {
         profiles.forEach(profile -> profileRepository.delete(profile));
+        roleRepository.findByOrderByRoleAsc().forEach(roleRepository::delete);
     }
 
     @Test
@@ -108,6 +112,18 @@ public class UniversalControllerTest {
             actualProfileList.add(mapper.treeToValue(node, Profile.class));
         }
         assertThat(actualProfileList, is(equalTo(EXPECTED_PROFILE_LIST)));
+    }
+
+    @Test
+    public void check_of_getting_roles_sorted_by_role() throws Exception {
+        final List<Role> EXPECTED_ROLE_LIST = roleRepository.findByOrderByRoleAsc();
+        List<Role> actualRoleList = new ArrayList<>();
+        ObjectMapper mapper = createMapper();
+
+        for (JsonNode node: fillResultList(mvc, "/roles/allRolesSortedByRole", mapper)) {
+            actualRoleList.add(mapper.treeToValue(node, Role.class));
+        }
+        assertThat(actualRoleList, is(equalTo(EXPECTED_ROLE_LIST)));
     }
 
     private ObjectMapper createMapper() {

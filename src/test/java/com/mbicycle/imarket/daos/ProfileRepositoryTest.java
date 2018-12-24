@@ -31,6 +31,9 @@ public class ProfileRepositoryTest {
     private UserRepository userRepository;
 
     @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
     private ProfileRepository profileRepository;
 
     @Before
@@ -58,6 +61,7 @@ public class ProfileRepositoryTest {
             System.out.println("*** DELETING ***");
             profileRepository.delete(profile);
         }
+        roleRepository.findByOrderByRoleAsc().forEach(roleRepository::delete);
     }
 
     @Test

@@ -4,6 +4,7 @@ import com.mbicycle.imarket.utils.enums.RoleType;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "roles")
@@ -17,7 +18,7 @@ public class Role {
     @Column(length = 8)
     private RoleType role;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @JoinTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "id_user"),
@@ -52,4 +53,16 @@ public class Role {
         return users;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Role role1 = (Role) o;
+        return role == role1.role;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(role);
+    }
 }
