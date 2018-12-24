@@ -35,6 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class UniversalControllerTest {
     private static final int ZERO = 0;
+    private final String SCREEN = "%";
     private static final String FIRST_VALUE = "BBB";
     private static final String FIRST_USER_PASSWORD = "123";
     private static final String SECOND_VALUE = "CCC";
@@ -221,6 +222,25 @@ public class UniversalControllerTest {
             actualProductList.add(actualList(
                     mapping + product.getGroup()
                                               .getName()
+                    , Product.class).get(ZERO));
+        }
+
+        assertThat(actualProductList.size(), is(greaterThan(ZERO)));
+        assertThat(actualProductList, is(equalTo(expectedProductList)));
+    }
+
+    @Test
+    public void check_of_getting_products_with_name_like_sorted_by_name() throws Exception {
+        String mapping = "/products/allProductsSortedByNameWithNameLike/";
+        List<Product> expectedProductList = new ArrayList<>();
+        List<Product> actualProductList = new ArrayList<>();
+
+        for (Product product: products) {
+            String name = SCREEN + product.getName().charAt(ZERO) + SCREEN;
+            expectedProductList.add(
+                    productRepository.findByNameLikeOrderByNameAsc(name).get(ZERO));
+            actualProductList.add(actualList(
+                    mapping + SCREEN + name + SCREEN
                     , Product.class).get(ZERO));
         }
 
