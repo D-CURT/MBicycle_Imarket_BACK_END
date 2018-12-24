@@ -1,6 +1,6 @@
 package com.mbicycle.imarket.beans.entities;
 
-import com.mbicycle.imarket.utils.RoleType;
+import com.mbicycle.imarket.utils.enums.RoleType;
 
 import javax.persistence.*;
 import java.util.List;
@@ -17,7 +17,7 @@ public class Role {
     @Column(length = 8)
     private RoleType role;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "id_user"),

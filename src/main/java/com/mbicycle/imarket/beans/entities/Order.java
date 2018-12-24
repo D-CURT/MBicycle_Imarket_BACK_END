@@ -1,7 +1,7 @@
 package com.mbicycle.imarket.beans.entities;
 
-import com.mbicycle.imarket.utils.DeliveryType;
-import com.mbicycle.imarket.utils.PaymentType;
+import com.mbicycle.imarket.utils.enums.DeliveryType;
+import com.mbicycle.imarket.utils.enums.PaymentType;
 
 import javax.persistence.*;
 import java.util.Date;

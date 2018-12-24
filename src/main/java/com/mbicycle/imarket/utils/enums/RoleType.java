@@ -1,4 +1,4 @@
-package com.mbicycle.imarket.utils;
+package com.mbicycle.imarket.utils.enums;
 
 import com.mbicycle.imarket.beans.entities.Role;
 

@@ -18,7 +18,7 @@ public class User {
 
     private String password;
 
-    @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Role> roles;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, optional = false)
@@ -27,9 +27,13 @@ public class User {
     public User() {
     }
 
-    public User(String login, String password, List<Role> roles) {
+    public User(String login, String password) {
         setLogin(login);
         setPassword(password);
+    }
+
+    public User(String login, String password, List<Role> roles) {
+        this(login, password);
         setRoles(roles);
     }
 

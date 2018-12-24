@@ -47,5 +47,4 @@ public class Category {
     public final void setGroups(List<Group> groups) {
         this.groups = groups;
     }
-
 }
