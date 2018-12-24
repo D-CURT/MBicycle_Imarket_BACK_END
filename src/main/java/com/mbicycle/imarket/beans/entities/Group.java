@@ -1,5 +1,7 @@
 package com.mbicycle.imarket.beans.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
@@ -19,7 +21,8 @@ public class Group {
     @JoinColumn(name = "id_category", nullable = false)
     private Category category;
 
-    @OneToMany(mappedBy = "group", cascade = CascadeType.REMOVE)
+    @JsonIgnore
+    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Product> products;
 
     public Group() {

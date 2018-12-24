@@ -2,6 +2,7 @@ package com.mbicycle.imarket.beans.entities;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "products")
@@ -29,7 +30,7 @@ public class Product {
 
     private int discount;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "id_group", nullable = false)
     private Group group;
 
@@ -129,5 +130,19 @@ public class Product {
 
     public final void setOrderProducts(List<OrderProduct> orderProducts) {
         this.orderProducts = orderProducts;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return Objects.equals(name, product.name) &&
+                Objects.equals(group, product.group);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, group);
     }
 }

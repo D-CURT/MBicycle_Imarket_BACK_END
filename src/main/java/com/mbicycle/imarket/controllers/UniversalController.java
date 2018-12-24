@@ -71,9 +71,16 @@ public class UniversalController {
         return productRepository.findByOrderByPriceAsc();
     }
 
-    @GetMapping(value = "/products/allProductsWithGroupSortedByName"
+    @GetMapping(value = "/products/allProductsWithGroupSortedByName/{groupName}"
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<Product> getAllProductsWithGroupSortedByName(@RequestBody Group group) {
+    public List<Product> getAllProductsWithGroupSortedByName(@PathVariable String groupName) {
+        Group group = new Group();
+        if (groupRepository.findByName(groupName) == null) {
+            group.setName(groupName);
+            groupRepository.save(group);
+        }
+
+        group = groupRepository.findByName(groupName);
         return productRepository.findByGroupOrderByNameAsc(group);
     }
 

@@ -42,6 +42,7 @@ public class UniversalControllerTest {
     private static final String THIRD_VALUE = "AAA";
     private static final String THIRD_USER_PASSWORD = "213";
     private List<Profile> profiles;
+    private List<Product> products;
     private Category[] categories;
 
     @Autowired
@@ -61,6 +62,9 @@ public class UniversalControllerTest {
 
     @Autowired
     private GroupRepository groupRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
 
     @Before
     public void setUp() {
@@ -90,6 +94,7 @@ public class UniversalControllerTest {
                              , new Category(THIRD_VALUE)};
         this.categories = categories;
 
+        products = new ArrayList<>();
         for (Category category: categories) {
             String name = category.getName();
             if (categoryRepository.findByName(name) == null) {
@@ -104,6 +109,16 @@ public class UniversalControllerTest {
                 System.out.println("*** Saving Group. ***");
                 groupRepository.save(group);
             }
+
+            group = groupRepository.findByName(name);
+            Product product = new Product();
+            product.setName(name);
+            product.setGroup(group);
+            if (productRepository.findByName(name) == null) {
+                System.out.println("*** Saving Product. ***");
+                productRepository.save(product);
+            }
+            products.add(productRepository.findByName(name));
         }
     }
 
@@ -114,7 +129,7 @@ public class UniversalControllerTest {
 
         for (Category category: categories) {
             if ((category = categoryRepository.findByName(category.getName())) != null) {
-                System.out.println("*** Deleting Caterogy. ***");
+                System.out.println("*** Deleting Category. ***");
                 categoryRepository.delete(category);
             }
         }
@@ -173,6 +188,25 @@ public class UniversalControllerTest {
 
         assertThat(actualGroupList.size(), is(greaterThan(ZERO)));
         assertThat(actualGroupList, is(equalTo(EXPECTED_GROUP_LIST)));
+    }
+
+    @Test
+    public void check_of_getting_products_by_group_sorted_by_name() throws Exception {
+        String mapping = "/products/allProductsWithGroupSortedByName/";
+        List<Product> expectedProductList = new ArrayList<>();
+        List<Product> actualProductList = new ArrayList<>();
+        for (Product product: products) {
+            expectedProductList.add(
+                    productRepository.findByGroupOrderByNameAsc(
+                            product.getGroup()).get(ZERO));
+            actualProductList.add(actualList(
+                    mapping + product.getGroup()
+                                              .getName()
+                    , Product.class).get(ZERO));
+        }
+
+        assertThat(actualProductList.size(), is(greaterThan(ZERO)));
+        assertThat(actualProductList, is(equalTo(expectedProductList)));
     }
 
     private ObjectMapper createMapper() {
