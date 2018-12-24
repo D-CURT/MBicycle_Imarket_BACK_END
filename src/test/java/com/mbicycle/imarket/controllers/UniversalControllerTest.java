@@ -4,14 +4,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.mbicycle.imarket.Main;
-import com.mbicycle.imarket.beans.entities.Category;
-import com.mbicycle.imarket.beans.entities.Profile;
-import com.mbicycle.imarket.beans.entities.Role;
-import com.mbicycle.imarket.beans.entities.User;
-import com.mbicycle.imarket.daos.CategoryRepository;
-import com.mbicycle.imarket.daos.ProfileRepository;
-import com.mbicycle.imarket.daos.RoleRepository;
-import com.mbicycle.imarket.daos.UserRepository;
+import com.mbicycle.imarket.beans.entities.*;
+import com.mbicycle.imarket.daos.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -65,6 +59,9 @@ public class UniversalControllerTest {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Autowired
+    private GroupRepository groupRepository;
+
     @Before
     public void setUp() {
         User[] users = {createUser(FIRST_VALUE, FIRST_USER_PASSWORD)
@@ -94,9 +91,18 @@ public class UniversalControllerTest {
         this.categories = categories;
 
         for (Category category: categories) {
-            if (categoryRepository.findByName(category.getName()) == null) {
+            String name = category.getName();
+            if (categoryRepository.findByName(name) == null) {
                 System.out.println("*** Saving Caterogy. ***");
                 categoryRepository.save(category);
+            }
+
+            category = categoryRepository.findByName(name);
+            Group group = new Group(name, category);
+
+            if (groupRepository.findByName(name) == null) {
+                System.out.println("*** Saving Group. ***");
+                groupRepository.save(group);
             }
         }
     }
@@ -156,6 +162,17 @@ public class UniversalControllerTest {
 
         assertThat(actualCategoryList.size(), is(greaterThan(ZERO)));
         assertThat(actualCategoryList, is(equalTo(EXPECTED_CATEGORY_LIST)));
+    }
+
+    @Test
+    public void check_of_getting_groups_sorted_by_name() throws Exception {
+        String mapping = "/groups/allGroupsSortedByName";
+
+        final List<Group> EXPECTED_GROUP_LIST = groupRepository.findByOrderByNameAsc();
+        List<Group> actualGroupList = actualList(mapping, Group.class);
+
+        assertThat(actualGroupList.size(), is(greaterThan(ZERO)));
+        assertThat(actualGroupList, is(equalTo(EXPECTED_GROUP_LIST)));
     }
 
     private ObjectMapper createMapper() {
