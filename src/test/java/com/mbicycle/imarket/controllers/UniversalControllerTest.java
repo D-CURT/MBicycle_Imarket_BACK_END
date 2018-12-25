@@ -35,7 +35,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class UniversalControllerTest {
     private static final int ZERO = 0;
-    private final String SCREEN = "%";
     private static final String FIRST_VALUE = "BBB";
     private static final String FIRST_USER_PASSWORD = "123";
     private static final String SECOND_VALUE = "CCC";
@@ -236,11 +235,12 @@ public class UniversalControllerTest {
         List<Product> actualProductList = new ArrayList<>();
 
         for (Product product: products) {
-            String name = SCREEN + product.getName().charAt(ZERO) + SCREEN;
+            String screen = "%";
+            String name = screen + product.getName().charAt(ZERO) + screen;
             expectedProductList.add(
                     productRepository.findByNameLikeOrderByNameAsc(name).get(ZERO));
             actualProductList.add(actualList(
-                    mapping + SCREEN + name + SCREEN
+                    mapping + name
                     , Product.class).get(ZERO));
         }
 
