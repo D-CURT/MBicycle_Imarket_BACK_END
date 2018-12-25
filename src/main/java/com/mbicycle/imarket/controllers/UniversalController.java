@@ -2,6 +2,8 @@ package com.mbicycle.imarket.controllers;
 
 import com.mbicycle.imarket.beans.entities.*;
 import com.mbicycle.imarket.daos.*;
+import com.mbicycle.imarket.services.CategoryService;
+import com.mbicycle.imarket.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,9 +16,9 @@ import java.util.List;
 @RestController
 @SuppressWarnings("All")
 public class UniversalController {
-    
+
     @Autowired
-    private CategoryRepository categoryRepository;
+    private CategoryService categoryService;
 
     @Autowired
     private GroupRepository groupRepository;
@@ -34,11 +36,11 @@ public class UniversalController {
     private RoleRepository roleRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @GetMapping("/users/allUsersSortedByLogin")
     public List<User> getAllUsersSortedByLogin() {
-        return userRepository.findByOrderByLoginAsc();
+        return userService.list();
     }
 
     @GetMapping("profiles/allProfilesSortedByName")
@@ -53,7 +55,7 @@ public class UniversalController {
 
     @GetMapping("/categories/allCategoriesSortedByName")
     public List<Category> getAllCategoriesSortedByName() {
-        return categoryRepository.findByOrderByNameAsc();
+        return categoryService.list();
     }
 
     @GetMapping("/groups/allGroupsSortedByName")
