@@ -21,7 +21,7 @@ public class CategoryService {
         return repository.findByName(name);
     }
 
-    public List<Category> list(){
+    public List<Category> findByOrderByName(){
         return repository.findByOrderByNameAsc();
     }
 }

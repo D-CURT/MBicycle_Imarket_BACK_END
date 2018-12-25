@@ -5,6 +5,8 @@ import com.mbicycle.imarket.daos.CouponRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CouponService {
     @Autowired
@@ -14,6 +16,12 @@ public class CouponService {
         repository.save(coupon);
     }
 
+    public void deleteCoupon(Coupon coupon){
+        repository.delete(coupon);
+    }
 
+    public List<Coupon> findAll(){
+        return repository.findAll();
+    }
 
 }

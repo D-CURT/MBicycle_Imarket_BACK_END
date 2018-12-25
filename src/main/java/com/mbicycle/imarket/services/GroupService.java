@@ -16,11 +16,12 @@ public class GroupService {
     public void addGroup(Group group){
         repository.save(group);
     }
+
     public Group getGroup(String name){
         return repository.findByName(name);
     }
 
-    public List<Group> list(){
+    public List<Group> findByOrderByName(){
         return repository.findByOrderByNameAsc();
     }
 }

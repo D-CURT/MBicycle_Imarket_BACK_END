@@ -1,9 +1,7 @@
 package com.mbicycle.imarket.controllers;
 
 import com.mbicycle.imarket.beans.entities.*;
-import com.mbicycle.imarket.daos.*;
-import com.mbicycle.imarket.services.CategoryService;
-import com.mbicycle.imarket.services.UserService;
+import com.mbicycle.imarket.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,91 +19,94 @@ public class UniversalController {
     private CategoryService categoryService;
 
     @Autowired
-    private GroupRepository groupRepository;
+    private GroupService groupService;
 
 //    @Autowired
 //    private OrderRepository orderRepository;
 //
     @Autowired
-    private ProductRepository productRepository;
+    private ProductService productService;
 
     @Autowired
-    private ProfileRepository profileRepository;
+    private ProfileService profileService;
 
     @Autowired
-    private RoleRepository roleRepository;
+    private RoleService roleService;
 
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private CouponService couponService;
+
     @GetMapping("/users/allUsersSortedByLogin")
     public List<User> getAllUsersSortedByLogin() {
-        return userService.list();
+        return userService.findByOrderByLogin();
     }
 
     @GetMapping("profiles/allProfilesSortedByName")
     public List<Profile> getAllProfilesSortedByName() {
-        return profileRepository.findByOrderByNameAsc();
+        return profileService.findByOrderByName();
     }
 
     @GetMapping("/roles/allRolesSortedByRole")
     public List<Role> getAllRolesSortedByRole() {
-        return roleRepository.findByOrderByRoleAsc();
+        return roleService.findByOrderByRole();
     }
 
     @GetMapping("/categories/allCategoriesSortedByName")
     public List<Category> getAllCategoriesSortedByName() {
-        return categoryService.list();
+        return categoryService.findByOrderByName();
     }
 
     @GetMapping("/groups/allGroupsSortedByName")
     public List<Group> getAllGroupsSortedByName() {
-        return groupRepository.findByOrderByNameAsc();
+        return groupService.findByOrderByName();
     }
 
     @GetMapping("products/allProductsSortedByName")
     public List<Product> getAllProductsSortedByName() {
-        return productRepository.findByOrderByNameAsc();
+        return productService.findByOrderByName();
     }
 
     @GetMapping("products/allProductsSortedByPrice")
     public List<Product> getAllProductsSortedByPrice() {
-        return productRepository.findByOrderByPriceAsc();
+        return productService.findByOrderByPrice();
     }
 
     @GetMapping(value = "products/allProductsWithGroupSortedByName"
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<Product> getAllProductsWithGroupSortedByName(@RequestBody Group group) {
-        return productRepository.findByGroupOrderByNameAsc(group);
+        return productService.findByGroupOrderByName(group);
     }
 
     @GetMapping(value = "products/allProductsWithGroupSortedByPrice"
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<Product> getAllProductsWithGroupSortedByPrice(@RequestBody Group group) {
-        return productRepository.findByGroupOrderByPriceAsc(group);
+        return productService.findByGroupOrderByPrice(group);
     }
 
     @GetMapping(value = "/products/allProductsSortedByNameWithNameLike/{name}"
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<Product> getAllProductsSortedByNameWithNameLike(@PathVariable String name) {
-        return productRepository.findByNameLikeOrderByNameAsc(name);
+        return productService.findByNameLikeOrderByName(name);
     }
 
     @GetMapping(value = "/products/allProductsSortedByNameWithNameLikeAndTrueStoreStatus/{name}"
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<Product> getAllSortedByNameWithNameLikeAndTrueStoreStatus(@PathVariable String name) {
-        return productRepository.findByNameLikeAndStoreStatusIsTrueOrderByNameAsc(name);
+        return productService.findByNameLikeAndStoreStatusIsTrue(name);
     }
 
     @GetMapping(value = "/products/allProductsSortedByNameWithNameLikeAndDiscount/{name}"
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<Product> getAllSortedByNameWithNameLikeAndDiscount(@PathVariable String name) {
-        return productRepository.findByNameLikeAndDiscountIsNotNullOrderByNameAsc(name);
+        return productService.findByNameLikeAndDiscountIsNotNull(name);
     }
 
     @GetMapping(value = "/products/allProductsSortedByNameWithNameLikeAndTrueStoreStatusAndDiscount/{name}"
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<Product> getAllSortedByNameWithNameLikeAndTrueStoreStatusAndDiscount(@PathVariable String name) {
-        return productRepository.findByNameLikeAndStoreStatusIsTrueAndDiscountIsNotNullOrderByNameAsc(name);
+        return productService.findByNameLikeAndStoreStatusIsTrueAndDiscountIsNotNull(name);
     }
 }

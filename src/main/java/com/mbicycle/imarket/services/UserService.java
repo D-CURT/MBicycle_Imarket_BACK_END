@@ -26,7 +26,7 @@ public class UserService {
         repository.deleteByLoginAndPassword(login, password);
     }
 
-    public List<User> list(){
+    public List<User> findByOrderByLogin(){
         return repository.findByOrderByLoginAsc();
     }
 
