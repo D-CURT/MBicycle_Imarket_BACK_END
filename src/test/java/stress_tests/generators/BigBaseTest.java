@@ -1,4 +1,4 @@
-package com.mbicycle.imarket.daos.generators;
+package stress_tests.generators;
 
 import com.mbicycle.imarket.Main;
 import com.mbicycle.imarket.beans.entities.Category;
