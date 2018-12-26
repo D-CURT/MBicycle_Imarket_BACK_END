@@ -5,13 +5,11 @@ import com.mbicycle.imarket.daos.UserRepository;
 import com.mbicycle.imarket.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileNotFoundException;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @SuppressWarnings("All")
@@ -122,8 +120,24 @@ public class UniversalController {
         groupService.addGroup(groupName, categoryName);
     }
 
-    @PostMapping(value = "/products/add/{name, price, group, category}")
-    public void addProduct(@PathVariable String name, double price, String group, String category) {
+    @PostMapping(value = "/products/add")
+    public Product addProduct(@RequestParam("name") String name
+            , @RequestParam("price") double price
+            , @RequestParam("group") String group
+            , @RequestParam("category") String category) throws FileNotFoundException {
         productService.addProduct(name, price, group, category);
+        return productService.getProduct(name);
+    }
+
+    @PostMapping(value = "/products/addFull")
+    public Product addProduct(@RequestParam("name") String name
+                            , @RequestParam("price") double price
+                            , @RequestParam("descriptionPreview") String descriptionPreview
+                            , @RequestParam("discount") int discount
+                            , @RequestParam("image") MultipartFile image
+                            , @RequestParam("group") String group
+                            , @RequestParam("category") String category) throws FileNotFoundException {
+        productService.addProduct(name, price, descriptionPreview, discount, image, group, category);
+        return productService.getProduct(name);
     }
 }

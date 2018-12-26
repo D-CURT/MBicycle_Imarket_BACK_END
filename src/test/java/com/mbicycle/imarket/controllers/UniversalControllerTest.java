@@ -17,6 +17,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -251,6 +252,20 @@ public class UniversalControllerTest {
 
         assertThat(actualProductList.size(), is(greaterThan(ZERO)));
         assertThat(actualProductList, is(equalTo(expectedProductList)));
+    }
+
+    @Test
+    public void check_of_adding_product() throws Exception {
+        String mapping = "/products/add";
+
+        String EXPECTED_PRODUCT_NAME = productService.getProduct(FIRST_VALUE).getName();
+        mvc.perform(MockMvcRequestBuilders.post(
+                mapping + "?name=" + FIRST_VALUE
+                                   + "&price=" + 1.1
+                                   + "&group=" + FIRST_VALUE
+                                   + "&category=" + FIRST_VALUE).accept(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("name", is(equalTo(EXPECTED_PRODUCT_NAME))));
     }
 
     private ObjectMapper createMapper() {
