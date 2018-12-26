@@ -8,8 +8,8 @@ import com.mbicycle.imarket.beans.entities.*;
 import com.mbicycle.imarket.daos.*;
 import com.mbicycle.imarket.services.CategoryService;
 import com.mbicycle.imarket.services.GroupService;
-import com.mbicycle.imarket.services.ProductService;
 import com.mbicycle.imarket.services.UserService;
+import com.mbicycle.imarket.services.impl.ProductServiceImpl;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,8 +32,9 @@ import static com.mbicycle.imarket.utils.generators.tests.TestObjectsBuilder.cre
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.junit.Assert.assertThat;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Main.class)
@@ -78,7 +79,7 @@ public class UniversalControllerTest {
     private ProductRepository productRepository;
 
     @Autowired
-    private ProductService productService;
+    private ProductServiceImpl productService;
 
     @Before
     public void setUp() {

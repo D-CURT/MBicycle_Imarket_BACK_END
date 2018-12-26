@@ -1,8 +1,9 @@
 package com.mbicycle.imarket.controllers;
 
-import com.mbicycle.imarket.beans.entities.*;
-import com.mbicycle.imarket.daos.UserRepository;
-import com.mbicycle.imarket.services.*;
+import com.mbicycle.imarket.beans.entities.Product;
+import com.mbicycle.imarket.services.CategoryService;
+import com.mbicycle.imarket.services.GroupService;
+import com.mbicycle.imarket.services.impl.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +16,7 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
-    private ProductService productService;
+    private ProductServiceImpl productService;
 
     @Autowired
     private CategoryService categoryService;
