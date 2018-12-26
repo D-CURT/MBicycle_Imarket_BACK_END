@@ -21,14 +21,10 @@ public class UserServiceImpl implements UserSecurityService {
     @Autowired
     private RoleRepository roleRepository;
 
-//    @Autowired
-//    private BCryptPasswordEncoder bCryptPasswordEncoder;
-
     @Override
     public void save(User user) {
 
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-//        user.setPassword(user.getPassword());
         List<Role> roles = new ArrayList<>();
         roles.add(roleRepository.getOne(1));
         user.setRoles(roles);
