@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@SuppressWarnings("ALL")
 public class ProductService {
 
     @Autowired
