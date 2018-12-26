@@ -56,7 +56,7 @@ public class Product {
         return id;
     }
 
-    public final void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -64,7 +64,7 @@ public class Product {
         return name;
     }
 
-    public final void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -72,7 +72,7 @@ public class Product {
         return descriptionPreview;
     }
 
-    public final void setDescriptionPreview(String descriptionPreview) {
+    public void setDescriptionPreview(String descriptionPreview) {
         this.descriptionPreview = descriptionPreview;
     }
 
@@ -80,7 +80,7 @@ public class Product {
         return descriptionFull;
     }
 
-    public final void setDescriptionFull(String descriptionFull) {
+    public void setDescriptionFull(String descriptionFull) {
         this.descriptionFull = descriptionFull;
     }
 
@@ -88,7 +88,7 @@ public class Product {
         return price;
     }
 
-    public final void setPrice(double price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -96,7 +96,7 @@ public class Product {
         return picture;
     }
 
-    public final void setPicture(String picture) {
+    public void setPicture(String picture) {
         this.picture = picture;
     }
 
@@ -104,7 +104,7 @@ public class Product {
         return storeStatus;
     }
 
-    public final void setStoreStatus(boolean storeStatus) {
+    public void setStoreStatus(boolean storeStatus) {
         this.storeStatus = storeStatus;
     }
 
@@ -112,7 +112,7 @@ public class Product {
         return discount;
     }
 
-    public final void setDiscount(int discount) {
+    public void setDiscount(int discount) {
         this.discount = discount;
     }
 
@@ -120,7 +120,7 @@ public class Product {
         return group;
     }
 
-    public final void setGroup(Group group) {
+    public void setGroup(Group group) {
         this.group = group;
     }
 
@@ -128,7 +128,7 @@ public class Product {
         return orderProducts;
     }
 
-    public final void setOrderProducts(List<OrderProduct> orderProducts) {
+    public void setOrderProducts(List<OrderProduct> orderProducts) {
         this.orderProducts = orderProducts;
     }
 

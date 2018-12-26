@@ -1,7 +1,6 @@
 package com.mbicycle.imarket.beans.entities;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -49,7 +48,7 @@ public class User {
         return login;
     }
 
-    public final void setLogin(String login) {
+    public void setLogin(String login) {
         this.login = login;
     }
 
@@ -57,7 +56,7 @@ public class User {
         return password;
     }
 
-    public final void setPassword(String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
@@ -65,7 +64,7 @@ public class User {
         return roles;
     }
 
-    public final void setRoles(List<Role> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 

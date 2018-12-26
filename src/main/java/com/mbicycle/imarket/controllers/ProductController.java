@@ -17,6 +17,12 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private CategoryService categoryService;
+
+    @Autowired
+    private GroupService groupService;
+
     @GetMapping("/products/allProductsSortedByName")
     public List<Product> getAllProductsSortedByName() {
         return productService.findByOrderByName();
