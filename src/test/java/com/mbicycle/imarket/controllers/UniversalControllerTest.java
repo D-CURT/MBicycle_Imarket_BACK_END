@@ -6,6 +6,9 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.mbicycle.imarket.Main;
 import com.mbicycle.imarket.beans.entities.*;
 import com.mbicycle.imarket.daos.*;
+import com.mbicycle.imarket.services.CategoryService;
+import com.mbicycle.imarket.services.GroupService;
+import com.mbicycle.imarket.services.ProductService;
 import com.mbicycle.imarket.services.UserService;
 import org.junit.After;
 import org.junit.Before;
@@ -14,6 +17,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -44,7 +48,7 @@ public class UniversalControllerTest {
     private static final String THIRD_USER_PASSWORD = "213";
     private List<Profile> profiles;
     private List<Product> products;
-    private Category[] categories;
+    private List<Category> categories;
 
     @Autowired
     private MockMvc mvc;
@@ -62,10 +66,19 @@ public class UniversalControllerTest {
     private CategoryRepository categoryRepository;
 
     @Autowired
+    private CategoryService categoryService;
+
+    @Autowired
     private GroupRepository groupRepository;
 
     @Autowired
+    private GroupService groupService;
+
+    @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private ProductService productService;
 
     @Before
     public void setUp() {
@@ -90,35 +103,27 @@ public class UniversalControllerTest {
             }
         }
 
-        Category[] categories = {new Category(FIRST_VALUE)
-                             , new Category(SECOND_VALUE)
-                             , new Category(THIRD_VALUE)};
-        this.categories = categories;
+        String[] names = {FIRST_VALUE
+                             , SECOND_VALUE
+                             , THIRD_VALUE};
 
         products = new ArrayList<>();
-        for (Category category: categories) {
-            String name = category.getName();
-            if (categoryRepository.findByName(name) == null) {
-                System.out.println("*** Saving Caterogy. ***");
-                categoryRepository.save(category);
-            }
+        categories = new ArrayList<>();
 
-            category = categoryRepository.findByName(name);
-            Group group = new Group(name, category);
+        for (String name: names) {
 
-            if (groupRepository.findByName(name) == null) {
-                System.out.println("*** Saving Group. ***");
-                groupRepository.save(group);
-            }
+            /*System.out.println("*** Saving Caterogy. ***");
+            categoryService.addCategory(name);
 
-            group = groupRepository.findByName(name);
-            Product product = new Product();
-            product.setName(name);
-            product.setGroup(group);
-            if (productRepository.findByName(name) == null) {
-                System.out.println("*** Saving Product. ***");
-                productRepository.save(product);
-            }
+            Category category = categoryService.getCategory(name);
+            categories.add(category);
+
+            System.out.println("*** Saving Group. ***");
+            groupService.addGroup(name, category.getName());*/
+
+            System.out.println("*** Saving Product. ***");
+            productService.addProduct(name, 1.1, name, name);
+
             products.add(productRepository.findByName(name));
         }
     }
@@ -247,6 +252,20 @@ public class UniversalControllerTest {
 
         assertThat(actualProductList.size(), is(greaterThan(ZERO)));
         assertThat(actualProductList, is(equalTo(expectedProductList)));
+    }
+
+    @Test
+    public void check_of_adding_product() throws Exception {
+        String mapping = "/products/add";
+
+        String EXPECTED_PRODUCT_NAME = productService.getProduct(FIRST_VALUE).getName();
+        mvc.perform(MockMvcRequestBuilders.post(
+                mapping + "?name=" + FIRST_VALUE
+                                   + "&price=" + 1.1
+                                   + "&group=" + FIRST_VALUE
+                                   + "&category=" + FIRST_VALUE).accept(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("name", is(equalTo(EXPECTED_PRODUCT_NAME))));
     }
 
     private ObjectMapper createMapper() {
