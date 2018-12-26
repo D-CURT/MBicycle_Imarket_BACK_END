@@ -1,9 +1,9 @@
 package com.mbicycle.imarket.utils.generators;
 
 import com.mbicycle.imarket.beans.entities.*;
-import com.mbicycle.imarket.utils.DeliveryType;
-import com.mbicycle.imarket.utils.PaymentType;
-import com.mbicycle.imarket.utils.RoleType;
+import com.mbicycle.imarket.utils.enums.DeliveryType;
+import com.mbicycle.imarket.utils.enums.PaymentType;
+import com.mbicycle.imarket.utils.enums.RoleType;
 
 import java.util.*;
 
