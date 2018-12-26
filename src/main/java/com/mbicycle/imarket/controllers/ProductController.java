@@ -12,57 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@SuppressWarnings("All")
-public class UniversalController {
+public class ProductController {
 
-    @Autowired
-    private CategoryService categoryService;
-
-    @Autowired
-    private GroupService groupService;
-
-//    @Autowired
-//    private OrderRepository orderRepository;
-//
     @Autowired
     private ProductService productService;
-
-    @Autowired
-    private ProfileService profileService;
-
-    @Autowired
-    private RoleService roleService;
-
-    @Autowired
-    private UserRepository userService;
-
-    @Autowired
-    private CouponService couponService;
-
-    @GetMapping("/users/allUsersSortedByLogin")
-    public List<User> getAllUsersSortedByLogin() {
-        return userService.findByOrderByLoginAsc();
-    }
-
-    @GetMapping("/profiles/allProfilesSortedByName")
-    public List<Profile> getAllProfilesSortedByName() {
-        return profileService.findByOrderByName();
-    }
-
-    @GetMapping("/roles/allRolesSortedByRole")
-    public List<Role> getAllRolesSortedByRole() {
-        return roleService.findByOrderByRole();
-    }
-
-    @GetMapping("/categories/allCategoriesSortedByName")
-    public List<Category> getAllCategoriesSortedByName() {
-        return categoryService.findByOrderByName();
-    }
-
-    @GetMapping("/groups/allGroupsSortedByName")
-    public List<Group> getAllGroupsSortedByName() {
-        return groupService.findByOrderByName();
-    }
 
     @GetMapping("/products/allProductsSortedByName")
     public List<Product> getAllProductsSortedByName() {
