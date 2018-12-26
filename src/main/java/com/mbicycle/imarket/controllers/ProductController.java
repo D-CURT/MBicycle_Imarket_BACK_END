@@ -79,7 +79,7 @@ public class ProductController {
         groupService.addGroup(groupName, categoryName);
     }
 
-    @PostMapping(value = "/products/add")
+    @PostMapping(value = "/products/addTest")
     public Product addProduct(@RequestParam("name") String name
             , @RequestParam("price") double price
             , @RequestParam("group") String group
@@ -88,7 +88,7 @@ public class ProductController {
         return productService.getProduct(name);
     }
 
-    @PostMapping(value = "/products/addFull")
+    @PostMapping(value = "/products/add")
     public Product addProduct(@RequestParam("name") String name
                             , @RequestParam("price") double price
                             , @RequestParam("descriptionPreview") String descriptionPreview
