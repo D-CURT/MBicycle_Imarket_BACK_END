@@ -1,12 +1,6 @@
 package com.mbicycle.imarket.dto;
 
-import com.mbicycle.imarket.beans.entities.Group;
-import com.mbicycle.imarket.beans.entities.OrderProduct;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.persistence.*;
 import java.util.List;
-import java.util.Objects;
 
 public class ProductDTO {
 
@@ -16,11 +10,11 @@ public class ProductDTO {
 
     private String descriptionPreview;
 
-    private String descriptionFull;
+    private String description;
 
     private double price;
 
-    private MultipartFile picture;
+    private String picture;
 
     private boolean storeStatus;
 
@@ -30,14 +24,23 @@ public class ProductDTO {
 
     private List<String> orderProducts;
 
+    private String category;
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
     public ProductDTO() {
     }
 
-    public ProductDTO(String name, String descriptionPreview, String descriptionFull, double price, MultipartFile picture, boolean storeStatus, int discount, String group, List<String> orderProducts) {
+    public ProductDTO(String name, String descriptionPreview, String descriptionFull, double price, String picture, boolean storeStatus, int discount, String group, List<String> orderProducts) {
         setName(name);
         setDescriptionPreview(descriptionPreview);
-        setDescriptionFull(descriptionFull);
+        setDescription(descriptionFull);
         setPrice(price);
         setPicture(picture);
         setStoreStatus(storeStatus);
@@ -70,12 +73,12 @@ public class ProductDTO {
         this.descriptionPreview = descriptionPreview;
     }
 
-    public String getDescriptionFull() {
-        return descriptionFull;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescriptionFull(String descriptionFull) {
-        this.descriptionFull = descriptionFull;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public double getPrice() {
@@ -86,11 +89,11 @@ public class ProductDTO {
         this.price = price;
     }
 
-    public MultipartFile getPicture() {
+    public String getPicture() {
         return picture;
     }
 
-    public void setPicture(MultipartFile picture) {
+    public void setPicture(String picture) {
         this.picture = picture;
     }
 
