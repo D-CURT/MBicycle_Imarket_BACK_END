@@ -17,13 +17,13 @@ public class ProductService {
     private ProductRepository repository;
 
     @Autowired
-    private GroupRepository groupRepository;
+    private GroupService groupService;
 
-    public boolean addProduct(String name, double price, String groupName) {
-        Group group;
-        if ((group = groupRepository.findByName(groupName)) == null) {
-            return false;
-        }
+    public boolean addProduct(String name, double price, String groupName, String categoryName) {
+
+        groupService.addGroup(groupName, categoryName);
+
+        Group group = groupService.getGroup(groupName);
 
         if (repository.findByName(name) == null) {
             Product product = new Product();
@@ -77,12 +77,12 @@ public class ProductService {
     }
 
     private Group groupByName(String name) {
-        Group group = new Group();
+        /*Group group = new Group();
         if (groupRepository.findByName(name) == null) {
             group.setName(name);
             groupRepository.save(group);
-        }
+        }*/
 
-        return groupRepository.findByName(name);
+        return groupService.getGroup(name);
     }
 }

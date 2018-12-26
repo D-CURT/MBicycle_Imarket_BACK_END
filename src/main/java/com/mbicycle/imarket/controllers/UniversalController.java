@@ -122,8 +122,8 @@ public class UniversalController {
         groupService.addGroup(groupName, categoryName);
     }
 
-    @PostMapping(value = "/products/add/{name, price, group}")
-    public void addProduct(@PathVariable String name, double price, String group) {
-        productService.addProduct(name, price, group);
+    @PostMapping(value = "/products/add/{name, price, group, category}")
+    public void addProduct(@PathVariable String name, double price, String group, String category) {
+        productService.addProduct(name, price, group, category);
     }
 }

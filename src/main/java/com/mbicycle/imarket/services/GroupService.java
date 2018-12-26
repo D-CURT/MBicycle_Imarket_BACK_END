@@ -17,13 +17,13 @@ public class GroupService {
     private GroupRepository repository;
 
     @Autowired
-    private CategoryRepository categoryRepository;
+    private CategoryService categoryService;
 
     public boolean addGroup(String groupName, String categoryName) {
         Category category;
-        if ((category = categoryRepository.findByName(categoryName)) == null) {
-            return false;
-        }
+        
+        categoryService.addCategory(categoryName);
+        category = categoryService.getCategory(categoryName);
 
         Group group = new Group(groupName, category);
 

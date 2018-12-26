@@ -111,17 +111,17 @@ public class UniversalControllerTest {
 
         for (String name: names) {
 
-            System.out.println("*** Saving Caterogy. ***");
+            /*System.out.println("*** Saving Caterogy. ***");
             categoryService.addCategory(name);
 
             Category category = categoryService.getCategory(name);
             categories.add(category);
 
             System.out.println("*** Saving Group. ***");
-            groupService.addGroup(name, category.getName());
+            groupService.addGroup(name, category.getName());*/
 
             System.out.println("*** Saving Product. ***");
-            productService.addProduct(name, 1.1, name);
+            productService.addProduct(name, 1.1, name, name);
 
             products.add(productRepository.findByName(name));
         }
