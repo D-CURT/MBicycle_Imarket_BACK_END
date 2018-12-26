@@ -37,7 +37,7 @@ public class Role {
         return id;
     }
 
-    public final void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -45,7 +45,7 @@ public class Role {
         return role;
     }
 
-    public final void setRole(RoleType role) {
+    public void setRole(RoleType role) {
         this.role = role;
     }
 

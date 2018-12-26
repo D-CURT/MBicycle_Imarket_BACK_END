@@ -73,7 +73,7 @@ public class Order {
         return id;
     }
 
-    public final void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -89,7 +89,7 @@ public class Order {
         return payment;
     }
 
-    public final void setPayment(PaymentType payment) {
+    public void setPayment(PaymentType payment) {
         this.payment = payment;
     }
 
@@ -97,7 +97,7 @@ public class Order {
         return delivery;
     }
 
-    public final void setDelivery(DeliveryType delivery) {
+    public void setDelivery(DeliveryType delivery) {
         this.delivery = delivery;
     }
 
@@ -105,7 +105,7 @@ public class Order {
         return dateOpened;
     }
 
-    public final void setDateOpened(Date dateOpened) {
+    public void setDateOpened(Date dateOpened) {
         this.dateOpened = dateOpened;
     }
 
@@ -113,7 +113,7 @@ public class Order {
         return datePaid;
     }
 
-    public final void setDatePaid(Date datePaid) {
+    public void setDatePaid(Date datePaid) {
         this.datePaid = datePaid;
     }
 
@@ -121,7 +121,7 @@ public class Order {
         return dateReady;
     }
 
-    public final void setDateReady(Date dateReady) {
+    public void setDateReady(Date dateReady) {
         this.dateReady = dateReady;
     }
 
@@ -129,7 +129,7 @@ public class Order {
         return dateClosed;
     }
 
-    public final void setDateClosed(Date dateClosed) {
+    public void setDateClosed(Date dateClosed) {
         this.dateClosed = dateClosed;
     }
 
@@ -137,7 +137,7 @@ public class Order {
         return dateSent;
     }
 
-    public final void setDateSent(Date dateSent) {
+    public void setDateSent(Date dateSent) {
         this.dateSent = dateSent;
     }
 
@@ -145,7 +145,7 @@ public class Order {
         return dateGot;
     }
 
-    public final void setDateGot(Date dateGot) {
+    public void setDateGot(Date dateGot) {
         this.dateGot = dateGot;
     }
 
@@ -153,7 +153,7 @@ public class Order {
         return orderProducts;
     }
 
-    public final void setOrderProducts(List<OrderProduct> orderProducts) {
+    public void setOrderProducts(List<OrderProduct> orderProducts) {
         this.orderProducts = orderProducts;
     }
 }
