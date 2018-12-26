@@ -26,7 +26,9 @@ import static org.junit.Assert.assertTrue;
 public class BigBaseTest {
 
     private static int countProductForOneGroup = 1_000;
-
+    private List<Product> products;
+    private List<Category> categories;
+    private List<Group> groups;
 
 
     @Autowired
@@ -42,22 +44,42 @@ public class BigBaseTest {
     public void setUp() {
         System.out.println("*** Creating base data ***");
         BaseGenerator generator = new BaseGenerator();
-        List<Product> allProduct = generator.generateProduсts(countProductForOneGroup);
-        List<Category> categories = generator.getCategories(); // get these 2 categories, it have to past generateProduсts()
-        List<Group> groups = generator.getGroups(); // get these 2 * 2 = 4 categories, it have to past generateProduсts()
-        categoryRepository.saveAll(categories);
+
+        categories = generator.getCategories(); // get these 2 categories, it have to past generateProduсts()
+
+        for (int i = 0; i < categories.size(); i++) {
+            Category presentCategory = categoryRepository.findByName(categories.get(i).getName());
+            if (presentCategory != null) {
+                System.out.println("\n\nold category\n\n");
+                categories.set(i, presentCategory);
+            } else {
+                System.out.println("\n\nnew category\n\n");
+                categoryRepository.save(categories.get(i));
+            }
+        }
+
+        generator.generateGroupsAndProducts(countProductForOneGroup);
+        groups = generator.getGroups();
         groupRepository.saveAll(groups);
-        productRepository.saveAll(allProduct);
+
+        products = generator.getProduсts();
+        productRepository.saveAll(products);
 
     }
 
     @After
     public void tearDown() {
-        System.out.println("*** Deleting base data ***");
+        System.out.println("*** Deleting BigBaseTest data ***");
+        productRepository.deleteAll(products);
+        groupRepository.deleteAll(groups);
+        // categoryRepository.deleteAll(categories); // Alexey don't allow to delete any category?
+    }
+
+    public void clearBase() {
+        System.out.println("*** Deleting all base data ***");
         productRepository.deleteAllInBatch();
         groupRepository.deleteAllInBatch();
         categoryRepository.deleteAllInBatch();
-
     }
 
     @Test
@@ -66,6 +88,6 @@ public class BigBaseTest {
         System.out.println();
         System.out.println("count = " + count);
         System.out.println();
-        assertTrue(count >= countProductForOneGroup*4);
+        assertTrue(count >= countProductForOneGroup * 4);
     }
 }

@@ -2,19 +2,30 @@ package com.mbicycle.imarket.controllers;
 
 import com.mbicycle.imarket.beans.entities.*;
 import com.mbicycle.imarket.daos.*;
+import com.mbicycle.imarket.services.securities.SecurityService;
+import com.mbicycle.imarket.services.securities.UserSecurityService;
+import com.mbicycle.imarket.services.securities.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @SuppressWarnings("All")
 public class UniversalController {
-    
+
+    @Autowired
+    private UserSecurityService userSecurityService;
+
+    @Autowired
+    private SecurityService securityService;
+
+    @Autowired
+    private UserValidator userValidator;
+
     @Autowired
     private CategoryRepository categoryRepository;
 
@@ -35,6 +46,45 @@ public class UniversalController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @RequestMapping(value = "/registration", method = RequestMethod.GET)
+    public String registration(Model model) {
+        model.addAttribute("userForm", new User());
+        return "registration";
+    }
+
+    @RequestMapping(value = "/registration", method = RequestMethod.POST)
+    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
+        userValidator.validate(userForm, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "registration";
+        }
+        userSecurityService.save(userForm);
+        securityService.autoLogin(userForm.getLogin(), userForm.getConfirmPassword());
+        return "redirect:/welcome";
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String login(Model model, String error, String logout) {
+        if (error != null) {
+            model.addAttribute("error", "Username or password is incorrect.");
+        }
+        if (logout != null) {
+            model.addAttribute("message", "Logged out successfully.");
+        }
+        return "login";
+    }
+
+    @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
+    public String welcome(Model model) {
+        return "welcome";
+    }
+
+    @RequestMapping(value = "/admin", method = RequestMethod.GET)
+    public String admin(Model model) {
+        return "admin";
+    }
+
 
     @GetMapping("/users/allUsersSortedByLogin")
     public List<User> getAllUsersSortedByLogin() {

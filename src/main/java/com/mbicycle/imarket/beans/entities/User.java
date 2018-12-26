@@ -17,6 +17,9 @@ public class User {
 
     private String password;
 
+    @Transient
+    private String confirmPassword;
+
     @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
     private List<Role> roles;
 
@@ -61,6 +64,14 @@ public class User {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 
     @Override
