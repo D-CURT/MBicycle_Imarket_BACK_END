@@ -5,7 +5,6 @@ import com.mbicycle.imarket.beans.entities.Profile;
 import com.mbicycle.imarket.beans.entities.Role;
 import com.mbicycle.imarket.beans.entities.User;
 import com.mbicycle.imarket.utils.enums.RoleType;
-import com.mbicycle.imarket.utils.generators.tests.TestObjectsBuilder;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,18 +13,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.mbicycle.imarket.utils.generators.tests.TestObjectsBuilder.createProfile;
 import static com.mbicycle.imarket.utils.generators.tests.TestObjectsBuilder.createUser;
-import static org.junit.Assert.*;
+import static com.mbicycle.imarket.utils.generators.tests.TestObjectsBuilder.createOnlyUser;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Main.class)
-public class ProfileRepositoryTest {
+public class ProfileUserRepositoryTest {
 
-    private static final String TEST_PARAM = "test";
+    private static final String TEST_PARAM = "admin";
 
     @Autowired
     private UserRepository userRepository;
@@ -52,16 +52,16 @@ public class ProfileRepositoryTest {
 
     @After
     public void tearDown() {
-        User user = userRepository.findByLoginAndPassword(TEST_PARAM, TEST_PARAM);
-        Profile profile = profileRepository.findByUser(user);
-        if (profile==null) {
-            System.out.println("*** Profile is null ***");
-        }
-        else {
-            System.out.println("*** DELETING ***");
-            profileRepository.delete(profile);
-        }
-        roleRepository.findByOrderByRoleAsc().forEach(roleRepository::delete);
+//        User user = userRepository.findByLoginAndPassword(TEST_PARAM, TEST_PARAM);
+//        Profile profile = profileRepository.findByUser(user);
+//        if (profile==null) {
+//            System.out.println("*** Profile is null ***");
+//        }
+//        else {
+//            System.out.println("*** DELETING ***");
+//            profileRepository.delete(profile);
+//        }
+//        roleRepository.findByOrderByRoleAsc().forEach(roleRepository::delete);
     }
 
     @Test

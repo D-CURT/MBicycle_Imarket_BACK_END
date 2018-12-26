@@ -42,9 +42,7 @@ public class ProductManagementTest {
         Group group = new Group(TEST_TEXT_PARAM, category);
 
         if (groupRepository.findByName(TEST_TEXT_PARAM) == null) {
-
             System.out.println("*** Saving Group. ***");
-
             groupRepository.save(group);
         }
 
@@ -52,7 +50,7 @@ public class ProductManagementTest {
         Product product = new Product();
         product.setName(TEST_TEXT_PARAM);
         product.setGroup(group);
-        if ((productRepository.findByName(TEST_TEXT_PARAM)) == null) {
+        if (productRepository.findByName(TEST_TEXT_PARAM) == null) {
             System.out.println("*** Saving Product. ***");
             productRepository.save(product);
         }
@@ -60,13 +58,11 @@ public class ProductManagementTest {
 
     @After
     public void tearDown() throws Exception {
-
-                    Category category;
-                    if((category = categoryRepository.findByName(TEST_TEXT_PARAM)) != null ) {
-                        System.out.println("*** Deleting Category (Also groups and products). ***");
-                        categoryRepository.delete(category);
-                    }
-
+        Category category;
+        if((category = categoryRepository.findByName(TEST_TEXT_PARAM)) != null ) {
+            System.out.println("*** Deleting Category (Also groups and products). ***");
+            categoryRepository.delete(category);
+        }
     }
 
     @Test

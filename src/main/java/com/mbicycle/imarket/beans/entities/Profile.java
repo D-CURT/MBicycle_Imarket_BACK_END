@@ -2,6 +2,7 @@ package com.mbicycle.imarket.beans.entities;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "profiles")
@@ -20,11 +21,11 @@ public class Profile {
 
     private String address;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.REMOVE)
+    @OneToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "id_user", nullable = false)
     private User user;
 
-    @OneToMany(mappedBy = "profile", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "profile")
     private List<Coupon> coupons;
 
     @Column(length = 2)
@@ -37,19 +38,19 @@ public class Profile {
     }
 
     public Profile(String name, String email, String phone, String address, User user, String discriminator) {
-        this.name = name;
-        this.email = email;
-        this.phone = phone;
-        this.address = address;
-        this.user = user;
-        this.discriminator = discriminator;
+        setName(name);
+        setEmail(email);
+        setPhone(phone);
+        setAddress(address);
+        setUser(user);
+        setDiscriminator(discriminator);
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public  void setId(int id) {
         this.id = id;
     }
 
@@ -57,7 +58,7 @@ public class Profile {
         return name;
     }
 
-    public void setName(String name) {
+    public  void setName(String name) {
         this.name = name;
     }
 
@@ -65,7 +66,7 @@ public class Profile {
         return email;
     }
 
-    public void setEmail(String email) {
+    public  void setEmail(String email) {
         this.email = email;
     }
 
@@ -73,7 +74,7 @@ public class Profile {
         return phone;
     }
 
-    public void setPhone(String phone) {
+    public  void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -81,7 +82,7 @@ public class Profile {
         return address;
     }
 
-    public void setAddress(String address) {
+    public  void setAddress(String address) {
         this.address = address;
     }
 
@@ -89,7 +90,7 @@ public class Profile {
         return user;
     }
 
-    public void setUser(User user) {
+    public  void setUser(User user) {
         this.user = user;
     }
 
@@ -97,7 +98,7 @@ public class Profile {
         return coupons;
     }
 
-    public void setCoupons(List<Coupon> coupons) {
+    public  void setCoupons(List<Coupon> coupons) {
         this.coupons = coupons;
     }
 
@@ -105,7 +106,7 @@ public class Profile {
         return discriminator;
     }
 
-    public void setDiscriminator(String discriminator) {
+    public  void setDiscriminator(String discriminator) {
         this.discriminator = discriminator;
     }
 
@@ -113,7 +114,20 @@ public class Profile {
         return orders;
     }
 
-    public void setOrders(List<Order> orders) {
+    public  void setOrders(List<Order> orders) {
         this.orders = orders;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Profile profile = (Profile) o;
+        return Objects.equals(name, profile.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 }

@@ -1,7 +1,10 @@
 package com.mbicycle.imarket.beans.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "groups")
@@ -14,27 +17,27 @@ public class Group {
 
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_category", nullable = false)
     private Category category;
 
-    @OneToMany(mappedBy = "group", cascade = CascadeType.REMOVE)
-
+    @JsonIgnore
+    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Product> products;
 
     public Group() {
     }
 
     public Group(String name, Category category) {
-        this.name = name;
-        this.category = category;
+        setName(name);
+        setCategory(category);
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public  void setId(int id) {
         this.id = id;
     }
 
@@ -42,7 +45,7 @@ public class Group {
         return name;
     }
 
-    public void setName(String name) {
+    public  void setName(String name) {
         this.name = name;
     }
 
@@ -50,7 +53,7 @@ public class Group {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public  void setCategory(Category category) {
         this.category = category;
     }
 
@@ -58,7 +61,20 @@ public class Group {
         return products;
     }
 
-    public void setProducts(List<Product> products) {
+    public  void setProducts(List<Product> products) {
         this.products = products;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Group group = (Group) o;
+        return Objects.equals(name, group.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 }
