@@ -14,7 +14,7 @@ import java.util.List;
 
 @SpringBootApplication
 
-@ImportResource({"classpath*:appconfig-root.xml"})
+@ImportResource({"classpath*:appconfig-security.xml"})
 public class Main {
 
     public static void main(String[] args) {
