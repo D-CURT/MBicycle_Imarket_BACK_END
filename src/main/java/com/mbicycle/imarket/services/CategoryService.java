@@ -13,6 +13,13 @@ public class CategoryService {
     @Autowired
     private CategoryRepository repository;
 
+    public void addCategory(String name) {
+        Category category = new Category();
+        if (repository.findByName(name) == null) {
+            addCategory(category);
+        }
+    }
+
     public void addCategory(Category category) {
         repository.save(category);
     }

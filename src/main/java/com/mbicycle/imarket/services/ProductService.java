@@ -19,6 +19,26 @@ public class ProductService {
     @Autowired
     private GroupRepository groupRepository;
 
+    public boolean addProduct(String name, double price, String groupName) {
+        Group group;
+        if ((group = groupRepository.findByName(groupName)) == null) {
+            return false;
+        }
+
+        Product product;
+        if (repository.findByName(name) != null) {
+            return false;
+        }
+
+        product = new Product();
+        product.setName(name);
+        product.setPrice(price);
+        product.setGroup(group);
+
+        addProduct(product);
+        return true;
+    }
+
     public void addProduct(Product product) {
         repository.save(product);
     }

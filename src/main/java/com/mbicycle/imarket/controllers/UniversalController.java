@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @SuppressWarnings("All")
@@ -108,5 +110,20 @@ public class UniversalController {
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<Product> getAllSortedByNameWithNameLikeAndTrueStoreStatusAndDiscount(@PathVariable String name) {
         return productService.findByNameLikeAndStoreStatusIsTrueAndDiscountIsNotNull(name);
+    }
+
+    @PostMapping(value = "/categories/addCategory/{name}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public void addCategory(@PathVariable String name) {
+        categoryService.addCategory(name);
+    }
+
+    @PostMapping(value = "/groups/addGroup/{groupName, categoryName}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public void addGroup(@PathVariable String groupName, String categoryName) {
+        groupService.addGroup(groupName, categoryName);
+    }
+
+    @PostMapping(value = "/products/addProduct/{name, price, group}")
+    public void addProduct(@PathVariable String name, double price, String group) {
+        productService.addProduct(name, price, group);
     }
 }
