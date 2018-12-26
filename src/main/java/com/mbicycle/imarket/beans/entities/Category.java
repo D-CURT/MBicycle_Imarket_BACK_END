@@ -32,7 +32,7 @@ public class Category {
         return id;
     }
 
-    public  void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -40,7 +40,7 @@ public class Category {
         return name;
     }
 
-    public  void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -48,7 +48,7 @@ public class Category {
         return groups;
     }
 
-    public  void setGroups(List<Group> groups) {
+    public void setGroups(List<Group> groups) {
         this.groups = groups;
     }
 

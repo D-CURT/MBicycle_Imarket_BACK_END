@@ -50,7 +50,7 @@ public class Profile {
         return id;
     }
 
-    public  void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -58,7 +58,7 @@ public class Profile {
         return name;
     }
 
-    public  void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -66,7 +66,7 @@ public class Profile {
         return email;
     }
 
-    public  void setEmail(String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
@@ -74,7 +74,7 @@ public class Profile {
         return phone;
     }
 
-    public  void setPhone(String phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -82,7 +82,7 @@ public class Profile {
         return address;
     }
 
-    public  void setAddress(String address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 
@@ -90,7 +90,7 @@ public class Profile {
         return user;
     }
 
-    public  void setUser(User user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
@@ -98,7 +98,7 @@ public class Profile {
         return coupons;
     }
 
-    public  void setCoupons(List<Coupon> coupons) {
+    public void setCoupons(List<Coupon> coupons) {
         this.coupons = coupons;
     }
 
@@ -106,7 +106,7 @@ public class Profile {
         return discriminator;
     }
 
-    public  void setDiscriminator(String discriminator) {
+    public void setDiscriminator(String discriminator) {
         this.discriminator = discriminator;
     }
 
@@ -114,7 +114,7 @@ public class Profile {
         return orders;
     }
 
-    public  void setOrders(List<Order> orders) {
+    public void setOrders(List<Order> orders) {
         this.orders = orders;
     }
 

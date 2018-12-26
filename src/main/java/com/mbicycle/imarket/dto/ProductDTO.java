@@ -1,46 +1,40 @@
-package com.mbicycle.imarket.beans.entities;
+package com.mbicycle.imarket.dto;
+
+import com.mbicycle.imarket.beans.entities.Group;
+import com.mbicycle.imarket.beans.entities.OrderProduct;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
-@Entity
-@Table(name = "products")
-public class Product {
+public class ProductDTO {
 
-    @Id
-    @SequenceGenerator(name = "products_sequence_generator", sequenceName = "products_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "products_sequence_generator")
     private int id;
 
     private String name;
 
-    @Column(name = "description_preview")
     private String descriptionPreview;
 
-    @Column(name = "description_full")
     private String descriptionFull;
 
     private double price;
 
-    private String picture;
+    private MultipartFile picture;
 
-    @Column(name = "store_status")
     private boolean storeStatus;
 
     private int discount;
 
-    @ManyToOne
-    @JoinColumn(name = "id_group", nullable = false)
-    private Group group;
+    private String group;
 
-    @OneToMany(mappedBy = "product")
-    private List<OrderProduct> orderProducts;
+    private List<String> orderProducts;
 
-    public Product() {
+
+    public ProductDTO() {
     }
 
-    public Product(String name, String descriptionPreview, String descriptionFull, double price, String picture, boolean storeStatus, int discount, Group group, List<OrderProduct> orderProducts) {
+    public ProductDTO(String name, String descriptionPreview, String descriptionFull, double price, MultipartFile picture, boolean storeStatus, int discount, String group, List<String> orderProducts) {
         setName(name);
         setDescriptionPreview(descriptionPreview);
         setDescriptionFull(descriptionFull);
@@ -92,11 +86,11 @@ public class Product {
         this.price = price;
     }
 
-    public String getPicture() {
+    public MultipartFile getPicture() {
         return picture;
     }
 
-    public void setPicture(String picture) {
+    public void setPicture(MultipartFile picture) {
         this.picture = picture;
     }
 
@@ -116,33 +110,20 @@ public class Product {
         this.discount = discount;
     }
 
-    public Group getGroup() {
+    public String getGroup() {
         return group;
     }
 
-    public void setGroup(Group group) {
+    public void setGroup(String group) {
         this.group = group;
     }
 
-    public List<OrderProduct> getOrderProducts() {
+    public List<String> getOrderProducts() {
         return orderProducts;
     }
 
-    public void setOrderProducts(List<OrderProduct> orderProducts) {
+    public void setOrderProducts(List<String> orderProducts) {
         this.orderProducts = orderProducts;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Product product = (Product) o;
-        return Objects.equals(name, product.name) &&
-                Objects.equals(group, product.group);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, group);
-    }
 }

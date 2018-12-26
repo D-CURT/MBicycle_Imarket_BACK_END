@@ -1,7 +1,6 @@
 package com.mbicycle.imarket.beans.entities;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,10 +16,6 @@ public class User {
     private String login;
 
     private String password;
-
-
-//    @Transient
-//    private String confirmPassword;
 
     @ManyToMany(mappedBy = "users", cascade = CascadeType.ALL)
     private List<Role> roles;
@@ -53,7 +48,7 @@ public class User {
         return login;
     }
 
-    public  void setLogin(String login) {
+    public void setLogin(String login) {
         this.login = login;
     }
 
@@ -61,7 +56,7 @@ public class User {
         return password;
     }
 
-    public  void setPassword(String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
@@ -69,17 +64,9 @@ public class User {
         return roles;
     }
 
-    public  void setRoles(List<Role> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
-
-//    public String getConfirmPassword() {
-//        return confirmPassword;
-//    }
-//
-//    public void setConfirmPassword(String confirmPassword) {
-//        this.confirmPassword = confirmPassword;
-//    }
 
     @Override
     public String toString() {
@@ -97,13 +84,5 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(login);
-    }
-
-    public Profile getProfile() {
-        return profile;
-    }
-
-    public void setProfile(Profile profile) {
-        this.profile = profile;
     }
 }

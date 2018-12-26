@@ -26,8 +26,9 @@ public class UserServiceImpl implements UserSecurityService {
 
     @Override
     public void save(User user) {
-        //user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setPassword(user.getPassword());
+
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+//        user.setPassword(user.getPassword());
         List<Role> roles = new ArrayList<>();
         roles.add(roleRepository.getOne(1));
         user.setRoles(roles);

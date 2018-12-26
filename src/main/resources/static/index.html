@@ -26,8 +26,8 @@
       <button id="signUp">Sign up</button>
       <div id="signUpMenu">
           <form action="" id="registration">
-              <input type="text" name="j_username" placeholder="Username">
-              <input type="password" name="j_password" placeholder="Password">
+              <input type="text" name="username" placeholder="Username">
+              <input type="password" name="password" placeholder="Password">
               <input type="text" name="name" placeholder="Your name">
               <input type="text" name="email" placeholder="Email">
               <input type="text" name="phone" placeholder="Phone">
@@ -72,7 +72,7 @@
 
         $.ajax({
             type: 'POST',
-            url: '/authorization',
+            url: '/j_spring_security_check',
             dataType: 'json',
             data: obj,
             contentType : 'application/json',
@@ -80,6 +80,8 @@
                 alert(data)
             }
         });
+
+        
 
         return false;
         });
@@ -107,6 +109,8 @@
   <nav layout="row" layout-align="center center">
     <app-root layout="row" layout-align="center center"></app-root>
   </nav>
+
   
-<script type="text/javascript" src="runtime.ec2944dd8b20ec099bf3.js"></script><script type="text/javascript" src="polyfills.fec146f4472ee5fb9cac.js"></script><script type="text/javascript" src="main.3f1400eaa4987cdaa030.js"></script></body>
+  
+<script type="text/javascript" src="runtime.ec2944dd8b20ec099bf3.js"></script><script type="text/javascript" src="polyfills.fec146f4472ee5fb9cac.js"></script><script type="text/javascript" src="main.a0129c5810a61eb9be77.js"></script></body>
 </html>

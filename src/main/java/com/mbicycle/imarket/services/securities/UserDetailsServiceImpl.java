@@ -10,6 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,13 +28,33 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+
+        System.out.println("\nlogin = " + login + "\n");
+
         User user = userRepository.findByLogin(login);
+
+        if (user == null) {
+            System.out.println("\nUser not authorized.\n");
+            throw new UsernameNotFoundException("User not authorized.");
+        }
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
 
         for (Role role : user.getRoles()) {
             grantedAuthorities.add(new SimpleGrantedAuthority(role.getRole().name()));
         }
-        return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), grantedAuthorities);
+
+        System.out.println(grantedAuthorities + "\n");
+        org.springframework.security.core.userdetails.User secUser = new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), grantedAuthorities);
+
+        System.out.println(secUser + "\n");
+
+        String str = new BCryptPasswordEncoder().encode(user.getPassword());
+
+        System.out.println(str + "\n");
+
+        return secUser;
     }
+
+
 }

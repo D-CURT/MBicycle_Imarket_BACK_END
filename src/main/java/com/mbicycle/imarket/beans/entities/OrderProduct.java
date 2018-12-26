@@ -31,7 +31,7 @@ public class OrderProduct {
         return id;
     }
 
-    public  void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -39,7 +39,7 @@ public class OrderProduct {
         return order;
     }
 
-    public  void setOrder(Order order) {
+    public void setOrder(Order order) {
         this.order = order;
     }
 
@@ -47,7 +47,7 @@ public class OrderProduct {
         return product;
     }
 
-    public  void setProduct(Product product) {
+    public void setProduct(Product product) {
         this.product = product;
     }
 

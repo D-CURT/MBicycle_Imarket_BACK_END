@@ -32,7 +32,7 @@ public class Coupon {
         return id;
     }
 
-    public  void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -40,7 +40,7 @@ public class Coupon {
         return description;
     }
 
-    public  void setDescription(String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -48,7 +48,7 @@ public class Coupon {
         return sum;
     }
 
-    public  void setSum(Integer sum) {
+    public void setSum(Integer sum) {
         this.sum = sum;
     }
 
@@ -56,7 +56,7 @@ public class Coupon {
         return profile;
     }
 
-    public  void setProfile(Profile profile) {
+    public void setProfile(Profile profile) {
         this.profile = profile;
     }
 
