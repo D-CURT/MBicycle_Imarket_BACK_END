@@ -4,20 +4,21 @@ import com.mbicycle.imarket.Main;
 import com.mbicycle.imarket.beans.entities.Profile;
 import com.mbicycle.imarket.beans.entities.Role;
 import com.mbicycle.imarket.beans.entities.User;
-import com.mbicycle.imarket.utils.RoleType;
+import com.mbicycle.imarket.utils.enums.RoleType;
+import com.mbicycle.imarket.utils.generators.tests.TestObjectsBuilder;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.persistence.Transient;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.mbicycle.imarket.utils.generators.tests.TestObjectsBuilder.createProfile;
+import static com.mbicycle.imarket.utils.generators.tests.TestObjectsBuilder.createUser;
 import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
@@ -25,26 +26,27 @@ import static org.junit.Assert.*;
 public class ProfileRepositoryTest {
 
     private static final String TEST_PARAM = "test";
-    private static final List<Role> ROLES = Arrays.asList(new Role(RoleType.CUSTOMER), new Role(RoleType.ADMIN));
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Autowired
     private ProfileRepository profileRepository;
 
     @Before
     public void setUp() {
-        User user = new User(TEST_PARAM, TEST_PARAM);
-        user.setRoles(ROLES);
-        Profile profile = new Profile(TEST_PARAM, TEST_PARAM, TEST_PARAM, TEST_PARAM, user, "GG");
+        User user = createUser(TEST_PARAM, TEST_PARAM);
+
         if (userRepository.findByLoginAndPassword(TEST_PARAM, TEST_PARAM) == null) {
             userRepository.save(user);
         }
 
         user = userRepository.findByLoginAndPassword(TEST_PARAM, TEST_PARAM);
         if (profileRepository.findByUser(user) == null) {
-            profileRepository.save(profile);
+            profileRepository.save(createProfile(TEST_PARAM, user));
         }
     }
 
@@ -59,6 +61,7 @@ public class ProfileRepositoryTest {
             System.out.println("*** DELETING ***");
             profileRepository.delete(profile);
         }
+        roleRepository.findByOrderByRoleAsc().forEach(roleRepository::delete);
     }
 
     @Test

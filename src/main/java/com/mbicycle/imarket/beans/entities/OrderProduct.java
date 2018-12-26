@@ -23,24 +23,23 @@ public class OrderProduct {
     }
 
     public OrderProduct(Order order, Product product) {
-        this.order = order;
-        this.product = product;
+        setOrder(order);
+        setProduct(product);
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public final void setId(int id) {
         this.id = id;
     }
-
 
     public Order getOrder() {
         return order;
     }
 
-    public void setOrder(Order order) {
+    public final void setOrder(Order order) {
         this.order = order;
     }
 
@@ -48,7 +47,7 @@ public class OrderProduct {
         return product;
     }
 
-    public void setProduct(Product product) {
+    public final void setProduct(Product product) {
         this.product = product;
     }
 

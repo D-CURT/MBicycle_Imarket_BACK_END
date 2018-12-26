@@ -2,6 +2,7 @@ package com.mbicycle.imarket.services;
 
 import com.mbicycle.imarket.beans.entities.Group;
 import com.mbicycle.imarket.beans.entities.Product;
+import com.mbicycle.imarket.daos.GroupRepository;
 import com.mbicycle.imarket.daos.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,9 +10,14 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@SuppressWarnings("ALL")
 public class ProductService {
+
     @Autowired
     private ProductRepository repository;
+
+    @Autowired
+    private GroupRepository groupRepository;
 
     public void addProduct(Product product) {
         repository.save(product);
@@ -29,12 +35,12 @@ public class ProductService {
         return repository.findByOrderByPriceAsc();
     }
 
-    public List<Product> findByGroupOrderByName(Group group) {
-        return repository.findByGroupOrderByNameAsc(group);
+    public List<Product> findByGroupOrderByName(String name) {
+        return repository.findByGroupOrderByNameAsc(groupByName(name));
     }
 
-    public List<Product> findByGroupOrderByPrice(Group group) {
-        return repository.findByGroupOrderByPriceAsc(group);
+    public List<Product> findByGroupOrderByPrice(String name) {
+        return repository.findByGroupOrderByPriceAsc(groupByName(name));
     }
 
     public List<Product> findByNameLikeOrderByName(String name) {
@@ -53,5 +59,13 @@ public class ProductService {
         return repository.findByNameLikeAndStoreStatusIsTrueAndDiscountIsNotNullOrderByNameAsc(name);
     }
 
+    private Group groupByName(String name) {
+        Group group = new Group();
+        if (groupRepository.findByName(name) == null) {
+            group.setName(name);
+            groupRepository.save(group);
+        }
 
+        return groupRepository.findByName(name);
+    }
 }

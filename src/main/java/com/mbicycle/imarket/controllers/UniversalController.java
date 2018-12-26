@@ -1,12 +1,12 @@
 package com.mbicycle.imarket.controllers;
 
 import com.mbicycle.imarket.beans.entities.*;
+import com.mbicycle.imarket.daos.UserRepository;
 import com.mbicycle.imarket.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -34,17 +34,17 @@ public class UniversalController {
     private RoleService roleService;
 
     @Autowired
-    private UserService userService;
+    private UserRepository userService;
 
     @Autowired
     private CouponService couponService;
 
     @GetMapping("/users/allUsersSortedByLogin")
     public List<User> getAllUsersSortedByLogin() {
-        return userService.findByOrderByLogin();
+        return userService.findByOrderByLoginAsc();
     }
 
-    @GetMapping("profiles/allProfilesSortedByName")
+    @GetMapping("/profiles/allProfilesSortedByName")
     public List<Profile> getAllProfilesSortedByName() {
         return profileService.findByOrderByName();
     }
@@ -64,26 +64,26 @@ public class UniversalController {
         return groupService.findByOrderByName();
     }
 
-    @GetMapping("products/allProductsSortedByName")
+    @GetMapping("/products/allProductsSortedByName")
     public List<Product> getAllProductsSortedByName() {
         return productService.findByOrderByName();
     }
 
-    @GetMapping("products/allProductsSortedByPrice")
+    @GetMapping("/products/allProductsSortedByPrice")
     public List<Product> getAllProductsSortedByPrice() {
         return productService.findByOrderByPrice();
     }
 
-    @GetMapping(value = "products/allProductsWithGroupSortedByName"
+    @GetMapping(value = "/products/allProductsWithGroupSortedByName/{groupName}"
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<Product> getAllProductsWithGroupSortedByName(@RequestBody Group group) {
-        return productService.findByGroupOrderByName(group);
+    public List<Product> getAllProductsWithGroupSortedByName(@PathVariable String groupName) {
+        return productService.findByGroupOrderByName(groupName);
     }
 
-    @GetMapping(value = "products/allProductsWithGroupSortedByPrice"
+    @GetMapping(value = "/products/allProductsWithGroupSortedByPrice/{groupName}"
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<Product> getAllProductsWithGroupSortedByPrice(@RequestBody Group group) {
-        return productService.findByGroupOrderByPrice(group);
+    public List<Product> getAllProductsWithGroupSortedByPrice(@PathVariable String groupName) {
+        return productService.findByGroupOrderByPrice(groupName);
     }
 
     @GetMapping(value = "/products/allProductsSortedByNameWithNameLike/{name}"
