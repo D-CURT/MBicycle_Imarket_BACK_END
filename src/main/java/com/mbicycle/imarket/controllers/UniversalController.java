@@ -1,12 +1,12 @@
 package com.mbicycle.imarket.controllers;
 
 import com.mbicycle.imarket.beans.entities.*;
+import com.mbicycle.imarket.daos.UserRepository;
 import com.mbicycle.imarket.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -34,14 +34,14 @@ public class UniversalController {
     private RoleService roleService;
 
     @Autowired
-    private UserService userService;
+    private UserRepository userService;
 
     @Autowired
     private CouponService couponService;
 
     @GetMapping("/users/allUsersSortedByLogin")
     public List<User> getAllUsersSortedByLogin() {
-        return userService.findByOrderByLogin();
+        return userService.findByOrderByLoginAsc();
     }
 
     @GetMapping("/profiles/allProfilesSortedByName")

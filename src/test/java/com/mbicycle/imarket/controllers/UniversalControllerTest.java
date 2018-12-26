@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.mbicycle.imarket.Main;
 import com.mbicycle.imarket.beans.entities.*;
 import com.mbicycle.imarket.daos.*;
+import com.mbicycle.imarket.services.UserService;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -49,7 +50,7 @@ public class UniversalControllerTest {
     private MockMvc mvc;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Autowired
     private RoleRepository roleRepository;
@@ -76,11 +77,11 @@ public class UniversalControllerTest {
         for (User user: users) {
             String login = user.getLogin();
             String password = user.getPassword();
-            if (userRepository.findByLoginAndPassword(login, password) == null) {
-                userRepository.save(user);
+            if (userService.getUser(login, password) == null) {
+                userService.addUser(user);
             }
 
-            user = userRepository.findByLoginAndPassword(login, password);
+            user = userService.getUser(login, password);
 
             if (profileRepository.findByUser(user) == null) {
                 Profile profile = createProfile(user.getLogin(), user);
@@ -139,7 +140,7 @@ public class UniversalControllerTest {
     public void check_of_getting_sorted_by_login_users_list() throws Exception {
         String mapping = "/users/allUsersSortedByLogin";
 
-        final List<User> EXPECTED_USER_LIST = userRepository.findByOrderByLoginAsc();
+        final List<User> EXPECTED_USER_LIST = userService.findByOrderByLogin();
         List<User> actualUserList = actualList(mapping, User.class);
 
         assertThat(actualUserList.size(), is(greaterThan(ZERO)));
