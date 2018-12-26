@@ -256,7 +256,7 @@ public class UniversalControllerTest {
 
     @Test
     public void check_of_adding_product() throws Exception {
-        String mapping = "/products/add";
+        String mapping = "/products/addTest";
 
         String EXPECTED_PRODUCT_NAME = productService.getProduct(FIRST_VALUE).getName();
         mvc.perform(MockMvcRequestBuilders.post(
