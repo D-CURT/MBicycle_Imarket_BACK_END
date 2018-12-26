@@ -25,17 +25,14 @@ public class ProductService {
             return false;
         }
 
-        Product product;
-        if (repository.findByName(name) != null) {
-            return false;
+        if (repository.findByName(name) == null) {
+            Product product = new Product();
+            product.setName(name);
+            product.setPrice(price);
+            product.setGroup(group);
+
+            addProduct(product);
         }
-
-        product = new Product();
-        product.setName(name);
-        product.setPrice(price);
-        product.setGroup(group);
-
-        addProduct(product);
         return true;
     }
 

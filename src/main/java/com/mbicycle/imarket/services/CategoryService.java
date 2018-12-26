@@ -13,11 +13,11 @@ public class CategoryService {
     @Autowired
     private CategoryRepository repository;
 
-    public void addCategory(String name) {
-        Category category = new Category();
+    public boolean addCategory(String name) {
         if (repository.findByName(name) == null) {
-            addCategory(category);
+            addCategory(new Category(name));
         }
+        return true;
     }
 
     public void addCategory(Category category) {

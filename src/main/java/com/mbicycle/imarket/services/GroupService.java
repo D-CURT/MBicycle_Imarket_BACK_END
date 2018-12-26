@@ -19,13 +19,18 @@ public class GroupService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    public void addGroup(String groupName, String categoryName) {
-        Category category = categoryRepository.findByName(categoryName);
+    public boolean addGroup(String groupName, String categoryName) {
+        Category category;
+        if ((category = categoryRepository.findByName(categoryName)) == null) {
+            return false;
+        }
+
         Group group = new Group(groupName, category);
 
         if (repository.findByName(groupName) == null) {
             addGroup(group);
         }
+        return true;
     }
 
     public void addGroup(Group group){
