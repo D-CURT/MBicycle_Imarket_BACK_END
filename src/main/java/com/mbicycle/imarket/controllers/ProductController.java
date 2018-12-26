@@ -2,9 +2,12 @@ package com.mbicycle.imarket.controllers;
 
 import com.mbicycle.imarket.beans.entities.*;
 import com.mbicycle.imarket.daos.UserRepository;
+import com.mbicycle.imarket.dto.ProductDTO;
+import com.mbicycle.imarket.facades.ProductFacade;
 import com.mbicycle.imarket.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,6 +25,9 @@ public class ProductController {
 
     @Autowired
     private GroupService groupService;
+
+    @Autowired
+    private ProductFacade productFacade;
 
     @GetMapping("/products/allProductsSortedByName")
     public List<Product> getAllProductsSortedByName() {
@@ -88,15 +94,23 @@ public class ProductController {
         return productService.getProduct(name);
     }
 
+//    @PostMapping(value = "/products/add")
+//    public Product addProduct(@RequestParam("name") String name
+//                            , @RequestParam("price") double price
+//                            , @RequestParam("descriptionPreview") String descriptionPreview
+//                            , @RequestParam("discount") int discount
+//                            , @RequestParam("image") MultipartFile image
+//                            , @RequestParam("group") String group
+//                            , @RequestParam("category") String category) throws FileNotFoundException {
+//        String ko;
+//        productService.addProduct(name, price, descriptionPreview, discount, image, group, category);
+//        return productService.getProduct(name);
+//    }
+
     @PostMapping(value = "/products/add")
-    public Product addProduct(@RequestParam("name") String name
-                            , @RequestParam("price") double price
-                            , @RequestParam("descriptionPreview") String descriptionPreview
-                            , @RequestParam("discount") int discount
-                            , @RequestParam("image") MultipartFile image
-                            , @RequestParam("group") String group
-                            , @RequestParam("category") String category) throws FileNotFoundException {
-        productService.addProduct(name, price, descriptionPreview, discount, image, group, category);
-        return productService.getProduct(name);
+    public Product addProductWork(@RequestPart("data") @Validated ProductDTO productDTO, @RequestPart("file") MultipartFile file)
+    throws FileNotFoundException {
+        productFacade.addProduct(productDTO);
+        return null;
     }
 }
