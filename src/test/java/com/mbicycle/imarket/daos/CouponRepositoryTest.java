@@ -5,7 +5,7 @@ import com.mbicycle.imarket.beans.entities.Coupon;
 import com.mbicycle.imarket.beans.entities.Profile;
 import com.mbicycle.imarket.beans.entities.Role;
 import com.mbicycle.imarket.beans.entities.User;
-import com.mbicycle.imarket.utils.RoleType;
+import com.mbicycle.imarket.utils.enums.RoleType;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,6 +17,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.mbicycle.imarket.utils.generators.tests.TestObjectsBuilder.createProfile;
+import static com.mbicycle.imarket.utils.generators.tests.TestObjectsBuilder.createUser;
 import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
@@ -24,7 +26,6 @@ import static org.junit.Assert.*;
 public class CouponRepositoryTest {
 
     private static final String TEST_PARAM = "test";
-    private static final List<Role> ROLES = Arrays.asList(new Role(RoleType.CUSTOMER), new Role(RoleType.ADMIN));
 
     @Autowired
     private UserRepository userRepository;
@@ -37,15 +38,14 @@ public class CouponRepositoryTest {
 
     @Before
     public void setUp() {
-        User user = new User(TEST_PARAM, TEST_PARAM);
-        user.setRoles(ROLES);
-        Profile profile = new Profile(TEST_PARAM, TEST_PARAM, TEST_PARAM, TEST_PARAM, user, "GG");
+        User user = createUser(TEST_PARAM, TEST_PARAM);
         if (userRepository.findByLoginAndPassword(TEST_PARAM, TEST_PARAM) == null) {
             System.out.println("***  Saving user. ***");
             userRepository.save(user);
         }
 
         user = userRepository.findByLoginAndPassword(TEST_PARAM, TEST_PARAM);
+        Profile profile = createProfile(TEST_PARAM, user);
         if (profileRepository.findByUser(user) == null) {
             System.out.println("*** Saving profile. ***");
             profileRepository.save(profile);

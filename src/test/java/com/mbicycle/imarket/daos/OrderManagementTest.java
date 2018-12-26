@@ -2,9 +2,7 @@ package com.mbicycle.imarket.daos;
 
 import com.mbicycle.imarket.Main;
 import com.mbicycle.imarket.beans.entities.*;
-import com.mbicycle.imarket.utils.DeliveryType;
-import com.mbicycle.imarket.utils.PaymentType;
-import com.mbicycle.imarket.utils.RoleType;
+import com.mbicycle.imarket.utils.enums.RoleType;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,16 +12,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
+import static com.mbicycle.imarket.utils.generators.tests.TestObjectsBuilder.createProfile;
+import static com.mbicycle.imarket.utils.generators.tests.TestObjectsBuilder.createUser;
 import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Main.class)
 public class OrderManagementTest {
     private static final String TEST_PARAM = "test";
-    private static final List<Role> ROLES = Arrays.asList(new Role(RoleType.CUSTOMER), new Role(RoleType.ADMIN));
 
     @Autowired
     private UserRepository userRepository;
@@ -42,20 +40,20 @@ public class OrderManagementTest {
 
     @Before
     public void setUp() {
-        User user = new User(TEST_PARAM, TEST_PARAM);
-        user.setRoles(ROLES);
-        Profile profile = new Profile(TEST_PARAM, TEST_PARAM, TEST_PARAM, TEST_PARAM, user, "GG");
+        User user = createUser(TEST_PARAM, TEST_PARAM);
         if (userRepository.findByLoginAndPassword(TEST_PARAM, TEST_PARAM) == null) {
             System.out.println("*** Save User. ***");
             userRepository.save(user);
         }
 
         user = userRepository.findByLoginAndPassword(TEST_PARAM, TEST_PARAM);
+        Profile profile = createProfile(TEST_PARAM, user);
         if (profileRepository.findByUser(user) == null) {
             System.out.println("*** Save Profile. ***");
             profileRepository.save(profile);
         }
         Order order;
+
         if (orderRepository.findByProfile(profile) == null) {
             System.out.println("*** Save order. ***");
             order = new Order();

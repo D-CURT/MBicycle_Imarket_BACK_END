@@ -1,6 +1,7 @@
 package com.mbicycle.imarket.beans.entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,12 +18,7 @@ public class User {
 
     private String password;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "user_roles",
-            joinColumns = @JoinColumn(name = "id_user"),
-            inverseJoinColumns = @JoinColumn(name = "id_role")
-    )
+    @ManyToMany(mappedBy = "users", cascade = CascadeType.ALL)
     private List<Role> roles;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, optional = false)
@@ -32,8 +28,13 @@ public class User {
     }
 
     public User(String login, String password) {
-        this.login = login;
-        this.password = password;
+        setLogin(login);
+        setPassword(password);
+    }
+
+    public User(String login, String password, List<Role> roles) {
+        this(login, password);
+        setRoles(roles);
     }
 
     public int getId() {
@@ -48,7 +49,7 @@ public class User {
         return login;
     }
 
-    public void setLogin(String login) {
+    public final void setLogin(String login) {
         this.login = login;
     }
 
@@ -56,7 +57,7 @@ public class User {
         return password;
     }
 
-    public void setPassword(String password) {
+    public final void setPassword(String password) {
         this.password = password;
     }
 
@@ -64,7 +65,7 @@ public class User {
         return roles;
     }
 
-    public void setRoles(List<Role> roles) {
+    public final void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 
