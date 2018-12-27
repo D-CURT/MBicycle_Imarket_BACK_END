@@ -25,11 +25,13 @@ public class UserServiceImpl implements UserService {
     }
 
     public boolean addUser(User user) {
-        if (getUser(user.getLogin(), user.getPassword()) == null) {
+        String login = user.getLogin();
+        String password = user.getPassword();
+
+        if (getUser(login, password) == null) {
             userRepository.save(user);
-            return true;
         }
-        return false;
+        return getUser(login, password) != null;
     }
 
     public void deleteUser(String login, String password) {
