@@ -11,27 +11,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ProfileFacade {
+public interface ProfileFacade {
 
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private ProfileService profileService;
-
-    public boolean push(ProfileDTO dto) {
-
-        Converter<ProfileDTO, Profile> converter = new ProfileConverter();
-        Profile profile = new Profile();
-        converter.convert(dto, profile);
-
-        User user = profile.getUser();
-        if (userService.addUser(user)) {
-            user = userService.getUser(user.getLogin(), user.getPassword());
-            profile.setUser(user);
-            profileService.addProfile(profile);
-            return true;
-        }
-        return false;
-    }
+//    @Autowired
+//    private UserService userService;
+//
+//    @Autowired
+//    private ProfileService profileService;
+//
+//    public boolean push(ProfileDTO dto) {
+//
+//        Converter<ProfileDTO, Profile> converter = new ProfileConverter();
+//        Profile profile = new Profile();
+//        converter.convert(dto, profile);
+//
+//        User user = profile.getUser();
+//        if (userService.addUser(user)) {
+//            user = userService.getUser(user.getLogin(), user.getPassword());
+//            profile.setUser(user);
+//            profileService.addProfile(profile);
+//            return true;
+//        }
+//        return false;
+//    }
 }

@@ -7,10 +7,10 @@ import com.mbicycle.imarket.converters.UserConverter;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserFacade {
+public interface UserFacade {
 
-    public User push(UserDTO dto) {
-        Converter<UserDTO, User> converter = new UserConverter();
-        return converter.convert(dto);
-    }
+//    public User push(UserDTO dto) {
+//        Converter<UserDTO, User> converter = new UserConverter();
+//        return converter.convert(dto);
+//    }
 }

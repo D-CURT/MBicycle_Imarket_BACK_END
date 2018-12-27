@@ -12,8 +12,4 @@ public class Main {
       SpringApplication.run(Main.class, args);
     }
 
-    @Bean
-    public ProductService productService() {
-        return new ProductServiceImpl();
-    }
 }

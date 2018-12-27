@@ -3,8 +3,10 @@ package com.mbicycle.imarket.facades;
 import com.mbicycle.imarket.beans.entities.Role;
 import com.mbicycle.imarket.dto.RoleDTO;
 import com.mbicycle.imarket.converters.RoleConverter;
+import org.springframework.stereotype.Component;
 
-public class RoleFacade {
+@Component
+public interface RoleFacade {
 /*    @Override
     public Role push(RoleDTO dto, String identifier) {
         Converter<RoleDTO, Role> converter = new RoleConverter();
