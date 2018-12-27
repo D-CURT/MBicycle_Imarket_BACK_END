@@ -1,9 +1,9 @@
 package com.mbicycle.imarket;
 
+import com.mbicycle.imarket.beans.entities.Order;
 import com.mbicycle.imarket.beans.entities.Product;
-import com.mbicycle.imarket.converters.Converter;
-import com.mbicycle.imarket.converters.ProductConverter;
-import com.mbicycle.imarket.converters.ReverseProductConverter;
+import com.mbicycle.imarket.converters.*;
+import com.mbicycle.imarket.dto.OrderDTO;
 import com.mbicycle.imarket.dto.ProductDTO;
 import com.mbicycle.imarket.services.ProductService;
 import com.mbicycle.imarket.services.impl.ProductServiceImpl;
@@ -27,6 +27,13 @@ public class Main {
     public Converter<ProductDTO, Product> reverseProductConverter() {
         return new ReverseProductConverter();
     }
+
+    @Bean
+    public Converter<Order, OrderDTO> orderConverter() { return new OrderConverter(); }
+
+    @Bean
+    public Converter<OrderDTO, Order> reverseOrderConverter() { return new ReverseOrderConverter(); }
+
 
 
 

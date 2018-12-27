@@ -1,6 +1,7 @@
 package com.mbicycle.imarket.services.securities;
 
 import com.mbicycle.imarket.beans.entities.User;
+import com.mbicycle.imarket.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -13,7 +14,7 @@ import org.springframework.validation.Validator;
 public class UserValidator implements Validator {
 
     @Autowired
-    private UserSecurityService userService;
+    private com.mbicycle.imarket.services.UserService userService;
 
     @Override
     public boolean supports(Class<?> aClass) {

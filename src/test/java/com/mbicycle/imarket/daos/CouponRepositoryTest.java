@@ -65,8 +65,7 @@ public class CouponRepositoryTest {
         Profile profile = profileRepository.findByUser(user);
         if (profile==null) {
             System.out.println("*** Profile is null ***");
-        }
-        else {
+        } else {
             System.out.println("*** Profile IS NOT NULL ***");
             Coupon coupon;
             if((coupon = couponRepository.findByDescription(TEST_PARAM)) !=null) {
