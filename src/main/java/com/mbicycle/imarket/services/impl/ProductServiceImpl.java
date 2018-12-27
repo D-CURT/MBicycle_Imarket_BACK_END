@@ -3,6 +3,7 @@ package com.mbicycle.imarket.services.impl;
 import com.mbicycle.imarket.beans.entities.Group;
 import com.mbicycle.imarket.beans.entities.Product;
 import com.mbicycle.imarket.daos.ProductRepository;
+<<<<<<< HEAD
 import com.mbicycle.imarket.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,12 +17,24 @@ import java.util.List;
 import java.util.Random;
 
 @Service
+=======
+import com.mbicycle.imarket.services.GroupService;
+import com.mbicycle.imarket.services.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+@SuppressWarnings("ALL")
+>>>>>>> b3e63ba33cc5e2bbf9a7da6169d58d5bab60cfa1
 public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProductRepository repository;
 
     @Autowired
+<<<<<<< HEAD
     private GroupServiceImpl groupService;
 
     public boolean addProduct(String name, double price, String groupName, String categoryName) {
@@ -81,6 +94,9 @@ public class ProductServiceImpl implements ProductService {
         }
         return true;
     }
+=======
+    private GroupService groupService;
+>>>>>>> b3e63ba33cc5e2bbf9a7da6169d58d5bab60cfa1
 
     public void addProduct(Product product) {
         repository.save(product);
@@ -122,7 +138,11 @@ public class ProductServiceImpl implements ProductService {
         return repository.findByNameLikeAndStoreStatusIsTrueAndDiscountIsNotNullOrderByNameAsc(name);
     }
 
+<<<<<<< HEAD
     private Group groupByName(String name) {
+=======
+    public Group groupByName(String name) {
+>>>>>>> b3e63ba33cc5e2bbf9a7da6169d58d5bab60cfa1
         /*Group group = new Group();
         if (groupRepository.findByName(name) == null) {
             group.setName(name);
