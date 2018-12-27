@@ -1,5 +1,7 @@
 package com.mbicycle.imarket.facades.config;
 
+import com.mbicycle.imarket.facades.OrderFacade;
+import com.mbicycle.imarket.facades.impl.OrderFacadeImpl;
 import com.mbicycle.imarket.facades.impl.ProductFacadeImpl;
 import com.mbicycle.imarket.facades.impl.SimpleProfileFacade;
 import com.mbicycle.imarket.facades.impl.SimpleUserFacade;
@@ -18,12 +20,18 @@ public class FacadesConfig {
     }
 
     @Bean
+    public ProfileFacade profileFacade() {
+        return new SimpleProfileFacade();
+    }
+
+    @Bean
     public ProductFacade productFacade() {
         return new ProductFacadeImpl();
     }
 
     @Bean
-    public ProfileFacade profileFacade() {
-        return new SimpleProfileFacade();
+    public OrderFacade orderFacade() {
+        return new OrderFacadeImpl();
     }
+
 }
