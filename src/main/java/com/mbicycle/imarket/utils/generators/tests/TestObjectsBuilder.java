@@ -12,7 +12,12 @@ public class TestObjectsBuilder {
 
     public static User createUser(String login, String password) {
         return new User(login, password
-                , Arrays.asList(CUSTOMER.getRole(),ADMIN.getRole()));
+                , Arrays.asList(CUSTOMER.getRole(), ADMIN.getRole()));
+    }
+
+    public static User createOnlyUser(String login, String password) {
+        return new User(login, password
+                , Arrays.asList(CUSTOMER.getRole()));
     }
 
     public static Profile createProfile(String name, User user) {

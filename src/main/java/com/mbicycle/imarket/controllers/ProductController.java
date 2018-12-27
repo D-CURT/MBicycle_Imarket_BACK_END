@@ -7,6 +7,9 @@ import com.mbicycle.imarket.facades.interfaces.ProductFacade;
 import com.mbicycle.imarket.services.CategoryService;
 import com.mbicycle.imarket.services.GroupService;
 import com.mbicycle.imarket.services.ProductService;
+import com.mbicycle.imarket.services.securities.SecurityService;
+import com.mbicycle.imarket.services.securities.UserSecurityService;
+import com.mbicycle.imarket.services.securities.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,6 +25,15 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired(required = false)
+    private UserSecurityService userSecurityService;
+
+    @Autowired(required = false)
+    private SecurityService securityService;
+
+    @Autowired
+    private UserValidator userValidator;
 
     @Autowired
     private CategoryService categoryService;
@@ -91,7 +103,7 @@ public class ProductController {
     @PostMapping(value = "/products/add")
     public ResponseEntity addProduct(@RequestParam("data") String strDTO, @RequestParam("photo") MultipartFile file)
             throws IOException {
-        ProductDTO productDTO = new ObjectMapper().readValue(strDTO,ProductDTO.class);  //Convert string param (json) into DTO
-        return productFacade.addProduct(productDTO,file) ? new ResponseEntity(HttpStatus.OK) : new ResponseEntity(HttpStatus.BAD_REQUEST);
+        ProductDTO productDTO = new ObjectMapper().readValue(strDTO, ProductDTO.class);  //Convert string param (json) into DTO
+        return productFacade.addProduct(productDTO, file) ? new ResponseEntity(HttpStatus.OK) : new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 }
