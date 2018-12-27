@@ -6,11 +6,8 @@ import com.mbicycle.imarket.daos.RoleRepository;
 import com.mbicycle.imarket.daos.UserRepository;
 import com.mbicycle.imarket.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-<<<<<<< HEAD
-=======
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
->>>>>>> e54693e80b86d2815b1dd9f538666a833baa7498
+
 
 import java.util.ArrayList;
 import java.util.List;

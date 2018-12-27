@@ -1,6 +1,7 @@
 package com.mbicycle.imarket.facades.config;
 
 
+import com.mbicycle.imarket.facades.OrderFacade;
 import com.mbicycle.imarket.facades.impl.*;
 import com.mbicycle.imarket.facades.interfaces.*;
 import org.springframework.context.annotation.Bean;
@@ -23,6 +24,10 @@ public class FacadesConfig {
         return new SimpleProfileFacade();
     }
 
+    @Bean
+    public OrderFacade orderFacade(){
+        return new OrderFacadeImpl();
+    }
 //    @Bean
 //    public CategoryFacade categoryFacade(){
 //        return new CategoryFacadeImpl();

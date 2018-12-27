@@ -17,7 +17,6 @@ public class Main {
       SpringApplication.run(Main.class, args);
     }
 
-
     @Bean
     public Converter<Product, ProductDTO> productConverter() {
         return new ProductConverter();
