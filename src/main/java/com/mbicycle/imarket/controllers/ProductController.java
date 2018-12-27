@@ -8,7 +8,6 @@ import com.mbicycle.imarket.services.CategoryService;
 import com.mbicycle.imarket.services.GroupService;
 import com.mbicycle.imarket.services.ProductService;
 import com.mbicycle.imarket.services.UserService;
-import com.mbicycle.imarket.services.securities.SecurityService;
 import com.mbicycle.imarket.services.securities.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,9 +27,9 @@ public class ProductController {
 
     @Autowired(required = false)
     private UserService userService;
-
-    @Autowired(required = false)
-    private SecurityService securityService;
+//
+//    @Autowired(required = false)
+//    private SecurityService securityService;
 
     @Autowired
     private UserValidator userValidator;
