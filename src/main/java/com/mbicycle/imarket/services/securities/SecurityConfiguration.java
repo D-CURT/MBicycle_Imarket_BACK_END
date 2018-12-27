@@ -17,8 +17,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
-    @Autowired
-    private AlexEntryPoint authenticationEntryPoint;
+//    @Autowired
+//    private AlexEntryPoint authenticationEntryPoint;
 
     @Autowired
     protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -47,14 +47,24 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //                .csrf().disable()                                                                  // Временно пока не добавим токен ф форму
 //                .authorizeRequests()                                                               //
 //                .antMatchers(HttpMethod.POST, "/j_spring_security_check").permitAll(); //
-//
+
         http.authorizeRequests()
-                .antMatchers("index").permitAll()
+                .antMatchers("/index").anonymous()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/j_spring_security_check")
-                .permitAll();
+                .loginPage("/login")
+                .defaultSuccessUrl("/index")
+                .and()
+                .httpBasic();
+
+//        http.csrf().disable()
+//                .authorizeRequests()
+//                .antMatchers("/login").permitAll()
+//                .anyRequest()
+//                .authenticated()
+//                .and()
+//                .httpBasic();
     }
 
     @Bean
