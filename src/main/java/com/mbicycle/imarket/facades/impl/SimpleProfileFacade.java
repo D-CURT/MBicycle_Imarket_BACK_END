@@ -26,12 +26,12 @@ public class SimpleProfileFacade implements ProfileFacade {
         converter.convert(dto, profile);
 
         User user = profile.getUser();
-        //if (userService.addUser(user)) {
+        if (userService.addUser(user)) {
             user = userService.getUser(user.getLogin(), user.getPassword());
             profile.setUser(user);
             profileService.addProfile(profile);
             return true;
-        //}
-        //return false;
+        }
+        return false;
     }
 }
