@@ -49,20 +49,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .formLogin()
-                .loginPage("/index") ///authorization
+                .loginPage("/") ///authorization
                 .loginProcessingUrl("/j_spring_security_check")
                 .failureUrl("/products/allProductsSortedByName")                             //убрать после проверки
                 .usernameParameter("j_username").passwordParameter("j_password")
                 .permitAll()
 
 
-                .and().
-
-                 csrf().disable()
+                .and()
+                .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/user/**").hasRole("ADMIN")
                 .and().httpBasic().realmName("mbicycle").authenticationEntryPoint(new MyBasicAuthenticationEntryPoint());
-                //.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        //.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
 
         //  .and()
