@@ -1,17 +1,16 @@
-package com.mbicycle.imarket.facades;
+package com.mbicycle.imarket.facades.impl;
 
 import com.mbicycle.imarket.beans.entities.Profile;
 import com.mbicycle.imarket.beans.entities.User;
 import com.mbicycle.imarket.converters.Converter;
 import com.mbicycle.imarket.dto.ProfileDTO;
 import com.mbicycle.imarket.converters.ProfileConverter;
+import com.mbicycle.imarket.facades.interfaces.ProfileFacade;
 import com.mbicycle.imarket.services.ProfileService;
 import com.mbicycle.imarket.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-@Component
-public class ProfileFacade {
+public class SimpleProfileFacade implements ProfileFacade {
 
     @Autowired
     private UserService userService;
@@ -19,7 +18,8 @@ public class ProfileFacade {
     @Autowired
     private ProfileService profileService;
 
-    public boolean push(ProfileDTO dto) {
+    @Override
+    public boolean addProfile(ProfileDTO dto) {
 
         Converter<ProfileDTO, Profile> converter = new ProfileConverter();
         Profile profile = new Profile();
