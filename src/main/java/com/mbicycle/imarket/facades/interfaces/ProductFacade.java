@@ -1,4 +1,4 @@
-package com.mbicycle.imarket.facades;
+package com.mbicycle.imarket.facades.interfaces;
 
 import com.mbicycle.imarket.dto.ProductDTO;
 import org.springframework.stereotype.Component;

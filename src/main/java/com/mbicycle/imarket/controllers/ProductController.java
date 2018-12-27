@@ -3,7 +3,7 @@ package com.mbicycle.imarket.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mbicycle.imarket.beans.entities.Product;
 import com.mbicycle.imarket.dto.ProductDTO;
-import com.mbicycle.imarket.facades.ProductFacade;
+import com.mbicycle.imarket.facades.interfaces.ProductFacade;
 import com.mbicycle.imarket.services.CategoryService;
 import com.mbicycle.imarket.services.GroupService;
 import com.mbicycle.imarket.services.ProductService;

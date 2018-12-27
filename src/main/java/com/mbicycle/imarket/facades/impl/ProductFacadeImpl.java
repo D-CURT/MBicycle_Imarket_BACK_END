@@ -1,14 +1,14 @@
 package com.mbicycle.imarket.facades.impl;
 
 import com.mbicycle.imarket.beans.entities.Product;
+
 import com.mbicycle.imarket.converters.Converter;
 import com.mbicycle.imarket.daos.ProductRepository;
 import com.mbicycle.imarket.dto.ProductDTO;
-import com.mbicycle.imarket.facades.ProductFacade;
+import com.mbicycle.imarket.facades.interfaces.ProductFacade;
 import com.mbicycle.imarket.services.GroupService;
 import com.mbicycle.imarket.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -17,7 +17,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Random;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> bef5eb2a18dbf444800576f39546c847c55d41da
 public class ProductFacadeImpl implements ProductFacade {
 
     @Autowired
@@ -56,8 +59,8 @@ public class ProductFacadeImpl implements ProductFacade {
                     e.printStackTrace();
                 }
             }
-            Product newProduct = new Product();
-            newProduct = this.reverseProductConverter.convert(productDTO);
+
+            Product newProduct = this.reverseProductConverter.convert(productDTO);
             newProduct.setPicture(strPicture2Add);
             productService.addProduct(newProduct);
             return true;
