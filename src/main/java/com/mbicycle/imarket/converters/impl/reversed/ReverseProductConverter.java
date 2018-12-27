@@ -1,4 +1,4 @@
-package com.mbicycle.imarket.converters.reversed;
+package com.mbicycle.imarket.converters.impl.reversed;
 
 import com.mbicycle.imarket.beans.entities.Product;
 import com.mbicycle.imarket.converters.AbstractConverter;
