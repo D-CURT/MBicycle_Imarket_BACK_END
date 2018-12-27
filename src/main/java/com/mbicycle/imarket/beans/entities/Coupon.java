@@ -28,6 +28,11 @@ public class Coupon {
         setProfile(profile);
     }
 
+    public Coupon(String description, Integer sum) {
+        setDescription(description);
+        setSum(sum);
+    }
+
     public int getId() {
         return id;
     }

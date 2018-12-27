@@ -6,12 +6,10 @@ import com.mbicycle.imarket.daos.GroupRepository;
 import com.mbicycle.imarket.services.CategoryService;
 import com.mbicycle.imarket.services.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-@SuppressWarnings("ALL")
+
 public class GroupServiceImpl implements GroupService {
 
     @Autowired
@@ -34,7 +32,7 @@ public class GroupServiceImpl implements GroupService {
         return true;
     }
 
-    public void addGroup(Group group){
+    private void addGroup(Group group){
         repository.save(group);
     }
 

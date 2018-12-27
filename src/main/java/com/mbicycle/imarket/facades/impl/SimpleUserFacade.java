@@ -32,4 +32,9 @@ public class SimpleUserFacade implements UserFacade {
                           .map(converter::convert)
                           .collect(Collectors.toList());
     }
+
+    @Override
+    public void deleteUser(String login, String password) {
+        userService.deleteUser(login,password);
+    }
 }

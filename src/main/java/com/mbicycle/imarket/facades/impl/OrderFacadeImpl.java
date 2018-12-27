@@ -1,7 +1,6 @@
 package com.mbicycle.imarket.facades.impl;
 
 import com.mbicycle.imarket.dto.OrderDTO;
-import com.mbicycle.imarket.facades.OrderFacade;
 
 public class OrderFacadeImpl implements OrderFacade {
 

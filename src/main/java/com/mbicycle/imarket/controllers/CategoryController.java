@@ -1,20 +1,38 @@
 package com.mbicycle.imarket.controllers;
 
 import com.mbicycle.imarket.beans.entities.Category;
+import com.mbicycle.imarket.dto.CategoryDTO;
+import com.mbicycle.imarket.facades.interfaces.CategoryFacade;
 import com.mbicycle.imarket.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 public class CategoryController {
     @Autowired
-    private CategoryService service;
+    private CategoryFacade categoryFacade;
 
     @GetMapping("/categories/allCategoriesSortedByName")
-    public List<Category> getAllCategoriesSortedByName() {
-        return service.findByOrderByName();
+    public List<CategoryDTO> getAllCategoriesSortedByName() {
+        return categoryFacade.findByOrderByName();
     }
+
+    @GetMapping("/categories/getCategory")
+    public CategoryDTO getCategory(@PathVariable String name){
+        return categoryFacade.getCategoryDTO(name);
+    }
+
+    @PostMapping(value = "/categories/add/{name}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public void addCategory(@RequestBody CategoryDTO categoryDTO) {
+        if (categoryFacade.addCategory(categoryDTO)){
+
+        }else{
+
+        }
+    }
+
+
 }
