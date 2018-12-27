@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
@@ -66,6 +67,11 @@ public class ProfileUserRepositoryTest {
 
     @Test
     public void check_of_profile() {
+        String str = new BCryptPasswordEncoder().encode("admin");
+
+        System.out.println(str + "\n");
+
+        System.out.println(str + "\n");
         User user = userRepository.findByLoginAndPassword(TEST_PARAM, TEST_PARAM);
         Profile profile = profileRepository.findByUser(user);
         assertNotNull(profile);
