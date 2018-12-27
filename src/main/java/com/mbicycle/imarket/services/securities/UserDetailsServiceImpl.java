@@ -53,6 +53,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         System.out.println(str + "\n");
 
+        System.out.println("\nUser authorized!\n");
         return secUser;
     }
 
