@@ -1,8 +1,6 @@
 package com.mbicycle.imarket.services.securities;
 
 import com.mbicycle.imarket.beans.entities.User;
-import com.mbicycle.imarket.daos.UserRepository;
-import com.mbicycle.imarket.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,7 +9,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.ValidationUtils;
 
 import java.util.ArrayList;
 import java.util.List;

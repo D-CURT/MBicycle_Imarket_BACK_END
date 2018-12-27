@@ -4,7 +4,6 @@ import com.mbicycle.imarket.beans.entities.User;
 import com.mbicycle.imarket.converters.Converter;
 import com.mbicycle.imarket.dto.UserDTO;
 import com.mbicycle.imarket.facades.interfaces.UserFacade;
-import com.mbicycle.imarket.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;

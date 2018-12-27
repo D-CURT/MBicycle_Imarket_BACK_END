@@ -13,7 +13,6 @@ import com.mbicycle.imarket.facades.interfaces.UserFacade;
 import com.mbicycle.imarket.services.CategoryService;
 import com.mbicycle.imarket.services.GroupService;
 import com.mbicycle.imarket.services.ProductService;
-import com.mbicycle.imarket.services.UserService;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

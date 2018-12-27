@@ -5,7 +5,6 @@ import com.mbicycle.imarket.converters.Converter;
 import com.mbicycle.imarket.dto.ProfileDTO;
 import com.mbicycle.imarket.facades.interfaces.ProfileFacade;
 import com.mbicycle.imarket.services.ProfileService;
-import com.mbicycle.imarket.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class SimpleProfileFacade implements ProfileFacade {

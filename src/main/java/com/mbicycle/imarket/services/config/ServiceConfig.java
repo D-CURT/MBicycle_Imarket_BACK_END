@@ -3,7 +3,6 @@ package com.mbicycle.imarket.services.config;
 import com.mbicycle.imarket.services.ProductService;
 import com.mbicycle.imarket.services.ProfileService;
 import com.mbicycle.imarket.services.RoleService;
-import com.mbicycle.imarket.services.UserService;
 import com.mbicycle.imarket.services.impl.ProductServiceImpl;
 import com.mbicycle.imarket.services.impl.ProfileServiceImpl;
 import com.mbicycle.imarket.services.impl.RoleServiceImpl;
