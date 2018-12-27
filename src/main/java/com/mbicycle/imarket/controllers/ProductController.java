@@ -1,17 +1,20 @@
 package com.mbicycle.imarket.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mbicycle.imarket.beans.entities.*;
-import com.mbicycle.imarket.daos.UserRepository;
 import com.mbicycle.imarket.dto.ProductDTO;
 import com.mbicycle.imarket.facades.ProductFacade;
 import com.mbicycle.imarket.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -85,32 +88,10 @@ public class ProductController {
         groupService.addGroup(groupName, categoryName);
     }
 
-    @PostMapping(value = "/products/addTest")
-    public Product addProduct(@RequestParam("name") String name
-            , @RequestParam("price") double price
-            , @RequestParam("group") String group
-            , @RequestParam("category") String category) throws FileNotFoundException {
-        productService.addProduct(name, price, group, category);
-        return productService.getProduct(name);
-    }
-
-//    @PostMapping(value = "/products/add")
-//    public Product addProduct(@RequestParam("name") String name
-//                            , @RequestParam("price") double price
-//                            , @RequestParam("descriptionPreview") String descriptionPreview
-//                            , @RequestParam("discount") int discount
-//                            , @RequestParam("image") MultipartFile image
-//                            , @RequestParam("group") String group
-//                            , @RequestParam("category") String category) throws FileNotFoundException {
-//        String ko;
-//        productService.addProduct(name, price, descriptionPreview, discount, image, group, category);
-//        return productService.getProduct(name);
-//    }
-
     @PostMapping(value = "/products/add")
-    public Product addProductWork(@RequestPart("data") @Validated ProductDTO productDTO, @RequestPart("file") MultipartFile file)
-    throws FileNotFoundException {
-        productFacade.addProduct(productDTO);
-        return null;
+    public ResponseEntity addProduct(@RequestParam("data") String strDTO, @RequestParam("photo") MultipartFile file)
+            throws IOException {
+        ProductDTO productDTO = new ObjectMapper().readValue(strDTO,ProductDTO.class);  //Convert string param (json) into DTO
+        return productFacade.addProduct(productDTO,file) ? new ResponseEntity(HttpStatus.OK) : new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 }

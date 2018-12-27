@@ -1,5 +1,7 @@
 package com.mbicycle.imarket.beans.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
@@ -32,9 +34,11 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name = "id_group", nullable = false)
+    @JsonIgnore
     private Group group;
 
     @OneToMany(mappedBy = "product")
+    @JsonIgnore
     private List<OrderProduct> orderProducts;
 
     public Product() {

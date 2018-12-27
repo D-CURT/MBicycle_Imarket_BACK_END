@@ -18,77 +18,27 @@ import java.util.Random;
 
 @Service
 @SuppressWarnings("ALL")
-public class ProductService {
+public interface ProductService {
 
-    @Autowired
-    private ProductRepository repository;
+    public void addProduct(Product product);
 
-    @Autowired
-    private GroupService groupService;
+    public Product getProduct(String name) ;
 
-    public boolean addProduct(String name, double price, String groupName, String categoryName) {
-        groupService.addGroup(groupName, categoryName);
+    public List<Product> findByOrderByName() ;
 
-        Group group = groupService.getGroup(groupName);
+    public List<Product> findByOrderByPrice() ;
 
-        if (repository.findByName(name) == null) {
-            Product product = new Product();
-            product.setName(name);
-            product.setPrice(price);
-            product.setGroup(group);
+    public List<Product> findByGroupOrderByName(String name) ;
 
-            addProduct(product);
-        }
-        return true;
-    }
+    public List<Product> findByGroupOrderByPrice(String name) ;
 
-    public void addProduct(Product product) {
-        repository.save(product);
-    }
+    public List<Product> findByNameLikeOrderByName(String name) ;
 
-    public Product getProduct(String name) {
-        return repository.findByName(name);
-    }
+    public List<Product> findByNameLikeAndStoreStatusIsTrue(String name) ;
 
-    public List<Product> findByOrderByName() {
-        return repository.findByOrderByNameAsc();
-    }
+    public List<Product> findByNameLikeAndDiscountIsNotNull(String name) ;
 
-    public List<Product> findByOrderByPrice() {
-        return repository.findByOrderByPriceAsc();
-    }
+    public List<Product> findByNameLikeAndStoreStatusIsTrueAndDiscountIsNotNull(String name) ;
 
-    public List<Product> findByGroupOrderByName(String name) {
-        return repository.findByGroupOrderByNameAsc(groupByName(name));
-    }
-
-    public List<Product> findByGroupOrderByPrice(String name) {
-        return repository.findByGroupOrderByPriceAsc(groupByName(name));
-    }
-
-    public List<Product> findByNameLikeOrderByName(String name) {
-        return repository.findByNameLikeOrderByNameAsc(name);
-    }
-
-    public List<Product> findByNameLikeAndStoreStatusIsTrue(String name) {
-        return repository.findByNameLikeAndStoreStatusIsTrueOrderByNameAsc(name);
-    }
-
-    public List<Product> findByNameLikeAndDiscountIsNotNull(String name) {
-        return repository.findByNameLikeAndDiscountIsNotNullOrderByNameAsc(name);
-    }
-
-    public List<Product> findByNameLikeAndStoreStatusIsTrueAndDiscountIsNotNull(String name) {
-        return repository.findByNameLikeAndStoreStatusIsTrueAndDiscountIsNotNullOrderByNameAsc(name);
-    }
-
-    private Group groupByName(String name) {
-        /*Group group = new Group();
-        if (groupRepository.findByName(name) == null) {
-            group.setName(name);
-            groupRepository.save(group);
-        }*/
-
-        return groupService.getGroup(name);
-    }
+    public Group groupByName(String name) ;
 }
