@@ -81,7 +81,7 @@ public class Order {
         return profile;
     }
 
-    public final void setProfile(Profile profile) {
+    public void setProfile(Profile profile) {
         this.profile = profile;
     }
 
