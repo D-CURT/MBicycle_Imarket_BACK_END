@@ -1,7 +1,5 @@
 package com.mbicycle.imarket.dto;
 
-import java.util.List;
-
 public class RoleDTO {
 
     private String role;

@@ -1,8 +1,13 @@
 package com.mbicycle.imarket.dto;
 
+import com.mbicycle.imarket.beans.entities.User;
+
 import java.util.List;
+import java.util.Objects;
 
 public class UserDTO {
+
+    private int id;
 
     private String login;
 
@@ -13,6 +18,20 @@ public class UserDTO {
     private String error;
 
     public UserDTO() {
+    }
+
+    public UserDTO(String login, String password, List<String> roles) {
+        this.login = login;
+        this.password = password;
+        this.roles = roles;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getLogin() {
@@ -39,11 +58,16 @@ public class UserDTO {
         this.roles = roles;
     }
 
-    public String getError() {
-        return error;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null) return false;
+        User user = (User) o;
+        return Objects.equals(login, user.getLogin());
     }
 
-    public void setError(String error) {
-        this.error = error;
+    @Override
+    public int hashCode() {
+        return Objects.hash(login);
     }
 }

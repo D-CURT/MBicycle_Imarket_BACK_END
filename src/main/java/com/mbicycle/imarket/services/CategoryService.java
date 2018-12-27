@@ -1,34 +1,17 @@
 package com.mbicycle.imarket.services;
 
 import com.mbicycle.imarket.beans.entities.Category;
-import com.mbicycle.imarket.daos.CategoryRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-public class CategoryService {
+public interface CategoryService {
 
-    @Autowired
-    private CategoryRepository repository;
+    boolean addCategory(String name);
 
-    public boolean addCategory(String name) {
-        if (repository.findByName(name) == null) {
-            addCategory(new Category(name));
-        }
-        return true;
-    }
+    void addCategory(Category category);
 
-    public void addCategory(Category category) {
-        repository.save(category);
-    }
+    Category getCategory(String name);
 
-    public Category getCategory(String name){
-        return repository.findByName(name);
-    }
+    List<Category> findByOrderByName();
 
-    public List<Category> findByOrderByName(){
-        return repository.findByOrderByNameAsc();
-    }
 }

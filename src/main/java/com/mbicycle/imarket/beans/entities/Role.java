@@ -1,5 +1,6 @@
 package com.mbicycle.imarket.beans.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mbicycle.imarket.utils.enums.RoleType;
 
 import javax.persistence.*;
@@ -18,12 +19,8 @@ public class Role {
     @Column(length = 8)
     private RoleType role;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-    @JoinTable(
-            name = "user_roles",
-            joinColumns = @JoinColumn(name = "id_user"),
-            inverseJoinColumns = @JoinColumn(name = "id_role")
-    )
+    @JsonIgnore
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
     private List<User> users;
 
     public Role() {

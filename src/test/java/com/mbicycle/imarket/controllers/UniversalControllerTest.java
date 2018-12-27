@@ -6,6 +6,10 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.mbicycle.imarket.Main;
 import com.mbicycle.imarket.beans.entities.*;
 import com.mbicycle.imarket.daos.*;
+import com.mbicycle.imarket.dto.ProfileDTO;
+import com.mbicycle.imarket.dto.UserDTO;
+import com.mbicycle.imarket.facades.interfaces.ProfileFacade;
+import com.mbicycle.imarket.facades.interfaces.UserFacade;
 import com.mbicycle.imarket.services.CategoryService;
 import com.mbicycle.imarket.services.GroupService;
 import com.mbicycle.imarket.services.ProductService;
@@ -27,13 +31,13 @@ import java.util.List;
 
 import static com.fasterxml.jackson.databind.DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY;
 import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
-import static com.mbicycle.imarket.utils.generators.tests.TestObjectsBuilder.createProfile;
-import static com.mbicycle.imarket.utils.generators.tests.TestObjectsBuilder.createUser;
+import static com.mbicycle.imarket.utils.generators.tests.TestObjectsBuilder.*;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.junit.Assert.assertThat;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Main.class)
@@ -80,27 +84,23 @@ public class UniversalControllerTest {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private UserFacade userFacade;
+
+    @Autowired
+    private ProfileFacade profileFacade;
+
     @Before
     public void setUp() {
-        User[] users = {createUser(FIRST_VALUE, FIRST_USER_PASSWORD)
-                      , createUser(SECOND_VALUE, SECOND_USER_PASSWORD)
-                      , createUser(THIRD_VALUE, THIRD_USER_PASSWORD)};
+        UserDTO[] users = {createUserDTO(FIRST_VALUE, FIRST_USER_PASSWORD)
+                      ,    createUserDTO(SECOND_VALUE, SECOND_USER_PASSWORD)
+                      ,    createUserDTO(THIRD_VALUE, THIRD_USER_PASSWORD)};
 
         profiles = new ArrayList<>();
-        for (User user: users) {
-            String login = user.getLogin();
-            String password = user.getPassword();
-            if (userService.getUser(login, password) == null) {
-                userService.addUser(user);
-            }
-
-            user = userService.getUser(login, password);
-
-            if (profileRepository.findByUser(user) == null) {
-                Profile profile = createProfile(user.getLogin(), user);
-                profileRepository.save(profile);
-                profiles.add(profile);
-            }
+        for (UserDTO dto: users) {
+            userFacade.addUser(dto);
+            profileFacade.addProfile(createProfileDTO(dto.getLogin(), dto));
+            profiles.add(profileRepository.findByUser(userService.getUser(dto.getLogin(), dto.getPassword())));
         }
 
         String[] names = {FIRST_VALUE
@@ -110,22 +110,22 @@ public class UniversalControllerTest {
         products = new ArrayList<>();
         categories = new ArrayList<>();
 
-        for (String name: names) {
+       /* for (String name: names) {
 
-            /*System.out.println("*** Saving Caterogy. ***");
+            *//*System.out.println("*** Saving Caterogy. ***");
             categoryService.addCategory(name);
 
             Category category = categoryService.getCategory(name);
             categories.add(category);
 
             System.out.println("*** Saving Group. ***");
-            groupService.addGroup(name, category.getName());*/
+            groupService.addGroup(name, category.getName());*//*
 
-            System.out.println("*** Saving Product. ***");
-            productService.addProduct(name, 1.1, name, name);
+            *//*System.out.println("*** Saving Product. ***");
+//            productService.addProduct(name, 1.1, name, name);
 
-            products.add(productRepository.findByName(name));
-        }
+            products.add(productRepository.findByName(name));*//*
+        }*/
     }
 
     @After
@@ -146,7 +146,7 @@ public class UniversalControllerTest {
         String mapping = "/users/allUsersSortedByLogin";
 
         final List<User> EXPECTED_USER_LIST = userService.findByOrderByLogin();
-        List<User> actualUserList = actualList(mapping, User.class);
+        List<UserDTO> actualUserList = actualList(mapping, UserDTO.class);
 
         assertThat(actualUserList.size(), is(greaterThan(ZERO)));
         assertThat(actualUserList, is(equalTo(EXPECTED_USER_LIST)));
@@ -157,7 +157,7 @@ public class UniversalControllerTest {
         String mapping = "/profiles/allProfilesSortedByName";
 
         final List<Profile> EXPECTED_PROFILE_LIST = profileRepository.findByOrderByNameAsc();
-        List<Profile> actualProfileList = actualList(mapping, Profile.class);
+        List<ProfileDTO> actualProfileList = actualList(mapping, ProfileDTO.class);
 
         assertThat(actualProfileList.size(), is(greaterThan(ZERO)));
         assertThat(actualProfileList, is(equalTo(EXPECTED_PROFILE_LIST)));
