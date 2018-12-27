@@ -23,7 +23,6 @@ public class UserConverter extends AbstractConverter<UserDTO, User> {
 
     @Override
     public User convert(UserDTO source) {
-
         return super.convert(source);
     }
 }
