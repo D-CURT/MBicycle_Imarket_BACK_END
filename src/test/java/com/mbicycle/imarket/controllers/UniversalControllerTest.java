@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.mbicycle.imarket.Main;
 import com.mbicycle.imarket.beans.entities.*;
 import com.mbicycle.imarket.daos.*;
+import com.mbicycle.imarket.dto.ProfileDTO;
 import com.mbicycle.imarket.dto.UserDTO;
 import com.mbicycle.imarket.facades.interfaces.ProfileFacade;
 import com.mbicycle.imarket.facades.interfaces.UserFacade;
@@ -156,7 +157,7 @@ public class UniversalControllerTest {
         String mapping = "/profiles/allProfilesSortedByName";
 
         final List<Profile> EXPECTED_PROFILE_LIST = profileRepository.findByOrderByNameAsc();
-        List<Profile> actualProfileList = actualList(mapping, Profile.class);
+        List<ProfileDTO> actualProfileList = actualList(mapping, ProfileDTO.class);
 
         assertThat(actualProfileList.size(), is(greaterThan(ZERO)));
         assertThat(actualProfileList, is(equalTo(EXPECTED_PROFILE_LIST)));
