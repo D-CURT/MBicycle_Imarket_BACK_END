@@ -18,7 +18,7 @@ public class Role {
     @Column(length = 8)
     private RoleType role;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "id_user"),

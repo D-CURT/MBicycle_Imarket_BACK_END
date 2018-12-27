@@ -18,8 +18,12 @@ public class UserService {
         return repository.findByLoginAndPassword(login, password);
     }
 
-    public void addUser(User user) {
-        repository.save(user);
+    public boolean addUser(User user) {
+        if (getUser(user.getLogin(), user.getPassword()) == null) {
+            repository.save(user);
+            return true;
+        }
+        return false;
     }
 
     public void deleteUser(String login, String password) {

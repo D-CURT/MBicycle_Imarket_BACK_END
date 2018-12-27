@@ -20,6 +20,7 @@ public class ProfileService {
     public void delete(User user){
         repository.deleteByUser(user);
     }
+
     public Profile findByUser(User user){
         return repository.findByUser(user);
     }

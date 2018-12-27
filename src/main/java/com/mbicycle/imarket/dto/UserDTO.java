@@ -13,6 +13,12 @@ public class UserDTO {
     public UserDTO() {
     }
 
+    public UserDTO(String login, String password, List<String> roles) {
+        this.login = login;
+        this.password = password;
+        this.roles = roles;
+    }
+
     public String getLogin() {
         return login;
     }

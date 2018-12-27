@@ -1,21 +1,37 @@
 package com.mbicycle.imarket.facades;
 
 import com.mbicycle.imarket.beans.entities.Profile;
+import com.mbicycle.imarket.beans.entities.User;
+import com.mbicycle.imarket.converters.Converter;
 import com.mbicycle.imarket.dto.ProfileDTO;
-import com.mbicycle.imarket.utils.converters.Converter;
-import com.mbicycle.imarket.utils.converters.ProfileConverter;
-import com.mbicycle.imarket.utils.converters.reversed.ReverseProfileConverter;
+import com.mbicycle.imarket.converters.ProfileConverter;
+import com.mbicycle.imarket.services.ProfileService;
+import com.mbicycle.imarket.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-public class ProfileFacade implements Facade<ProfileDTO, Profile> {
-    @Override
-    public Profile push(ProfileDTO dto, String identifier) {
+@Component
+public class ProfileFacade {
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private ProfileService profileService;
+
+    public boolean push(ProfileDTO dto) {
+
         Converter<ProfileDTO, Profile> converter = new ProfileConverter();
-        return converter.convert(dto);
-    }
+        Profile profile = new Profile();
+        converter.convert(dto, profile);
 
-    @Override
-    public ProfileDTO pull(Profile profile) {
-        Converter<Profile, ProfileDTO> converter = new ReverseProfileConverter();
-        return converter.convert(profile);
+        User user = profile.getUser();
+        if (userService.addUser(user)) {
+            user = userService.getUser(user.getLogin(), user.getPassword());
+            profile.setUser(user);
+            profileService.addProfile(profile);
+            return true;
+        }
+        return false;
     }
 }
