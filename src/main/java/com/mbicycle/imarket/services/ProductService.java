@@ -11,12 +11,6 @@ import java.util.List;
 @Service
 public interface ProductService {
 
-    boolean addProduct(String name, double price, String groupName, String categoryName);
-
-    boolean addProduct(String name, double price, String descriptionPreview
-            , int discount, MultipartFile file
-            , String groupName, String categoryName) throws FileNotFoundException;
-
     void addProduct(Product product);
 
     Product getProduct(String name);

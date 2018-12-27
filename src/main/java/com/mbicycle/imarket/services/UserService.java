@@ -10,7 +10,7 @@ public interface UserService {
 
     List<User> findByOrderByLogin();
 
-    void addUser(User user);
+    boolean addUser(User user);
 
     void deleteUser(String login, String password);
 }

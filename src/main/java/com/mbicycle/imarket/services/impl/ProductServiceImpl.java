@@ -23,65 +23,6 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private GroupService groupService;
 
-    public boolean addProduct(String name, double price, String groupName, String categoryName) {
-        groupService.addGroup(groupName, categoryName);
-
-        Group group = groupService.getGroup(groupName);
-
-        if (repository.findByName(name) == null) {
-            Product product = new Product();
-            product.setName(name);
-            product.setPrice(price);
-            product.setGroup(group);
-
-            addProduct(product);
-        }
-        return true;
-    }
-
-    public boolean addProduct(String name, double price, String descriptionPreview
-                            , int discount, MultipartFile file
-                            , String groupName, String categoryName) throws FileNotFoundException {
-
-        groupService.addGroup(groupName, categoryName);
-
-        Group group = groupService.getGroup(groupName);
-
-        if (repository.findByName(name) == null) {
-            Product product = new Product();
-            product.setName(name);
-            product.setPrice(price);
-            product.setGroup(group);
-
-            if (file.isEmpty()) {
-                product.setPicture("default.jpg");
-            }
-            else {
-                String strPath = "images";
-                File newFile = new File(strPath);
-                if (!newFile.exists()) {
-                    newFile.mkdirs();
-                }
-                Random random = new Random();
-                String strRandonName = String.valueOf(random.nextInt(Integer.MAX_VALUE) + 1);
-                String strFileName = strRandonName+".jpg";
-                try (FileOutputStream fos = new FileOutputStream(strPath+"\\"+strFileName)) {
-                    fos.write(file.getBytes());
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                product.setPicture(strFileName);
-            }
-
-            addProduct(product);
-        }
-        return true;
-    }
-
-
     public void addProduct(Product product) {
         repository.save(product);
     }
