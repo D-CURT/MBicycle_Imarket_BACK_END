@@ -13,4 +13,8 @@ public interface UserService {
     boolean addUser(User user);
 
     void deleteUser(String login, String password);
+
+    void save(User user); //for security
+
+    User findByLogin(String login); //for security
 }
