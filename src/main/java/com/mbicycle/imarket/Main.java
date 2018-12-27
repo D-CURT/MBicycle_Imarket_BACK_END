@@ -1,24 +1,36 @@
 package com.mbicycle.imarket;
 
-import com.mbicycle.imarket.beans.entities.Order;
 import com.mbicycle.imarket.beans.entities.Product;
-import com.mbicycle.imarket.beans.entities.Profile;
-import com.mbicycle.imarket.beans.entities.User;
-import com.mbicycle.imarket.utils.generators.BaseGenerator;
+import com.mbicycle.imarket.converters.Converter;
+import com.mbicycle.imarket.converters.ProductConverter;
+import com.mbicycle.imarket.converters.ReverseProductConverter;
+import com.mbicycle.imarket.dto.ProductDTO;
+import com.mbicycle.imarket.services.ProductService;
+import com.mbicycle.imarket.services.impl.ProductServiceImpl;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.ImportResource;
-
-import java.util.List;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-
-//@ImportResource({"classpath*:appconfig-security.xml"})
 public class Main {
-
     public static void main(String[] args) {
       SpringApplication.run(Main.class, args);
-
     }
+
+    @Bean
+    public ProductService productService() {
+        return new ProductServiceImpl();
+    }
+
+    @Bean
+    public Converter<Product, ProductDTO> productConverter() {
+        return new ProductConverter();
+    }
+
+    @Bean
+    public Converter<ProductDTO, Product> reverseProductConverter() {
+        return new ReverseProductConverter();
+    }
+
+
 }

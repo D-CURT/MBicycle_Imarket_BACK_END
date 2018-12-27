@@ -10,6 +10,7 @@ import com.mbicycle.imarket.services.CategoryService;
 import com.mbicycle.imarket.services.GroupService;
 import com.mbicycle.imarket.services.ProductService;
 import com.mbicycle.imarket.services.UserService;
+import com.mbicycle.imarket.services.impl.ProductServiceImpl;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,8 +33,9 @@ import static com.mbicycle.imarket.utils.generators.tests.TestObjectsBuilder.cre
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.junit.Assert.assertThat;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Main.class)
@@ -122,7 +124,7 @@ public class UniversalControllerTest {
             groupService.addGroup(name, category.getName());*/
 
             System.out.println("*** Saving Product. ***");
-            productService.addProduct(name, 1.1, name, name);
+//            productService.addProduct(name, 1.1, name, name);
 
             products.add(productRepository.findByName(name));
         }

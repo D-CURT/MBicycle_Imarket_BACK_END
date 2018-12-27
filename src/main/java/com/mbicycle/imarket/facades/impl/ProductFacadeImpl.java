@@ -1,13 +1,14 @@
-package com.mbicycle.imarket.facades;
+package com.mbicycle.imarket.facades.impl;
 
-import com.mbicycle.imarket.beans.entities.Group;
 import com.mbicycle.imarket.beans.entities.Product;
+
+import com.mbicycle.imarket.converters.Converter;
 import com.mbicycle.imarket.daos.ProductRepository;
 import com.mbicycle.imarket.dto.ProductDTO;
+import com.mbicycle.imarket.facades.interfaces.ProductFacade;
 import com.mbicycle.imarket.services.GroupService;
 import com.mbicycle.imarket.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -16,8 +17,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Random;
 
-@Component
-public class ProductFacade {
+public class ProductFacadeImpl implements ProductFacade {
 
     @Autowired
     private ProductService productService;
@@ -28,16 +28,16 @@ public class ProductFacade {
     @Autowired
     private ProductRepository productRepository;
 
-    public boolean addProduct(ProductDTO productDTO) {
+    @Autowired
+    private Converter<ProductDTO, Product> reverseProductConverter;
 
-        groupService.addGroup(productDTO.getGroup(), "123");
-        Group group = groupService.getGroup(productDTO.getGroup());
+    @Autowired
+    private Converter<Product, ProductDTO> productConverter;
+
+    public boolean addProduct(ProductDTO productDTO, MultipartFile file) {
 
         if (productRepository.findByName(productDTO.getName()) == null) {
-
-            MultipartFile file = productDTO.getPicture();
             String strPicture2Add = "default.jpg";
-
             if (!file.isEmpty())  {
                 String strPath = "images";
                 File newFile = new File(strPath);
@@ -45,9 +45,9 @@ public class ProductFacade {
                     newFile.mkdirs();
                 }
                 Random random = new Random();
-                String strRandonName = String.valueOf(random.nextInt(Integer.MAX_VALUE) + 1);
-                String strFileName = strRandonName+".jpg";
-                try (FileOutputStream fos = new FileOutputStream(strPath+"\\"+strFileName)) {
+                String strRandomName = String.valueOf(random.nextInt(Integer.MAX_VALUE) + 1);
+                strPicture2Add = strRandomName+".jpg";
+                try (FileOutputStream fos = new FileOutputStream(strPath+"\\"+strPicture2Add)) {
                     fos.write(file.getBytes());
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
@@ -56,17 +56,11 @@ public class ProductFacade {
                 }
             }
 
-            Product product = new Product();
-
-            // Move to converter:
-            product.setName(productDTO.getName());
-            product.setPrice(productDTO.getPrice());
-            product.setGroup(group);
-
-            product.setPicture(strPicture2Add);
-            productService.addProduct(product);
+            Product newProduct = this.reverseProductConverter.convert(productDTO);
+            newProduct.setPicture(strPicture2Add);
+            productService.addProduct(newProduct);
+            return true;
         }
-
-        return true;
+        return false;
     }
 }
