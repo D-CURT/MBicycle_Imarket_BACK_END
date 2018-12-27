@@ -8,9 +8,11 @@ import java.util.List;
 @Service
 public interface UserService {
 
-    User getUser(String login, String password);
+    User get(String login, String password);
 
-    boolean addUser(User user);
+    boolean add(User user);
 
     List<User> findByOrderByLogin();
+
+    boolean delete(User user);
 }

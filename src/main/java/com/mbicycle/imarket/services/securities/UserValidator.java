@@ -29,7 +29,7 @@ public class UserValidator implements Validator {
             errors.rejectValue("username", "Size.userForm.username");
         }
 
-        if (userService.findByLogin(user.getLogin()) != null) {
+        if (userService.get(user.getLogin(), user.getPassword()) != null) {
             errors.rejectValue("username", "Duplicate.userForm.username");
         }
 

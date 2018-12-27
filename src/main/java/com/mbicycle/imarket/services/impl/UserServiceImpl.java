@@ -14,19 +14,19 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public User getUser(String login, String password) {
+    public User get(String login, String password) {
         return userRepository.findByLoginAndPassword(login, password);
     }
 
     @Override
-    public boolean addUser(User user) {
+    public boolean add(User user) {
         String login = user.getLogin();
         String password = user.getPassword();
 
-        if (getUser(login, password) == null) {
+        if (get(login, password) == null) {
             userRepository.save(user);
         }
-        return getUser(login, password) != null;
+        return get(login, password) != null;
     }
 
     @Override
@@ -34,4 +34,14 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByOrderByLoginAsc();
     }
 
+    @Override
+    public boolean delete(User user) {
+        String login = user.getLogin();
+        String password = user.getPassword();
+
+        if (get(login, password) != null) {
+            userRepository.delete(user);
+        }
+        return get(login, password) == null;
+    }
 }

@@ -13,6 +13,7 @@ import com.mbicycle.imarket.facades.interfaces.UserFacade;
 import com.mbicycle.imarket.services.CategoryService;
 import com.mbicycle.imarket.services.GroupService;
 import com.mbicycle.imarket.services.ProductService;
+import com.mbicycle.imarket.services.UserService;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -97,9 +98,9 @@ public class UniversalControllerTest {
 
         profiles = new ArrayList<>();
         for (UserDTO dto: users) {
-            userFacade.addUser(dto);
+            userFacade.add(dto);
             profileFacade.addProfile(createProfileDTO(dto.getLogin(), dto));
-            profiles.add(profileRepository.findByUser(userService.getUser(dto.getLogin(), dto.getPassword())));
+            profiles.add(profileRepository.findByUser(userService.get(dto.getLogin(), dto.getPassword())));
         }
 
         String[] names = {FIRST_VALUE

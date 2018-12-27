@@ -1,6 +1,7 @@
 package com.mbicycle.imarket.services.securities;
 
 import com.mbicycle.imarket.beans.entities.User;
+import com.mbicycle.imarket.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,7 +27,7 @@ public class WebAuthenticationManager implements AuthenticationManager {
         String username = auth.getName();
         String password = auth.getCredentials().toString();
 
-        User user = userService.findByLogin(username);
+        User user = userService.get(username, password);
         if (user == null) {
             throw new RuntimeException();
         }

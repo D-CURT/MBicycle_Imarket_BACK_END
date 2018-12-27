@@ -1,9 +1,7 @@
 package com.mbicycle.imarket.controllers;
 
-import com.mbicycle.imarket.beans.entities.Category;
 import com.mbicycle.imarket.dto.CategoryDTO;
 import com.mbicycle.imarket.facades.interfaces.CategoryFacade;
-import com.mbicycle.imarket.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
