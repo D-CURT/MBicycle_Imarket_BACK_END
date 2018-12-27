@@ -1,6 +1,5 @@
 package com.mbicycle.imarket.facades.config;
 
-import com.mbicycle.imarket.facades.OrderFacade;
 import com.mbicycle.imarket.facades.impl.OrderFacadeImpl;
 import com.mbicycle.imarket.facades.impl.ProductFacadeImpl;
 import com.mbicycle.imarket.facades.impl.SimpleProfileFacade;
@@ -15,6 +14,10 @@ import org.springframework.context.annotation.Configuration;
 public class FacadesConfig {
 
     @Bean
+    public ProductFacade productFacade() {
+        return new ProductFacadeImpl();
+    }
+
     public UserFacade userFacade() {
         return new SimpleUserFacade();
     }
@@ -22,16 +25,27 @@ public class FacadesConfig {
     @Bean
     public ProfileFacade profileFacade() {
         return new SimpleProfileFacade();
-    }
 
-    @Bean
-    public ProductFacade productFacade() {
-        return new ProductFacadeImpl();
-    }
 
-    @Bean
-    public OrderFacade orderFacade() {
-        return new OrderFacadeImpl();
+//        @Bean
+//        public OrderFacade orderFacade () {
+//            return new OrderFacadeImpl();
+//        }
+//    @Bean
+//    public CategoryFacade categoryFacade(){
+//        return new CategoryFacadeImpl();
+//    }
+//
+//    @Bean
+//    public GroupFacade groupFacade(){
+//        return new GroupFacadeImpl();
+//    }
+//
+//    @Bean
+//    public CouponFacade couponFacade(){
+//        return new CouponFacadeImpl();
+//    }
+
     }
 
 }

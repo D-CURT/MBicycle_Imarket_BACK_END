@@ -5,10 +5,13 @@ import com.mbicycle.imarket.beans.entities.User;
 import com.mbicycle.imarket.daos.ProfileRepository;
 import com.mbicycle.imarket.services.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 8c2ba1c68568ba731c759b6de71cc78576b4d631
 public class ProfileServiceImpl implements ProfileService {
 
     @Autowired

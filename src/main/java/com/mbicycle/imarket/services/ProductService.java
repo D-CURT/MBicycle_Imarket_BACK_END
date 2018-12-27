@@ -1,11 +1,8 @@
 package com.mbicycle.imarket.services;
 
-import com.mbicycle.imarket.beans.entities.Group;
 import com.mbicycle.imarket.beans.entities.Product;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.FileNotFoundException;
 import java.util.List;
 
 @Service
@@ -30,8 +27,6 @@ public interface ProductService {
     List<Product> findByNameLikeAndDiscountIsNotNull(String name);
 
     List<Product> findByNameLikeAndStoreStatusIsTrueAndDiscountIsNotNull(String name);
-
-    Group groupByName(String name);
 
 
 }

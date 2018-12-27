@@ -4,11 +4,10 @@ import com.mbicycle.imarket.beans.entities.Category;
 import com.mbicycle.imarket.daos.CategoryRepository;
 import com.mbicycle.imarket.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+
 public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
@@ -21,7 +20,7 @@ public class CategoryServiceImpl implements CategoryService {
         return true;
     }
 
-    public void addCategory(Category category) {
+    private void addCategory(Category category) {
         repository.save(category);
     }
 
