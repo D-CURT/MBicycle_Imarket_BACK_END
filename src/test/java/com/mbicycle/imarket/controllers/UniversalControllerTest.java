@@ -124,7 +124,7 @@ public class UniversalControllerTest {
             groupService.addGroup(name, category.getName());*/
 
             System.out.println("*** Saving Product. ***");
-            productService.addProduct(name, 1.1, name, name);
+//            productService.addProduct(name, 1.1, name, name);
 
             products.add(productRepository.findByName(name));
         }
