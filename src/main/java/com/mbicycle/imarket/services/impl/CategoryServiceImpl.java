@@ -20,7 +20,7 @@ public class CategoryServiceImpl implements CategoryService {
         return true;
     }
 
-    public void addCategory(Category category) {
+    private void addCategory(Category category) {
         repository.save(category);
     }
 

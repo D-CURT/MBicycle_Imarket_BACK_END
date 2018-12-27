@@ -7,9 +7,8 @@ import java.util.List;
 
 @Service
 public interface GroupService {
-    boolean addGroup(String groupName, String categoryName);
 
-    void addGroup(Group group);
+   boolean addGroup(String groupName, String categoryName);
 
     Group getGroup(String name);
 

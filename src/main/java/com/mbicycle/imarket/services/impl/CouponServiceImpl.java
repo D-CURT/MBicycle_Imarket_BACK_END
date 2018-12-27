@@ -12,7 +12,15 @@ public class CouponServiceImpl implements CouponService {
     @Autowired
     private CouponRepository  repository;
 
-    public void addCoupon(Coupon coupon){
+    @Override
+    public boolean addCoupon(String description, Integer sum) {
+        if (repository.findByDescription(description) == null){
+            addCoupon(new Coupon(description,sum));
+        }
+        return true;
+    }
+
+    private void addCoupon(Coupon coupon){
         repository.save(coupon);
     }
 

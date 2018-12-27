@@ -32,7 +32,7 @@ public class GroupServiceImpl implements GroupService {
         return true;
     }
 
-    public void addGroup(Group group){
+    private void addGroup(Group group){
         repository.save(group);
     }
 

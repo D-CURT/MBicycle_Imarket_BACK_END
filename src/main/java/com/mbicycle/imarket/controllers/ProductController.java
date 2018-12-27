@@ -90,16 +90,6 @@ public class ProductController {
         return productService.findByNameLikeAndStoreStatusIsTrueAndDiscountIsNotNull(name);
     }
 
-    @PostMapping(value = "/categories/add/{name}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public void addCategory(@PathVariable String name) {
-        categoryService.addCategory(name);
-    }
-
-    @PostMapping(value = "/groups/add/{groupName, categoryName}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public void addGroup(@PathVariable String groupName, String categoryName) {
-        groupService.addGroup(groupName, categoryName);
-    }
-
     @PostMapping(value = "/products/add")
     public ResponseEntity addProduct(@RequestParam("data") String strDTO, @RequestParam("photo") MultipartFile file)
             throws IOException {

@@ -10,8 +10,6 @@ public interface CategoryService {
 
     boolean addCategory(String name);
 
-    void addCategory(Category category);
-
     Category getCategory(String name);
 
     List<Category> findByOrderByName();
