@@ -8,6 +8,7 @@ import com.mbicycle.imarket.beans.entities.*;
 import com.mbicycle.imarket.daos.*;
 import com.mbicycle.imarket.services.CategoryService;
 import com.mbicycle.imarket.services.GroupService;
+import com.mbicycle.imarket.services.ProductService;
 import com.mbicycle.imarket.services.UserService;
 import com.mbicycle.imarket.services.impl.ProductServiceImpl;
 import org.junit.After;
@@ -79,7 +80,7 @@ public class UniversalControllerTest {
     private ProductRepository productRepository;
 
     @Autowired
-    private ProductServiceImpl productService;
+    private ProductService productService;
 
     @Before
     public void setUp() {
