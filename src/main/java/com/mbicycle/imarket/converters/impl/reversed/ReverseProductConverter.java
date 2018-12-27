@@ -1,6 +1,7 @@
-package com.mbicycle.imarket.converters;
+package com.mbicycle.imarket.converters.impl.reversed;
 
 import com.mbicycle.imarket.beans.entities.Product;
+import com.mbicycle.imarket.converters.AbstractConverter;
 import com.mbicycle.imarket.dto.ProductDTO;
 import com.mbicycle.imarket.services.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;

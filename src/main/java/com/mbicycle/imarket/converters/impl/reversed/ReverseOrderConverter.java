@@ -1,6 +1,7 @@
-package com.mbicycle.imarket.converters;
+package com.mbicycle.imarket.converters.impl.reversed;
 
 import com.mbicycle.imarket.beans.entities.Order;
+import com.mbicycle.imarket.converters.AbstractConverter;
 import com.mbicycle.imarket.dto.OrderDTO;
 
 public class ReverseOrderConverter extends AbstractConverter<OrderDTO, Order> {

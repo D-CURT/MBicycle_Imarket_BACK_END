@@ -9,18 +9,23 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 public class ProfileServiceImpl implements ProfileService {
+
     @Autowired
     private ProfileRepository repository;
 
-    public void addProfile(Profile profile){
-        repository.save(profile);
+    public boolean addProfile(Profile profile){
+        if (repository.findByUser(profile.getUser()) == null) {
+            repository.save(profile);
+            return true;
+        }
+        return false;
     }
 
     public void delete(User user){
         repository.deleteByUser(user);
     }
+
     public Profile findByUser(User user){
         return repository.findByUser(user);
     }

@@ -1,6 +1,5 @@
 package com.mbicycle.imarket.facades.config;
 
-import com.fasterxml.jackson.databind.ser.PropertyFilter;
 import com.mbicycle.imarket.facades.impl.ProductFacadeImpl;
 import com.mbicycle.imarket.facades.impl.SimpleProfileFacade;
 import com.mbicycle.imarket.facades.impl.SimpleUserFacade;

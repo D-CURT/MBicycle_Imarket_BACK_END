@@ -7,17 +7,30 @@ import com.mbicycle.imarket.facades.interfaces.UserFacade;
 import com.mbicycle.imarket.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+@SuppressWarnings("ALL")
 public class SimpleUserFacade implements UserFacade {
 
     @Autowired
     private UserService userService;
 
     @Autowired
-    private Converter<UserDTO, User> converter;
+    private Converter<User, UserDTO> converter;
+
+    @Autowired
+    private Converter<UserDTO, User> reversedConverter;
 
     public boolean addUser(UserDTO dto) {
+        return userService.addUser(reversedConverter.convert(dto));
+    }
 
-        converter.convert(dto);
-        return false;
+    @Override
+    public List<UserDTO> findByOrderByLogin() {
+        return userService.findByOrderByLogin()
+                          .stream()
+                          .map(converter::convert)
+                          .collect(Collectors.toList());
     }
 }
