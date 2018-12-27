@@ -17,12 +17,6 @@ public class Main {
       SpringApplication.run(Main.class, args);
     }
 
-<<<<<<< HEAD
-=======
-    @Bean
-    public ProductService productService() {
-        return new ProductServiceImpl();
-    }
 
     @Bean
     public Converter<Product, ProductDTO> productConverter() {
@@ -35,5 +29,5 @@ public class Main {
     }
 
 
->>>>>>> dfcfb1c4c024bed814067ec8f3833d24d0063092
+
 }

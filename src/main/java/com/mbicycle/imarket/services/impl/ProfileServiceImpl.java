@@ -5,11 +5,10 @@ import com.mbicycle.imarket.beans.entities.User;
 import com.mbicycle.imarket.daos.ProfileRepository;
 import com.mbicycle.imarket.services.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+
 public class ProfileServiceImpl implements ProfileService {
     @Autowired
     private ProfileRepository repository;

@@ -17,10 +17,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Random;
 
-<<<<<<< HEAD
 
-=======
->>>>>>> bef5eb2a18dbf444800576f39546c847c55d41da
 public class ProductFacadeImpl implements ProductFacade {
 
     @Autowired
