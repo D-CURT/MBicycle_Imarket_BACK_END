@@ -8,18 +8,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8c2ba1c68568ba731c759b6de71cc78576b4d631
 public class ProfileServiceImpl implements ProfileService {
+
     @Autowired
     private ProfileRepository repository;
 
-    public void addProfile(Profile profile){
-        repository.save(profile);
+    public boolean addProfile(Profile profile){
+        if (repository.findByUser(profile.getUser()) == null) {
+            repository.save(profile);
+            return true;
+        }
+        return false;
     }
 
     public void delete(User user){
         repository.deleteByUser(user);
     }
+
     public Profile findByUser(User user){
         return repository.findByUser(user);
     }

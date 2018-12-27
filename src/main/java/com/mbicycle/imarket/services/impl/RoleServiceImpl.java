@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8c2ba1c68568ba731c759b6de71cc78576b4d631
 public class RoleServiceImpl implements RoleService {
     @Autowired
     private RoleRepository repository;

@@ -8,7 +8,7 @@ import java.util.List;
 
 @Service
 public interface ProfileService {
-    void addProfile(Profile profile);
+    boolean addProfile(Profile profile);
 
     void delete(User user);
 
