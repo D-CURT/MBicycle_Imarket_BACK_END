@@ -36,5 +36,5 @@ public interface ProductService {
     List<Product> findByNameLikeAndStoreStatusIsTrueAndDiscountIsNotNull(String name);
 
     Group groupByName(String name);
-    
+
 }
