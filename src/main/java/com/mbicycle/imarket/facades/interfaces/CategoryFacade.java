@@ -7,9 +7,9 @@ import java.util.List;
 
 @Component
 public interface CategoryFacade {
-    boolean addCategory(CategoryDTO categoryDTO);
+    boolean add(CategoryDTO categoryDTO);
 
     List<CategoryDTO> findByOrderByName();
 
-    CategoryDTO getCategoryDTO(String name);
+    CategoryDTO get(String name);
 }

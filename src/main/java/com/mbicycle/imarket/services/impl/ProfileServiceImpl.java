@@ -11,24 +11,33 @@ import java.util.List;
 public class ProfileServiceImpl implements ProfileService {
 
     @Autowired
+    @SuppressWarnings("ALL")
     private ProfileRepository repository;
 
-    public boolean addProfile(Profile profile){
-        if (repository.findByUser(profile.getUser()) == null) {
+    @Override
+    public boolean add(Profile profile){
+        User user = profile.getUser();
+        if (repository.findByUser(user) == null) {
             repository.save(profile);
-            return true;
         }
-        return false;
+        return findByUser(user) != null;
     }
 
-    public void delete(User user){
-        repository.deleteByUser(user);
+    @Override
+    public boolean delete(Profile profile){
+        User user = profile.getUser();
+        if (findByUser(user) != null) {
+            repository.delete(profile);
+        }
+        return findByUser(user) == null;
     }
 
+    @Override
     public Profile findByUser(User user){
         return repository.findByUser(user);
     }
 
+    @Override
     public List<Profile> findByOrderByName(){
         return repository.findByOrderByNameAsc();
     }

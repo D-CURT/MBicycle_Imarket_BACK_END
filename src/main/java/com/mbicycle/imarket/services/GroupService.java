@@ -7,10 +7,11 @@ import java.util.List;
 
 @Service
 public interface GroupService {
+    boolean add(Group group);
 
-   boolean addGroup(String groupName, String categoryName);
-
-    Group getGroup(String name);
+    Group get(String name);
 
     List<Group> findByOrderByName();
+
+    boolean delete(Group group);
 }

@@ -99,7 +99,7 @@ public class UniversalControllerTest {
         profiles = new ArrayList<>();
         for (UserDTO dto: users) {
             userFacade.add(dto);
-            profileFacade.addProfile(createProfileDTO(dto.getLogin(), dto));
+            profileFacade.add(createProfileDTO(dto.getLogin(), dto));
             profiles.add(profileRepository.findByUser(userService.get(dto.getLogin(), dto.getPassword())));
         }
 
@@ -258,7 +258,7 @@ public class UniversalControllerTest {
     public void check_of_adding_product() throws Exception {
         String mapping = "/products/addTest";
 
-        String EXPECTED_PRODUCT_NAME = productService.getProduct(FIRST_VALUE).getName();
+        String EXPECTED_PRODUCT_NAME = productService.get(FIRST_VALUE).getName();
         mvc.perform(MockMvcRequestBuilders.post(
                 mapping + "?name=" + FIRST_VALUE
                                    + "&price=" + 1.1

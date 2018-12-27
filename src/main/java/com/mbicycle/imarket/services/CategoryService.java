@@ -8,10 +8,12 @@ import java.util.List;
 @Service
 public interface CategoryService {
 
-    boolean addCategory(String name);
+    boolean add(Category category);
 
-    Category getCategory(String name);
+    Category get(String name);
 
     List<Category> findByOrderByName();
+
+    boolean delete(Category category);
 
 }

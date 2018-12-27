@@ -12,6 +12,7 @@ import java.util.List;
 public class UserController {
 
     @Autowired
+    @SuppressWarnings("ALL")
     private UserFacade userFacade;
 
     @GetMapping("/users/allUsersSortedByLogin")

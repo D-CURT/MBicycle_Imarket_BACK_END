@@ -23,7 +23,7 @@ public class OrderController {
 
     @GetMapping("/orders/allOrders")
     public List<Order> getAllOrders(){
-        return service.getAllOrder();
+        return service.getAll();
     }
 
     @PostMapping("/orders/open")

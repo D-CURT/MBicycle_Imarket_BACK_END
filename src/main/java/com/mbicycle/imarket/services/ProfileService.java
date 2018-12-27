@@ -8,13 +8,11 @@ import java.util.List;
 
 @Service
 public interface ProfileService {
-    boolean addProfile(Profile profile);
+    boolean add(Profile profile);
 
-    void delete(User user);
+    boolean delete(Profile profile);
 
     Profile findByUser(User user);
 
     List<Profile> findByOrderByName();
-
-
 }

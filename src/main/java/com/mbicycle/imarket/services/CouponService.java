@@ -7,9 +7,9 @@ import java.util.List;
 
 @Service
 public interface CouponService {
-    boolean addCoupon(String description, Integer sum);
+    boolean add(Coupon coupon);
 
-    void deleteCoupon(Coupon coupon);
+    boolean delete(Coupon coupon);
 
     List<Coupon> findAll();
 }

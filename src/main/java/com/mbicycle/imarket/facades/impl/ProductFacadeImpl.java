@@ -19,14 +19,11 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-
+@SuppressWarnings("ALL")
 public class ProductFacadeImpl implements ProductFacade {
 
     @Autowired
     private ProductService productService;
-
-    @Autowired
-    private GroupService groupService;
 
     @Autowired
     private ProductRepository productRepository;
@@ -37,7 +34,8 @@ public class ProductFacadeImpl implements ProductFacade {
     @Autowired
     private Converter<Product, ProductDTO> productConverter;
 
-    public boolean addProduct(ProductDTO productDTO, MultipartFile file) {
+    @Override
+    public boolean add(ProductDTO productDTO, MultipartFile file) {
 
         if (productRepository.findByName(productDTO.getName()) == null) {
             String strPicture2Add = "default.jpg";
@@ -61,84 +59,58 @@ public class ProductFacadeImpl implements ProductFacade {
 
             Product newProduct = this.reverseProductConverter.convert(productDTO);
             newProduct.setPicture(strPicture2Add);
-            productService.addProduct(newProduct);
+            productService.add(newProduct);
             return true;
         }
         return false;
     }
 
     @Override
-    public ProductDTO getProduct(String name) {
-        return productConverter.convert(productService.getProduct(name));
+    public ProductDTO get(String name) {
+        return productConverter.convert(productService.get(name));
     }
 
     @Override
     public List<ProductDTO> findByOrderByName() {
-        return productService.findByOrderByName().stream().map(productConverter::convert).collect(Collectors.toList());
+        return convert(productService.findByOrderByName());
     }
 
     @Override
     public List<ProductDTO> findByOrderByPrice() {
-        return productService.findByOrderByPrice().stream().map(productConverter::convert).collect(Collectors.toList());
+        return convert(productService.findByOrderByPrice());
     }
 
     @Override
     public List<ProductDTO> findByGroupOrderByName(String name) {
-        List<ProductDTO> productDTOList = new ArrayList<>();
-        for (Product product : productService.findByGroupOrderByName(name)) {
-            ProductDTO productDTO = productConverter.convert(product);
-            productDTOList.add(productDTO);
-        }
-        return productDTOList;
+        return convert(productService.findByGroupOrderByName(name));
     }
 
     @Override
     public List<ProductDTO> findByGroupOrderByPrice(String name) {
-        List<ProductDTO> productDTOList = new ArrayList<>();
-        for (Product product : productService.findByGroupOrderByPrice(name)) {
-            ProductDTO productDTO = productConverter.convert(product);
-            productDTOList.add(productDTO);
-        }
-        return productDTOList;
+        return convert(productService.findByGroupOrderByPrice(name));
     }
 
     @Override
     public List<ProductDTO> findByNameLikeOrderByName(String name) {
-        List<ProductDTO> productDTOList = new ArrayList<>();
-        for (Product product : productService.findByNameLikeOrderByName(name)) {
-            ProductDTO productDTO = productConverter.convert(product);
-            productDTOList.add(productDTO);
-        }
-        return productDTOList;
+        return convert(productService.findByNameLikeOrderByName(name));
     }
 
     @Override
     public List<ProductDTO> findByNameLikeAndStoreStatusIsTrue(String name) {
-        List<ProductDTO> productDTOList = new ArrayList<>();
-        for (Product product : productService.findByNameLikeAndStoreStatusIsTrue(name)) {
-            ProductDTO productDTO = productConverter.convert(product);
-            productDTOList.add(productDTO);
-        }
-        return productDTOList;
+        return convert(productService.findByNameLikeAndStoreStatusIsTrue(name));
     }
 
     @Override
     public List<ProductDTO> findByNameLikeAndDiscountIsNotNull(String name) {
-        List<ProductDTO> productDTOList = new ArrayList<>();
-        for (Product product : productService.findByNameLikeAndDiscountIsNotNull(name)) {
-            ProductDTO productDTO = productConverter.convert(product);
-            productDTOList.add(productDTO);
-        }
-        return productDTOList;
+        return convert(productService.findByNameLikeAndDiscountIsNotNull(name));
     }
 
     @Override
     public List<ProductDTO> findByNameLikeAndStoreStatusIsTrueAndDiscountIsNotNull(String name) {
-        List<ProductDTO> productDTOList = new ArrayList<>();
-        for (Product product : productService.findByNameLikeAndStoreStatusIsTrueAndDiscountIsNotNull(name)) {
-            ProductDTO productDTO = productConverter.convert(product);
-            productDTOList.add(productDTO);
-        }
-        return productDTOList;
+        return convert(productService.findByNameLikeAndStoreStatusIsTrueAndDiscountIsNotNull(name));
+    }
+
+    private List<ProductDTO> convert(List<Product> products) {
+        return products.stream().map(productConverter::convert).collect(Collectors.toList());
     }
 }

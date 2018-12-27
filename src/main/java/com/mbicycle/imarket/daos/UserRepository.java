@@ -12,8 +12,4 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     User findByLoginAndPassword(String login, String password);
 
     List<User> findByOrderByLoginAsc();
-
-    void deleteByLoginAndPassword(String login, String password);
-
-    User findByLogin(String login);
 }

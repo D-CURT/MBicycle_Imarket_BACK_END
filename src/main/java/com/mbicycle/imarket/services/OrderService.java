@@ -7,7 +7,9 @@ import java.util.List;
 
 @Service
 public interface OrderService {
-     void addOrder(Order order);
+    boolean add(Order order);
 
-    List<Order> getAllOrder();
+    boolean delete(Order order);
+
+    List<Order> getAll();
 }

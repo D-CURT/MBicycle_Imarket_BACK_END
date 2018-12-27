@@ -8,9 +8,9 @@ import java.util.List;
 
 @Component
 public interface ProfileFacade {
-    boolean addProfile(ProfileDTO dto);
+    boolean add(ProfileDTO dto);
 
-    void delete(UserDTO userDTO);
+    boolean delete(ProfileDTO dto);
 
     ProfileDTO findByUser(UserDTO userDTO);
 
