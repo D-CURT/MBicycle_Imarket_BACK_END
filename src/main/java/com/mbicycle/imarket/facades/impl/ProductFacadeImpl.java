@@ -1,7 +1,8 @@
 package com.mbicycle.imarket.facades.impl;
 
-import com.mbicycle.imarket.beans.entities.Group;
 import com.mbicycle.imarket.beans.entities.Product;
+
+import com.mbicycle.imarket.converters.Converter;
 import com.mbicycle.imarket.daos.ProductRepository;
 import com.mbicycle.imarket.dto.ProductDTO;
 import com.mbicycle.imarket.facades.interfaces.ProductFacade;
@@ -27,11 +28,11 @@ public class ProductFacadeImpl implements ProductFacade {
     @Autowired
     private ProductRepository productRepository;
 
-//    @Autowired
-//    private Converter<ProductDTO, Product> reverseProductConverter;  //FIXME: Not working converter (Field required a bean of type that could not be found.)
+    @Autowired
+    private Converter<ProductDTO, Product> reverseProductConverter;
 
-//    @Autowired
-//    private Converter<Product, ProductDTO> productConverter;
+    @Autowired
+    private Converter<Product, ProductDTO> productConverter;
 
     public boolean addProduct(ProductDTO productDTO, MultipartFile file) {
 
@@ -54,20 +55,8 @@ public class ProductFacadeImpl implements ProductFacade {
                     e.printStackTrace();
                 }
             }
-            Product newProduct = new Product();
 
-            //newProduct = this.reverseProductConverter.convert(productDTO); //FIXME: Not working converter (Field required a bean of type that could not be found.)
-
-
-
-            //FIXME: Delete after converter starts working:
-            groupService.addGroup(productDTO.getGroup(), "123");
-            Group group = groupService.getGroup(productDTO.getGroup());
-            newProduct.setName(productDTO.getName());
-            newProduct.setGroup(group);
-
-
-
+            Product newProduct = this.reverseProductConverter.convert(productDTO);
             newProduct.setPicture(strPicture2Add);
             productService.addProduct(newProduct);
             return true;

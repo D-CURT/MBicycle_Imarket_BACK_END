@@ -2,21 +2,25 @@ package com.mbicycle.imarket.converters;
 
 import com.mbicycle.imarket.beans.entities.Product;
 import com.mbicycle.imarket.dto.ProductDTO;
+import com.mbicycle.imarket.services.GroupService;
+import org.springframework.beans.factory.annotation.Autowired;
 
-public class ProductConverter extends AbstractConverter<Product, ProductDTO> {
+public class ReverseProductConverter extends AbstractConverter<ProductDTO, Product> {
+
+    @Autowired
+    private GroupService groupService;
 
     @Override
-    public void convert(Product source, ProductDTO target) {
+    public void convert(ProductDTO source, Product target) {
         target.setId(source.getId());
         target.setName(source.getName());
         target.setDescriptionPreview(source.getDescriptionPreview());
-        target.setDescription(source.getDescriptionFull());
+        target.setDescriptionFull(source.getDescription());
         target.setDiscount(source.getDiscount());
         target.setPicture(source.getPicture());
         target.setPrice(source.getPrice());
         target.setStoreStatus(source.isStoreStatus());
-        target.setGroup(source.getGroup().getName());
-        target.setCategory(source.getGroup().getCategory().getName());
+        target.setGroup(groupService.getGroup(source.getGroup()));
     }
 }
 
