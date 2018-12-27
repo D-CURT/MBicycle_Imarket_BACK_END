@@ -1,7 +1,7 @@
 package com.mbicycle.imarket.facades;
 
-public interface Facade<DTO, Entity> {
-    Entity push(DTO DTO, String identifier);
+public interface Facade<T> {
+    boolean push(T t, String identifier);
 
-    DTO pull(Entity entity);
+    T pull(T t);
 }

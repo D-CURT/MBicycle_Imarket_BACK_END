@@ -10,6 +10,8 @@ public class UserDTO {
 
     private List<String> roles;
 
+    private String error;
+
     public UserDTO() {
     }
 
@@ -35,5 +37,13 @@ public class UserDTO {
 
     public void setRoles(List<String> roles) {
         this.roles = roles;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
     }
 }
