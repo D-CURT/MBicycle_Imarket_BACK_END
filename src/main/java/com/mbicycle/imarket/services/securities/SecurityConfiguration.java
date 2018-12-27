@@ -55,7 +55,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .usernameParameter("j_username").passwordParameter("j_password")
                 .permitAll()
 
-
                 .and()
                 .csrf().disable()
                 .authorizeRequests()
@@ -83,9 +82,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     }
 
-    /* To allow Pre-flight [OPTIONS] request from browser */
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**");
-    }
 
 }
