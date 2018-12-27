@@ -19,8 +19,8 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 
 @Configuration
 @EnableWebSecurity
-@Profile({"dev", "demo"})
-@Order(80)
+//@Profile({"dev", "demo"})
+//@Order(80)
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
@@ -40,20 +40,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         httpSecurity
                 .userDetailsService(userDetailsService)
-                //.authorizeRequests().antMatchers("/").permitAll()
-                //and()
-               // .authorizeRequests().antMatchers("/profiles/**").hasRole("ADMIN")
-                // .and()
-
-//                .formLogin()
-//                .loginPage("/") ///authorization
-//                .loginProcessingUrl("/j_spring_security_check")
-//                .failureUrl("/products/allProductsSortedByName")                             //убрать после проверки
-//                .usernameParameter("j_username").passwordParameter("j_password")
-//                .permitAll()
-
                 .authorizeRequests()
                 .antMatchers("/login/**").permitAll()
+
+                .and()
+                .formLogin()
+                .loginPage("/") ///authorization
+                .loginProcessingUrl("/j_spring_security_check")
+                .failureUrl("/products/allProductsSortedByName")                             //убрать после проверки
+                .usernameParameter("j_username").passwordParameter("j_password")
+                .permitAll()
+
+
 
               //  .and()
               //  .csrf().disable()                                                                  // Временно пока не добавим токен ф форму
@@ -62,14 +60,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
               //  .permitAll()
 
                 .and()
-              // .addFilterBefore(customAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+            //  .addFilterBefore(customAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .httpBasic().authenticationEntryPoint(authenticationEntryPoint)
-                .and().logout().clearAuthentication(true).invalidateHttpSession(true)
-                .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK))
-                .and().csrf().disable();
+               .and().logout().clearAuthentication(true).invalidateHttpSession(true)
+               .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK))
+                .and()
+                .csrf().disable();
 
-        httpSecurity.addFilterAfter(new CustomFilter(),
-                BasicAuthenticationFilter.class);
+//        httpSecurity.addFilterAfter(new CustomFilter(),
+//                BasicAuthenticationFilter.class);
 
     }
 
