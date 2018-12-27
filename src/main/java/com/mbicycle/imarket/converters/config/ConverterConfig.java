@@ -1,18 +1,10 @@
 package com.mbicycle.imarket.converters.config;
 
-import com.mbicycle.imarket.beans.entities.Product;
-import com.mbicycle.imarket.beans.entities.Profile;
-import com.mbicycle.imarket.beans.entities.User;
-import com.mbicycle.imarket.converters.*;
-import com.mbicycle.imarket.converters.impl.ProductConverter;
-import com.mbicycle.imarket.converters.impl.ProfileConverter;
-import com.mbicycle.imarket.converters.impl.UserConverter;
-import com.mbicycle.imarket.converters.impl.reversed.ReverseProductConverter;
-import com.mbicycle.imarket.converters.impl.reversed.ReversedProfileConverter;
-import com.mbicycle.imarket.converters.impl.reversed.ReversedUserConverter;
-import com.mbicycle.imarket.dto.ProductDTO;
-import com.mbicycle.imarket.dto.ProfileDTO;
-import com.mbicycle.imarket.dto.UserDTO;
+import com.mbicycle.imarket.beans.entities.*;
+import com.mbicycle.imarket.converters.Converter;
+import com.mbicycle.imarket.converters.impl.*;
+import com.mbicycle.imarket.converters.impl.reversed.*;
+import com.mbicycle.imarket.dto.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -48,4 +40,35 @@ public class ConverterConfig {
     public Converter<ProductDTO, Product> reverseProductConverter() {
         return new ReverseProductConverter();
     }
+
+    @Bean
+    public Converter<Category, CategoryDTO> categoryConverter() {
+        return new CategoryConverter();
+    }
+
+    @Bean
+    public Converter<CategoryDTO, Category> reverseCategoryConverter() {
+        return new ReversedCategoryConverter();
+    }
+
+    @Bean
+    public Converter<Group, GroupDTO> groupConverter() {
+        return new GroupConverter();
+    }
+
+    @Bean
+    public Converter<GroupDTO, Group> reverseGroupConverter() {
+        return new ReversedGroupCategory();
+    }
+
+    @Bean
+    public Converter<Coupon, CouponDTO> couponConverter() {
+        return new CouponConverter();
+    }
+
+    @Bean
+    public Converter<CouponDTO, Coupon> reverseCouponConverter() {
+        return new ReversedCouponConverter();
+    }
+
 }

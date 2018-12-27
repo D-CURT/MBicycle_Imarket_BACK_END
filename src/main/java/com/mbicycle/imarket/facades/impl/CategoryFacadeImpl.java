@@ -8,6 +8,9 @@ import com.mbicycle.imarket.facades.interfaces.CategoryFacade;
 import com.mbicycle.imarket.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class CategoryFacadeImpl implements CategoryFacade {
 
     @Autowired
@@ -16,9 +19,11 @@ public class CategoryFacadeImpl implements CategoryFacade {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Autowired
+    private Converter<Category, CategoryDTO> categoryConverter;
 
     @Autowired
-    private Converter<CategoryDTO,Category> reverseCategoryConverter;
+    private Converter<CategoryDTO, Category> reverseCategoryConverter;
 
     @Override
     public boolean addCategory(CategoryDTO categoryDTO) {
@@ -28,5 +33,15 @@ public class CategoryFacadeImpl implements CategoryFacade {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<CategoryDTO> findByOrderByName() {
+        return categoryService.findByOrderByName().stream().map(categoryConverter::convert).collect(Collectors.toList());
+    }
+
+    @Override
+    public CategoryDTO getCategoryDTO(String name) {
+        return  categoryConverter.convert(categoryService.getCategory(name));
     }
 }
