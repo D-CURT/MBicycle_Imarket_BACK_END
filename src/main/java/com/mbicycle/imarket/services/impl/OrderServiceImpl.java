@@ -2,13 +2,14 @@ package com.mbicycle.imarket.services.impl;
 
 import com.mbicycle.imarket.beans.entities.Order;
 import com.mbicycle.imarket.daos.OrderRepository;
+import com.mbicycle.imarket.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class OrderService {
+public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderRepository orderRepository;
 
