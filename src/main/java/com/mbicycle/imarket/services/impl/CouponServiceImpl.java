@@ -7,27 +7,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-
 public class CouponServiceImpl implements CouponService {
     @Autowired
+    @SuppressWarnings("ALL")
     private CouponRepository  repository;
 
     @Override
-    public boolean addCoupon(String description, Integer sum) {
+    public boolean add(Coupon coupon) {
+        String description = coupon.getDescription();
         if (repository.findByDescription(description) == null){
-            addCoupon(new Coupon(description,sum));
+            repository.save(coupon);
         }
-        return true;
+        return repository.findByDescription(description) != null;
     }
 
-    private void addCoupon(Coupon coupon){
-        repository.save(coupon);
+    @Override
+    public boolean delete(Coupon coupon){
+        String description = coupon.getDescription();
+        if (repository.findByDescription(description) != null) {
+            repository.delete(coupon);
+        }
+        return repository.findByDescription(description) == null;
     }
 
-    public void deleteCoupon(Coupon coupon){
-        repository.delete(coupon);
-    }
-
+    @Override
     public List<Coupon> findAll(){
         return repository.findAll();
     }

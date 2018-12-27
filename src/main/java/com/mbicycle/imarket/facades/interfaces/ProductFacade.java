@@ -8,9 +8,9 @@ import java.util.List;
 
 @Component
 public interface ProductFacade {
-    boolean addProduct(ProductDTO productDTO, MultipartFile file);
+    boolean add(ProductDTO productDTO, MultipartFile file);
 
-    ProductDTO getProduct(String name);
+    ProductDTO get(String name);
 
     List<ProductDTO> findByOrderByName();
 

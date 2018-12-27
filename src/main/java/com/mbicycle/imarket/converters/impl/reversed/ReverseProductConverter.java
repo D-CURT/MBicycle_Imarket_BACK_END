@@ -21,7 +21,7 @@ public class ReverseProductConverter extends AbstractConverter<ProductDTO, Produ
         target.setPicture(source.getPicture());
         target.setPrice(source.getPrice());
         target.setStoreStatus(source.isStoreStatus());
-        target.setGroup(groupService.getGroup(source.getGroup()));
+        target.setGroup(groupService.get(source.getGroup()));
     }
 }
 

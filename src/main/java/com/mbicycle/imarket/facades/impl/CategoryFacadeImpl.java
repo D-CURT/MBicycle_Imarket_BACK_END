@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@SuppressWarnings("ALL")
 public class CategoryFacadeImpl implements CategoryFacade {
 
     @Autowired
@@ -26,13 +27,8 @@ public class CategoryFacadeImpl implements CategoryFacade {
     private Converter<CategoryDTO, Category> reverseCategoryConverter;
 
     @Override
-    public boolean addCategory(CategoryDTO categoryDTO) {
-        if (categoryRepository.findByName(categoryDTO.getName()) == null) {
-            Category category = reverseCategoryConverter.convert(categoryDTO);
-            categoryService.addCategory(category.getName());
-            return true;
-        }
-        return false;
+    public boolean add(CategoryDTO categoryDTO) {
+        return categoryService.add(reverseCategoryConverter.convert(categoryDTO));
     }
 
     @Override
@@ -41,7 +37,7 @@ public class CategoryFacadeImpl implements CategoryFacade {
     }
 
     @Override
-    public CategoryDTO getCategoryDTO(String name) {
-        return  categoryConverter.convert(categoryService.getCategory(name));
+    public CategoryDTO get(String name) {
+        return categoryConverter.convert(categoryService.get(name));
     }
 }

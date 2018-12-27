@@ -2,7 +2,6 @@ package com.mbicycle.imarket.facades.impl;
 
 import com.mbicycle.imarket.beans.entities.Coupon;
 import com.mbicycle.imarket.converters.Converter;
-import com.mbicycle.imarket.daos.CouponRepository;
 import com.mbicycle.imarket.dto.CouponDTO;
 import com.mbicycle.imarket.facades.interfaces.CouponFacade;
 import com.mbicycle.imarket.services.CouponService;
@@ -11,12 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@SuppressWarnings("ALL")
 public class CouponFacadeImpl implements CouponFacade {
     @Autowired
     private CouponService couponService;
-
-    @Autowired
-    private CouponRepository couponRepository;
 
     @Autowired
     private Converter<Coupon, CouponDTO> couponConverter;
@@ -25,13 +22,8 @@ public class CouponFacadeImpl implements CouponFacade {
     private Converter<CouponDTO, Coupon> reverseCouponConverter;
 
     @Override
-    public boolean addCoupon(CouponDTO couponDTO) {
-        if (couponRepository.findByDescription(couponDTO.getDescription()) == null) {
-            Coupon coupon = reverseCouponConverter.convert(couponDTO);
-            couponService.addCoupon(couponDTO.getDescription(), couponDTO.getSum());
-            return true;
-        }
-        return false;
+    public boolean add(CouponDTO couponDTO) {
+        return couponService.add(reverseCouponConverter.convert(couponDTO));
     }
 
     @Override
@@ -40,7 +32,7 @@ public class CouponFacadeImpl implements CouponFacade {
     }
 
     @Override
-    public void deleteCoupon(CouponDTO couponDTO) {
-        couponService.deleteCoupon(reverseCouponConverter.convert(couponDTO));
+    public boolean delete(CouponDTO couponDTO) {
+        return couponService.delete(reverseCouponConverter.convert(couponDTO));
     }
 }

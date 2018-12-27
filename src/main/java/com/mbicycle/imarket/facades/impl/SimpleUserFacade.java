@@ -22,8 +22,9 @@ public class SimpleUserFacade implements UserFacade {
     @Autowired
     private Converter<UserDTO, User> reversedConverter;
 
-    public boolean addUser(UserDTO dto) {
-        return userService.addUser(reversedConverter.convert(dto));
+    @Override
+    public boolean add(UserDTO dto) {
+        return userService.add(reversedConverter.convert(dto));
     }
 
     @Override
@@ -35,7 +36,7 @@ public class SimpleUserFacade implements UserFacade {
     }
 
     @Override
-    public void deleteUser(String login, String password) {
-        userService.deleteUser(login,password);
+    public boolean delete(UserDTO dto) {
+        return userService.delete(reversedConverter.convert(dto));
     }
 }

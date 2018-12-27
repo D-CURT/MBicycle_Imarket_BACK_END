@@ -7,28 +7,37 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-
 public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
+    @SuppressWarnings("ALL")
     private CategoryRepository repository;
 
-    public boolean addCategory(String name) {
-        if (repository.findByName(name) == null) {
-            addCategory(new Category(name));
+    @Override
+    public boolean add(Category category) {
+        String name = category.getName();
+        if (get(name) == null) {
+            repository.save(category);
         }
-        return true;
+        return get(name) != null;
     }
 
-    private void addCategory(Category category) {
-        repository.save(category);
-    }
-
-    public Category getCategory(String name){
+    @Override
+    public Category get(String name){
         return repository.findByName(name);
     }
 
+    @Override
     public List<Category> findByOrderByName(){
         return repository.findByOrderByNameAsc();
+    }
+
+    @Override
+    public boolean delete(Category category) {
+        String name = category.getName();
+        if (get(name) != null) {
+            repository.delete(category);
+        }
+        return get(name) == null;
     }
 }

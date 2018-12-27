@@ -23,6 +23,7 @@ import java.util.Set;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
+    @SuppressWarnings("ALL")
     private UserRepository userRepository;
 
     @Override

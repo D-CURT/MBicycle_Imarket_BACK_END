@@ -1,9 +1,7 @@
 package com.mbicycle.imarket.controllers;
 
-import com.mbicycle.imarket.beans.entities.Category;
 import com.mbicycle.imarket.dto.CategoryDTO;
 import com.mbicycle.imarket.facades.interfaces.CategoryFacade;
-import com.mbicycle.imarket.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -22,12 +20,12 @@ public class CategoryController {
 
     @GetMapping("/categories/getCategory")
     public CategoryDTO getCategory(@PathVariable String name){
-        return categoryFacade.getCategoryDTO(name);
+        return categoryFacade.get(name);
     }
 
     @PostMapping(value = "/categories/add/{name}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public void addCategory(@RequestBody CategoryDTO categoryDTO) {
-        if (categoryFacade.addCategory(categoryDTO)){
+        if (categoryFacade.add(categoryDTO)){
 
         }else{
 

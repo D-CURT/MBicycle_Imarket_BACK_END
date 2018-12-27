@@ -15,6 +15,8 @@ public class UserDTO {
 
     private List<String> roles;
 
+    private String error;
+
     public UserDTO() {
     }
 

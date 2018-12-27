@@ -11,10 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@SuppressWarnings("ALL")
 public class GroupFacadeImpl implements GroupFacade {
-
-    @Autowired
-    private GroupRepository groupRepository;
 
     @Autowired
     private GroupService groupService;
@@ -27,17 +25,12 @@ public class GroupFacadeImpl implements GroupFacade {
 
     @Override
     public boolean addGroup(GroupDTO groupDTO) {
-        if (groupRepository.findByName(groupDTO.getName()) == null) {
-            Group group = reverseGroupConverter.convert(groupDTO);
-            groupService.addGroup(group.getName(), group.getCategory().getName());
-            return true;
-        }
-        return false;
+        return groupService.add(reverseGroupConverter.convert(groupDTO));
     }
 
     @Override
     public GroupDTO getGroup(String name) {
-        return groupConverter.convert(groupService.getGroup(name));
+        return groupConverter.convert(groupService.get(name));
     }
 
     @Override

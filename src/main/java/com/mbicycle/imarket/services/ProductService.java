@@ -7,10 +7,9 @@ import java.util.List;
 
 @Service
 public interface ProductService {
+    boolean add(Product product);
 
-    void addProduct(Product product);
-
-    Product getProduct(String name);
+    Product get(String name);
 
     List<Product> findByOrderByName();
 
@@ -28,5 +27,5 @@ public interface ProductService {
 
     List<Product> findByNameLikeAndStoreStatusIsTrueAndDiscountIsNotNull(String name);
 
-
+    boolean delete(Product product);
 }

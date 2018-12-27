@@ -8,9 +8,9 @@ import java.util.List;
 
 @Component
 public interface UserFacade {
-    boolean addUser(UserDTO dto);
+    boolean add(UserDTO dto);
 
     List<UserDTO> findByOrderByLogin();
 
-    void deleteUser(String login, String password);
+    boolean delete(UserDTO dto);
 }

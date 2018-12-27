@@ -1,7 +1,6 @@
 package com.mbicycle.imarket.services.securities;
 
 import com.mbicycle.imarket.beans.entities.User;
-import com.mbicycle.imarket.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -30,7 +29,7 @@ public class UserValidator implements Validator {
             errors.rejectValue("username", "Size.userForm.username");
         }
 
-        if (userService.findByLogin(user.getLogin()) != null) {
+        if (userService.get(user.getLogin(), user.getPassword()) != null) {
             errors.rejectValue("username", "Duplicate.userForm.username");
         }
 

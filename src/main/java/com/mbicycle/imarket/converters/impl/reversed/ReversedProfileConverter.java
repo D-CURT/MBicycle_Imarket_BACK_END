@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class ReversedProfileConverter extends AbstractConverter<ProfileDTO, Profile> {
 
     @Autowired
+    @SuppressWarnings("ALL")
     private UserService userService;
 
     @Override
@@ -17,7 +18,7 @@ public class ReversedProfileConverter extends AbstractConverter<ProfileDTO, Prof
         target.setEmail(source.getEmail());
         target.setPhone(source.getPhone());
         target.setAddress(source.getAddress());
-        target.setUser(userService.getUser(source.getLogin(), source.getPassword()));
+        target.setUser(userService.get(source.getLogin(), source.getPassword()));
         /*userService.addUser(new User(source.getLogin()
                                    , source.getPassword()
                                    , source.getRoles()

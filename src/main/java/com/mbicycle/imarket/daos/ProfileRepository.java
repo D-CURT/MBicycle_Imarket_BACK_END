@@ -13,6 +13,4 @@ public interface ProfileRepository extends JpaRepository<Profile, Integer> {
     Profile findByUser(User user);
 
     List<Profile> findByOrderByNameAsc();
-
-    void deleteByUser(User user);
 }

@@ -8,9 +8,9 @@ import java.util.List;
 
 @Component
 public interface CouponFacade {
-    boolean addCoupon(CouponDTO couponDTO);
+    boolean add(CouponDTO couponDTO);
 
     List<CouponDTO> findAll();
 
-    void deleteCoupon(CouponDTO couponDTO);
+    boolean delete(CouponDTO couponDTO);
 }
