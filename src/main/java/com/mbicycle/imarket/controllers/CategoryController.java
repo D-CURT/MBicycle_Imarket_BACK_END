@@ -2,8 +2,6 @@ package com.mbicycle.imarket.controllers;
 
 import com.mbicycle.imarket.dto.CategoryDTO;
 import com.mbicycle.imarket.facades.interfaces.CategoryFacade;
-import com.mbicycle.imarket.utils.ResponseEntityBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,27 +14,29 @@ import static com.mbicycle.imarket.utils.ResponseEntityBuilder.entityWithStatus;
 public class CategoryController {
     private static final String MAPPING = "/categories";
 
-    @Autowired
+
+
     @SuppressWarnings("ALL")
-    private CategoryFacade categoryFacade;
+    private CategoryFacade facade;
 
     @GetMapping(MAPPING + "/allCategoriesSortedByName")
     public List<CategoryDTO> getAllCategoriesSortedByName() {
-        return categoryFacade.findByOrderByName();
+        return facade.findByOrderByName();
     }
 
-    @GetMapping(MAPPING + "/getCategory")
+    @GetMapping(MAPPING + "/getCategory/{name}")
     public CategoryDTO get(@PathVariable String name){
-        return categoryFacade.get(name);
+        return facade.get(name);
     }
 
     @PostMapping(value = MAPPING + "/add", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity add(@RequestBody CategoryDTO categoryDTO) {
-        return entityWithStatus(categoryFacade.add(categoryDTO));
+        return entityWithStatus(facade.add(categoryDTO));
+
     }
 
     @PostMapping(value = MAPPING + "/delete", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity delete(@RequestBody CategoryDTO dto) {
-        return entityWithStatus(categoryFacade.delete(dto));
+        return entityWithStatus(facade.delete(dto));
     }
 }
