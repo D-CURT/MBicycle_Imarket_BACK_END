@@ -22,12 +22,14 @@ public class ReversedProfileConverter extends AbstractConverter<ProfileDTO, Prof
         target.setEmail(source.getEmail());
         target.setPhone(source.getPhone());
         target.setAddress(source.getAddress());
-//        target.setUser(userService.get(source.getLogin(), source.getPassword()));
-        userService.add(new User(source.getLogin()
+        String login = source.getLogin();
+        if (userService.add(new User(login
                                    , source.getPassword()
                                    , source.getRoles()
                                            .stream()
                                            .map(s -> RoleType.valueOf(s).getRole())
-                                           .collect(Collectors.toList())));
+                                           .collect(Collectors.toList())))) {
+            target.setUser(userService.get(login));
+        }
     }
 }

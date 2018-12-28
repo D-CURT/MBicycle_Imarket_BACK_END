@@ -6,7 +6,6 @@ import com.mbicycle.imarket.dto.ProfileDTO;
 import com.mbicycle.imarket.dto.UserDTO;
 
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
 import static com.mbicycle.imarket.utils.enums.RoleType.ADMIN;
 import static com.mbicycle.imarket.utils.enums.RoleType.CUSTOMER;

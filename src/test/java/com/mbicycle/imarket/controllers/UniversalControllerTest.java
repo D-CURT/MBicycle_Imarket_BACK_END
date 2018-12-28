@@ -7,9 +7,9 @@ import com.mbicycle.imarket.Main;
 import com.mbicycle.imarket.beans.entities.*;
 import com.mbicycle.imarket.converters.Converter;
 import com.mbicycle.imarket.daos.*;
+import com.mbicycle.imarket.dto.CategoryDTO;
 import com.mbicycle.imarket.dto.ProductDTO;
 import com.mbicycle.imarket.dto.ProfileDTO;
-import com.mbicycle.imarket.dto.RoleDTO;
 import com.mbicycle.imarket.dto.UserDTO;
 import com.mbicycle.imarket.facades.interfaces.ProfileFacade;
 import com.mbicycle.imarket.facades.interfaces.UserFacade;
@@ -24,7 +24,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -40,7 +39,6 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -99,6 +97,9 @@ public class UniversalControllerTest {
 
     @Autowired
     private Converter<Product, ProductDTO> productConverter;
+
+    @Autowired
+    private Converter<Category, CategoryDTO> reverseCategoryConverter;
 
     @Before
     public void setUp() {
@@ -186,8 +187,11 @@ public class UniversalControllerTest {
     public void check_of_getting_categories_sorted_by_name() throws Exception {
         String mapping = "/categories/allCategoriesSortedByName";
 
-        final List<Category> EXPECTED_CATEGORY_LIST = categoryRepository.findByOrderByNameAsc();
-        List<Category> actualCategoryList = actualList(mapping, Category.class);
+        final List<CategoryDTO> EXPECTED_CATEGORY_LIST = categoryRepository.findByOrderByNameAsc()
+                          .stream()
+                          .map(reverseCategoryConverter::convert)
+                          .collect(Collectors.toList());
+        List<CategoryDTO> actualCategoryList = actualList(mapping, CategoryDTO.class);
 
         assertThat(actualCategoryList.size(), is(greaterThan(ZERO)));
         assertThat(actualCategoryList, is(equalTo(EXPECTED_CATEGORY_LIST)));

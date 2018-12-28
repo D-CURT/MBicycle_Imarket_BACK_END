@@ -44,6 +44,8 @@ public class UserController {
     private UserValidator userValidator;
 
     @Autowired
+
+
     private SecurityService securityService;
 
     @Autowired
@@ -89,7 +91,7 @@ public class UserController {
 
     @GetMapping(value = MAPPING + "/getByLogin", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public UserDTO getByLogin(@RequestBody UserDTO dto) {
-        return userFacade.get(dto);
+         return userFacade.get(dto);
     }
 
     @GetMapping(value = MAPPING + "/getByLoginAndPassword", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
