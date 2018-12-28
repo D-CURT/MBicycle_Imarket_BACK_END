@@ -2,25 +2,35 @@ package com.mbicycle.imarket.services.impl;
 
 import com.mbicycle.imarket.beans.entities.Coupon;
 import com.mbicycle.imarket.daos.CouponRepository;
-import com.mbicycle.imarket.services.CouponService;
+import com.mbicycle.imarket.services.interfaces.CouponService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 public class CouponServiceImpl implements CouponService {
     @Autowired
+    @SuppressWarnings("ALL")
     private CouponRepository  repository;
 
-    public void addCoupon(Coupon coupon){
-        repository.save(coupon);
+    @Override
+    public boolean add(Coupon coupon) {
+        String description = coupon.getDescription();
+        if (repository.findByDescription(description) == null){
+            repository.save(coupon);
+        }
+        return repository.findByDescription(description) != null;
     }
 
-    public void deleteCoupon(Coupon coupon){
-        repository.delete(coupon);
+    @Override
+    public boolean delete(Coupon coupon){
+        String description = coupon.getDescription();
+        if (repository.findByDescription(description) != null) {
+            repository.delete(coupon);
+        }
+        return repository.findByDescription(description) == null;
     }
 
+    @Override
     public List<Coupon> findAll(){
         return repository.findAll();
     }

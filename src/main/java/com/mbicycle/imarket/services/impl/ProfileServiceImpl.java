@@ -3,28 +3,41 @@ package com.mbicycle.imarket.services.impl;
 import com.mbicycle.imarket.beans.entities.Profile;
 import com.mbicycle.imarket.beans.entities.User;
 import com.mbicycle.imarket.daos.ProfileRepository;
-import com.mbicycle.imarket.services.ProfileService;
+import com.mbicycle.imarket.services.interfaces.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 public class ProfileServiceImpl implements ProfileService {
+
     @Autowired
+    @SuppressWarnings("ALL")
     private ProfileRepository repository;
 
-    public void addProfile(Profile profile){
-        repository.save(profile);
+    @Override
+    public boolean add(Profile profile){
+        User user = profile.getUser();
+        if (repository.findByUser(user) == null) {
+            repository.save(profile);
+        }
+        return get(user) != null;
     }
 
-    public void delete(User user){
-        repository.deleteByUser(user);
+    @Override
+    public boolean delete(Profile profile){
+        User user = profile.getUser();
+        if (get(user) != null) {
+            repository.delete(profile);
+        }
+        return get(user) == null;
     }
-    public Profile findByUser(User user){
+
+    @Override
+    public Profile get(User user){
         return repository.findByUser(user);
     }
 
+    @Override
     public List<Profile> findByOrderByName(){
         return repository.findByOrderByNameAsc();
     }
