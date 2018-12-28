@@ -2,7 +2,7 @@ package com.mbicycle.imarket.services.impl;
 
 import com.mbicycle.imarket.beans.entities.Category;
 import com.mbicycle.imarket.daos.CategoryRepository;
-import com.mbicycle.imarket.services.CategoryService;
+import com.mbicycle.imarket.services.interfaces.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;

@@ -2,10 +2,9 @@ package com.mbicycle.imarket.facades.impl;
 
 import com.mbicycle.imarket.beans.entities.Group;
 import com.mbicycle.imarket.converters.Converter;
-import com.mbicycle.imarket.daos.GroupRepository;
 import com.mbicycle.imarket.dto.GroupDTO;
 import com.mbicycle.imarket.facades.interfaces.GroupFacade;
-import com.mbicycle.imarket.services.GroupService;
+import com.mbicycle.imarket.services.interfaces.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;

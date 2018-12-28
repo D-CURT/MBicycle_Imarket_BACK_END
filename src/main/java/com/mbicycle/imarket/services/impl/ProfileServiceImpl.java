@@ -3,7 +3,7 @@ package com.mbicycle.imarket.services.impl;
 import com.mbicycle.imarket.beans.entities.Profile;
 import com.mbicycle.imarket.beans.entities.User;
 import com.mbicycle.imarket.daos.ProfileRepository;
-import com.mbicycle.imarket.services.ProfileService;
+import com.mbicycle.imarket.services.interfaces.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;

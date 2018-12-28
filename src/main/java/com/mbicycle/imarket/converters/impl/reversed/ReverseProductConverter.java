@@ -3,7 +3,7 @@ package com.mbicycle.imarket.converters.impl.reversed;
 import com.mbicycle.imarket.beans.entities.Product;
 import com.mbicycle.imarket.converters.AbstractConverter;
 import com.mbicycle.imarket.dto.ProductDTO;
-import com.mbicycle.imarket.services.GroupService;
+import com.mbicycle.imarket.services.interfaces.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class ReverseProductConverter extends AbstractConverter<ProductDTO, Product> {

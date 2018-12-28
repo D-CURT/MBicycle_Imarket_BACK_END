@@ -3,7 +3,7 @@ package com.mbicycle.imarket.converters.impl.reversed;
 import com.mbicycle.imarket.beans.entities.Group;
 import com.mbicycle.imarket.converters.AbstractConverter;
 import com.mbicycle.imarket.dto.GroupDTO;
-import com.mbicycle.imarket.services.CategoryService;
+import com.mbicycle.imarket.services.interfaces.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class ReversedGroupCategory extends AbstractConverter<GroupDTO, Group> {

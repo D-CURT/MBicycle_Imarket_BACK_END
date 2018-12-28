@@ -6,12 +6,11 @@ import com.mbicycle.imarket.converters.Converter;
 import com.mbicycle.imarket.dto.ProfileDTO;
 import com.mbicycle.imarket.dto.UserDTO;
 import com.mbicycle.imarket.facades.interfaces.ProfileFacade;
-import com.mbicycle.imarket.services.ProfileService;
-import com.mbicycle.imarket.services.UserService;
+import com.mbicycle.imarket.services.interfaces.ProfileService;
+import com.mbicycle.imarket.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

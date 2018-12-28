@@ -2,7 +2,7 @@ package com.mbicycle.imarket.services.impl;
 
 import com.mbicycle.imarket.beans.entities.User;
 import com.mbicycle.imarket.daos.UserRepository;
-import com.mbicycle.imarket.services.UserService;
+import com.mbicycle.imarket.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -12,6 +12,11 @@ public class UserServiceImpl implements UserService {
     @Autowired
     @SuppressWarnings("ALL")
     private UserRepository userRepository;
+
+    @Override
+    public User get(String login) {
+        return userRepository.findByLogin(login);
+    }
 
     @Override
     public User get(String login, String password) {

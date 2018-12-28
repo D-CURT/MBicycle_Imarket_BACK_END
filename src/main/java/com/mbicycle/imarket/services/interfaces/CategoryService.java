@@ -1,4 +1,4 @@
-package com.mbicycle.imarket.services;
+package com.mbicycle.imarket.services.interfaces;
 
 import com.mbicycle.imarket.beans.entities.Category;
 import org.springframework.stereotype.Service;

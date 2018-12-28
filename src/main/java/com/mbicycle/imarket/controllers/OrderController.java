@@ -1,16 +1,11 @@
 package com.mbicycle.imarket.controllers;
 
-import com.mbicycle.imarket.beans.entities.Order;
-
 import com.mbicycle.imarket.dto.OrderDTO;
 import com.mbicycle.imarket.facades.interfaces.OrderFacade;
-import com.mbicycle.imarket.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,16 +13,16 @@ import java.util.List;
 public class OrderController {
 
     @Autowired
+    @SuppressWarnings("ALL")
     private OrderFacade facade;
 
     @GetMapping("/orders/allOrders")
-    public List<OrderDTO> getAllOrders(){
+    public List<OrderDTO> getAll(){
         return facade.getAll();
     }
 
     @PostMapping("/orders/open")
-    public ResponseEntity openOrder(){
-        //facade.openOrder(new OrderDTO());
-        return new ResponseEntity(HttpStatus.OK);
+    public ResponseEntity add(@RequestBody OrderDTO orderDTO){
+        return facade.add(orderDTO) ? new ResponseEntity(HttpStatus.OK) : new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 }
