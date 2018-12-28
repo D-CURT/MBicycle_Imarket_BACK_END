@@ -40,4 +40,9 @@ public class CategoryFacadeImpl implements CategoryFacade {
     public CategoryDTO get(String name) {
         return categoryConverter.convert(categoryService.get(name));
     }
+
+    @Override
+    public boolean delete(CategoryDTO dto) {
+        return categoryService.delete(reverseCategoryConverter.convert(dto));
+    }
 }

@@ -12,4 +12,6 @@ public interface CategoryFacade {
     List<CategoryDTO> findByOrderByName();
 
     CategoryDTO get(String name);
+
+    boolean delete(CategoryDTO dto);
 }

@@ -36,4 +36,9 @@ public class GroupFacadeImpl implements GroupFacade {
     public List<GroupDTO> findByOrderByName() {
         return groupService.findByOrderByName().stream().map(groupConverter::convert).collect(Collectors.toList());
     }
+
+    @Override
+    public boolean delete(GroupDTO dto) {
+        return groupService.delete(reverseGroupConverter.convert(dto));
+    }
 }
