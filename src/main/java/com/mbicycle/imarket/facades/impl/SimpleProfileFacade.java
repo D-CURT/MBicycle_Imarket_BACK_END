@@ -1,6 +1,7 @@
 package com.mbicycle.imarket.facades.impl;
 
 import com.mbicycle.imarket.beans.entities.Profile;
+import com.mbicycle.imarket.beans.entities.User;
 import com.mbicycle.imarket.converters.Converter;
 
 import com.mbicycle.imarket.dto.ProfileDTO;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
 
 @Component
 @SuppressWarnings("ALL")
@@ -31,6 +31,9 @@ public class SimpleProfileFacade implements ProfileFacade {
     @Autowired
     private Converter<Profile, ProfileDTO> profileConverter;
 
+    @Autowired
+    private Converter<UserDTO, User> reverseduserConverter;
+
     @Override
     public boolean add(ProfileDTO dto) {
         return profileService.add(reversedProfileConverter.convert(dto));
@@ -42,8 +45,9 @@ public class SimpleProfileFacade implements ProfileFacade {
     }
 
     @Override
-    public ProfileDTO findByUser(UserDTO userDTO) {
-        return null;
+    public ProfileDTO get(ProfileDTO dto) {
+        UserDTO userDTO = new UserDTO(dto.getLogin(), dto.getPassword(), dto.getRoles());
+        return profileConverter.convert(profileService.get(reverseduserConverter.convert(userDTO)));
     }
 
     @Override

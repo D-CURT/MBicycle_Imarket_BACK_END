@@ -3,6 +3,7 @@ package com.mbicycle.imarket.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mbicycle.imarket.dto.ProductDTO;
 import com.mbicycle.imarket.facades.interfaces.ProductFacade;
+import com.mbicycle.imarket.utils.ResponseEntityBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+
+import static com.mbicycle.imarket.utils.ResponseEntityBuilder.entityWithStatus;
 
 @RestController
 public class ProductController {
@@ -70,6 +73,6 @@ public class ProductController {
     public ResponseEntity addProduct(@RequestParam("data") String strDTO, @RequestParam("photo") MultipartFile file)
             throws IOException {
         ProductDTO productDTO = new ObjectMapper().readValue(strDTO, ProductDTO.class);  //Convert string param (json) into DTO
-        return productFacade.add(productDTO, file) ? new ResponseEntity(HttpStatus.OK) : new ResponseEntity(HttpStatus.BAD_REQUEST);
+        return entityWithStatus(productFacade.add(productDTO, file));
     }
 }

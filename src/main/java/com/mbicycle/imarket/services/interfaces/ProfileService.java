@@ -12,7 +12,7 @@ public interface ProfileService {
 
     boolean delete(Profile profile);
 
-    Profile findByUser(User user);
+    Profile get(User user);
 
     List<Profile> findByOrderByName();
 }

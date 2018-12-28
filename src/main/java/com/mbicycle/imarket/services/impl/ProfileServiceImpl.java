@@ -20,20 +20,20 @@ public class ProfileServiceImpl implements ProfileService {
         if (repository.findByUser(user) == null) {
             repository.save(profile);
         }
-        return findByUser(user) != null;
+        return get(user) != null;
     }
 
     @Override
     public boolean delete(Profile profile){
         User user = profile.getUser();
-        if (findByUser(user) != null) {
+        if (get(user) != null) {
             repository.delete(profile);
         }
-        return findByUser(user) == null;
+        return get(user) == null;
     }
 
     @Override
-    public Profile findByUser(User user){
+    public Profile get(User user){
         return repository.findByUser(user);
     }
 
