@@ -5,7 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.mbicycle.imarket.Main;
 import com.mbicycle.imarket.beans.entities.*;
+import com.mbicycle.imarket.converters.Converter;
 import com.mbicycle.imarket.daos.*;
+import com.mbicycle.imarket.dto.ProductDTO;
 import com.mbicycle.imarket.dto.ProfileDTO;
 import com.mbicycle.imarket.dto.UserDTO;
 import com.mbicycle.imarket.facades.interfaces.ProfileFacade;
@@ -25,9 +27,12 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.fasterxml.jackson.databind.DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY;
 import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
@@ -90,6 +95,12 @@ public class UniversalControllerTest {
     @Autowired
     private ProfileFacade profileFacade;
 
+    @Autowired
+    private Converter<Profile, ProfileDTO> profileConverter;
+
+    @Autowired
+    private Converter<Product, ProductDTO> productConverter;
+
     @Before
     public void setUp() {
         UserDTO[] users = {createUserDTO(FIRST_VALUE, FIRST_USER_PASSWORD)
@@ -104,28 +115,32 @@ public class UniversalControllerTest {
         }
 
         String[] names = {FIRST_VALUE
-                             , SECOND_VALUE
-                             , THIRD_VALUE};
+                        , SECOND_VALUE
+                        , THIRD_VALUE};
 
         products = new ArrayList<>();
         categories = new ArrayList<>();
 
-       /* for (String name: names) {
+        for (String name: names) {
 
-            *//*System.out.println("*** Saving Caterogy. ***");
-            categoryService.addCategory(name);
+            System.out.println("*** Saving Caterogy. ***");
+            categoryService.add(new Category(name));
 
-            Category category = categoryService.getCategory(name);
+            Category category = categoryService.get(name);
             categories.add(category);
 
             System.out.println("*** Saving Group. ***");
-            groupService.addGroup(name, category.getName());*//*
+            groupService.add(new Group(name, category));
 
-            *//*System.out.println("*** Saving Product. ***");
-//            productService.addProduct(name, 1.1, name, name);
+            System.out.println("*** Saving Product. ***");
+            Product product = new Product();
+            product.setName(name);
+            product.setPrice(1.1);
+            product.setGroup(groupService.get(name));
+            productService.add(product);
 
-            products.add(productRepository.findByName(name));*//*
-        }*/
+            products.add(productRepository.findByName(name));
+        }
     }
 
     @After
@@ -156,7 +171,10 @@ public class UniversalControllerTest {
     public void check_of_getting_sorted_by_name_profile_list() throws Exception {
         String mapping = "/profiles/allProfilesSortedByName";
 
-        final List<Profile> EXPECTED_PROFILE_LIST = profileRepository.findByOrderByNameAsc();
+        final List<ProfileDTO> EXPECTED_PROFILE_LIST = profileRepository.findByOrderByNameAsc()
+                                                                        .stream()
+                                                                        .map(profileConverter::convert)
+                                                                        .collect(Collectors.toList());
         List<ProfileDTO> actualProfileList = actualList(mapping, ProfileDTO.class);
 
         assertThat(actualProfileList.size(), is(greaterThan(ZERO)));
@@ -199,16 +217,16 @@ public class UniversalControllerTest {
     @Test
     public void check_of_getting_products_by_group_sorted_by_name() throws Exception {
         String mapping = "/products/allProductsWithGroupSortedByName/";
-        List<Product> expectedProductList = new ArrayList<>();
-        List<Product> actualProductList = new ArrayList<>();
+        List<ProductDTO> expectedProductList = new ArrayList<>();
+        List<ProductDTO> actualProductList = new ArrayList<>();
         for (Product product: products) {
             expectedProductList.add(
-                    productRepository.findByGroupOrderByNameAsc(
-                            product.getGroup()).get(ZERO));
+                    productConverter.convert(productRepository.findByGroupOrderByNameAsc(
+                            product.getGroup()).get(ZERO)));
             actualProductList.add(actualList(
                     mapping + product.getGroup()
                                               .getName()
-                    , Product.class).get(ZERO));
+                    , ProductDTO.class).get(ZERO));
         }
 
         assertThat(actualProductList.size(), is(greaterThan(ZERO)));
@@ -218,16 +236,16 @@ public class UniversalControllerTest {
     @Test
     public void check_of_getting_products_by_group_sorted_by_price() throws Exception {
         String mapping = "/products/allProductsWithGroupSortedByPrice/";
-        List<Product> expectedProductList = new ArrayList<>();
-        List<Product> actualProductList = new ArrayList<>();
+        List<ProductDTO> expectedProductList = new ArrayList<>();
+        List<ProductDTO> actualProductList = new ArrayList<>();
         for (Product product: products) {
             expectedProductList.add(
-                    productRepository.findByGroupOrderByPriceAsc(
-                            product.getGroup()).get(ZERO));
+                     productConverter.convert(productRepository.findByGroupOrderByPriceAsc(
+                            product.getGroup()).get(ZERO)));
             actualProductList.add(actualList(
                     mapping + product.getGroup()
                                               .getName()
-                    , Product.class).get(ZERO));
+                    , ProductDTO.class).get(ZERO));
         }
 
         assertThat(actualProductList.size(), is(greaterThan(ZERO)));
@@ -238,7 +256,7 @@ public class UniversalControllerTest {
     public void check_of_getting_products_with_name_like_sorted_by_name() throws Exception {
         String mapping = "/products/allProductsSortedByNameWithNameLike/";
         List<Product> expectedProductList = new ArrayList<>();
-        List<Product> actualProductList = new ArrayList<>();
+        List<ProductDTO> actualProductList = new ArrayList<>();
 
         for (Product product: products) {
             String screen = "%";
@@ -247,7 +265,7 @@ public class UniversalControllerTest {
                     productRepository.findByNameLikeOrderByNameAsc(name).get(ZERO));
             actualProductList.add(actualList(
                     mapping + name
-                    , Product.class).get(ZERO));
+                    , ProductDTO.class).get(ZERO));
         }
 
         assertThat(actualProductList.size(), is(greaterThan(ZERO)));
@@ -256,22 +274,20 @@ public class UniversalControllerTest {
 
     @Test
     public void check_of_adding_product() throws Exception {
-        String mapping = "/products/addTest";
+        String mapping = "/products/add";
 
         String EXPECTED_PRODUCT_NAME = productService.get(FIRST_VALUE).getName();
         mvc.perform(MockMvcRequestBuilders.post(
-                mapping + "?name=" + FIRST_VALUE
-                                   + "&price=" + 1.1
-                                   + "&group=" + FIRST_VALUE
-                                   + "&category=" + FIRST_VALUE).accept(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                mapping + "?data=" + EXPECTED_PRODUCT_NAME
+                                   + "&photo=" ))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("name", is(equalTo(EXPECTED_PRODUCT_NAME))));
     }
 
     private ObjectMapper createMapper() {
         return new ObjectMapper()
-                .configure(ACCEPT_SINGLE_VALUE_AS_ARRAY, true)
-                .configure(FAIL_ON_UNKNOWN_PROPERTIES, false);
+                /*.configure(ACCEPT_SINGLE_VALUE_AS_ARRAY, true)*/
+                /*.configure(FAIL_ON_UNKNOWN_PROPERTIES, false)*/;
     }
 
     private ObjectNode[] fillResultList(MockMvc mvc, String mapping, ObjectMapper mapper) throws Exception {
