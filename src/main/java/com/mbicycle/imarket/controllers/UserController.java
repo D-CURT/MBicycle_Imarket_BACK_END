@@ -64,7 +64,7 @@ public class UserController {
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         List<Role> roles = new ArrayList<>();
-        roles.add(roleRepository.getOne(29));
+        roles.add(roleRepository.getOne(29));//как?
         user.setRoles(roles);
         userService.save(user);
 
