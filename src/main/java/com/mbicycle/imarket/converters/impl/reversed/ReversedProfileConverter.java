@@ -1,10 +1,14 @@
 package com.mbicycle.imarket.converters.impl.reversed;
 
 import com.mbicycle.imarket.beans.entities.Profile;
+import com.mbicycle.imarket.beans.entities.User;
 import com.mbicycle.imarket.converters.AbstractConverter;
 import com.mbicycle.imarket.dto.ProfileDTO;
 import com.mbicycle.imarket.services.interfaces.UserService;
+import com.mbicycle.imarket.utils.enums.RoleType;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.stream.Collectors;
 
 public class ReversedProfileConverter extends AbstractConverter<ProfileDTO, Profile> {
 
@@ -18,12 +22,12 @@ public class ReversedProfileConverter extends AbstractConverter<ProfileDTO, Prof
         target.setEmail(source.getEmail());
         target.setPhone(source.getPhone());
         target.setAddress(source.getAddress());
-        target.setUser(userService.get(source.getLogin(), source.getPassword()));
-        /*userService.addUser(new User(source.getLogin()
+//        target.setUser(userService.get(source.getLogin(), source.getPassword()));
+        userService.add(new User(source.getLogin()
                                    , source.getPassword()
                                    , source.getRoles()
                                            .stream()
                                            .map(s -> RoleType.valueOf(s).getRole())
-                                           .collect(Collectors.toList())));*/
+                                           .collect(Collectors.toList())));
     }
 }

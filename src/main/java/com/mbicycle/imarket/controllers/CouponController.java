@@ -3,7 +3,9 @@ package com.mbicycle.imarket.controllers;
 import com.mbicycle.imarket.dto.CouponDTO;
 import com.mbicycle.imarket.facades.interfaces.CouponFacade;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.MediaType;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,20 +19,20 @@ public class CouponController {
 
     @Autowired
     @SuppressWarnings("ALL")
-    private CouponFacade couponFacade;
+    private CouponFacade facade;
 
-    @GetMapping("/getAll")
+    @GetMapping(MAPPING + "/getAll")
     public List<CouponDTO> getAll(){
-        return couponFacade.findAll();
+        return facade.findAll();
     }
 
-    @PostMapping("/add")
+    @PostMapping(MAPPING + "/add")
     public ResponseEntity add(@RequestBody CouponDTO couponDTO){
-        return entityWithStatus(couponFacade.add(couponDTO));
+        return entityWithStatus(facade.add(couponDTO));
     }
 
     @PostMapping(value = MAPPING + "/delete", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity delete(CouponDTO couponDTO){
-        return entityWithStatus(couponFacade.delete(couponDTO));
+        return entityWithStatus(facade.delete(couponDTO));
     }
 }
