@@ -78,6 +78,7 @@ public class UserController {
         user.setRoles(roles);
         if (!profileFacade.add(profileDTO)){
             System.out.println("\nHAS ERROR");
+
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
 
