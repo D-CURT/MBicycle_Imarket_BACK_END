@@ -22,8 +22,8 @@ public class UserValidator implements Validator {
     }
 
     @Override
-    public void validate(Object o, Errors errors) {
-        User user = (User) o;
+    public void validate(Object obj, Errors errors) {
+        User user = (User) obj;
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "Required");
         if (user.getLogin().length() < 8 || user.getLogin().length() > 32) {
@@ -40,8 +40,7 @@ public class UserValidator implements Validator {
         }
 
         //if (!user.getConfirmPassword().equals(user.getPassword())) ;
-        if (!user.getPassword().equals(user.getPassword())) {
-            errors.rejectValue("confirmPassword", "Different.userForm.password");
-        }
+        //    errors.rejectValue("confirmPassword", "Different.userForm.password");
+        //}
     }
 }
