@@ -3,31 +3,23 @@ package com.mbicycle.imarket.controllers;
 import com.mbicycle.imarket.beans.entities.Role;
 import com.mbicycle.imarket.beans.entities.User;
 import com.mbicycle.imarket.daos.RoleRepository;
-import com.mbicycle.imarket.daos.UserRepository;
 import com.mbicycle.imarket.dto.ProfileDTO;
 import com.mbicycle.imarket.dto.UserDTO;
 import com.mbicycle.imarket.facades.interfaces.ProfileFacade;
 import com.mbicycle.imarket.facades.interfaces.UserFacade;
 import com.mbicycle.imarket.services.interfaces.UserService;
 import com.mbicycle.imarket.services.securities.SecurityService;
-import com.mbicycle.imarket.services.securities.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,9 +31,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private UserValidator userValidator;
 
     @Autowired
     private SecurityService securityService;
