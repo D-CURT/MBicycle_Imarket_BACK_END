@@ -13,6 +13,7 @@ import static com.mbicycle.imarket.utils.enums.RoleType.MANAGER;
 import static com.mbicycle.imarket.utils.enums.RoleType.CUSTOMER;
 
 //@Component
+@SuppressWarnings("ALL")
 public class DataBaseFulfiller implements CommandLineRunner {
     @Autowired
     UserRepository userRepository;
@@ -26,7 +27,6 @@ public class DataBaseFulfiller implements CommandLineRunner {
     @Autowired
     ProductRepository productRepository;
 
-    @Override
     public void run(String...args) throws Exception {
 
         User userAdmin = new User("admin", "123", Collections.singletonList(ADMIN.getRole()));

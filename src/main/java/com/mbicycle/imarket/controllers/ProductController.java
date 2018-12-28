@@ -45,8 +45,7 @@ public class ProductController {
     @GetMapping(value = "/products/allProductsSortedByNameWithNameLike/{name}"
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<ProductDTO> getAllProductsSortedByNameWithNameLike(@PathVariable String name) {
-        String screen = "%";
-        return productFacade.findByNameLikeOrderByName(screen + name + screen);
+        return productFacade.findByNameLikeOrderByName(name);
     }
 
     @GetMapping(value = "/products/allProductsSortedByNameWithNameLikeAndTrueStoreStatus/{name}"

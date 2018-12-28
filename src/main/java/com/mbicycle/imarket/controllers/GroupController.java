@@ -10,7 +10,9 @@ import java.util.List;
 
 @RestController
 public class GroupController {
+
     @Autowired
+    @SuppressWarnings("ALL")
     private GroupFacade groupFacade;
 
     @GetMapping("/groups/allGroupsSortedByName")
@@ -19,12 +21,12 @@ public class GroupController {
     }
 
     @GetMapping("/groups/getGroup")
-    public GroupDTO getGroup(@PathVariable String name) {
-        return groupFacade.getGroup(name);
+    public GroupDTO get(@PathVariable String name) {
+        return groupFacade.get(name);
     }
 
     @PostMapping(value = "/groups/add", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public void addGroup(@RequestBody GroupDTO groupDTO) {
-        groupFacade.addGroup(groupDTO);
+    public void add(@RequestBody GroupDTO groupDTO) {
+        groupFacade.add(groupDTO);
     }
 }

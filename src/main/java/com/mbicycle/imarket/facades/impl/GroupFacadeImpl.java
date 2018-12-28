@@ -24,12 +24,12 @@ public class GroupFacadeImpl implements GroupFacade {
     private Converter<GroupDTO, Group> reverseGroupConverter;
 
     @Override
-    public boolean addGroup(GroupDTO groupDTO) {
+    public boolean add(GroupDTO groupDTO) {
         return groupService.add(reverseGroupConverter.convert(groupDTO));
     }
 
     @Override
-    public GroupDTO getGroup(String name) {
+    public GroupDTO get(String name) {
         return groupConverter.convert(groupService.get(name));
     }
 
