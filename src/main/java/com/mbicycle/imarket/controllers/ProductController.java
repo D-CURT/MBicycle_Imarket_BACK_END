@@ -17,6 +17,7 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
+    @SuppressWarnings("ALL")
     private ProductFacade productFacade;
 
     @GetMapping("/products/allProductsSortedByName")
@@ -44,7 +45,8 @@ public class ProductController {
     @GetMapping(value = "/products/allProductsSortedByNameWithNameLike/{name}"
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<ProductDTO> getAllProductsSortedByNameWithNameLike(@PathVariable String name) {
-        return productFacade.findByNameLikeOrderByName(name);
+        String screen = "%";
+        return productFacade.findByNameLikeOrderByName(screen + name + screen);
     }
 
     @GetMapping(value = "/products/allProductsSortedByNameWithNameLikeAndTrueStoreStatus/{name}"
