@@ -19,5 +19,4 @@ public class RoleController {
         return facade.findByOrderByRole();
     }
 
-
 }

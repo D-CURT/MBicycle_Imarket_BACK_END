@@ -9,6 +9,7 @@ import com.mbicycle.imarket.converters.Converter;
 import com.mbicycle.imarket.daos.*;
 import com.mbicycle.imarket.dto.ProductDTO;
 import com.mbicycle.imarket.dto.ProfileDTO;
+import com.mbicycle.imarket.dto.RoleDTO;
 import com.mbicycle.imarket.dto.UserDTO;
 import com.mbicycle.imarket.facades.interfaces.ProfileFacade;
 import com.mbicycle.imarket.facades.interfaces.UserFacade;
@@ -182,17 +183,6 @@ public class UniversalControllerTest {
     }
 
     @Test
-    public void check_of_getting_roles_sorted_by_role() throws Exception {
-        String mapping = "/roles/allRolesSortedByRole";
-
-        final List<Role> EXPECTED_ROLE_LIST = roleRepository.findByOrderByRoleAsc();
-        List<Role> actualRoleList = actualList(mapping, Role.class);
-
-        assertThat(actualRoleList.size(), is(greaterThan(ZERO)));
-        assertThat(actualRoleList, is(equalTo(EXPECTED_ROLE_LIST)));
-    }
-
-    @Test
     public void check_of_getting_categories_sorted_by_name() throws Exception {
         String mapping = "/categories/allCategoriesSortedByName";
 
@@ -279,7 +269,6 @@ public class UniversalControllerTest {
 
     private ObjectNode[] fillResultList(MockMvc mvc, String mapping, ObjectMapper mapper) throws Exception {
         byte[] responseBytes = mvc.perform(MockMvcRequestBuilders.get(mapping)
-                .accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
                 .param("offset", "0")
                 .param("count", "2048"))
                 .andExpect(status().isOk())
