@@ -4,7 +4,11 @@ import com.mbicycle.imarket.beans.entities.Order;
 import com.mbicycle.imarket.converters.Converter;
 import com.mbicycle.imarket.dto.OrderDTO;
 import com.mbicycle.imarket.facades.interfaces.OrderFacade;
+<<<<<<< HEAD
+import com.mbicycle.imarket.services.OrderService;
+=======
 import com.mbicycle.imarket.services.interfaces.OrderService;
+>>>>>>> afc5ef03b0cea2f3f0da9644efaeec8c1c395b1b
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -27,7 +31,8 @@ public class OrderFacadeImpl implements OrderFacade {
     }
 
     @Override
-    public void update(OrderDTO orderDTO) {
+    public boolean update(OrderDTO orderDTO) {
+        return service.delete(reverseConverter.convert(orderDTO));
     }
 
     @Override

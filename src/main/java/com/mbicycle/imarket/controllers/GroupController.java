@@ -3,6 +3,7 @@ package com.mbicycle.imarket.controllers;
 import com.mbicycle.imarket.dto.GroupDTO;
 import com.mbicycle.imarket.facades.interfaces.GroupFacade;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,25 +18,26 @@ public class GroupController {
 
     @Autowired
     @SuppressWarnings("ALL")
-    private GroupFacade groupFacade;
+    private GroupFacade facade;
 
     @GetMapping(MAPPING + "/allGroupsSortedByName")
     public List<GroupDTO> getAllGroupsSortedByName() {
-        return groupFacade.findByOrderByName();
+        return facade.findByOrderByName();
     }
 
-    @GetMapping(MAPPING + "/getGroup")
+
+    @GetMapping(MAPPING + "/getGroup/{name}")
     public GroupDTO get(@PathVariable String name) {
-        return groupFacade.get(name);
+        return facade.get(name);
     }
 
     @PostMapping(value = MAPPING + "/add", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity add(@RequestBody GroupDTO groupDTO) {
-        return entityWithStatus(groupFacade.add(groupDTO));
+        return entityWithStatus(facade.add(groupDTO));
     }
 
     @PostMapping(value = MAPPING + "/delete", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity delete(@RequestBody GroupDTO dto) {
-        return entityWithStatus(groupFacade.delete(dto));
+        return entityWithStatus(facade.delete(dto));
     }
 }
