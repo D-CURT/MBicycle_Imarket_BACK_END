@@ -1,8 +1,9 @@
 package com.mbicycle.imarket.services.securities;
 
 import com.mbicycle.imarket.beans.entities.User;
-import com.mbicycle.imarket.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -11,6 +12,7 @@ import org.springframework.validation.Validator;
 
 
 @Component
+@PropertySource("classpath:validation.properties")
 public class UserValidator implements Validator {
 
     @Autowired
@@ -25,17 +27,19 @@ public class UserValidator implements Validator {
     public void validate(Object obj, Errors errors) {
         User user = (User) obj;
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "Required");
-        if (user.getLogin().length() < 8 || user.getLogin().length() > 32) {
-            errors.rejectValue("username", "Size.userForm.username");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "login", "Required");
+        if (user.getLogin().length() < 5 || user.getLogin().length() > 32) {
+            errors.rejectValue("login", "Size.userForm.username");
         }
 
-        if (userService.findByLogin(user.getLogin()) != null) {
-            errors.rejectValue("username", "Duplicate.userForm.username");
+        if (userService.get(user.getLogin()) != null) {
+            errors.rejectValue("login", "Duplicate.userForm.username");
         }
 
+
+        String str = new BCryptPasswordEncoder().encode(user.getPassword());
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "Required");
-        if (user.getPassword().length() < 8 || user.getPassword().length() > 32) {
+        if (user.getPassword().length() < 5 || user.getPassword().length() > 32) {
             errors.rejectValue("password", "Size.userForm.password");
         }
 

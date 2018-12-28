@@ -11,6 +11,7 @@ import java.util.List;
 @RestController
 public class RoleController {
     @Autowired
+    @SuppressWarnings("ALL")
     private RoleService service;
 
     @GetMapping("/roles/allRolesSortedByRole")

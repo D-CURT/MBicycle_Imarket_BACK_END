@@ -13,7 +13,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     List<User> findByOrderByLoginAsc();
 
-    void deleteByLoginAndPassword(String login, String password);
+    User findOneByLogin(String login);
 
-    User findByLogin(String login);
 }

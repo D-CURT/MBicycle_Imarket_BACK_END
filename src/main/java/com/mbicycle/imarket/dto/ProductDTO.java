@@ -1,6 +1,7 @@
 package com.mbicycle.imarket.dto;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ProductDTO {
 
@@ -129,4 +130,16 @@ public class ProductDTO {
         this.orderProducts = orderProducts;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProductDTO that = (ProductDTO) o;
+        return Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
 }

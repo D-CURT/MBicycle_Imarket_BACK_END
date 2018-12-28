@@ -1,9 +1,12 @@
-package com.mbicycle.imarket.daos;
+package com.mbicycle.imarket.security;
 
 import com.mbicycle.imarket.Main;
 import com.mbicycle.imarket.beans.entities.Profile;
 import com.mbicycle.imarket.beans.entities.Role;
 import com.mbicycle.imarket.beans.entities.User;
+import com.mbicycle.imarket.daos.ProfileRepository;
+import com.mbicycle.imarket.daos.RoleRepository;
+import com.mbicycle.imarket.daos.UserRepository;
 import com.mbicycle.imarket.utils.enums.RoleType;
 import org.junit.After;
 import org.junit.Before;
@@ -24,9 +27,10 @@ import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Main.class)
-public class ProfileUserRepositoryTest {
+public class CreateUserAdminTest {
 
-    private static final String TEST_PARAM = "admin";
+    private static final String LOGIN = "admin";
+    private static final String PASSWORD = "$2a$10$kScGGdZpK1kKNdhGOCoKyeHSVXNP59hGfIAa86jpvee2mlMzE2fK.";
 
     @Autowired
     private UserRepository userRepository;
@@ -39,15 +43,15 @@ public class ProfileUserRepositoryTest {
 
     @Before
     public void setUp() {
-        User user = createUser(TEST_PARAM, TEST_PARAM);
+        User user = createUser(LOGIN, PASSWORD);
 
-        if (userRepository.findByLoginAndPassword(TEST_PARAM, TEST_PARAM) == null) {
+        if (userRepository.findByLoginAndPassword(LOGIN, PASSWORD) == null) {
             userRepository.save(user);
         }
 
-        user = userRepository.findByLoginAndPassword(TEST_PARAM, TEST_PARAM);
+        user = userRepository.findByLoginAndPassword(LOGIN, PASSWORD);
         if (profileRepository.findByUser(user) == null) {
-            profileRepository.save(createProfile(TEST_PARAM, user));
+            profileRepository.save(createProfile(LOGIN, user));
         }
     }
 
@@ -72,7 +76,7 @@ public class ProfileUserRepositoryTest {
         System.out.println(str + "\n");
 
         System.out.println(str + "\n");
-        User user = userRepository.findByLoginAndPassword(TEST_PARAM, TEST_PARAM);
+        User user = userRepository.findByLoginAndPassword(LOGIN, PASSWORD);
         Profile profile = profileRepository.findByUser(user);
         assertNotNull(profile);
     }

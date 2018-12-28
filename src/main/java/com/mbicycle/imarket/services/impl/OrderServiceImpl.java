@@ -4,20 +4,28 @@ import com.mbicycle.imarket.beans.entities.Order;
 import com.mbicycle.imarket.daos.OrderRepository;
 import com.mbicycle.imarket.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 public class OrderServiceImpl implements OrderService {
     @Autowired
+    @SuppressWarnings("ALL")
     private OrderRepository orderRepository;
 
-    public void addOrder(Order order) {
+    @Override
+    public boolean add(Order order) {
         orderRepository.save(order);
+        return true;
     }
 
-    public List<Order> getAllOrder(){
+    @Override
+    public List<Order> getAll(){
         return orderRepository.findAll();
+    }
+
+    @Override
+    public boolean delete(Order order) {
+        orderRepository.delete(order);
+        return true;
     }
 }

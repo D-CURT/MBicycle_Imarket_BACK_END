@@ -1,20 +1,30 @@
 package com.mbicycle.imarket.controllers;
 
-import com.mbicycle.imarket.beans.entities.Coupon;
-import com.mbicycle.imarket.services.CouponService;
+import com.mbicycle.imarket.dto.CouponDTO;
+import com.mbicycle.imarket.facades.interfaces.CouponFacade;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 public class CouponController {
     @Autowired
-    private CouponService service;
+    @SuppressWarnings("ALL")
+    private CouponFacade couponFacade;
 
     @GetMapping("/coupons/allCoupons")
-    public List<Coupon> getAllCoupons(){
-        return service.findAll();
+    public List<CouponDTO> getAllCoupons(){
+        return couponFacade.findAll();
+    }
+
+    @PostMapping("/coupons/addCoupon")
+    public void addCoupon(@RequestBody CouponDTO couponDTO){
+        couponFacade.add(couponDTO);
+    }
+
+    @GetMapping("/coupons/delete")
+    public void deleteCoupon(CouponDTO couponDTO){
+        couponFacade.delete(couponDTO);
     }
 }

@@ -23,6 +23,7 @@ import java.util.Set;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
+    @SuppressWarnings("ALL")
     private UserRepository userRepository;
 
     @Override
@@ -31,7 +32,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         System.out.println("\nlogin = " + login + "\n");
 
-        User user = userRepository.findByLogin(login);
+        User user = userRepository.findOneByLogin(login);
 
         if (user == null) {
             System.out.println("\nUser not authorized.\n");

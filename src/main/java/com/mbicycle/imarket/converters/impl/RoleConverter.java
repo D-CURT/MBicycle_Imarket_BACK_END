@@ -1,4 +1,4 @@
-package com.mbicycle.imarket.converters;
+package com.mbicycle.imarket.converters.impl;
 
 import com.mbicycle.imarket.beans.entities.Role;
 import com.mbicycle.imarket.converters.AbstractConverter;
