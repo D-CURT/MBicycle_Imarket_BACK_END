@@ -3,8 +3,10 @@ package com.mbicycle.imarket.controllers;
 import com.mbicycle.imarket.beans.entities.Role;
 import com.mbicycle.imarket.beans.entities.User;
 import com.mbicycle.imarket.daos.RoleRepository;
+import com.mbicycle.imarket.daos.UserRepository;
 import com.mbicycle.imarket.dto.ProfileDTO;
 import com.mbicycle.imarket.dto.UserDTO;
+import com.mbicycle.imarket.facades.interfaces.ProfileFacade;
 import com.mbicycle.imarket.facades.interfaces.UserFacade;
 import com.mbicycle.imarket.services.interfaces.UserService;
 import com.mbicycle.imarket.services.securities.SecurityService;
@@ -53,6 +55,11 @@ public class UserController {
     @Autowired
     private UserFacade userFacade;
 
+    @Autowired
+    private ProfileFacade profileFacade;
+
+
+
     @GetMapping(MAPPING + "/allUsersSortedByLogin")
     public List<UserDTO> getAllUsersSortedByLogin() {
         return userFacade.findByOrderByLogin();
@@ -67,19 +74,15 @@ public class UserController {
 
         User user = new User(profileDTO.getLogin(), profileDTO.getLogin());
 
-        userValidator.validate(user, bindingResult);
-
-        System.out.println("\nbindingResult = " + bindingResult.getModel());
-        if (bindingResult.hasErrors()) {
-            System.out.println("\nHAS ERROR");
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-        }
-
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         List<Role> roles = new ArrayList<>();
         roles.add(roleRepository.getOne(29));//как?
         user.setRoles(roles);
-        userService.save(user);
+//        if (!profileFacade.add(profileDTO) && !userFacade.add(userFacade)){
+//            System.out.println("\nHAS ERROR");
+//            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+//        }
+
 
         securityService.autoLogin(user.getLogin(), user.getPassword());
 

@@ -60,8 +60,4 @@ public class UserServiceImpl implements UserService {
         return get(login, password) == null;
     }
 
-    @Override
-    public void save(User user) {
-        userRepository.save(user);
-    }
 }
