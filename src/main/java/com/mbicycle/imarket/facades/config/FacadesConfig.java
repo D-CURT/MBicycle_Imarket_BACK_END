@@ -47,9 +47,4 @@ public class FacadesConfig {
     public CouponFacade couponFacade() {
         return new CouponFacadeImpl();
     }
-
-    @Bean
-    public RoleFacade roleFacade(){
-        return new SimpleRoleFacade();
-    }
 }
