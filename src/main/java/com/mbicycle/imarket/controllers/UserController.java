@@ -4,6 +4,7 @@ import com.mbicycle.imarket.beans.entities.Role;
 import com.mbicycle.imarket.beans.entities.User;
 import com.mbicycle.imarket.daos.RoleRepository;
 import com.mbicycle.imarket.dto.UserDTO;
+import com.mbicycle.imarket.facades.interfaces.UserFacade;
 import com.mbicycle.imarket.services.interfaces.UserService;
 import com.mbicycle.imarket.services.securities.SecurityService;
 import com.mbicycle.imarket.services.securities.UserValidator;
@@ -45,16 +46,15 @@ public class UserController {
     @Autowired
     private RoleRepository roleRepository;
 
-
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private UserFacade userFacade;
 
     @GetMapping(MAPPING + "/allUsersSortedByLogin")
     public List<UserDTO> getAllUsersSortedByLogin() {
         return userFacade.findByOrderByLogin();
-    @GetMapping("/users/allUsersSortedByLogin")
-    public List<User> getAllUsersSortedByLogin() {
-        return userService.findByOrderByLogin();
     }
 
     @PostMapping(value = "/registration", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
