@@ -22,10 +22,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 
 
-        httpSecurity
+        /*httpSecurity
                 .userDetailsService(userDetailsService)
-                //.authorizeRequests().antMatchers("/").permitAll().
-                //and()
+                .authorizeRequests().antMatchers("/").permitAll().
+                and()
                 .authorizeRequests().antMatchers("/profiles/**").hasRole("ADMIN")
                 .and()
                 .formLogin()
@@ -35,11 +35,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .usernameParameter("j_username").passwordParameter("j_password")
                 .permitAll()
                 .and()
-                .csrf().disable()                                                                  // Временно пока не добавим токен ф форму
-                .authorizeRequests()                                                               //
-                .antMatchers(HttpMethod.POST, "/j_spring_security_check").permitAll(); //
+                .csrf().disable()   ;                                                               // Временно пока не добавим токен ф форму
+//                .authorizeRequests()                                                               //
+//                .antMatchers(HttpMethod.POST, "/j_spring_security_check").permitAll(); //
 
 
+    }*/
     }
-
 }

@@ -23,13 +23,15 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.client.RestTemplate;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -160,6 +162,7 @@ public class UniversalControllerTest {
     public void check_of_getting_sorted_by_login_users_list() throws Exception {
         String mapping = "/users/allUsersSortedByLogin";
 
+
         final List<User> EXPECTED_USER_LIST = userService.findByOrderByLogin();
         List<UserDTO> actualUserList = actualList(mapping, UserDTO.class);
 
@@ -175,6 +178,7 @@ public class UniversalControllerTest {
                                                                         .stream()
                                                                         .map(profileConverter::convert)
                                                                         .collect(Collectors.toList());
+
         List<ProfileDTO> actualProfileList = actualList(mapping, ProfileDTO.class);
 
         assertThat(actualProfileList.size(), is(greaterThan(ZERO)));
@@ -255,14 +259,14 @@ public class UniversalControllerTest {
     @Test
     public void check_of_getting_products_with_name_like_sorted_by_name() throws Exception {
         String mapping = "/products/allProductsSortedByNameWithNameLike/";
-        List<Product> expectedProductList = new ArrayList<>();
+        List<ProductDTO> expectedProductList = new ArrayList<>();
         List<ProductDTO> actualProductList = new ArrayList<>();
 
         for (Product product: products) {
             String screen = "%";
-            String name = screen + product.getName().charAt(ZERO) + screen;
+            String name = "" + product.getName().charAt(ZERO);
             expectedProductList.add(
-                    productRepository.findByNameLikeOrderByNameAsc(name).get(ZERO));
+                    productConverter.convert(productRepository.findByNameLikeOrderByNameAsc(screen + name + screen).get(ZERO)));
             actualProductList.add(actualList(
                     mapping + name
                     , ProductDTO.class).get(ZERO));
@@ -272,26 +276,15 @@ public class UniversalControllerTest {
         assertThat(actualProductList, is(equalTo(expectedProductList)));
     }
 
-    @Test
-    public void check_of_adding_product() throws Exception {
-        String mapping = "/products/add";
-
-        String EXPECTED_PRODUCT_NAME = productService.get(FIRST_VALUE).getName();
-        mvc.perform(MockMvcRequestBuilders.post(
-                mapping + "?data=" + EXPECTED_PRODUCT_NAME
-                                   + "&photo=" ))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("name", is(equalTo(EXPECTED_PRODUCT_NAME))));
-    }
-
     private ObjectMapper createMapper() {
         return new ObjectMapper()
-                /*.configure(ACCEPT_SINGLE_VALUE_AS_ARRAY, true)*/
-                /*.configure(FAIL_ON_UNKNOWN_PROPERTIES, false)*/;
+                .configure(ACCEPT_SINGLE_VALUE_AS_ARRAY, true)
+                .configure(FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 
     private ObjectNode[] fillResultList(MockMvc mvc, String mapping, ObjectMapper mapper) throws Exception {
         byte[] responseBytes = mvc.perform(MockMvcRequestBuilders.get(mapping)
+                .accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
                 .param("offset", "0")
                 .param("count", "2048"))
                 .andExpect(status().isOk())
