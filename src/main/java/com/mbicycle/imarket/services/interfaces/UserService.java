@@ -11,8 +11,6 @@ public interface UserService {
 
     User get(String login, String password);
 
-    User get(String login);
-
     String getPasswordByLogin(String login);
 
     boolean add(User user);

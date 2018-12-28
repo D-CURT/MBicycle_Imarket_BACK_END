@@ -3,6 +3,7 @@ package com.mbicycle.imarket.controllers;
 import com.mbicycle.imarket.beans.entities.Role;
 import com.mbicycle.imarket.beans.entities.User;
 import com.mbicycle.imarket.daos.RoleRepository;
+import com.mbicycle.imarket.dto.ProfileDTO;
 import com.mbicycle.imarket.dto.UserDTO;
 import com.mbicycle.imarket.facades.interfaces.UserFacade;
 import com.mbicycle.imarket.services.interfaces.UserService;
@@ -58,13 +59,13 @@ public class UserController {
     }
 
     @PostMapping(value = "/registration", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity registration(@RequestBody UserDTO userDto, BindingResult bindingResult) {
+    public ResponseEntity registration(@RequestBody ProfileDTO profileDTO, BindingResult bindingResult) {
 
         System.out.println("\nregistration");
-        System.out.println(userDto.getLogin());
-        System.out.println(userDto.getPassword());
+        System.out.println(profileDTO.getLogin());
+        System.out.println(profileDTO.getPassword());
 
-        User user = new User(userDto.getLogin(), userDto.getLogin());
+        User user = new User(profileDTO.getLogin(), profileDTO.getLogin());
 
         userValidator.validate(user, bindingResult);
 
