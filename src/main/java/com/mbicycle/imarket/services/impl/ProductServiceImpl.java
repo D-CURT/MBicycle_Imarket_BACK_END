@@ -3,8 +3,8 @@ package com.mbicycle.imarket.services.impl;
 import com.mbicycle.imarket.beans.entities.Group;
 import com.mbicycle.imarket.beans.entities.Product;
 import com.mbicycle.imarket.daos.ProductRepository;
-import com.mbicycle.imarket.services.GroupService;
-import com.mbicycle.imarket.services.ProductService;
+import com.mbicycle.imarket.services.interfaces.GroupService;
+import com.mbicycle.imarket.services.interfaces.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -54,22 +54,22 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> findByNameLikeOrderByName(String name) {
-        return repository.findByNameLikeOrderByNameAsc(name);
+        return repository.findByNameContainingOrderByNameAsc(name);
     }
 
     @Override
     public List<Product> findByNameLikeAndStoreStatusIsTrue(String name) {
-        return repository.findByNameLikeAndStoreStatusIsTrueOrderByNameAsc(name);
+        return repository.findByNameContainingAndStoreStatusIsTrueOrderByNameAsc(name);
     }
 
     @Override
     public List<Product> findByNameLikeAndDiscountIsNotNull(String name) {
-        return repository.findByNameLikeAndDiscountIsNotNullOrderByNameAsc(name);
+        return repository.findByNameContainingAndDiscountIsNotNullOrderByNameAsc(name);
     }
 
     @Override
     public List<Product> findByNameLikeAndStoreStatusIsTrueAndDiscountIsNotNull(String name) {
-        return repository.findByNameLikeAndStoreStatusIsTrueAndDiscountIsNotNullOrderByNameAsc(name);
+        return repository.findByNameContainingAndStoreStatusIsTrueAndDiscountIsNotNullOrderByNameAsc(name);
     }
 
     @Override

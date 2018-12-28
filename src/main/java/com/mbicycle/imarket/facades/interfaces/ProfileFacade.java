@@ -12,7 +12,7 @@ public interface ProfileFacade {
 
     boolean delete(ProfileDTO dto);
 
-    ProfileDTO findByUser(UserDTO userDTO);
+    ProfileDTO get(ProfileDTO dto);
 
     List<ProfileDTO> findByOrderByName();
 }

@@ -7,9 +7,11 @@ import java.util.List;
 
 @Component
 public interface GroupFacade {
-    boolean addGroup(GroupDTO groupDTO);
+    boolean add(GroupDTO groupDTO);
 
-    GroupDTO getGroup(String name);
+    GroupDTO get(String name);
 
     List<GroupDTO> findByOrderByName();
+
+    boolean delete(GroupDTO dto);
 }

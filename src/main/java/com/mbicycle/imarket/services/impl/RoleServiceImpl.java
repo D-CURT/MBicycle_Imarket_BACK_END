@@ -2,7 +2,7 @@ package com.mbicycle.imarket.services.impl;
 
 import com.mbicycle.imarket.beans.entities.Role;
 import com.mbicycle.imarket.daos.RoleRepository;
-import com.mbicycle.imarket.services.RoleService;
+import com.mbicycle.imarket.services.interfaces.RoleService;
 import com.mbicycle.imarket.utils.enums.RoleType;
 import org.springframework.beans.factory.annotation.Autowired;
 

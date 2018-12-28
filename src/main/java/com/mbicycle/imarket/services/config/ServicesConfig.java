@@ -1,7 +1,7 @@
 package com.mbicycle.imarket.services.config;
 
-import com.mbicycle.imarket.services.*;
 import com.mbicycle.imarket.services.impl.*;
+import com.mbicycle.imarket.services.interfaces.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

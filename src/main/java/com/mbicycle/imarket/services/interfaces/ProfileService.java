@@ -1,4 +1,4 @@
-package com.mbicycle.imarket.services;
+package com.mbicycle.imarket.services.interfaces;
 
 import com.mbicycle.imarket.beans.entities.Profile;
 import com.mbicycle.imarket.beans.entities.User;
@@ -12,7 +12,7 @@ public interface ProfileService {
 
     boolean delete(Profile profile);
 
-    Profile findByUser(User user);
+    Profile get(User user);
 
     List<Profile> findByOrderByName();
 }

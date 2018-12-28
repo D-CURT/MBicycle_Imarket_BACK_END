@@ -9,13 +9,14 @@ import com.mbicycle.imarket.converters.Converter;
 import com.mbicycle.imarket.daos.*;
 import com.mbicycle.imarket.dto.ProductDTO;
 import com.mbicycle.imarket.dto.ProfileDTO;
+import com.mbicycle.imarket.dto.RoleDTO;
 import com.mbicycle.imarket.dto.UserDTO;
 import com.mbicycle.imarket.facades.interfaces.ProfileFacade;
 import com.mbicycle.imarket.facades.interfaces.UserFacade;
-import com.mbicycle.imarket.services.CategoryService;
-import com.mbicycle.imarket.services.GroupService;
-import com.mbicycle.imarket.services.ProductService;
-import com.mbicycle.imarket.services.UserService;
+import com.mbicycle.imarket.services.interfaces.CategoryService;
+import com.mbicycle.imarket.services.interfaces.GroupService;
+import com.mbicycle.imarket.services.interfaces.ProductService;
+import com.mbicycle.imarket.services.interfaces.UserService;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,9 +28,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -160,6 +159,7 @@ public class UniversalControllerTest {
     public void check_of_getting_sorted_by_login_users_list() throws Exception {
         String mapping = "/users/allUsersSortedByLogin";
 
+
         final List<User> EXPECTED_USER_LIST = userService.findByOrderByLogin();
         List<UserDTO> actualUserList = actualList(mapping, UserDTO.class);
 
@@ -175,21 +175,11 @@ public class UniversalControllerTest {
                                                                         .stream()
                                                                         .map(profileConverter::convert)
                                                                         .collect(Collectors.toList());
+
         List<ProfileDTO> actualProfileList = actualList(mapping, ProfileDTO.class);
 
         assertThat(actualProfileList.size(), is(greaterThan(ZERO)));
         assertThat(actualProfileList, is(equalTo(EXPECTED_PROFILE_LIST)));
-    }
-
-    @Test
-    public void check_of_getting_roles_sorted_by_role() throws Exception {
-        String mapping = "/roles/allRolesSortedByRole";
-
-        final List<Role> EXPECTED_ROLE_LIST = roleRepository.findByOrderByRoleAsc();
-        List<Role> actualRoleList = actualList(mapping, Role.class);
-
-        assertThat(actualRoleList.size(), is(greaterThan(ZERO)));
-        assertThat(actualRoleList, is(equalTo(EXPECTED_ROLE_LIST)));
     }
 
     @Test
@@ -255,14 +245,13 @@ public class UniversalControllerTest {
     @Test
     public void check_of_getting_products_with_name_like_sorted_by_name() throws Exception {
         String mapping = "/products/allProductsSortedByNameWithNameLike/";
-        List<Product> expectedProductList = new ArrayList<>();
+        List<ProductDTO> expectedProductList = new ArrayList<>();
         List<ProductDTO> actualProductList = new ArrayList<>();
 
         for (Product product: products) {
-            String screen = "%";
-            String name = screen + product.getName().charAt(ZERO) + screen;
+            String name = "" + product.getName().charAt(ZERO);
             expectedProductList.add(
-                    productRepository.findByNameLikeOrderByNameAsc(name).get(ZERO));
+                    productConverter.convert(productRepository.findByNameContainingOrderByNameAsc(name).get(ZERO)));
             actualProductList.add(actualList(
                     mapping + name
                     , ProductDTO.class).get(ZERO));
@@ -272,22 +261,10 @@ public class UniversalControllerTest {
         assertThat(actualProductList, is(equalTo(expectedProductList)));
     }
 
-    @Test
-    public void check_of_adding_product() throws Exception {
-        String mapping = "/products/add";
-
-        String EXPECTED_PRODUCT_NAME = productService.get(FIRST_VALUE).getName();
-        mvc.perform(MockMvcRequestBuilders.post(
-                mapping + "?data=" + EXPECTED_PRODUCT_NAME
-                                   + "&photo=" ))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("name", is(equalTo(EXPECTED_PRODUCT_NAME))));
-    }
-
     private ObjectMapper createMapper() {
         return new ObjectMapper()
-                /*.configure(ACCEPT_SINGLE_VALUE_AS_ARRAY, true)*/
-                /*.configure(FAIL_ON_UNKNOWN_PROPERTIES, false)*/;
+                .configure(ACCEPT_SINGLE_VALUE_AS_ARRAY, true)
+                .configure(FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 
     private ObjectNode[] fillResultList(MockMvc mvc, String mapping, ObjectMapper mapper) throws Exception {
