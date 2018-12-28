@@ -14,7 +14,7 @@ public class ProfileController {
     @Autowired
     private ProfileService service;
 
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/profiles/allProfilesSortedByName")
     public List<Profile> getAllProfilesSortedByName() {
         return service.findByOrderByName();

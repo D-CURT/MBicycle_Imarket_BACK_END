@@ -16,10 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-
-//    @Autowired
-//    private AlexEntryPoint authenticationEntryPoint;
-
     @Autowired
     protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
@@ -30,42 +26,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-
-//        http
-//                .userDetailsService(userDetailsService)
-//                //.authorizeRequests().antMatchers("/").permitAll().
-//                //and()
-//                .authorizeRequests().antMatchers("/profiles/**").hasRole("ADMIN")
-//                .and()
-//                .formLogin()
-//                .loginPage("/index.html") ///authorization
-//                .loginProcessingUrl("/j_spring_security_check")
-//                .failureUrl("/products/allProductsSortedByName")                             //убрать после проверки
-//                .usernameParameter("j_username").passwordParameter("j_password")
-//                .permitAll()
-//                .and()
-//                .csrf().disable()                                                                  // Временно пока не добавим токен ф форму
-//                .authorizeRequests()                                                               //
-//                .antMatchers(HttpMethod.POST, "/j_spring_security_check").permitAll(); //
-
         http.authorizeRequests()
-                .antMatchers("/index").anonymous()
-                .anyRequest().authenticated()
+                .antMatchers("/").permitAll()
                 .and()
                 .formLogin()
-                .loginPage("/login")
+                .loginPage("/login").permitAll()
                 .defaultSuccessUrl("/index")
                 .and()
-                .httpBasic();
+                .httpBasic()
+                .and().csrf().disable();
 
-//        http.csrf().disable()
-//                .authorizeRequests()
-//                .antMatchers("/login").permitAll()
-//                .anyRequest()
-//                .authenticated()
-//                .and()
-//                .httpBasic();
-    }
+        }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
