@@ -58,8 +58,6 @@ public class UserController {
     @Autowired
     private ProfileFacade profileFacade;
 
-
-
     @GetMapping(MAPPING + "/allUsersSortedByLogin")
     public List<UserDTO> getAllUsersSortedByLogin() {
         return userFacade.findByOrderByLogin();
@@ -78,10 +76,10 @@ public class UserController {
         List<Role> roles = new ArrayList<>();
         roles.add(roleRepository.getOne(29));//как?
         user.setRoles(roles);
-//        if (!profileFacade.add(profileDTO) && !userFacade.add(userFacade)){
-//            System.out.println("\nHAS ERROR");
-//            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-//        }
+        if (!profileFacade.add(profileDTO)){
+            System.out.println("\nHAS ERROR");
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
 
 
         securityService.autoLogin(user.getLogin(), user.getPassword());
