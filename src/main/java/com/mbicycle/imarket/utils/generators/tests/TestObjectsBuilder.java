@@ -2,8 +2,8 @@ package com.mbicycle.imarket.utils.generators.tests;
 
 import com.mbicycle.imarket.beans.entities.Profile;
 import com.mbicycle.imarket.beans.entities.User;
-import com.mbicycle.imarket.dto.ProfileDTO;
-import com.mbicycle.imarket.dto.UserDTO;
+import com.mbicycle.imarket.beans.dto.ProfileDTO;
+import com.mbicycle.imarket.beans.dto.UserDTO;
 
 import java.util.Arrays;
 

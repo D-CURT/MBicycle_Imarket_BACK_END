@@ -1,6 +1,6 @@
 package com.mbicycle.imarket.facades.interfaces;
 
-import com.mbicycle.imarket.dto.CategoryDTO;
+import com.mbicycle.imarket.beans.dto.CategoryDTO;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

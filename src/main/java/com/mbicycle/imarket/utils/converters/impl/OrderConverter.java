@@ -1,8 +1,8 @@
-package com.mbicycle.imarket.converters.impl;
+package com.mbicycle.imarket.utils.converters.impl;
 
 import com.mbicycle.imarket.beans.entities.Order;
-import com.mbicycle.imarket.converters.AbstractConverter;
-import com.mbicycle.imarket.dto.OrderDTO;
+import com.mbicycle.imarket.utils.converters.AbstractConverter;
+import com.mbicycle.imarket.beans.dto.OrderDTO;
 
 public class OrderConverter extends AbstractConverter<Order, OrderDTO> {
 

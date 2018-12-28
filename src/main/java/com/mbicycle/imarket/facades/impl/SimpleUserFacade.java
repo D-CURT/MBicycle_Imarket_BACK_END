@@ -1,8 +1,8 @@
 package com.mbicycle.imarket.facades.impl;
 
 import com.mbicycle.imarket.beans.entities.User;
-import com.mbicycle.imarket.converters.Converter;
-import com.mbicycle.imarket.dto.UserDTO;
+import com.mbicycle.imarket.utils.converters.Converter;
+import com.mbicycle.imarket.beans.dto.UserDTO;
 import com.mbicycle.imarket.facades.interfaces.UserFacade;
 import com.mbicycle.imarket.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

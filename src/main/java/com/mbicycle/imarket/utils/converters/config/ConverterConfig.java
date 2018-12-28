@@ -1,10 +1,10 @@
-package com.mbicycle.imarket.converters.config;
+package com.mbicycle.imarket.utils.converters.config;
 
 import com.mbicycle.imarket.beans.entities.*;
-import com.mbicycle.imarket.converters.Converter;
-import com.mbicycle.imarket.converters.impl.*;
-import com.mbicycle.imarket.converters.impl.reversed.*;
-import com.mbicycle.imarket.dto.*;
+import com.mbicycle.imarket.utils.converters.Converter;
+import com.mbicycle.imarket.utils.converters.impl.*;
+import com.mbicycle.imarket.utils.converters.impl.reversed.*;
+import com.mbicycle.imarket.beans.dto.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

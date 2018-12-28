@@ -1,8 +1,8 @@
-package com.mbicycle.imarket.converters.impl;
+package com.mbicycle.imarket.utils.converters.impl;
 
 import com.mbicycle.imarket.beans.entities.User;
-import com.mbicycle.imarket.converters.AbstractConverter;
-import com.mbicycle.imarket.dto.UserDTO;
+import com.mbicycle.imarket.utils.converters.AbstractConverter;
+import com.mbicycle.imarket.beans.dto.UserDTO;
 
 import java.util.stream.Collectors;
 

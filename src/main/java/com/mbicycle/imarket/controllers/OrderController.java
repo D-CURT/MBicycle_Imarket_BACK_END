@@ -1,10 +1,8 @@
 package com.mbicycle.imarket.controllers;
 
-import com.mbicycle.imarket.dto.OrderDTO;
+import com.mbicycle.imarket.beans.dto.OrderDTO;
 import com.mbicycle.imarket.facades.interfaces.OrderFacade;
-import com.mbicycle.imarket.utils.ResponseEntityBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

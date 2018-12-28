@@ -1,8 +1,8 @@
-package com.mbicycle.imarket.converters.impl;
+package com.mbicycle.imarket.utils.converters.impl;
 
 import com.mbicycle.imarket.beans.entities.Product;
-import com.mbicycle.imarket.converters.AbstractConverter;
-import com.mbicycle.imarket.dto.ProductDTO;
+import com.mbicycle.imarket.utils.converters.AbstractConverter;
+import com.mbicycle.imarket.beans.dto.ProductDTO;
 
 public class ProductConverter extends AbstractConverter<Product, ProductDTO> {
 

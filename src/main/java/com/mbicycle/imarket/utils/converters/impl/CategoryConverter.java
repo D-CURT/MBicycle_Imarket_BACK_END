@@ -1,8 +1,8 @@
-package com.mbicycle.imarket.converters.impl;
+package com.mbicycle.imarket.utils.converters.impl;
 
 import com.mbicycle.imarket.beans.entities.Category;
-import com.mbicycle.imarket.converters.AbstractConverter;
-import com.mbicycle.imarket.dto.CategoryDTO;
+import com.mbicycle.imarket.utils.converters.AbstractConverter;
+import com.mbicycle.imarket.beans.dto.CategoryDTO;
 
 public class CategoryConverter extends AbstractConverter<Category,CategoryDTO> {
     @Override

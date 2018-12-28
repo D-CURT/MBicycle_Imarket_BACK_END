@@ -1,4 +1,4 @@
-package com.mbicycle.imarket.dto;
+package com.mbicycle.imarket.beans.dto;
 
 import java.util.List;
 import java.util.Objects;

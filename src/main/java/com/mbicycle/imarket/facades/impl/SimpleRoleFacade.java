@@ -1,6 +1,6 @@
 package com.mbicycle.imarket.facades.impl;
 
-import com.mbicycle.imarket.dto.RoleDTO;
+import com.mbicycle.imarket.beans.dto.RoleDTO;
 import com.mbicycle.imarket.facades.interfaces.RoleFacade;
 
 import java.util.List;
