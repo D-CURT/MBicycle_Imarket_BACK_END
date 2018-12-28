@@ -263,10 +263,9 @@ public class UniversalControllerTest {
         List<ProductDTO> actualProductList = new ArrayList<>();
 
         for (Product product: products) {
-            String screen = "%";
             String name = "" + product.getName().charAt(ZERO);
             expectedProductList.add(
-                    productConverter.convert(productRepository.findByNameLikeOrderByNameAsc(screen + name + screen).get(ZERO)));
+                    productConverter.convert(productRepository.findByNameContainingOrderByNameAsc(name).get(ZERO)));
             actualProductList.add(actualList(
                     mapping + name
                     , ProductDTO.class).get(ZERO));

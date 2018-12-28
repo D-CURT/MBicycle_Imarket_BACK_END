@@ -19,12 +19,12 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     List<Product> findByGroupOrderByPriceAsc(Group group);
 
-    List<Product> findByNameLikeOrderByNameAsc(String name);
+    List<Product> findByNameContainingOrderByNameAsc(String name);
 
-    List<Product> findByNameLikeAndStoreStatusIsTrueOrderByNameAsc(String name);
+    List<Product> findByNameContainingAndStoreStatusIsTrueOrderByNameAsc(String name);
 
-    List<Product> findByNameLikeAndDiscountIsNotNullOrderByNameAsc(String name);
+    List<Product> findByNameContainingAndDiscountIsNotNullOrderByNameAsc(String name);
 
-    List<Product> findByNameLikeAndStoreStatusIsTrueAndDiscountIsNotNullOrderByNameAsc(String name);
+    List<Product> findByNameContainingAndStoreStatusIsTrueAndDiscountIsNotNullOrderByNameAsc(String name);
 
 }
