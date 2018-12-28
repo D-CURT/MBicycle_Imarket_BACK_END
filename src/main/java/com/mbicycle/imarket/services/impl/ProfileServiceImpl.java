@@ -16,7 +16,10 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Override
     public boolean add(Profile profile){
-        User user = profile.getUser();
+        User user;
+        if ((user = profile.getUser()) == null) {
+            return false;
+        }
         if (repository.findByUser(user) == null) {
             repository.save(profile);
         }

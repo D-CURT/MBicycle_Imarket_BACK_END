@@ -18,22 +18,23 @@ import static com.mbicycle.imarket.utils.ResponseEntityBuilder.entityWithStatus;
 
 @RestController
 public class ProductController {
+    private static final String MAPPING = "/products";
 
     @Autowired
     @SuppressWarnings("ALL")
     private ProductFacade facade;
 
-    @GetMapping("/products/allProductsSortedByName")
+    @GetMapping(MAPPING + "/allProductsSortedByName")
     public List<ProductDTO> getAllProductsSortedByName() {
         return facade.findByOrderByName();
     }
 
-    @GetMapping("/products/allProductsSortedByPrice")
+    @GetMapping(MAPPING + "/allProductsSortedByPrice")
     public List<ProductDTO> getAllProductsSortedByPrice() {
         return facade.findByOrderByPrice();
     }
 
-    @GetMapping(value = "/products/allProductsWithGroupSortedByName/{groupName}"
+    @GetMapping(value = MAPPING + "/allProductsWithGroupSortedByName/{groupName}"
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<ProductDTO> getAllProductsWithGroupSortedByName(@PathVariable String groupName) {
         return facade.findByGroupOrderByName(groupName);
@@ -45,38 +46,35 @@ public class ProductController {
         return facade.findByGroupOrderByPrice(groupName);
     }
 
-    @GetMapping(value = "/products/allProductsSortedByNameWithNameLike/{name}"
+    @GetMapping(value = MAPPING + "/allProductsSortedByNameWithNameLike/{name}"
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<ProductDTO> getAllProductsSortedByNameWithNameLike(@PathVariable String name) {
         return facade.findByNameLikeOrderByName(name);
     }
 
-    @GetMapping(value = "/products/allProductsSortedByNameWithNameLikeAndTrueStoreStatus/{name}"
+    @GetMapping(value = MAPPING + "/allProductsSortedByNameWithNameLikeAndTrueStoreStatus/{name}"
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<ProductDTO> getAllSortedByNameWithNameLikeAndTrueStoreStatus(@PathVariable String name) {
         return facade.findByNameLikeAndStoreStatusIsTrue(name);
     }
 
-    @GetMapping(value = "/products/allProductsSortedByNameWithNameLikeAndDiscount/{name}"
+    @GetMapping(value = MAPPING + "/allProductsSortedByNameWithNameLikeAndDiscount/{name}"
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<ProductDTO> getAllSortedByNameWithNameLikeAndDiscount(@PathVariable String name) {
         return facade.findByNameLikeAndDiscountIsNotNull(name);
     }
 
-    @GetMapping(value = "/products/allProductsSortedByNameWithNameLikeAndTrueStoreStatusAndDiscount/{name}"
+    @GetMapping(value = MAPPING + "/allProductsSortedByNameWithNameLikeAndTrueStoreStatusAndDiscount/{name}"
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<ProductDTO> getAllSortedByNameWithNameLikeAndTrueStoreStatusAndDiscount(@PathVariable String name) {
         return facade.findByNameLikeAndStoreStatusIsTrueAndDiscountIsNotNull(name);
     }
 
-    @PostMapping(value = "/products/add")
+    @PostMapping(value = MAPPING + "/add")
     public ResponseEntity addProduct(@RequestParam("data") String strDTO, @RequestParam("photo") MultipartFile file)
             throws IOException {
         ProductDTO productDTO = new ObjectMapper().readValue(strDTO, ProductDTO.class);  //Convert string param (json) into DTO
-<<<<<<< HEAD
-        return facade.add(productDTO, file) ? new ResponseEntity(HttpStatus.OK) : new ResponseEntity(HttpStatus.BAD_REQUEST);
-=======
-        return entityWithStatus(productFacade.add(productDTO, file));
->>>>>>> afc5ef03b0cea2f3f0da9644efaeec8c1c395b1b
+        return entityWithStatus(facade.add(productDTO, file));
+
     }
 }
