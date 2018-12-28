@@ -1,9 +1,22 @@
 package com.mbicycle.imarket.facades.impl;
 
 import com.mbicycle.imarket.dto.RoleDTO;
+import com.mbicycle.imarket.facades.interfaces.RoleFacade;
 
-public class SimpleRoleFacade {
-    public boolean addRole(RoleDTO dto) {
+import java.util.List;
+
+public class SimpleRoleFacade implements RoleFacade {
+    public boolean add(RoleDTO dto) {
+        return false;
+    }
+
+    @Override
+    public List<RoleDTO> findByOrderByRole() {
+        return null;
+    }
+
+    @Override
+    public boolean delete(RoleDTO dto) {
         return false;
     }
 }
