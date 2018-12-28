@@ -1,10 +1,7 @@
 package com.mbicycle.imarket.controllers;
 
-import com.mbicycle.imarket.beans.entities.Order;
-
 import com.mbicycle.imarket.dto.OrderDTO;
 import com.mbicycle.imarket.facades.interfaces.OrderFacade;
-import com.mbicycle.imarket.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,9 +22,18 @@ public class OrderController {
         return facade.getAll();
     }
 
-    @PostMapping("/orders/open")
-    public ResponseEntity openOrder(){
-        //facade.openOrder(new OrderDTO());
-        return new ResponseEntity(HttpStatus.OK);
+    @PostMapping("/orders/add")
+    public ResponseEntity addOrder(OrderDTO dto){
+        return facade.add(dto) ? new ResponseEntity(HttpStatus.OK) : new ResponseEntity(HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping("/order/delete")
+    public ResponseEntity deleteOrder(OrderDTO dto){
+        return facade.delete(dto) ? new ResponseEntity(HttpStatus.OK) : new ResponseEntity(HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping("/order/update")
+    public ResponseEntity updateOrder(OrderDTO dto){
+       return facade.update(dto) ? new ResponseEntity(HttpStatus.OK) : new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 }

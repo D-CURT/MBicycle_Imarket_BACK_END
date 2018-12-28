@@ -3,7 +3,9 @@ package com.mbicycle.imarket.controllers;
 import com.mbicycle.imarket.dto.CategoryDTO;
 import com.mbicycle.imarket.facades.interfaces.CategoryFacade;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,25 +13,21 @@ import java.util.List;
 @RestController
 public class CategoryController {
     @Autowired
-    private CategoryFacade categoryFacade;
+    private CategoryFacade facade;
 
     @GetMapping("/categories/allCategoriesSortedByName")
     public List<CategoryDTO> getAllCategoriesSortedByName() {
-        return categoryFacade.findByOrderByName();
+        return facade.findByOrderByName();
     }
 
-    @GetMapping("/categories/getCategory")
+    @GetMapping("/categories/getCategory/{name}")
     public CategoryDTO getCategory(@PathVariable String name){
-        return categoryFacade.get(name);
+        return facade.get(name);
     }
 
-    @PostMapping(value = "/categories/add/{name}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public void addCategory(@RequestBody CategoryDTO categoryDTO) {
-        if (categoryFacade.add(categoryDTO)){
-
-        }else{
-
-        }
+    @GetMapping(value = "/categories/add", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity addCategory(@RequestBody CategoryDTO dto) {
+        return facade.add(dto) ? new ResponseEntity(HttpStatus.OK) : new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 
 
