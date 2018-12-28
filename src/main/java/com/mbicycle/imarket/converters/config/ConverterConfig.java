@@ -42,15 +42,6 @@ public class ConverterConfig {
     }
 
     @Bean
-    public Converter<Order, OrderDTO> orderConverter() {
-        return new OrderConverter();
-    }
-
-    @Bean Converter<OrderDTO, Order> reversedOrderConverter() {
-        return new ReverseOrderConverter();
-    }
-
-    @Bean
     public Converter<Category, CategoryDTO> categoryConverter() {
         return new CategoryConverter();
     }
