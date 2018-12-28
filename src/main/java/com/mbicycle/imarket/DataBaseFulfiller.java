@@ -12,7 +12,7 @@ import static com.mbicycle.imarket.utils.enums.RoleType.ADMIN;
 import static com.mbicycle.imarket.utils.enums.RoleType.MANAGER;
 import static com.mbicycle.imarket.utils.enums.RoleType.CUSTOMER;
 
-@Component
+//@Component
 public class DataBaseFulfiller implements CommandLineRunner {
     @Autowired
     UserRepository userRepository;
