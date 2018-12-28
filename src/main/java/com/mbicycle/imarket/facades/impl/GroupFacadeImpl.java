@@ -2,10 +2,9 @@ package com.mbicycle.imarket.facades.impl;
 
 import com.mbicycle.imarket.beans.entities.Group;
 import com.mbicycle.imarket.converters.Converter;
-import com.mbicycle.imarket.daos.GroupRepository;
 import com.mbicycle.imarket.dto.GroupDTO;
 import com.mbicycle.imarket.facades.interfaces.GroupFacade;
-import com.mbicycle.imarket.services.GroupService;
+import com.mbicycle.imarket.services.interfaces.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -36,5 +35,10 @@ public class GroupFacadeImpl implements GroupFacade {
     @Override
     public List<GroupDTO> findByOrderByName() {
         return groupService.findByOrderByName().stream().map(groupConverter::convert).collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean delete(GroupDTO dto) {
+        return groupService.delete(reverseGroupConverter.convert(dto));
     }
 }

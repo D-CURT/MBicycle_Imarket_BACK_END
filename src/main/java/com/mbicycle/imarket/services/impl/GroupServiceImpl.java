@@ -2,7 +2,7 @@ package com.mbicycle.imarket.services.impl;
 
 import com.mbicycle.imarket.beans.entities.Group;
 import com.mbicycle.imarket.daos.GroupRepository;
-import com.mbicycle.imarket.services.GroupService;
+import com.mbicycle.imarket.services.interfaces.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;

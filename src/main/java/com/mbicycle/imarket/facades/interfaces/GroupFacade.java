@@ -12,4 +12,6 @@ public interface GroupFacade {
     GroupDTO get(String name);
 
     List<GroupDTO> findByOrderByName();
+
+    boolean delete(GroupDTO dto);
 }

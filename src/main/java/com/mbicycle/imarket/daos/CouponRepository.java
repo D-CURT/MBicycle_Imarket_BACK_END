@@ -9,5 +9,4 @@ public interface CouponRepository extends JpaRepository<Coupon, Integer> {
     Coupon findByDescription(String description);
 
     List<Coupon> findAll();
-
 }
