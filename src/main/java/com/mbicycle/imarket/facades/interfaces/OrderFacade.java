@@ -1,13 +1,18 @@
 package com.mbicycle.imarket.facades.interfaces;
 
+import com.mbicycle.imarket.beans.entities.Order;
 import com.mbicycle.imarket.dto.OrderDTO;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public interface OrderFacade {
-    void openOrder(OrderDTO orderDTO);
+    boolean add(OrderDTO orderDTO);
 
-    void updateOrder(OrderDTO orderDTO);
+    void update(OrderDTO orderDTO);
 
-    void deleteOrder(OrderDTO orderDTO);
+    boolean delete(OrderDTO orderDTO);
+
+    List<OrderDTO> getAll();
 }

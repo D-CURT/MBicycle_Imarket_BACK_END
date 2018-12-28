@@ -2,6 +2,7 @@ package com.mbicycle.imarket.controllers;
 
 import com.mbicycle.imarket.beans.entities.Order;
 
+import com.mbicycle.imarket.dto.OrderDTO;
 import com.mbicycle.imarket.facades.interfaces.OrderFacade;
 import com.mbicycle.imarket.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,15 +16,13 @@ import java.util.List;
 
 @RestController
 public class OrderController {
-    @Autowired
-    private OrderService service;
 
     @Autowired
     private OrderFacade facade;
 
     @GetMapping("/orders/allOrders")
-    public List<Order> getAllOrders(){
-        return service.getAll();
+    public List<OrderDTO> getAllOrders(){
+        return facade.getAll();
     }
 
     @PostMapping("/orders/open")
