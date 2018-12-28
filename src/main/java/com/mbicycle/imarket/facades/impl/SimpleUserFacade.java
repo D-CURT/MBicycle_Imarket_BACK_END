@@ -4,7 +4,7 @@ import com.mbicycle.imarket.beans.entities.User;
 import com.mbicycle.imarket.converters.Converter;
 import com.mbicycle.imarket.dto.UserDTO;
 import com.mbicycle.imarket.facades.interfaces.UserFacade;
-import com.mbicycle.imarket.services.UserService;
+import com.mbicycle.imarket.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -21,6 +21,13 @@ public class SimpleUserFacade implements UserFacade {
 
     @Autowired
     private Converter<UserDTO, User> reversedConverter;
+
+    @Override
+    public UserDTO get(UserDTO dto) {
+        String login = dto.getLogin();
+        String password = dto.getPassword();
+        return converter.convert(password == null ? userService.get(login) : userService.get(login, password));
+    }
 
     @Override
     public boolean add(UserDTO dto) {

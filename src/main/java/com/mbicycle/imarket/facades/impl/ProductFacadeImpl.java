@@ -5,8 +5,7 @@ import com.mbicycle.imarket.converters.Converter;
 import com.mbicycle.imarket.daos.ProductRepository;
 import com.mbicycle.imarket.dto.ProductDTO;
 import com.mbicycle.imarket.facades.interfaces.ProductFacade;
-import com.mbicycle.imarket.services.GroupService;
-import com.mbicycle.imarket.services.ProductService;
+import com.mbicycle.imarket.services.interfaces.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,7 +13,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;

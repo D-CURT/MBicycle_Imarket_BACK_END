@@ -1,4 +1,4 @@
-package com.mbicycle.imarket.services;
+package com.mbicycle.imarket.services.interfaces;
 
 import com.mbicycle.imarket.beans.entities.Role;
 import com.mbicycle.imarket.utils.enums.RoleType;

@@ -3,8 +3,8 @@ package com.mbicycle.imarket.services.impl;
 import com.mbicycle.imarket.beans.entities.Group;
 import com.mbicycle.imarket.beans.entities.Product;
 import com.mbicycle.imarket.daos.ProductRepository;
-import com.mbicycle.imarket.services.GroupService;
-import com.mbicycle.imarket.services.ProductService;
+import com.mbicycle.imarket.services.interfaces.GroupService;
+import com.mbicycle.imarket.services.interfaces.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;

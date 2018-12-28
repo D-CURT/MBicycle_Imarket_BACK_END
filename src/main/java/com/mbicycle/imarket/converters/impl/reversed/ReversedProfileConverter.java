@@ -3,7 +3,7 @@ package com.mbicycle.imarket.converters.impl.reversed;
 import com.mbicycle.imarket.beans.entities.Profile;
 import com.mbicycle.imarket.converters.AbstractConverter;
 import com.mbicycle.imarket.dto.ProfileDTO;
-import com.mbicycle.imarket.services.UserService;
+import com.mbicycle.imarket.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class ReversedProfileConverter extends AbstractConverter<ProfileDTO, Profile> {

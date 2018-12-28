@@ -2,7 +2,7 @@ package com.mbicycle.imarket.services.impl;
 
 import com.mbicycle.imarket.beans.entities.Coupon;
 import com.mbicycle.imarket.daos.CouponRepository;
-import com.mbicycle.imarket.services.CouponService;
+import com.mbicycle.imarket.services.interfaces.CouponService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;

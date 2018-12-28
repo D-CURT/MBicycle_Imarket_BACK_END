@@ -3,7 +3,7 @@ package com.mbicycle.imarket.services.impl;
 import com.mbicycle.imarket.beans.entities.Profile;
 import com.mbicycle.imarket.beans.entities.User;
 import com.mbicycle.imarket.daos.ProfileRepository;
-import com.mbicycle.imarket.services.ProfileService;
+import com.mbicycle.imarket.services.interfaces.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -20,20 +20,20 @@ public class ProfileServiceImpl implements ProfileService {
         if (repository.findByUser(user) == null) {
             repository.save(profile);
         }
-        return findByUser(user) != null;
+        return get(user) != null;
     }
 
     @Override
     public boolean delete(Profile profile){
         User user = profile.getUser();
-        if (findByUser(user) != null) {
+        if (get(user) != null) {
             repository.delete(profile);
         }
-        return findByUser(user) == null;
+        return get(user) == null;
     }
 
     @Override
-    public Profile findByUser(User user){
+    public Profile get(User user){
         return repository.findByUser(user);
     }
 

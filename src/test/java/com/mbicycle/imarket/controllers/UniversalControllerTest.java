@@ -9,13 +9,14 @@ import com.mbicycle.imarket.converters.Converter;
 import com.mbicycle.imarket.daos.*;
 import com.mbicycle.imarket.dto.ProductDTO;
 import com.mbicycle.imarket.dto.ProfileDTO;
+import com.mbicycle.imarket.dto.RoleDTO;
 import com.mbicycle.imarket.dto.UserDTO;
 import com.mbicycle.imarket.facades.interfaces.ProfileFacade;
 import com.mbicycle.imarket.facades.interfaces.UserFacade;
-import com.mbicycle.imarket.services.CategoryService;
-import com.mbicycle.imarket.services.GroupService;
-import com.mbicycle.imarket.services.ProductService;
-import com.mbicycle.imarket.services.UserService;
+import com.mbicycle.imarket.services.interfaces.CategoryService;
+import com.mbicycle.imarket.services.interfaces.GroupService;
+import com.mbicycle.imarket.services.interfaces.ProductService;
+import com.mbicycle.imarket.services.interfaces.UserService;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,14 +24,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -186,17 +183,6 @@ public class UniversalControllerTest {
     }
 
     @Test
-    public void check_of_getting_roles_sorted_by_role() throws Exception {
-        String mapping = "/roles/allRolesSortedByRole";
-
-        final List<Role> EXPECTED_ROLE_LIST = roleRepository.findByOrderByRoleAsc();
-        List<Role> actualRoleList = actualList(mapping, Role.class);
-
-        assertThat(actualRoleList.size(), is(greaterThan(ZERO)));
-        assertThat(actualRoleList, is(equalTo(EXPECTED_ROLE_LIST)));
-    }
-
-    @Test
     public void check_of_getting_categories_sorted_by_name() throws Exception {
         String mapping = "/categories/allCategoriesSortedByName";
 
@@ -283,7 +269,6 @@ public class UniversalControllerTest {
 
     private ObjectNode[] fillResultList(MockMvc mvc, String mapping, ObjectMapper mapper) throws Exception {
         byte[] responseBytes = mvc.perform(MockMvcRequestBuilders.get(mapping)
-                .accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
                 .param("offset", "0")
                 .param("count", "2048"))
                 .andExpect(status().isOk())

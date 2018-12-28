@@ -2,7 +2,7 @@ package com.mbicycle.imarket.services.impl;
 
 import com.mbicycle.imarket.beans.entities.Order;
 import com.mbicycle.imarket.daos.OrderRepository;
-import com.mbicycle.imarket.services.OrderService;
+import com.mbicycle.imarket.services.interfaces.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
