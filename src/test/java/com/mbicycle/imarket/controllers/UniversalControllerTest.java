@@ -7,6 +7,7 @@ import com.mbicycle.imarket.Main;
 import com.mbicycle.imarket.beans.entities.*;
 import com.mbicycle.imarket.converters.Converter;
 import com.mbicycle.imarket.daos.*;
+import com.mbicycle.imarket.dto.CategoryDTO;
 import com.mbicycle.imarket.dto.ProductDTO;
 import com.mbicycle.imarket.dto.ProfileDTO;
 import com.mbicycle.imarket.dto.UserDTO;
@@ -97,6 +98,9 @@ public class UniversalControllerTest {
     @Autowired
     private Converter<Product, ProductDTO> productConverter;
 
+    @Autowired
+    private Converter<Category, CategoryDTO> reverseCategoryConverter;
+
     @Before
     public void setUp() {
         UserDTO[] users = {createUserDTO(FIRST_VALUE, FIRST_USER_PASSWORD)
@@ -183,8 +187,11 @@ public class UniversalControllerTest {
     public void check_of_getting_categories_sorted_by_name() throws Exception {
         String mapping = "/categories/allCategoriesSortedByName";
 
-        final List<Category> EXPECTED_CATEGORY_LIST = categoryRepository.findByOrderByNameAsc();
-        List<Category> actualCategoryList = actualList(mapping, Category.class);
+        final List<CategoryDTO> EXPECTED_CATEGORY_LIST = categoryRepository.findByOrderByNameAsc()
+                          .stream()
+                          .map(reverseCategoryConverter::convert)
+                          .collect(Collectors.toList());
+        List<CategoryDTO> actualCategoryList = actualList(mapping, CategoryDTO.class);
 
         assertThat(actualCategoryList.size(), is(greaterThan(ZERO)));
         assertThat(actualCategoryList, is(equalTo(EXPECTED_CATEGORY_LIST)));
