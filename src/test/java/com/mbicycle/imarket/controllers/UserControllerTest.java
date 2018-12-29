@@ -1,6 +1,5 @@
 package com.mbicycle.imarket.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.mbicycle.imarket.Main;
 import com.mbicycle.imarket.beans.dto.UserDTO;
 import com.mbicycle.imarket.beans.entities.User;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.List;
 
@@ -34,10 +32,11 @@ public class UserControllerTest extends AbstractControllerTest {
 
     @Test
     public void check_of_getting_user_by_Login() throws Exception {
-        String json = createMapper().writeValueAsString(converter.convert(userService.get(THIRD_VALUE, THIRD_USER_PASSWORD)));
+        String json = createMapper().writeValueAsString(createUserDTO(THIRD_VALUE));
+        String expectedJson = createMapper().writeValueAsString(converter.convert(userService.get(THIRD_VALUE)));
         mvc.perform(get("/users/get").contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
                                                 .content(json))
-           .andExpect(content().string(json));
+           .andExpect(content().string(is(equalTo(expectedJson))));
     }
 
     @Test
