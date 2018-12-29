@@ -1,5 +1,7 @@
 package com.mbicycle.imarket.services.securities;
 
+import com.mbicycle.imarket.utils.enums.RoleType;
+
 /*
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -86,14 +88,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
-                .withUser("admin").password(passwordEncoder().encode("admin"))
-                .roles("ADMIN")
+               .withUser("admin").password(passwordEncoder().encode("admin"))
+                .roles(RoleType.ADMIN.name())
                 .and()
                 .withUser("manager").password(passwordEncoder().encode("manager"))
-                .roles("MANAGER")
+                .roles(RoleType.MANAGER.name())
                 .and()
                 .withUser("customer").password(passwordEncoder().encode("customer"))
-                .roles("CUSTOMER");
+                .roles(RoleType.CUSTOMER.name());
+
     }
 
     @Override
