@@ -20,12 +20,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User get(String login) {
-        return userRepository.findOneByLogin(login);
+        return userRepository.findByLogin(login);
     }
 
     @Override
     public String getPasswordByLogin(String login) {
-       User user = userRepository.findOneByLogin(login);
+       User user = userRepository.findByLogin(login);
        if (user == null) {
            return null;
        }
@@ -57,8 +57,7 @@ public class UserServiceImpl implements UserService {
         if ((user = get(login, password)) != null) {
             userRepository.delete(user);
         }
-        boolean d = get(login, password) == null;
-        return d;
+        return get(login, password) == null;
     }
 
 }

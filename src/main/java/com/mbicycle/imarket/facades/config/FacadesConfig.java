@@ -25,7 +25,7 @@ public class FacadesConfig {
 
     @Bean
     public ProfileFacade profileFacade() {
-        return new SimpleProfileFacade();
+        return new ProfileFacadeImpl();
     }
 
     @Bean

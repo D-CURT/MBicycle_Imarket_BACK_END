@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static com.mbicycle.imarket.utils.ResponseEntityBuilder.entityWithContent;
 import static com.mbicycle.imarket.utils.ResponseEntityBuilder.entityWithStatus;
 
 @RestController
@@ -28,8 +29,8 @@ public class ProfileController {
     }
 
     @GetMapping(value = MAPPING + "/get", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ProfileDTO get(@RequestBody ProfileDTO dto) {
-        return profileFacade.get(dto);
+    public ResponseEntity<ProfileDTO> get(@RequestBody ProfileDTO dto) {
+        return entityWithContent(profileFacade.get(dto));
     }
 
     @PostMapping(value = MAPPING + "/add", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
