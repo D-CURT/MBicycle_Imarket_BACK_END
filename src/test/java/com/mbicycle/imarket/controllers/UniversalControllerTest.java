@@ -32,23 +32,6 @@ import static org.junit.Assert.assertThat;
 @AutoConfigureMockMvc
 public class UniversalControllerTest extends AbstractControllerTest{
 
-    // =========== PROFILE ===========
-
-    @Test
-    public void check_of_getting_sorted_by_name_profile_list() throws Exception {
-        String mapping = "/profiles/allProfilesSortedByName";
-
-        final List<ProfileDTO> EXPECTED_PROFILE_LIST = profileRepository.findByOrderByNameAsc()
-                                                                        .stream()
-                                                                        .map(profileConverter::convert)
-                                                                        .collect(Collectors.toList());
-
-        List<ProfileDTO> actualProfileList = actualList(mapping, ProfileDTO.class);
-
-        assertThat(actualProfileList.size(), is(greaterThan(ZERO)));
-        assertThat(actualProfileList, is(equalTo(EXPECTED_PROFILE_LIST)));
-    }
-
     @Test
     public void check_of_getting_categories_sorted_by_name() throws Exception {
         String mapping = "/categories/allCategoriesSortedByName";

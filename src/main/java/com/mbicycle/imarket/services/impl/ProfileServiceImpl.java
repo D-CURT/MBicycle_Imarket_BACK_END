@@ -42,7 +42,7 @@ public class ProfileServiceImpl implements ProfileService {
     @Override
     public Profile get(User user){
 
-        if ((user = userRepository.findOneByLogin(user.getLogin())) != null) {
+        if ((user = userRepository.findByLogin(user.getLogin())) != null) {
             return repository.findByUser(user);
         }
         return null;
