@@ -12,6 +12,12 @@ import static com.mbicycle.imarket.utils.enums.RoleType.CUSTOMER;
 
 public class TestObjectsBuilder {
 
+    public static UserDTO createUserDTO(String login) {
+        UserDTO dto = new UserDTO();
+        dto.setLogin(login);
+        return dto;
+    }
+
     public static UserDTO createUserDTO(String login, String password) {
         return new UserDTO(login, password
                 , Arrays.asList(CUSTOMER.name(), ADMIN.name()));
