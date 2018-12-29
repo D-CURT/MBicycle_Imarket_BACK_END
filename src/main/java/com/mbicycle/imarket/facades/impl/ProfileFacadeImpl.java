@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 @Component
 @SuppressWarnings("ALL")
-public class SimpleProfileFacade implements ProfileFacade {
+public class ProfileFacadeImpl implements ProfileFacade {
 
     @Autowired
     private UserService userService;

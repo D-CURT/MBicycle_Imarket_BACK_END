@@ -2,15 +2,13 @@ package com.mbicycle.imarket.controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.mbicycle.imarket.beans.dto.CategoryDTO;
 import com.mbicycle.imarket.beans.dto.ProductDTO;
 import com.mbicycle.imarket.beans.dto.ProfileDTO;
 import com.mbicycle.imarket.beans.dto.UserDTO;
-import com.mbicycle.imarket.beans.entities.Category;
-import com.mbicycle.imarket.beans.entities.Group;
-import com.mbicycle.imarket.beans.entities.Product;
-import com.mbicycle.imarket.beans.entities.Profile;
+import com.mbicycle.imarket.beans.entities.*;
 import com.mbicycle.imarket.daos.*;
 import com.mbicycle.imarket.facades.interfaces.ProfileFacade;
 import com.mbicycle.imarket.facades.interfaces.UserFacade;
@@ -83,6 +81,9 @@ public abstract class AbstractControllerTest {
 
     @Autowired
     ProfileFacade profileFacade;
+
+    @Autowired
+    Converter<UserDTO, User> userConverter;
 
     @Autowired
     Converter<Profile, ProfileDTO> profileConverter;

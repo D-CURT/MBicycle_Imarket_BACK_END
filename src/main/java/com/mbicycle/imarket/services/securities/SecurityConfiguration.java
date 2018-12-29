@@ -25,7 +25,6 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 
 import static org.hibernate.criterion.Restrictions.and;
 
-
 @Configuration
 @EnableWebSecurity
 //@Profile({"dev", "demo"})
@@ -65,8 +64,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(new MyBasicAuthenticationEntryPoint());
 
     }
-
-
 }
 
 */ //FIXME: Secirity with Basic
