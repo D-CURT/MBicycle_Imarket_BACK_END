@@ -1,11 +1,10 @@
-package com.mbicycle.imarket.utils.controllers;
+package com.mbicycle.imarket.controllers;
 
-<<<<<<< HEAD:src/main/java/com/mbicycle/imarket/utils/controllers/OrderController.java
-import com.mbicycle.imarket.dto.OrderDTO;
-import com.mbicycle.imarket.dto.ProfileDTO;
-=======
+
 import com.mbicycle.imarket.beans.dto.OrderDTO;
->>>>>>> 6703bc28637e5ae04c375c3bd4f20c186aec383b:src/main/java/com/mbicycle/imarket/controllers/OrderController.java
+import com.mbicycle.imarket.beans.dto.ProfileDTO;
+
+
 import com.mbicycle.imarket.facades.interfaces.OrderFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

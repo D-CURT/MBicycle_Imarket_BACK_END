@@ -9,9 +9,9 @@ public class OrderDTO {
 
     private int id;
 
-    //private Profile profile;
+    private ProfileDTO profile;
 
-    //private List<OrderProduct> orderProducts;
+//    private List<String> orderProducts;
 
     private PaymentType payment;
 
@@ -32,7 +32,8 @@ public class OrderDTO {
     public OrderDTO() {
     }
 
-    public OrderDTO(PaymentType payment, DeliveryType delivery, Date dateOpened, Date datePaid, Date dateReady, Date dateClosed, Date dateSent, Date dateGot) {
+    public OrderDTO(ProfileDTO profile, PaymentType payment, DeliveryType delivery, Date dateOpened, Date datePaid, Date dateReady, Date dateClosed, Date dateSent, Date dateGot) {
+        setProfile(profile);
         setPayment(payment);
         setDelivery(delivery);
         setDateOpened(dateOpened);
@@ -114,5 +115,14 @@ public class OrderDTO {
     public void setDateGot(Date dateGot) {
         this.dateGot = dateGot;
     }
+
+    public ProfileDTO getProfile() {
+        return profile;
+    }
+
+    public void setProfile(ProfileDTO profile) {
+        this.profile = profile;
+    }
+
 
 }

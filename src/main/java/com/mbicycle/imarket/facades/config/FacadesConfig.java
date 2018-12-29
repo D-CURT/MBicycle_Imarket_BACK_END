@@ -23,10 +23,10 @@ public class FacadesConfig {
         return new SimpleRoleFacade();
     }
 
-    @Bean
-    public ProfileFacade profileFacade() {
-        return new SimpleProfileFacade();
-    }
+//    @Bean
+//    public ProfileFacade profileFacade() {
+//        return new SimpleProfileFacade();
+//    }
 
     @Bean
     public OrderFacade orderFacade() {

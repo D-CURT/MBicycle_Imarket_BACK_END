@@ -70,4 +70,14 @@ public class ConverterConfig {
     public Converter<CouponDTO, Coupon> reverseCouponConverter() {
         return new ReversedCouponConverter();
     }
+
+    @Bean
+    public Converter<Order, OrderDTO> orderConverter(){
+        return new OrderConverter();
+    }
+
+    @Bean
+    public Converter<OrderDTO, Order> reverseOrderConverter(){
+        return new ReverseOrderConverter();
+    }
 }

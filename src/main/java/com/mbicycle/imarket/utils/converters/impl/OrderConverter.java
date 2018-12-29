@@ -1,14 +1,21 @@
 package com.mbicycle.imarket.utils.converters.impl;
 
-import com.mbicycle.imarket.beans.entities.Order;
-import com.mbicycle.imarket.utils.converters.AbstractConverter;
 import com.mbicycle.imarket.beans.dto.OrderDTO;
+import com.mbicycle.imarket.beans.entities.Order;
+import com.mbicycle.imarket.facades.interfaces.ProfileFacade;
+import com.mbicycle.imarket.utils.converters.AbstractConverter;
+import org.springframework.beans.factory.annotation.Autowired;
+
 
 public class OrderConverter extends AbstractConverter<Order, OrderDTO> {
+
+    @Autowired
+    private ProfileFacade facade;
 
     @Override
     public void convert(Order order, OrderDTO orderDTO) {
         orderDTO.setId(order.getId());
+        orderDTO.setProfile(facade.get(orderDTO.getProfile()));
         orderDTO.setDelivery(order.getDelivery());
         orderDTO.setPayment(order.getPayment());
         orderDTO.setDateOpened(order.getDateOpened());

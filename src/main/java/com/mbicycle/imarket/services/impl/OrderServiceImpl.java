@@ -27,12 +27,18 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public boolean update(Order order) {
-        Order order1 = order;
-        if (orderRepository.findByProfile(order.getProfile()) != null){
-            order1 = orderRepository.update(order);
+    public boolean update(Order orderToUpdate) {
+        Order order = orderRepository.findByProfile(orderToUpdate.getProfile());
+        if (order != null) {
+            order.setDateClosed(orderToUpdate.getDateClosed());
+            order.setDateGot(orderToUpdate.getDateGot());
+            order.setDateOpened(orderToUpdate.getDateOpened());
+            order.setDatePaid(orderToUpdate.getDatePaid());
+            order.setDateReady(orderToUpdate.getDateReady());
+            order.setDateSent(orderToUpdate.getDateSent());
+            orderRepository.save(order);
         }
-        return !order.equals(order1);
+        return order.equals(orderToUpdate);
     }
 
     @Override

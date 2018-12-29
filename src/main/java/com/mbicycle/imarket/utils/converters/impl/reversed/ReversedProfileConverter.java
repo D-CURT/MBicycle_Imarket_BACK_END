@@ -23,7 +23,6 @@ public class ReversedProfileConverter extends AbstractConverter<ProfileDTO, Prof
         target.setPhone(source.getPhone());
         target.setAddress(source.getAddress());
         String login = source.getLogin();
-<<<<<<< HEAD:src/main/java/com/mbicycle/imarket/converters/impl/reversed/ReversedProfileConverter.java
         if (userService.add(new User(login
                 , source.getPassword()
                 , source.getRoles()
@@ -34,14 +33,7 @@ public class ReversedProfileConverter extends AbstractConverter<ProfileDTO, Prof
             target.setUser(userService.get(login));
 
         }
-=======
-        userService.add(new User(login
-                , source.getPassword()
-                , source.getRoles()
-                        .stream()
-                        .map(s -> RoleType.valueOf(s).getRole())
-                        .collect(Collectors.toList())));
-        target.setUser(userService.get(login));
->>>>>>> 6703bc28637e5ae04c375c3bd4f20c186aec383b:src/main/java/com/mbicycle/imarket/utils/converters/impl/reversed/ReversedProfileConverter.java
+
+
     }
 }

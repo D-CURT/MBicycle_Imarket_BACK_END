@@ -1,4 +1,4 @@
-package com.mbicycle.imarket.utils.controllers;
+package com.mbicycle.imarket.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mbicycle.imarket.beans.dto.ProductDTO;
