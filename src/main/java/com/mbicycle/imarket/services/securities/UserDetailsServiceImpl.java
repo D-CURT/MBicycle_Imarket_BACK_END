@@ -32,7 +32,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         System.out.println("\nlogin = " + login + "\n");
 
-        User user = userRepository.findOneByLogin(login);
+        User user = userRepository.findByLogin(login);
 
         if (user == null) {
             System.out.println("\nUser not authorized.\n");
