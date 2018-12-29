@@ -1,4 +1,4 @@
-package com.mbicycle.imarket.converters;
+package com.mbicycle.imarket.utils.converters;
 
 import java.lang.reflect.ParameterizedType;
 

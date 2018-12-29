@@ -1,8 +1,8 @@
-package com.mbicycle.imarket.converters.impl;
+package com.mbicycle.imarket.utils.converters.impl;
 
 import com.mbicycle.imarket.beans.entities.Group;
-import com.mbicycle.imarket.converters.AbstractConverter;
-import com.mbicycle.imarket.dto.GroupDTO;
+import com.mbicycle.imarket.utils.converters.AbstractConverter;
+import com.mbicycle.imarket.beans.dto.GroupDTO;
 
 public class GroupConverter extends AbstractConverter<Group,GroupDTO> {
     @Override

@@ -1,7 +1,6 @@
 package com.mbicycle.imarket.facades.interfaces;
 
-import com.mbicycle.imarket.dto.ProfileDTO;
-import com.mbicycle.imarket.dto.UserDTO;
+import com.mbicycle.imarket.beans.dto.ProfileDTO;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

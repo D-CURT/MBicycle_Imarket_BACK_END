@@ -1,6 +1,6 @@
 package com.mbicycle.imarket.controllers;
 
-import com.mbicycle.imarket.dto.ProfileDTO;
+import com.mbicycle.imarket.beans.dto.ProfileDTO;
 import com.mbicycle.imarket.facades.interfaces.ProfileFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

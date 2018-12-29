@@ -1,4 +1,4 @@
-package com.mbicycle.imarket.dto;
+package com.mbicycle.imarket.beans.dto;
 
 import com.mbicycle.imarket.utils.enums.DeliveryType;
 import com.mbicycle.imarket.utils.enums.PaymentType;

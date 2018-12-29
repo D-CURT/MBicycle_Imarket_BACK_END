@@ -1,4 +1,4 @@
-package com.mbicycle.imarket.dto;
+package com.mbicycle.imarket.beans.dto;
 
 public class CouponDTO {
     private int id;

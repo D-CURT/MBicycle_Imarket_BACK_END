@@ -1,8 +1,8 @@
 package com.mbicycle.imarket.facades.impl;
 
 import com.mbicycle.imarket.beans.entities.Coupon;
-import com.mbicycle.imarket.converters.Converter;
-import com.mbicycle.imarket.dto.CouponDTO;
+import com.mbicycle.imarket.utils.converters.Converter;
+import com.mbicycle.imarket.beans.dto.CouponDTO;
 import com.mbicycle.imarket.facades.interfaces.CouponFacade;
 import com.mbicycle.imarket.services.interfaces.CouponService;
 import org.springframework.beans.factory.annotation.Autowired;
