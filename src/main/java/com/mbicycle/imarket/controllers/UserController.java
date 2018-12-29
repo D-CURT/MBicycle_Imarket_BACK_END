@@ -12,11 +12,11 @@ import com.mbicycle.imarket.services.interfaces.UserService;
 import com.mbicycle.imarket.services.securities.SecurityService;
 import com.mbicycle.imarket.utils.enums.RoleType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,7 +42,7 @@ public class UserController {
     private RoleRepository roleRepository;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private  BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     private UserFacade userFacade;
@@ -62,9 +62,9 @@ public class UserController {
         System.out.println(profileDTO.getLogin());
         System.out.println(profileDTO.getPassword());
 
-        User user = new User(profileDTO.getLogin(), profileDTO.getLogin());
+        User user = new User(profileDTO.getLogin(), profileDTO.getPassword());
 
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         List<Role> roles = new ArrayList<>();
         Role role = new Role(RoleType.CUSTOMER);
         roles.add(role);
