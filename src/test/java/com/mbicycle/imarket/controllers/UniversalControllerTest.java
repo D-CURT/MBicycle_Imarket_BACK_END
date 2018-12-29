@@ -155,14 +155,19 @@ public class UniversalControllerTest {
            }
         });
 
-        //roleRepository.findByOrderByRoleAsc().forEach(roleRepository::delete);
-
         for (Category category: categories) {
             if ((category = categoryRepository.findByName(category.getName())) != null) {
                 System.out.println("*** Deleting Category. ***");
                 categoryRepository.delete(category);
             }
         }
+    }
+
+    // ========== USER ===========
+
+    @Test
+    public void check_of_getting_user_by_Login() {
+
     }
 
     @Test
@@ -176,6 +181,27 @@ public class UniversalControllerTest {
         assertThat(actualUserList.size(), is(greaterThan(ZERO)));
         assertThat(actualUserList, is(equalTo(EXPECTED_USER_LIST)));
     }
+
+    @Test
+    public void check_of_user_adding() throws Exception {
+        String json = createMapper().writeValueAsString(createUserDTO(FIRST_VALUE, FIRST_USER_PASSWORD));
+        mvc.perform(MockMvcRequestBuilders.post("/users/add")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(json))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void check_of_deleting_user() throws Exception {
+        String json = createMapper().writeValueAsString(createUserDTO(SECOND_VALUE, SECOND_USER_PASSWORD));
+
+        mvc.perform(MockMvcRequestBuilders.post("/users/delete")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(json))
+                .andExpect(status().isOk());
+    }
+
+    // =========== PROFILE ===========
 
     @Test
     public void check_of_getting_sorted_by_name_profile_list() throws Exception {
@@ -272,25 +298,6 @@ public class UniversalControllerTest {
 
         assertThat(actualProductList.size(), is(greaterThan(ZERO)));
         assertThat(actualProductList, is(equalTo(expectedProductList)));
-    }
-
-    @Test
-    public void check_of_user_adding() throws Exception {
-        String json = createMapper().writeValueAsString(createUserDTO(FIRST_VALUE, FIRST_USER_PASSWORD));
-        mvc.perform(MockMvcRequestBuilders.post("/users/add")
-                                          .contentType(MediaType.APPLICATION_JSON_UTF8)
-                                          .content(json))
-           .andExpect(status().isOk());
-    }
-
-    @Test
-    public void check_of_deleting_user() throws Exception {
-        String json = createMapper().writeValueAsString(createUserDTO(SECOND_VALUE, SECOND_USER_PASSWORD));
-
-        mvc.perform(MockMvcRequestBuilders.post("/users/delete")
-                                          .contentType(MediaType.APPLICATION_JSON_UTF8)
-                                          .content(json))
-           .andExpect(status().isOk());
     }
 
     private ObjectMapper createMapper() {

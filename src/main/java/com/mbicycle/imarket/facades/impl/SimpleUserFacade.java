@@ -24,9 +24,7 @@ public class SimpleUserFacade implements UserFacade {
 
     @Override
     public UserDTO get(UserDTO dto) {
-        String login = dto.getLogin();
-        String password = dto.getPassword();
-        return converter.convert(password == null ? userService.get(login) : userService.get(login, password));
+        return converter.convert(userService.get(dto.getLogin()));
     }
 
     @Override
