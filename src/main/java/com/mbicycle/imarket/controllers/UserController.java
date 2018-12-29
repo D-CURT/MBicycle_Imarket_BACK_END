@@ -3,16 +3,19 @@ package com.mbicycle.imarket.controllers;
 import com.mbicycle.imarket.beans.entities.Role;
 import com.mbicycle.imarket.beans.entities.User;
 import com.mbicycle.imarket.daos.RoleRepository;
+import com.mbicycle.imarket.daos.UserRepository;
 import com.mbicycle.imarket.dto.ProfileDTO;
 import com.mbicycle.imarket.dto.UserDTO;
 import com.mbicycle.imarket.facades.interfaces.ProfileFacade;
 import com.mbicycle.imarket.facades.interfaces.UserFacade;
 import com.mbicycle.imarket.services.interfaces.UserService;
 import com.mbicycle.imarket.services.securities.SecurityService;
+import com.mbicycle.imarket.utils.enums.RoleType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -63,23 +66,21 @@ public class UserController {
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         List<Role> roles = new ArrayList<>();
-        roles.add(roleRepository.getOne(29));//как?
+        Role role = new Role(RoleType.CUSTOMER);
+        roles.add(role);
         user.setRoles(roles);
         if (!profileFacade.add(profileDTO)){
-            System.out.println("\nHAS ERROR");
-
+            System.out.println("\nЕсть такой юзер\n");
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
 
-
         securityService.autoLogin(user.getLogin(), user.getPassword());
-
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @GetMapping(value = MAPPING + "/getByLogin", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public UserDTO getByLogin(@RequestBody UserDTO dto) {
-        return userFacade.get(dto);
+         return userFacade.get(dto);
     }
 
     @GetMapping(value = MAPPING + "/getByLoginAndPassword", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
