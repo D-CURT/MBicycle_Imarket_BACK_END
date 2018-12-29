@@ -1,5 +1,6 @@
 package com.mbicycle.imarket.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -22,8 +23,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.servlet.MvcRequestMatcherProvider;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -99,7 +103,7 @@ public class UniversalControllerTest {
     private Converter<Product, ProductDTO> productConverter;
 
     @Autowired
-    private Converter<Category, CategoryDTO> reverseCategoryConverter;
+    private Converter<Category, CategoryDTO> categoryConverter;
 
     @Before
     public void setUp() {
@@ -189,7 +193,7 @@ public class UniversalControllerTest {
 
         final List<CategoryDTO> EXPECTED_CATEGORY_LIST = categoryRepository.findByOrderByNameAsc()
                           .stream()
-                          .map(reverseCategoryConverter::convert)
+                          .map(categoryConverter::convert)
                           .collect(Collectors.toList());
         List<CategoryDTO> actualCategoryList = actualList(mapping, CategoryDTO.class);
 
@@ -263,6 +267,17 @@ public class UniversalControllerTest {
 
         assertThat(actualProductList.size(), is(greaterThan(ZERO)));
         assertThat(actualProductList, is(equalTo(expectedProductList)));
+    }
+
+    @Test
+    public void check_of_user_adding() throws Exception {
+
+
+        String json = createMapper().writeValueAsString(createUserDTO(FIRST_VALUE, FIRST_USER_PASSWORD));
+        mvc.perform(MockMvcRequestBuilders.post("/users/add")
+                                          .contentType(MediaType.APPLICATION_JSON_UTF8)
+                                          .content(json))
+           .andExpect(status().isBadRequest());
     }
 
     private ObjectMapper createMapper() {

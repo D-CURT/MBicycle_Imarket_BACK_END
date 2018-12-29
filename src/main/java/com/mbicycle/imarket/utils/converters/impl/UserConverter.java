@@ -10,6 +10,7 @@ public class UserConverter extends AbstractConverter<User, UserDTO> {
 
     @Override
     public void convert(User source, UserDTO target) {
+
         target.setId(source.getId());
         target.setLogin(source.getLogin());
         target.setPassword(source.getPassword());

@@ -30,6 +30,8 @@ public class UserServiceImpl implements UserService {
 
         if (get(login, password) == null) {
             userRepository.save(user);
+        } else {
+            return false;
         }
         return get(login, password) != null;
     }
