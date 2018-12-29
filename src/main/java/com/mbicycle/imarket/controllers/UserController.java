@@ -2,6 +2,7 @@ package com.mbicycle.imarket.controllers;
 
 import com.mbicycle.imarket.beans.dto.UserDTO;
 import com.mbicycle.imarket.facades.interfaces.UserFacade;
+import com.mbicycle.imarket.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,9 @@ public class UserController {
 
     @Autowired
     @SuppressWarnings("ALL")
+    private UserService userService;
+
+    @Autowired
     private UserFacade userFacade;
 
     @GetMapping(MAPPING + "/allUsersSortedByLogin")
@@ -28,8 +32,14 @@ public class UserController {
         return entityWithContent(userFacade.findByOrderByLogin());
     }
 
+
     @GetMapping(value = MAPPING + "/get", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<UserDTO> get(@RequestBody UserDTO dto) {
+        return entityWithContent(userFacade.get(dto));
+    }
+
+    @GetMapping(value = MAPPING + "/getByLogin", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<UserDTO> getByLogin(@RequestBody UserDTO dto) {
          return entityWithContent(userFacade.get(dto));
     }
 

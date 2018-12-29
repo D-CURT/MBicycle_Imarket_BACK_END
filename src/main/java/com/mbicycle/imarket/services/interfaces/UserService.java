@@ -11,9 +11,12 @@ public interface UserService {
 
     User get(String login, String password);
 
+    String getPasswordByLogin(String login);
+
     boolean add(User user);
 
     List<User> findByOrderByLogin();
 
     boolean delete(User user);
+
 }
