@@ -1,4 +1,4 @@
-package com.mbicycle.imarket.controllers;
+package com.mbicycle.imarket.utils.controllers;
 
 import com.mbicycle.imarket.dto.UserDTO;
 import com.mbicycle.imarket.facades.interfaces.UserFacade;

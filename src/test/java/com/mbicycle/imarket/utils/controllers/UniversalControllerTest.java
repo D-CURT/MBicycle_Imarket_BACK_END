@@ -1,4 +1,4 @@
-package com.mbicycle.imarket.controllers;
+package com.mbicycle.imarket.utils.controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

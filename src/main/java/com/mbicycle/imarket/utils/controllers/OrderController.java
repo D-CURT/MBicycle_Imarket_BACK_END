@@ -1,10 +1,9 @@
-package com.mbicycle.imarket.controllers;
+package com.mbicycle.imarket.utils.controllers;
 
 import com.mbicycle.imarket.dto.OrderDTO;
+import com.mbicycle.imarket.dto.ProfileDTO;
 import com.mbicycle.imarket.facades.interfaces.OrderFacade;
-import com.mbicycle.imarket.utils.ResponseEntityBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,5 +37,10 @@ public class OrderController {
     @GetMapping( MAPPING + "/update")
     public ResponseEntity updateOrder(OrderDTO dto) {
         return entityWithStatus(facade.update(dto));
+    }
+
+    @GetMapping(MAPPING + "/getByProfile")
+    public OrderDTO getByProfile(ProfileDTO profileDTO){
+        return facade.get(profileDTO);
     }
 }

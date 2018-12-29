@@ -18,9 +18,6 @@ public class CategoryFacadeImpl implements CategoryFacade {
     private CategoryService categoryService;
 
     @Autowired
-    private CategoryRepository categoryRepository;
-
-    @Autowired
     private Converter<Category, CategoryDTO> categoryConverter;
 
     @Autowired

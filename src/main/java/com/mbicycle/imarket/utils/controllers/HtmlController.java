@@ -1,4 +1,4 @@
-package com.mbicycle.imarket.controllers;
+package com.mbicycle.imarket.utils.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

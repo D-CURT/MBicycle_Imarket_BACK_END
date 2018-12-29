@@ -47,9 +47,5 @@ public class FacadesConfig {
     public CouponFacade couponFacade() {
         return new CouponFacadeImpl();
     }
-<<<<<<< HEAD
 
-
-=======
->>>>>>> b52a278533d1b9381ddb2b544051893ecd80d0a1
 }
