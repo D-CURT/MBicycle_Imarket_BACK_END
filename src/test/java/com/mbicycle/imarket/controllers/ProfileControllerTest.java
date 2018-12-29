@@ -8,8 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static com.mbicycle.imarket.utils.generators.tests.TestObjectsBuilder.createProfileDTO;
-import static com.mbicycle.imarket.utils.generators.tests.TestObjectsBuilder.createUserDTO;
+import static com.mbicycle.imarket.utils.generators.tests.TestObjectsBuilder.*;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
@@ -26,8 +25,10 @@ public class ProfileControllerTest extends AbstractControllerTest {
         UserDTO dto = createUserDTO(FIRST_VALUE, FIRST_USER_PASSWORD);
         String json = createMapper().writeValueAsString(createProfileDTO(FIRST_VALUE, dto));
         String expected = createMapper().writeValueAsString(profileService.get(userConverter.convert(dto)));
+
+
         mvc.perform(get("/profiles/get").contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
                                                    .content(json))
-           .andExpect(content().string(is(equalTo(expected))));
+           .andExpect(content().string(is(equalTo(json))));
     }
 }
