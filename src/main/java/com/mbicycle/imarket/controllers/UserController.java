@@ -34,7 +34,6 @@ public class UserController {
     private static final String MAPPING = "/users";
 
     @Autowired
-    @SuppressWarnings("ALL")
     private UserService userService;
 
     @Autowired
