@@ -1,8 +1,8 @@
 package com.mbicycle.imarket.facades.impl;
 
 import com.mbicycle.imarket.beans.entities.Order;
-import com.mbicycle.imarket.converters.Converter;
-import com.mbicycle.imarket.dto.OrderDTO;
+import com.mbicycle.imarket.utils.converters.Converter;
+import com.mbicycle.imarket.beans.dto.OrderDTO;
 import com.mbicycle.imarket.facades.interfaces.OrderFacade;
 import com.mbicycle.imarket.services.interfaces.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;

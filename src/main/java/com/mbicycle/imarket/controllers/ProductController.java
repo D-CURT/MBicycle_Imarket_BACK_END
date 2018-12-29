@@ -1,11 +1,9 @@
 package com.mbicycle.imarket.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mbicycle.imarket.dto.ProductDTO;
+import com.mbicycle.imarket.beans.dto.ProductDTO;
 import com.mbicycle.imarket.facades.interfaces.ProductFacade;
-import com.mbicycle.imarket.utils.ResponseEntityBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

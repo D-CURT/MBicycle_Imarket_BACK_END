@@ -1,8 +1,8 @@
 package com.mbicycle.imarket.facades.impl;
 
 import com.mbicycle.imarket.beans.entities.User;
-import com.mbicycle.imarket.converters.Converter;
-import com.mbicycle.imarket.dto.UserDTO;
+import com.mbicycle.imarket.utils.converters.Converter;
+import com.mbicycle.imarket.beans.dto.UserDTO;
 import com.mbicycle.imarket.facades.interfaces.UserFacade;
 import com.mbicycle.imarket.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +24,7 @@ public class SimpleUserFacade implements UserFacade {
 
     @Override
     public UserDTO get(UserDTO dto) {
-        String login = dto.getLogin();
-        String password = dto.getPassword();
-        return converter.convert(password == null ? userService.get(login) : userService.get(login, password));
+        return converter.convert(userService.get(dto.getLogin()));
     }
 
     @Override

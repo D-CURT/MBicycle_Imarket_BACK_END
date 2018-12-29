@@ -1,9 +1,8 @@
 package com.mbicycle.imarket.controllers;
 
-import com.mbicycle.imarket.dto.GroupDTO;
+import com.mbicycle.imarket.beans.dto.GroupDTO;
 import com.mbicycle.imarket.facades.interfaces.GroupFacade;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

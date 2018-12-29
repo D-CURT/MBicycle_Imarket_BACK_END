@@ -17,4 +17,9 @@ public class HtmlController {
         return "index";
     }
 
+    @RequestMapping(value = {"/indexLogged"}, method = RequestMethod.GET)
+    public String indexLoggedHtmlView() {
+        return "index";
+    }
+
 }
