@@ -17,10 +17,9 @@ import java.util.List;
 @Service
 public class WebAuthenticationManager implements AuthenticationManager {
 
-
     @Autowired
+    @SuppressWarnings("ALL")
     private UserService userService;
-
 
     @Override
     public Authentication authenticate(Authentication auth) throws AuthenticationException {
