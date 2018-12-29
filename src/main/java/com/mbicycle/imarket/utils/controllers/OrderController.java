@@ -1,7 +1,11 @@
 package com.mbicycle.imarket.utils.controllers;
 
+<<<<<<< HEAD:src/main/java/com/mbicycle/imarket/utils/controllers/OrderController.java
 import com.mbicycle.imarket.dto.OrderDTO;
 import com.mbicycle.imarket.dto.ProfileDTO;
+=======
+import com.mbicycle.imarket.beans.dto.OrderDTO;
+>>>>>>> 6703bc28637e5ae04c375c3bd4f20c186aec383b:src/main/java/com/mbicycle/imarket/controllers/OrderController.java
 import com.mbicycle.imarket.facades.interfaces.OrderFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,17 +29,17 @@ public class OrderController {
     }
 
     @PostMapping(MAPPING + "/add")
-    public ResponseEntity addOrder(OrderDTO dto){
+    public ResponseEntity add(OrderDTO dto){
         return entityWithStatus(facade.add(dto));
     }
 
     @GetMapping(MAPPING + "/delete")
-    public ResponseEntity deleteOrder(OrderDTO dto){
+    public ResponseEntity delete(OrderDTO dto){
         return entityWithStatus(facade.delete(dto));
     }
 
     @GetMapping( MAPPING + "/update")
-    public ResponseEntity updateOrder(OrderDTO dto) {
+    public ResponseEntity update(OrderDTO dto) {
         return entityWithStatus(facade.update(dto));
     }
 

@@ -1,7 +1,7 @@
 package com.mbicycle.imarket.utils.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mbicycle.imarket.dto.ProductDTO;
+import com.mbicycle.imarket.beans.dto.ProductDTO;
 import com.mbicycle.imarket.facades.interfaces.ProductFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

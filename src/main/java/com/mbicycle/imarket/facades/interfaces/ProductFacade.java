@@ -1,6 +1,6 @@
 package com.mbicycle.imarket.facades.interfaces;
 
-import com.mbicycle.imarket.dto.ProductDTO;
+import com.mbicycle.imarket.beans.dto.ProductDTO;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 

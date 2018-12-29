@@ -42,17 +42,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //                .antMatchers(HttpMethod.POST, "/j_spring_security_check").permitAll(); //
 
         http.authorizeRequests()
-                .antMatchers("/").permitAll()
+                .antMatchers("/", "/index").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 //.anyRequest().authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
-                .loginPage("/login").permitAll()
-                .defaultSuccessUrl("/index")
-                .failureUrl("/failureurl")
+                    .loginPage("/login").permitAll()
+                    .defaultSuccessUrl("/indexLogged").permitAll()
+                    .failureUrl("/failureurl")
                 .and()
-                .httpBasic()
+                    .httpBasic()
                 .and().csrf().disable();
 
 //        http.csrf().disable()

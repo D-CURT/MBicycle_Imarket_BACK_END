@@ -1,29 +1,30 @@
 package com.mbicycle.imarket.utils.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.mbicycle.imarket.Main;
 import com.mbicycle.imarket.beans.entities.*;
-import com.mbicycle.imarket.converters.Converter;
+import com.mbicycle.imarket.services.interfaces.*;
+import com.mbicycle.imarket.utils.converters.Converter;
 import com.mbicycle.imarket.daos.*;
-import com.mbicycle.imarket.dto.CategoryDTO;
-import com.mbicycle.imarket.dto.ProductDTO;
-import com.mbicycle.imarket.dto.ProfileDTO;
-import com.mbicycle.imarket.dto.UserDTO;
+import com.mbicycle.imarket.beans.dto.CategoryDTO;
+import com.mbicycle.imarket.beans.dto.ProductDTO;
+import com.mbicycle.imarket.beans.dto.ProfileDTO;
+import com.mbicycle.imarket.beans.dto.UserDTO;
 import com.mbicycle.imarket.facades.interfaces.ProfileFacade;
 import com.mbicycle.imarket.facades.interfaces.UserFacade;
-import com.mbicycle.imarket.services.interfaces.CategoryService;
-import com.mbicycle.imarket.services.interfaces.GroupService;
-import com.mbicycle.imarket.services.interfaces.ProductService;
-import com.mbicycle.imarket.services.interfaces.UserService;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.servlet.MvcRequestMatcherProvider;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -87,6 +88,9 @@ public class UniversalControllerTest {
     private ProductService productService;
 
     @Autowired
+    private ProfileService profileService;
+
+    @Autowired
     private UserFacade userFacade;
 
     @Autowired
@@ -99,7 +103,7 @@ public class UniversalControllerTest {
     private Converter<Product, ProductDTO> productConverter;
 
     @Autowired
-    private Converter<Category, CategoryDTO> reverseCategoryConverter;
+    private Converter<Category, CategoryDTO> categoryConverter;
 
     @Before
     public void setUp() {
@@ -145,8 +149,11 @@ public class UniversalControllerTest {
 
     @After
     public void tearDown() {
-        profiles.forEach(profile -> profileRepository.delete(profile));
-        roleRepository.findByOrderByRoleAsc().forEach(roleRepository::delete);
+        profiles.forEach(profile -> {
+           if (profileService.get(profile.getUser()) != null) {
+               profileService.delete(profile);
+           }
+        });
 
         for (Category category: categories) {
             if ((category = categoryRepository.findByName(category.getName())) != null) {
@@ -154,6 +161,13 @@ public class UniversalControllerTest {
                 categoryRepository.delete(category);
             }
         }
+    }
+
+    // ========== USER ===========
+
+    @Test
+    public void check_of_getting_user_by_Login() {
+
     }
 
     @Test
@@ -167,6 +181,27 @@ public class UniversalControllerTest {
         assertThat(actualUserList.size(), is(greaterThan(ZERO)));
         assertThat(actualUserList, is(equalTo(EXPECTED_USER_LIST)));
     }
+
+    @Test
+    public void check_of_user_adding() throws Exception {
+        String json = createMapper().writeValueAsString(createUserDTO(FIRST_VALUE, FIRST_USER_PASSWORD));
+        mvc.perform(MockMvcRequestBuilders.post("/users/add")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(json))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void check_of_deleting_user() throws Exception {
+        String json = createMapper().writeValueAsString(createUserDTO(SECOND_VALUE, SECOND_USER_PASSWORD));
+
+        mvc.perform(MockMvcRequestBuilders.post("/users/delete")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(json))
+                .andExpect(status().isOk());
+    }
+
+    // =========== PROFILE ===========
 
     @Test
     public void check_of_getting_sorted_by_name_profile_list() throws Exception {
@@ -189,7 +224,7 @@ public class UniversalControllerTest {
 
         final List<CategoryDTO> EXPECTED_CATEGORY_LIST = categoryRepository.findByOrderByNameAsc()
                           .stream()
-                          .map(reverseCategoryConverter::convert)
+                          .map(categoryConverter::convert)
                           .collect(Collectors.toList());
         List<CategoryDTO> actualCategoryList = actualList(mapping, CategoryDTO.class);
 

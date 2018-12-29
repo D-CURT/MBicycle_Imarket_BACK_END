@@ -2,14 +2,13 @@ package com.mbicycle.imarket.facades.impl;
 
 import com.mbicycle.imarket.beans.entities.Profile;
 import com.mbicycle.imarket.beans.entities.User;
-import com.mbicycle.imarket.converters.Converter;
+import com.mbicycle.imarket.utils.converters.Converter;
 
-import com.mbicycle.imarket.dto.ProfileDTO;
-import com.mbicycle.imarket.dto.UserDTO;
+import com.mbicycle.imarket.beans.dto.ProfileDTO;
+import com.mbicycle.imarket.beans.dto.UserDTO;
 import com.mbicycle.imarket.facades.interfaces.ProfileFacade;
 import com.mbicycle.imarket.services.interfaces.ProfileService;
 import com.mbicycle.imarket.services.interfaces.UserService;
-import com.mbicycle.imarket.utils.enums.RoleType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

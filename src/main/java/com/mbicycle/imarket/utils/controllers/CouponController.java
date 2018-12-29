@@ -1,6 +1,6 @@
 package com.mbicycle.imarket.utils.controllers;
 
-import com.mbicycle.imarket.dto.CouponDTO;
+import com.mbicycle.imarket.beans.dto.CouponDTO;
 import com.mbicycle.imarket.facades.interfaces.CouponFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 

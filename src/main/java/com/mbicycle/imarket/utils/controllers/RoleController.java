@@ -1,6 +1,6 @@
 package com.mbicycle.imarket.utils.controllers;
 
-import com.mbicycle.imarket.dto.RoleDTO;
+import com.mbicycle.imarket.beans.dto.RoleDTO;
 import com.mbicycle.imarket.facades.interfaces.RoleFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

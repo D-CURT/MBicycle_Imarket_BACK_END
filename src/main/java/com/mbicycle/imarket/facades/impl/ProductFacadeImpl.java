@@ -1,9 +1,9 @@
 package com.mbicycle.imarket.facades.impl;
 
 import com.mbicycle.imarket.beans.entities.Product;
-import com.mbicycle.imarket.converters.Converter;
+import com.mbicycle.imarket.utils.converters.Converter;
 import com.mbicycle.imarket.daos.ProductRepository;
-import com.mbicycle.imarket.dto.ProductDTO;
+import com.mbicycle.imarket.beans.dto.ProductDTO;
 import com.mbicycle.imarket.facades.interfaces.ProductFacade;
 import com.mbicycle.imarket.services.interfaces.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
