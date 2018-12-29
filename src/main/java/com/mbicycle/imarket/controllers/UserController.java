@@ -28,7 +28,7 @@ public class UserController {
         return entityWithContent(userFacade.findByOrderByLogin());
     }
 
-    @GetMapping(value = MAPPING + "/getByLogin", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = MAPPING + "/get", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<UserDTO> getByLogin(@RequestBody UserDTO dto) {
          return entityWithContent(userFacade.get(dto));
     }

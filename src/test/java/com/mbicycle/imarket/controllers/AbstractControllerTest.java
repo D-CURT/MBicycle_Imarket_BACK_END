@@ -157,7 +157,17 @@ public abstract class AbstractControllerTest {
                 .configure(FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 
-    ObjectNode[] fillResultList(MockMvc mvc, String mapping, ObjectMapper mapper) throws Exception {
+    <T> List<T> actualList(String mapping, Class<T> type) throws Exception {
+        List<T> actualRoleList = new ArrayList<>();
+        ObjectMapper mapper = createMapper();
+
+        for (JsonNode node: fillResultList(mvc, mapping, mapper)) {
+            actualRoleList.add(mapper.treeToValue(node, type));
+        }
+        return actualRoleList;
+    }
+
+    private ObjectNode[] fillResultList(MockMvc mvc, String mapping, ObjectMapper mapper) throws Exception {
         byte[] responseBytes = mvc.perform(MockMvcRequestBuilders.get(mapping)
                 .param("offset", "0")
                 .param("count", "2048"))
@@ -167,15 +177,5 @@ public abstract class AbstractControllerTest {
                 .getContentAsByteArray();
 
         return mapper.readValue(responseBytes, ObjectNode[].class);
-    }
-
-    <T> List<T> actualList(String mapping, Class<T> type) throws Exception {
-        List<T> actualRoleList = new ArrayList<>();
-        ObjectMapper mapper = createMapper();
-
-        for (JsonNode node: fillResultList(mvc, mapping, mapper)) {
-            actualRoleList.add(mapper.treeToValue(node, type));
-        }
-        return actualRoleList;
     }
 }
