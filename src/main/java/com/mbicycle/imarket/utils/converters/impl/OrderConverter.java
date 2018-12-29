@@ -9,13 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class OrderConverter extends AbstractConverter<Order, OrderDTO> {
 
-    @Autowired
-    private ProfileFacade facade;
-
     @Override
     public void convert(Order order, OrderDTO orderDTO) {
         orderDTO.setId(order.getId());
-        orderDTO.setProfile(facade.get(orderDTO.getProfile()));
+        orderDTO.setProfile(order.getProfile().getName());
         orderDTO.setDelivery(order.getDelivery());
         orderDTO.setPayment(order.getPayment());
         orderDTO.setDateOpened(order.getDateOpened());

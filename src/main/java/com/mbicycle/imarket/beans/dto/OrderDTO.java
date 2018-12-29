@@ -9,7 +9,7 @@ public class OrderDTO {
 
     private int id;
 
-    private ProfileDTO profile;
+    private String profile;
 
 //    private List<String> orderProducts;
 
@@ -32,7 +32,7 @@ public class OrderDTO {
     public OrderDTO() {
     }
 
-    public OrderDTO(ProfileDTO profile, PaymentType payment, DeliveryType delivery, Date dateOpened, Date datePaid, Date dateReady, Date dateClosed, Date dateSent, Date dateGot) {
+    public OrderDTO(String profile, PaymentType payment, DeliveryType delivery, Date dateOpened, Date datePaid, Date dateReady, Date dateClosed, Date dateSent, Date dateGot) {
         setProfile(profile);
         setPayment(payment);
         setDelivery(delivery);
@@ -116,11 +116,11 @@ public class OrderDTO {
         this.dateGot = dateGot;
     }
 
-    public ProfileDTO getProfile() {
+    public String getProfile() {
         return profile;
     }
 
-    public void setProfile(ProfileDTO profile) {
+    public void setProfile(String profile) {
         this.profile = profile;
     }
 

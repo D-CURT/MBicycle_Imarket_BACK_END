@@ -14,4 +14,6 @@ public interface ProfileFacade {
     ProfileDTO get(ProfileDTO dto);
 
     List<ProfileDTO> findByOrderByName();
+
+    ProfileDTO fingByName(String name);
 }

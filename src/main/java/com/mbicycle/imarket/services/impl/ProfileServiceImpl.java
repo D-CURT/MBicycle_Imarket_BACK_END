@@ -44,4 +44,9 @@ public class ProfileServiceImpl implements ProfileService {
     public List<Profile> findByOrderByName(){
         return repository.findByOrderByNameAsc();
     }
+
+    @Override
+    public Profile fingByName(String name) {
+        return repository.findByName(name);
+    }
 }

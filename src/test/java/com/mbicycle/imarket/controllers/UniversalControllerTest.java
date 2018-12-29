@@ -11,10 +11,9 @@ import com.mbicycle.imarket.beans.dto.ProfileDTO;
 import com.mbicycle.imarket.beans.dto.UserDTO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-<<<<<<< HEAD
+
 import org.springframework.beans.factory.annotation.Autowired;
-=======
->>>>>>> ec1716957afbe195674c0e4d276b93d33bfa3d68
+
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;

@@ -57,4 +57,9 @@ public class SimpleProfileFacade implements ProfileFacade {
                              .map(profileConverter::convert)
                              .collect(Collectors.toList());
     }
+
+    @Override
+    public ProfileDTO fingByName(String name) {
+        return profileConverter.convert(profileService.fingByName(name));
+    }
 }
