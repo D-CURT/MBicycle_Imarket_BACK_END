@@ -30,8 +30,6 @@ public class UserServiceImpl implements UserService {
 
         if (get(login, password) == null) {
             userRepository.save(user);
-        } else {
-            return false;
         }
         return get(login, password) != null;
     }
@@ -46,9 +44,10 @@ public class UserServiceImpl implements UserService {
         String login = user.getLogin();
         String password = user.getPassword();
 
-        if (get(login, password) != null) {
+        if ((user = get(login, password)) != null) {
             userRepository.delete(user);
         }
-        return get(login, password) == null;
+        boolean d = get(login, password) == null;
+        return d;
     }
 }

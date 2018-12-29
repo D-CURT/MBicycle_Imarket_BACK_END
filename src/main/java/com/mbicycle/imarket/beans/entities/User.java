@@ -19,7 +19,7 @@ public class User {
 
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "id_user"),
@@ -28,7 +28,7 @@ public class User {
     private List<Role> roles;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, optional = false)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private Profile profile;
 
     public User() {

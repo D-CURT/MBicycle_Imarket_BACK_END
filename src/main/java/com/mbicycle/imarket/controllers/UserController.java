@@ -39,8 +39,8 @@ public class UserController {
 
     @PostMapping(value = MAPPING + "/add", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity add(@RequestBody UserDTO dto) {
-        ResponseEntity entity = entityWithStatus(userFacade.add(dto));
-        return entity;
+
+        return entityWithStatus(userFacade.add(dto));
     }
 
     @PostMapping(value = MAPPING + "/delete", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)

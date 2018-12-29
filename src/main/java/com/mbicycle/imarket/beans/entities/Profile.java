@@ -21,7 +21,7 @@ public class Profile {
 
     private String address;
 
-    @OneToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.REMOVE)
+    @OneToOne(optional = false, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "id_user", nullable = false)
     private User user;
 
