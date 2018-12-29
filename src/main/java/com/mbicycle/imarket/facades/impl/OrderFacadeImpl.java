@@ -4,9 +4,13 @@ import com.mbicycle.imarket.beans.entities.Order;
 import com.mbicycle.imarket.converters.Converter;
 import com.mbicycle.imarket.dto.OrderDTO;
 import com.mbicycle.imarket.facades.interfaces.OrderFacade;
+<<<<<<< HEAD
 
 import com.mbicycle.imarket.services.interfaces.OrderService;
 
+=======
+import com.mbicycle.imarket.services.interfaces.OrderService;
+>>>>>>> b52a278533d1b9381ddb2b544051893ecd80d0a1
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
