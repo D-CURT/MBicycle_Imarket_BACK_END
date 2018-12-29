@@ -29,7 +29,7 @@ public class UserController {
     }
 
     @GetMapping(value = MAPPING + "/get", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<UserDTO> getByLogin(@RequestBody UserDTO dto) {
+    public ResponseEntity<UserDTO> get(@RequestBody UserDTO dto) {
          return entityWithContent(userFacade.get(dto));
     }
 
