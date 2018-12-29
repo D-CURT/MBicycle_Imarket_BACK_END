@@ -56,7 +56,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/j_spring_security_check")
                 .permitAll()
 
-
                 .and()
                 .httpBasic()
                 .realmName("mbicycle")
