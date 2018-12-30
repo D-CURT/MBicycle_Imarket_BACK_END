@@ -333,8 +333,6 @@ THE SOFTWARE.
 
 @angular/material/form-field
 
-@angular/material/menu
-
 zone.js
 MIT
 The MIT License

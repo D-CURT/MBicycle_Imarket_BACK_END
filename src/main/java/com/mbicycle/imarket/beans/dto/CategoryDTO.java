@@ -1,17 +1,19 @@
 package com.mbicycle.imarket.beans.dto;
 
+import com.mbicycle.imarket.beans.entities.Group;
+
 import java.util.List;
 import java.util.Objects;
 
 public class CategoryDTO {
     private int id;
     private String name;
-    private List<String> groups;
+    private List<Group> groups;
 
     public CategoryDTO() {
     }
 
-    public CategoryDTO( String name, List<String> groups) {
+    public CategoryDTO( String name, List<Group> groups) {
         setName(name);
         setGroups(groups);
     }
@@ -32,11 +34,11 @@ public class CategoryDTO {
         this.name = name;
     }
 
-    public List<String> getGroups() {
+    public List<Group> getGroups() {
         return groups;
     }
 
-    public void setGroups(List<String> groups) {
+    public void setGroups(List<Group> groups) {
         this.groups = groups;
     }
 
