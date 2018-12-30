@@ -39,29 +39,32 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 
-
-        httpSecurity
+    httpSecurity
                 .userDetailsService(userDetailsService)
-
-                .formLogin()
-                .loginPage("/") ///authorization
-                .loginProcessingUrl("/j_spring_security_check")
-                .failureUrl("/products/allProductsSortedByName")                             //убрать после проверки
-                .usernameParameter("j_username").passwordParameter("j_password")
-                .permitAll()
-
+                .csrf().disable()       // Временно пока не добавим токен ф форму
+                .authorizeRequests()
+                //.antMatchers("/**").permitAll()       //Permit ALL
+                .antMatchers("/login").permitAll()
+                .antMatchers("/index").permitAll()
+                .antMatchers("/products/**").hasAuthority("CUSTOMER")
+                //.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()   //Already fixed in a better way below
                 .and()
-                .csrf().disable()                                                                // Временно пока не добавим токен ф форму
-                .authorizeRequests()                                                               //
-                .antMatchers(HttpMethod.POST, "/j_spring_security_check")
-                .permitAll()
-
+                .logout().logoutUrl("/logout").logoutSuccessUrl("/logoutdone")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
                 .and()
                 .httpBasic()
                 .realmName("mbicycle")
                 .authenticationEntryPoint(new MyBasicAuthenticationEntryPoint());
-
     }
+
+
+    /* To allow Pre-flight [OPTIONS] request from browser */
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**");
+    }
+
 
 
 }

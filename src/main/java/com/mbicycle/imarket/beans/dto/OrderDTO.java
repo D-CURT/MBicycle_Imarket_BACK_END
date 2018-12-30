@@ -4,14 +4,15 @@ import com.mbicycle.imarket.utils.enums.DeliveryType;
 import com.mbicycle.imarket.utils.enums.PaymentType;
 
 import java.util.Date;
+import java.util.List;
 
 public class OrderDTO {
 
     private int id;
 
-    //private Profile profile;
+    private String userLogin;
 
-    //private List<OrderProduct> orderProducts;
+    private List<String> productsNames;
 
     private PaymentType payment;
 
@@ -32,7 +33,9 @@ public class OrderDTO {
     public OrderDTO() {
     }
 
-    public OrderDTO(PaymentType payment, DeliveryType delivery, Date dateOpened, Date datePaid, Date dateReady, Date dateClosed, Date dateSent, Date dateGot) {
+    public OrderDTO(String userLogin,List<String> productsNames, PaymentType payment, DeliveryType delivery, Date dateOpened, Date datePaid, Date dateReady, Date dateClosed, Date dateSent, Date dateGot) {
+        setUserLogin(userLogin);
+        setProductsNames(productsNames);
         setPayment(payment);
         setDelivery(delivery);
         setDateOpened(dateOpened);
@@ -115,4 +118,19 @@ public class OrderDTO {
         this.dateGot = dateGot;
     }
 
+    public String getUserLogin() {
+        return userLogin;
+    }
+
+    public void setUserLogin(String userLogin) {
+        this.userLogin = userLogin;
+    }
+
+    public List<String> getProductsNames() {
+        return productsNames;
+    }
+
+    public void setProductsNames(List<String> productsNames) {
+        this.productsNames = productsNames;
+    }
 }
