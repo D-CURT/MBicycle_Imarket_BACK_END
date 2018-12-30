@@ -1,5 +1,6 @@
 package com.mbicycle.imarket.utils.converters.impl.reversed;
 
+import com.mbicycle.imarket.beans.dto.OrderDTO;
 import com.mbicycle.imarket.beans.entities.Order;
 import com.mbicycle.imarket.beans.entities.OrderProduct;
 import com.mbicycle.imarket.beans.entities.User;
@@ -7,7 +8,6 @@ import com.mbicycle.imarket.services.interfaces.ProductService;
 import com.mbicycle.imarket.services.interfaces.ProfileService;
 import com.mbicycle.imarket.services.interfaces.UserService;
 import com.mbicycle.imarket.utils.converters.AbstractConverter;
-import com.mbicycle.imarket.beans.dto.OrderDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.stream.Collectors;
@@ -36,7 +36,7 @@ public class ReverseOrderConverter extends AbstractConverter<OrderDTO, Order> {
         target.setDateReady(source.getDateReady());
         target.setDateSent(source.getDateSent());
         target.setProfile(profileService.get(new User(source.getUserLogin())));
-        target.setOrderProducts(source.getOrderProducts()
+        target.setOrderProducts(source.getProductsNames()
                                       .stream()
                                       .map(s -> new OrderProduct(productService.get(s)))
                                       .collect(Collectors.toList()));

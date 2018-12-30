@@ -41,7 +41,6 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Override
     public Profile get(User user){
-
         if ((user = userRepository.findByLogin(user.getLogin())) != null) {
             return repository.findByUser(user);
         }
@@ -52,4 +51,5 @@ public class ProfileServiceImpl implements ProfileService {
     public List<Profile> findByOrderByName(){
         return repository.findByOrderByNameAsc();
     }
+
 }

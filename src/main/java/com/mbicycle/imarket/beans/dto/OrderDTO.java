@@ -12,6 +12,8 @@ public class OrderDTO {
 
     private String userLogin;
 
+    private List<String> productsNames;
+
     private PaymentType payment;
 
     private DeliveryType delivery;
@@ -28,12 +30,12 @@ public class OrderDTO {
 
     private Date dateGot;
 
-    private List<String> orderProducts;
-
     public OrderDTO() {
     }
 
-    public OrderDTO(PaymentType payment, DeliveryType delivery, Date dateOpened, Date datePaid, Date dateReady, Date dateClosed, Date dateSent, Date dateGot) {
+    public OrderDTO(String userLogin,List<String> productsNames, PaymentType payment, DeliveryType delivery, Date dateOpened, Date datePaid, Date dateReady, Date dateClosed, Date dateSent, Date dateGot) {
+        setUserLogin(userLogin);
+        setProductsNames(productsNames);
         setPayment(payment);
         setDelivery(delivery);
         setDateOpened(dateOpened);
@@ -50,14 +52,6 @@ public class OrderDTO {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getUserLogin() {
-        return userLogin;
-    }
-
-    public void setUserLogin(String userLogin) {
-        this.userLogin = userLogin;
     }
 
     public PaymentType getPayment() {
@@ -124,11 +118,19 @@ public class OrderDTO {
         this.dateGot = dateGot;
     }
 
-    public List<String> getOrderProducts() {
-        return orderProducts;
+    public String getUserLogin() {
+        return userLogin;
     }
 
-    public void setOrderProducts(List<String> orderProducts) {
-        this.orderProducts = orderProducts;
+    public void setUserLogin(String userLogin) {
+        this.userLogin = userLogin;
+    }
+
+    public List<String> getProductsNames() {
+        return productsNames;
+    }
+
+    public void setProductsNames(List<String> productsNames) {
+        this.productsNames = productsNames;
     }
 }

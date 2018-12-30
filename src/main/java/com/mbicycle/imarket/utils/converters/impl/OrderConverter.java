@@ -1,8 +1,8 @@
 package com.mbicycle.imarket.utils.converters.impl;
 
+import com.mbicycle.imarket.beans.dto.OrderDTO;
 import com.mbicycle.imarket.beans.entities.Order;
 import com.mbicycle.imarket.utils.converters.AbstractConverter;
-import com.mbicycle.imarket.beans.dto.OrderDTO;
 
 import java.util.stream.Collectors;
 
@@ -20,7 +20,7 @@ public class OrderConverter extends AbstractConverter<Order, OrderDTO> {
         target.setDateReady(source.getDateReady());
         target.setDateSent(source.getDateSent());
         target.setUserLogin(source.getProfile().getUser().getLogin());
-        target.setOrderProducts(source.getOrderProducts()
+        target.setProductsNames(source.getOrderProducts()
                                       .stream()
                                       .map(orderProduct -> orderProduct.getProduct().getName())
                                       .collect(Collectors.toList()));
