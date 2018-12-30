@@ -1,20 +1,38 @@
 package com.mbicycle.imarket.controllers;
 
-import com.mbicycle.imarket.beans.entities.Coupon;
-import com.mbicycle.imarket.services.CouponService;
+import com.mbicycle.imarket.beans.dto.CouponDTO;
+import com.mbicycle.imarket.facades.interfaces.CouponFacade;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+
+import org.springframework.http.MediaType;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.mbicycle.imarket.utils.ResponseEntityBuilder.entityWithStatus;
+
 @RestController
 public class CouponController {
-    @Autowired
-    private CouponService service;
+    private static final String MAPPING = "/coupons";
 
-    @GetMapping("/coupons/allCoupons")
-    public List<Coupon> getAllCoupons(){
-        return service.findAll();
+    @Autowired
+    @SuppressWarnings("ALL")
+    private CouponFacade facade;
+
+    @GetMapping(MAPPING + "/getAll")
+    public List<CouponDTO> getAll(){
+        return facade.findAll();
+    }
+
+    @PostMapping(MAPPING + "/add")
+    public ResponseEntity add(@RequestBody CouponDTO couponDTO){
+        return entityWithStatus(facade.add(couponDTO));
+    }
+
+    @PostMapping(value = MAPPING + "/delete", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity delete(CouponDTO couponDTO){
+        return entityWithStatus(facade.delete(couponDTO));
     }
 }

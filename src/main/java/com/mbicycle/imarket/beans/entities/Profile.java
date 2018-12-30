@@ -1,5 +1,7 @@
 package com.mbicycle.imarket.beans.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
@@ -21,17 +23,18 @@ public class Profile {
 
     private String address;
 
-    @OneToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.REMOVE)
+    @OneToOne(optional = false, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "id_user", nullable = false)
     private User user;
 
-    @OneToMany(mappedBy = "profile")
+    @OneToMany(mappedBy = "profile", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Coupon> coupons;
 
     @Column(length = 2)
     private String discriminator;
 
-    @OneToMany(mappedBy = "profile", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> orders;
 
     public Profile() {

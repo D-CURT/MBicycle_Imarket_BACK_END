@@ -1,6 +1,8 @@
 package com.mbicycle.imarket.beans.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.List;
@@ -19,7 +21,8 @@ public class User {
 
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @Fetch(FetchMode.SUBSELECT)
     @JoinTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "id_user"),
@@ -28,7 +31,7 @@ public class User {
     private List<Role> roles;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, optional = false)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private Profile profile;
 
     public User() {
@@ -82,11 +85,6 @@ public class User {
 
     public void setProfile(Profile profile) {
         this.profile = profile;
-    }
-
-    @Override
-    public String toString() {
-        return login;
     }
 
     @Override

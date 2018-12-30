@@ -1,20 +1,40 @@
 package com.mbicycle.imarket.controllers;
 
-import com.mbicycle.imarket.beans.entities.Order;
-import com.mbicycle.imarket.services.impl.OrderServiceImpl;
+import com.mbicycle.imarket.beans.dto.OrderDTO;
+import com.mbicycle.imarket.facades.interfaces.OrderFacade;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.mbicycle.imarket.utils.ResponseEntityBuilder.entityWithStatus;
+
 @RestController
 public class OrderController {
-    @Autowired
-    private OrderServiceImpl service;
+    private static final String MAPPING = "/orders";
 
-    @GetMapping("/orders/allOrders")
-    public List<Order> getAllOrders(){
-        return service.getAllOrder();
+    @Autowired
+    @SuppressWarnings("ALL")
+    private OrderFacade facade;
+
+    @GetMapping(MAPPING + "/allOrders")
+    public List<OrderDTO> getAll(){
+        return facade.getAll();
+    }
+
+    @PostMapping(MAPPING + "/add")
+    public ResponseEntity add(OrderDTO dto){
+        return entityWithStatus(facade.add(dto));
+    }
+
+    @GetMapping(MAPPING + "/delete")
+    public ResponseEntity delete(OrderDTO dto){
+        return entityWithStatus(facade.delete(dto));
+    }
+
+    @GetMapping( MAPPING + "/update")
+    public ResponseEntity update(OrderDTO dto) {
+        return entityWithStatus(facade.update(dto));
     }
 }

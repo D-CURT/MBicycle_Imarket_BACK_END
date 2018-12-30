@@ -1,16 +1,9 @@
 package com.mbicycle.imarket.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mbicycle.imarket.beans.entities.Product;
-import com.mbicycle.imarket.dto.ProductDTO;
+import com.mbicycle.imarket.beans.dto.ProductDTO;
 import com.mbicycle.imarket.facades.interfaces.ProductFacade;
-import com.mbicycle.imarket.services.CategoryService;
-import com.mbicycle.imarket.services.GroupService;
-import com.mbicycle.imarket.services.ProductService;
-import com.mbicycle.imarket.services.UserService;
-import com.mbicycle.imarket.services.securities.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,90 +12,67 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
 
+import static com.mbicycle.imarket.utils.ResponseEntityBuilder.entityWithStatus;
+
 @RestController
 public class ProductController {
+    private static final String MAPPING = "/products";
 
     @Autowired
-    private ProductService productService;
+    @SuppressWarnings("ALL")
+    private ProductFacade facade;
 
-    @Autowired(required = false)
-    private UserService userService;
-//
-//    @Autowired(required = false)
-//    private SecurityService securityService;
-
-    @Autowired
-    private UserValidator userValidator;
-
-    @Autowired
-    private CategoryService categoryService;
-
-    @Autowired
-    private GroupService groupService;
-
-    @Autowired
-    private ProductFacade productFacade;
-
-    @GetMapping("/products/allProductsSortedByName")
-    public List<Product> getAllProductsSortedByName() {
-        return productService.findByOrderByName();
+    @GetMapping(MAPPING + "/allProductsSortedByName")
+    public List<ProductDTO> getAllProductsSortedByName() {
+        return facade.findByOrderByName();
     }
 
-    @GetMapping("/products/allProductsSortedByPrice")
-    public List<Product> getAllProductsSortedByPrice() {
-        return productService.findByOrderByPrice();
+    @GetMapping(MAPPING + "/allProductsSortedByPrice")
+    public List<ProductDTO> getAllProductsSortedByPrice() {
+        return facade.findByOrderByPrice();
     }
 
-    @GetMapping(value = "/products/allProductsWithGroupSortedByName/{groupName}"
+    @GetMapping(value = MAPPING + "/allProductsWithGroupSortedByName/{groupName}"
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<Product> getAllProductsWithGroupSortedByName(@PathVariable String groupName) {
-        return productService.findByGroupOrderByName(groupName);
+    public List<ProductDTO> getAllProductsWithGroupSortedByName(@PathVariable String groupName) {
+        return facade.findByGroupOrderByName(groupName);
     }
 
     @GetMapping(value = "/products/allProductsWithGroupSortedByPrice/{groupName}"
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<Product> getAllProductsWithGroupSortedByPrice(@PathVariable String groupName) {
-        return productService.findByGroupOrderByPrice(groupName);
+    public List<ProductDTO> getAllProductsWithGroupSortedByPrice(@PathVariable String groupName) {
+        return facade.findByGroupOrderByPrice(groupName);
     }
 
-    @GetMapping(value = "/products/allProductsSortedByNameWithNameLike/{name}"
+    @GetMapping(value = MAPPING + "/allProductsSortedByNameWithNameLike/{name}"
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<Product> getAllProductsSortedByNameWithNameLike(@PathVariable String name) {
-        return productService.findByNameLikeOrderByName(name);
+    public List<ProductDTO> getAllProductsSortedByNameWithNameLike(@PathVariable String name) {
+        return facade.findByNameLikeOrderByName(name);
     }
 
-    @GetMapping(value = "/products/allProductsSortedByNameWithNameLikeAndTrueStoreStatus/{name}"
+    @GetMapping(value = MAPPING + "/allProductsSortedByNameWithNameLikeAndTrueStoreStatus/{name}"
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<Product> getAllSortedByNameWithNameLikeAndTrueStoreStatus(@PathVariable String name) {
-        return productService.findByNameLikeAndStoreStatusIsTrue(name);
+    public List<ProductDTO> getAllSortedByNameWithNameLikeAndTrueStoreStatus(@PathVariable String name) {
+        return facade.findByNameLikeAndStoreStatusIsTrue(name);
     }
 
-    @GetMapping(value = "/products/allProductsSortedByNameWithNameLikeAndDiscount/{name}"
+    @GetMapping(value = MAPPING + "/allProductsSortedByNameWithNameLikeAndDiscount/{name}"
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<Product> getAllSortedByNameWithNameLikeAndDiscount(@PathVariable String name) {
-        return productService.findByNameLikeAndDiscountIsNotNull(name);
+    public List<ProductDTO> getAllSortedByNameWithNameLikeAndDiscount(@PathVariable String name) {
+        return facade.findByNameLikeAndDiscountIsNotNull(name);
     }
 
-    @GetMapping(value = "/products/allProductsSortedByNameWithNameLikeAndTrueStoreStatusAndDiscount/{name}"
+    @GetMapping(value = MAPPING + "/allProductsSortedByNameWithNameLikeAndTrueStoreStatusAndDiscount/{name}"
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<Product> getAllSortedByNameWithNameLikeAndTrueStoreStatusAndDiscount(@PathVariable String name) {
-        return productService.findByNameLikeAndStoreStatusIsTrueAndDiscountIsNotNull(name);
+    public List<ProductDTO> getAllSortedByNameWithNameLikeAndTrueStoreStatusAndDiscount(@PathVariable String name) {
+        return facade.findByNameLikeAndStoreStatusIsTrueAndDiscountIsNotNull(name);
     }
 
-    @PostMapping(value = "/categories/add/{name}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public void addCategory(@PathVariable String name) {
-        categoryService.addCategory(name);
-    }
-
-    @PostMapping(value = "/groups/add/{groupName, categoryName}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public void addGroup(@PathVariable String groupName, String categoryName) {
-        groupService.addGroup(groupName, categoryName);
-    }
-
-    @PostMapping(value = "/products/add")
+    @PostMapping(value = MAPPING + "/add")
     public ResponseEntity addProduct(@RequestParam("data") String strDTO, @RequestParam("photo") MultipartFile file)
             throws IOException {
         ProductDTO productDTO = new ObjectMapper().readValue(strDTO, ProductDTO.class);  //Convert string param (json) into DTO
-        return productFacade.addProduct(productDTO, file) ? new ResponseEntity(HttpStatus.OK) : new ResponseEntity(HttpStatus.BAD_REQUEST);
+        return entityWithStatus(facade.add(productDTO, file));
+
     }
 }
