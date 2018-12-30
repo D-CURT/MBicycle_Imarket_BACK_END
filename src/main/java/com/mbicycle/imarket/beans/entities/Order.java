@@ -6,6 +6,7 @@ import com.mbicycle.imarket.utils.enums.PaymentType;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "orders")
@@ -155,5 +156,23 @@ public class Order {
 
     public void setOrderProducts(List<OrderProduct> orderProducts) {
         this.orderProducts = orderProducts;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Order order = (Order) o;
+        return Objects.equals(dateOpened, order.dateOpened) &&
+                Objects.equals(datePaid, order.datePaid) &&
+                Objects.equals(dateReady, order.dateReady) &&
+                Objects.equals(dateClosed, order.dateClosed) &&
+                Objects.equals(dateSent, order.dateSent) &&
+                Objects.equals(dateGot, order.dateGot);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(dateOpened, datePaid, dateReady, dateClosed, dateSent, dateGot);
     }
 }

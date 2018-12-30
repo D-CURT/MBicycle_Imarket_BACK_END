@@ -1,6 +1,7 @@
 package com.mbicycle.imarket.services.interfaces;
 
 import com.mbicycle.imarket.beans.entities.Order;
+import com.mbicycle.imarket.beans.entities.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,4 +13,8 @@ public interface OrderService {
     boolean delete(Order order);
 
     List<Order> getAll();
+
+    boolean update(Order order);
+
+    Order findByProfile(Profile profile);
 }
