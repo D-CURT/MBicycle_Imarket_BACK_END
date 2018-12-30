@@ -37,8 +37,12 @@ public class User {
     public User() {
     }
 
-    public User(String login, String password) {
+    public User(String login) {
         setLogin(login);
+    }
+
+    public User(String login, String password) {
+        this(login);
         setPassword(password);
     }
 

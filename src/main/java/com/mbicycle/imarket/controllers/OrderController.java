@@ -18,7 +18,7 @@ public class OrderController {
     @SuppressWarnings("ALL")
     private OrderFacade facade;
 
-    @GetMapping(MAPPING + "/allOrders")
+    @GetMapping(MAPPING + "/all")
     public List<OrderDTO> getAll(){
         return facade.getAll();
     }

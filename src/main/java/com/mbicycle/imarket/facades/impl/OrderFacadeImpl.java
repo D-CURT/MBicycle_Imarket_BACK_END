@@ -6,10 +6,12 @@ import com.mbicycle.imarket.beans.dto.OrderDTO;
 import com.mbicycle.imarket.facades.interfaces.OrderFacade;
 import com.mbicycle.imarket.services.interfaces.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@SuppressWarnings("ALL")
 public class OrderFacadeImpl implements OrderFacade {
 
     @Autowired
@@ -23,7 +25,8 @@ public class OrderFacadeImpl implements OrderFacade {
 
     @Override
     public boolean add(OrderDTO orderDTO) {
-        return service.add(reverseConverter.convert(orderDTO));
+        Order order = service.get(reverseConverter.convert(orderDTO).getProfile());
+        return (order != null && order.getDateOpened() == null) ? service.update(order) : service.add(order);
     }
 
     @Override
@@ -40,5 +43,4 @@ public class OrderFacadeImpl implements OrderFacade {
     public List<OrderDTO> getAll() {
         return service.getAll().stream().map(converter::convert).collect(Collectors.toList());
     }
-
 }
