@@ -26,6 +26,7 @@ import static com.mbicycle.imarket.utils.ResponseEntityBuilder.entityWithContent
 import static com.mbicycle.imarket.utils.ResponseEntityBuilder.entityWithStatus;
 
 @RestController
+@SuppressWarnings("ALL")
 public class UserController {
     private static final String MAPPING = "/users";
 

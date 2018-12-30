@@ -33,6 +33,11 @@ public class ProductFacadeImpl implements ProductFacade {
     private Converter<Product, ProductDTO> productConverter;
 
     @Override
+    public ProductDTO get(String name) {
+        return productConverter.convert(productService.get(name));
+    }
+
+    @Override
     public boolean add(ProductDTO productDTO, MultipartFile file) {
 
         if (productRepository.findByName(productDTO.getName()) == null) {
@@ -64,8 +69,8 @@ public class ProductFacadeImpl implements ProductFacade {
     }
 
     @Override
-    public ProductDTO get(String name) {
-        return productConverter.convert(productService.get(name));
+    public boolean delete(ProductDTO productDTO) {
+        return productService.delete(reverseProductConverter.convert(productDTO));
     }
 
     @Override
