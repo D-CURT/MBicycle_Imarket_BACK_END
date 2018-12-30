@@ -9,7 +9,7 @@ public class HtmlController {
 
 //    @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
 //    public String login2JspView() {
-//        return "login";
+//        return "index2";
 //    }
 
     @RequestMapping(value = {"/index"}, method = RequestMethod.GET)
@@ -17,8 +17,8 @@ public class HtmlController {
         return "index";
     }
 
-    @RequestMapping(value = {"/indexLogged"}, method = RequestMethod.GET)
-    public String indexLoggedHtmlView() {
+    @RequestMapping(value = {"/logoutdone"}, method = RequestMethod.GET)
+    public String logoutIndexHtmlView() {
         return "index";
     }
 
