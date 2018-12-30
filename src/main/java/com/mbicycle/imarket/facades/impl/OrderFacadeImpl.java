@@ -1,16 +1,17 @@
 package com.mbicycle.imarket.facades.impl;
 
 import com.mbicycle.imarket.beans.entities.Order;
+import com.mbicycle.imarket.beans.entities.OrderProduct;
 import com.mbicycle.imarket.beans.entities.Profile;
 import com.mbicycle.imarket.beans.dto.OrderDTO;
 import com.mbicycle.imarket.beans.dto.ProfileDTO;
 
+import com.mbicycle.imarket.daos.OrderProductRepository;
 import com.mbicycle.imarket.utils.converters.Converter;
 
 import com.mbicycle.imarket.facades.interfaces.OrderFacade;
 import com.mbicycle.imarket.services.interfaces.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,6 +23,9 @@ public class OrderFacadeImpl implements OrderFacade {
     private OrderService service;
 
     @Autowired
+    private OrderProductRepository orderProductRepository;
+
+    @Autowired
     private Converter<Order, OrderDTO> converter;
 
     @Autowired
@@ -31,19 +35,35 @@ public class OrderFacadeImpl implements OrderFacade {
     private Converter<ProfileDTO, Profile> profileConverter;
 
     @Override
-    public boolean add(OrderDTO orderDTO) {
-        Order order = service.get(reverseConverter.convert(orderDTO).getProfile());
-        return (order != null && order.getDateOpened() == null) ? service.update(order) : service.add(order);
+    public boolean add(OrderDTO dto) {
+        Order order = reverseConverter.convert(dto);
+        List<OrderProduct> orderProducts = order.getOrderProducts();
+        if (service.get(order.getProfile()) == null) {
+            service.add(order);
+            order = service.get(order.getProfile());
+            for (OrderProduct o: order.getOrderProducts()) {
+                o.setOrder(order);
+                o = orderProductRepository.getOne(o.getId());
+                orderProductRepository.save(o);
+            }
+        } else {
+            order = service.get(order.getProfile());
+            for (OrderProduct o: orderProducts) {
+                o.setOrder(order);
+            }
+            order.getOrderProducts().addAll(orderProducts);
+        }
+        return service.update(order);
     }
 
     @Override
-    public boolean update(OrderDTO orderDTO) {
-        return service.update(reverseConverter.convert(orderDTO));
+    public boolean update(OrderDTO dto) {
+        return service.update(reverseConverter.convert(dto));
     }
 
     @Override
-    public boolean delete(OrderDTO orderDTO) {
-        return service.delete(reverseConverter.convert(orderDTO));
+    public boolean delete(OrderDTO dto) {
+        return service.delete(reverseConverter.convert(dto));
     }
 
     @Override

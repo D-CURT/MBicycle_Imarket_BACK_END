@@ -1,6 +1,7 @@
 package com.mbicycle.imarket.services.impl;
 
 import com.mbicycle.imarket.beans.entities.Order;
+import com.mbicycle.imarket.beans.entities.OrderProduct;
 import com.mbicycle.imarket.beans.entities.Profile;
 import com.mbicycle.imarket.daos.OrderRepository;
 import com.mbicycle.imarket.services.interfaces.OrderService;
@@ -15,9 +16,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean add(Order order) {
-        if (findByProfile(order.getProfile()) == null) {
-            orderRepository.save(order);
-        }
+        orderRepository.save(order);
         return findByProfile(order.getProfile()) != null;
     }
 
@@ -27,23 +26,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> getAll(){
+    public List<Order> getAll() {
         return orderRepository.findAll();
     }
 
     @Override
-    public boolean update(Order orderToUpdate) {
-        Order order = orderRepository.findByProfile(orderToUpdate.getProfile());
-        if (order != null) {
-            order.setDateClosed(orderToUpdate.getDateClosed());
-            order.setDateGot(orderToUpdate.getDateGot());
-            order.setDateOpened(orderToUpdate.getDateOpened());
-            order.setDatePaid(orderToUpdate.getDatePaid());
-            order.setDateReady(orderToUpdate.getDateReady());
-            order.setDateSent(orderToUpdate.getDateSent());
-            orderRepository.save(order);
-        }
-        return order.equals(orderToUpdate);
+    public boolean update(Order order) {
+        add(order);
+        return findByProfile(order.getProfile()).equals(order);
     }
 
     @Override

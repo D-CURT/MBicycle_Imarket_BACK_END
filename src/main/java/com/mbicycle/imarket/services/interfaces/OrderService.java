@@ -18,7 +18,5 @@ public interface OrderService {
 
     List<Order> getAll();
 
-    boolean update(Order order);
-
     Order findByProfile(Profile profile);
 }
