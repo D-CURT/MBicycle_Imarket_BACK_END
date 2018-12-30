@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 @Component
 @SuppressWarnings("ALL")
-public class SimpleProfileFacade implements ProfileFacade {
+public class ProfileFacadeImpl implements ProfileFacade {
 
     @Autowired
     private UserService userService;
@@ -58,8 +58,4 @@ public class SimpleProfileFacade implements ProfileFacade {
                              .collect(Collectors.toList());
     }
 
-    @Override
-    public ProfileDTO fingByName(String name) {
-        return profileConverter.convert(profileService.fingByName(name));
-    }
 }

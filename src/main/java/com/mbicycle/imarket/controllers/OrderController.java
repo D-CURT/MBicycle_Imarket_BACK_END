@@ -32,12 +32,12 @@ public class OrderController {
         return entityWithStatus(facade.add(dto));
     }
 
-    @GetMapping(MAPPING + "/delete")
+    @PostMapping(MAPPING + "/delete")
     public ResponseEntity delete(OrderDTO dto){
         return entityWithStatus(facade.delete(dto));
     }
 
-    @GetMapping( MAPPING + "/update")
+    @PostMapping( MAPPING + "/update")
     public ResponseEntity update(OrderDTO dto) {
         return entityWithStatus(facade.update(dto));
     }

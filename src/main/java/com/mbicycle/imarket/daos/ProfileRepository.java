@@ -12,7 +12,5 @@ public interface ProfileRepository extends JpaRepository<Profile, Integer> {
 
     Profile findByUser(User user);
 
-    Profile findByName(String name);
-
     List<Profile> findByOrderByNameAsc();
 }

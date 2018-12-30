@@ -3,15 +3,19 @@ package com.mbicycle.imarket.services.impl;
 import com.mbicycle.imarket.beans.entities.Profile;
 import com.mbicycle.imarket.beans.entities.User;
 import com.mbicycle.imarket.daos.ProfileRepository;
+import com.mbicycle.imarket.daos.UserRepository;
 import com.mbicycle.imarket.services.interfaces.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
-
+@SuppressWarnings("ALL")
 public class ProfileServiceImpl implements ProfileService {
 
     @Autowired
-    @SuppressWarnings("ALL")
+    private UserRepository userRepository;
+
+    @Autowired
+
     private ProfileRepository repository;
 
     @Override
@@ -37,7 +41,10 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Override
     public Profile get(User user){
-        return repository.findByUser(user);
+        if ((user = userRepository.findByLogin(user.getLogin())) != null) {
+            return repository.findByUser(user);
+        }
+        return null;
     }
 
     @Override
@@ -45,8 +52,4 @@ public class ProfileServiceImpl implements ProfileService {
         return repository.findByOrderByNameAsc();
     }
 
-    @Override
-    public Profile fingByName(String name) {
-        return repository.findByName(name);
-    }
 }

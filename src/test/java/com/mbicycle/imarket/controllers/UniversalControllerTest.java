@@ -25,36 +25,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.fasterxml.jackson.databind.DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY;
-import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
-import static com.mbicycle.imarket.utils.generators.tests.TestObjectsBuilder.*;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Main.class)
 @AutoConfigureMockMvc
 public class UniversalControllerTest extends AbstractControllerTest{
-
-    // =========== PROFILE ===========
-
-    @Test
-    public void check_of_getting_sorted_by_name_profile_list() throws Exception {
-        String mapping = "/profiles/allProfilesSortedByName";
-
-        final List<ProfileDTO> EXPECTED_PROFILE_LIST = profileRepository.findByOrderByNameAsc()
-                                                                        .stream()
-                                                                        .map(profileConverter::convert)
-                                                                        .collect(Collectors.toList());
-
-        List<ProfileDTO> actualProfileList = actualList(mapping, ProfileDTO.class);
-
-        assertThat(actualProfileList.size(), is(greaterThan(ZERO)));
-        assertThat(actualProfileList, is(equalTo(EXPECTED_PROFILE_LIST)));
-    }
 
     @Test
     public void check_of_getting_categories_sorted_by_name() throws Exception {

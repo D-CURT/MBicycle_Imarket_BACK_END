@@ -18,6 +18,10 @@ public class TestObjectsBuilder {
         return dto;
     }
 
+    public static UserDTO createUserDTOWithoutRoles(String login, String password) {
+        return new UserDTO(login, password, null);
+    }
+
     public static UserDTO createUserDTO(String login, String password) {
         return new UserDTO(login, password
                 , Arrays.asList(CUSTOMER.name(), ADMIN.name()));

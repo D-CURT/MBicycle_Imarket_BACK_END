@@ -16,5 +16,4 @@ public interface ProfileService {
 
     List<Profile> findByOrderByName();
 
-    Profile fingByName(String name);
 }
