@@ -10,9 +10,11 @@ import com.mbicycle.imarket.beans.dto.UserDTO;
 import com.mbicycle.imarket.facades.interfaces.ProfileFacade;
 import com.mbicycle.imarket.services.interfaces.ProfileService;
 import com.mbicycle.imarket.services.interfaces.UserService;
+import com.mbicycle.imarket.utils.enums.RoleType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,6 +42,9 @@ public class ProfileFacadeImpl implements ProfileFacade {
 
     @Override
     public boolean add(ProfileDTO dto) {
+        List<String> defaultRole = new ArrayList<>();
+        defaultRole.add(RoleType.CUSTOMER.name());
+        dto.setRoles(defaultRole);
         Profile profileToAdd = reversedProfileConverter.convert(dto);
         User userToAdd = new User(profileToAdd.getUser().getLogin(),profileToAdd.getUser().getPassword());
         userToAdd.setRoles(profileToAdd.getUser().getRoles());

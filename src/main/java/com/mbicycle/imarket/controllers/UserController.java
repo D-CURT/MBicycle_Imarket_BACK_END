@@ -1,22 +1,16 @@
 package com.mbicycle.imarket.controllers;
 
 import com.mbicycle.imarket.beans.dto.ProfileDTO;
-import com.mbicycle.imarket.beans.entities.Role;
-import com.mbicycle.imarket.beans.entities.User;
 import com.mbicycle.imarket.daos.RoleRepository;
-import com.mbicycle.imarket.daos.UserRepository;
 import com.mbicycle.imarket.facades.interfaces.ProfileFacade;
 import com.mbicycle.imarket.beans.dto.UserDTO;
 import com.mbicycle.imarket.facades.interfaces.UserFacade;
 import com.mbicycle.imarket.services.interfaces.UserService;
-import com.mbicycle.imarket.services.securities.SecurityService;
 import com.mbicycle.imarket.utils.enums.RoleType;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static com.mbicycle.imarket.utils.ResponseEntityBuilder.entityWithContent;
@@ -51,19 +44,12 @@ public class UserController {
         return entityWithContent(userFacade.findByOrderByLogin());
     }
 
-
-
     @PostMapping(value = "/registration", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity registration(@RequestBody ProfileDTO profileDTO, BindingResult bindingResult) {
         System.out.println("***SOUT***: Registration of login=" + profileDTO.getLogin() + " and password="+profileDTO.getPassword());
-
-        List<String> defaultRole = new ArrayList<>();
-        defaultRole.add(RoleType.CUSTOMER.name());
-        profileDTO.setRoles(defaultRole);
         if (!profileFacade.add(profileDTO)){
             System.out.println("***SOUT***: Есть такой юзер");
-
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);  //TODO: Add message: User with 'login' is already exists
+            return new ResponseEntity(HttpStatus.valueOf(409));
         }
         return new ResponseEntity(HttpStatus.OK);
     }

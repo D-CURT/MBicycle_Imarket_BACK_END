@@ -49,8 +49,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/products/**").hasAuthority("CUSTOMER")
                 //.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()   //Already fixed in a better way below
                 .and()
-                .logout()
-                .logoutUrl("/logout").logoutSuccessUrl("/logoutdone")
+                .logout().logoutUrl("/logout").logoutSuccessUrl("/logoutdone")
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
                 .and()
