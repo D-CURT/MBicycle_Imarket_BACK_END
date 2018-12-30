@@ -17,6 +17,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_sequence_generator")
     private int id;
 
+    @Column(unique = true)
     private String login;
 
     private String password;

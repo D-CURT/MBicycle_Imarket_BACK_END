@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
         String login = user.getLogin();
         String password = user.getPassword();
 
-        if (get(login, password) == null) {
+        if (get(login) == null) {
             userRepository.save(user);
         }
         return get(login, password) != null;

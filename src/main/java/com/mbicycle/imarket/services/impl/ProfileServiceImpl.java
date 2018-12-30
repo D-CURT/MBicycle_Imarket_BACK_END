@@ -27,6 +27,9 @@ public class ProfileServiceImpl implements ProfileService {
         if (repository.findByUser(user) == null) {
             repository.save(profile);
         }
+        else {
+            return false;
+        }
         return get(user) != null;
     }
 
