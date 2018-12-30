@@ -20,7 +20,7 @@ public class ReverseOrderConverter extends AbstractConverter<OrderDTO, Order> {
     @Override
     public void convert(OrderDTO orderDTO, Order order) {
         order.setId(orderDTO.getId());
-        order.setProfile(converter.convert(facade.fingByName(orderDTO.getProfile())));
+        order.setProfile(converter.convert(facade.));
         order.setDelivery(orderDTO.getDelivery());
         order.setPayment(orderDTO.getPayment());
         order.setDateOpened(orderDTO.getDateOpened());
