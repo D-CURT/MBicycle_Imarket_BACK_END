@@ -1,8 +1,12 @@
 package com.mbicycle.imarket.facades.impl;
 
 import com.mbicycle.imarket.beans.entities.Order;
-import com.mbicycle.imarket.utils.converters.Converter;
+import com.mbicycle.imarket.beans.entities.Profile;
 import com.mbicycle.imarket.beans.dto.OrderDTO;
+import com.mbicycle.imarket.beans.dto.ProfileDTO;
+
+import com.mbicycle.imarket.utils.converters.Converter;
+
 import com.mbicycle.imarket.facades.interfaces.OrderFacade;
 import com.mbicycle.imarket.services.interfaces.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +25,9 @@ public class OrderFacadeImpl implements OrderFacade {
     @Autowired
     private Converter<OrderDTO, Order> reverseConverter;
 
+    @Autowired
+    private Converter<ProfileDTO, Profile> profileConverter;
+
     @Override
     public boolean add(OrderDTO orderDTO) {
         return service.add(reverseConverter.convert(orderDTO));
@@ -28,7 +35,7 @@ public class OrderFacadeImpl implements OrderFacade {
 
     @Override
     public boolean update(OrderDTO orderDTO) {
-        return service.delete(reverseConverter.convert(orderDTO));
+        return service.update(reverseConverter.convert(orderDTO));
     }
 
     @Override
@@ -39,6 +46,11 @@ public class OrderFacadeImpl implements OrderFacade {
     @Override
     public List<OrderDTO> getAll() {
         return service.getAll().stream().map(converter::convert).collect(Collectors.toList());
+    }
+
+    @Override
+    public OrderDTO get(ProfileDTO profileDTO) {
+        return converter.convert(service.findByProfile(profileConverter.convert(profileDTO)));
     }
 
 }

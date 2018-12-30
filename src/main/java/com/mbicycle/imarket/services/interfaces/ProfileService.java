@@ -15,4 +15,5 @@ public interface ProfileService {
     Profile get(User user);
 
     List<Profile> findByOrderByName();
+
 }
