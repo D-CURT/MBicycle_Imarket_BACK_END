@@ -58,6 +58,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> findByNameLikeOrderByNameIgnoreCase(String name) {
+        return repository.findByNameIgnoreCaseContainingOrderByNameAsc(name);
+    }
+
+    @Override
     public List<Product> findByNameLikeAndStoreStatusIsTrue(String name) {
         return repository.findByNameContainingAndStoreStatusIsTrueOrderByNameAsc(name);
     }

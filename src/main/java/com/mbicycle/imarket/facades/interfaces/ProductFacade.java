@@ -22,6 +22,8 @@ public interface ProductFacade {
 
     List<ProductDTO> findByNameLikeOrderByName(String name);
 
+    List<ProductDTO> findByNameLikeOrderByNameIgnoreCase(String name);
+
     List<ProductDTO> findByNameLikeAndStoreStatusIsTrue(String name);
 
     List<ProductDTO> findByNameLikeAndDiscountIsNotNull(String name);

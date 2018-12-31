@@ -158,6 +158,16 @@ public class DataBaseFulfiller implements CommandLineRunner {
             productGTX1080Ti.setDescriptionPreview("PCI-E GDDR5 8072MB, DVI, HDMI");
             productGTX1080Ti.setName("GTX-1080Ti");
 
+        Product productRussianVideocard = new Product();
+            productRussianVideocard.setGroup(groupGraphicsCard);
+            productRussianVideocard.setDescriptionFull("Русское полное описание");
+            productRussianVideocard.setPicture("RussianVideocard.jpg");
+            productRussianVideocard.setStoreStatus(true);
+            productRussianVideocard.setPrice(489);
+            productRussianVideocard.setDiscount(0);
+            productRussianVideocard.setDescriptionPreview("Русиш аписанне");
+            productRussianVideocard.setName("Рузкая видевакарта");
+
         Product productLaserProfessionalEco = new Product();
             productLaserProfessionalEco.setGroup(groupPrinters);
             productLaserProfessionalEco.setDescriptionFull("Print 2400 dpi image quality color documents at speeds of up to 32 ppm (color) or 36 ppm (monochrome), letter/A4. Powerful 500 MHz processor, 512MB of memory");
@@ -194,6 +204,7 @@ public class DataBaseFulfiller implements CommandLineRunner {
             groupRepository.save(groupGraphicsCard);
                 productRepository.save(productGTX590);
                 productRepository.save(productGTX1080Ti);
+                productRepository.save(productRussianVideocard);
             groupKeyboards.setCategory(categoryRepository.findByName(categoryComputerSystems.getName()));
             groupRepository.save(groupKeyboards);
                 productRepository.save(productInternetKeyboard);

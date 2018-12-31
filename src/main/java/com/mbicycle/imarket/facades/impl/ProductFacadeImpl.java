@@ -94,6 +94,11 @@ public class ProductFacadeImpl implements ProductFacade {
     }
 
     @Override
+    public List<ProductDTO> findByNameLikeOrderByNameIgnoreCase(String name) {
+        return convert(productService.findByNameLikeOrderByNameIgnoreCase(name));
+    }
+
+    @Override
     public List<ProductDTO> findByNameLikeAndStoreStatusIsTrue(String name) {
         return convert(productService.findByNameLikeAndStoreStatusIsTrue(name));
     }
