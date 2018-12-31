@@ -3,7 +3,6 @@ package com.mbicycle.imarket.controllers;
 import com.mbicycle.imarket.Main;
 import com.mbicycle.imarket.beans.dto.ProfileDTO;
 import com.mbicycle.imarket.beans.dto.UserDTO;
-import com.mbicycle.imarket.beans.entities.Profile;
 import org.hamcrest.core.Is;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -46,8 +45,7 @@ public class ProfileControllerTest extends AbstractControllerTest {
 
         UserDTO dto = createUserDTO(FIRST_VALUE, FIRST_USER_PASSWORD);
         String json = createMapper().writeValueAsString(createProfileDTO(FIRST_VALUE, dto));
-        Profile profile = profileService.get(userConverter.convert(dto));
-        String expected = createMapper().writeValueAsString(profileConverter.convert(profile));
+        String expected = createMapper().writeValueAsString(profileConverter.convert(profileService.get(userConverter.convert(dto))));
 
 
         mvc.perform(get("/profiles/get").contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
