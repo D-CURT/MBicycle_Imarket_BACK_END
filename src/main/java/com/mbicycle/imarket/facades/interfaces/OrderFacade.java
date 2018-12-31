@@ -3,6 +3,8 @@ package com.mbicycle.imarket.facades.interfaces;
 
 import com.mbicycle.imarket.beans.dto.OrderDTO;
 import com.mbicycle.imarket.beans.dto.ProfileDTO;
+import com.mbicycle.imarket.beans.entities.Order;
+import com.mbicycle.imarket.beans.entities.Profile;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -17,5 +19,7 @@ public interface OrderFacade {
 
     List<OrderDTO> getAll();
 
-    OrderDTO get(ProfileDTO profileDTO);
+    List<OrderDTO> get(ProfileDTO profileDTO);
+
+    OrderDTO getInitial(ProfileDTO profileDTO);
 }

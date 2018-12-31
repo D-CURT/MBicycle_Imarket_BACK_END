@@ -22,9 +22,13 @@ public class OrderProduct {
     public OrderProduct() {
     }
 
-    public OrderProduct(Order order, Product product) {
-        setOrder(order);
+    public OrderProduct(Product product) {
         setProduct(product);
+    }
+
+    public OrderProduct(Order order, Product product) {
+        this(product);
+        setOrder(order);
     }
 
     public int getId() {

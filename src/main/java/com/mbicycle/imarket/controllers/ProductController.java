@@ -38,7 +38,7 @@ public class ProductController {
         return facade.findByGroupOrderByName(groupName);
     }
 
-    @GetMapping(value = "/products/allProductsWithGroupSortedByPrice/{groupName}"
+    @GetMapping(value = MAPPING + "/allProductsWithGroupSortedByPrice/{groupName}"
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<ProductDTO> getAllProductsWithGroupSortedByPrice(@PathVariable String groupName) {
         return facade.findByGroupOrderByPrice(groupName);
@@ -79,6 +79,10 @@ public class ProductController {
             throws IOException {
         ProductDTO productDTO = new ObjectMapper().readValue(strDTO, ProductDTO.class);  //Convert string param (json) into DTO
         return entityWithStatus(facade.add(productDTO, file));
+    }
 
+    @PostMapping(value = MAPPING + "/delete", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity delete(@RequestBody ProductDTO dto) {
+        return entityWithStatus(facade.delete(dto));
     }
 }

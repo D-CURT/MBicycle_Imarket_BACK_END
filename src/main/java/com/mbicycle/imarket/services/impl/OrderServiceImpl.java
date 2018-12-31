@@ -15,9 +15,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean add(Order order) {
-        if (findByProfile(order.getProfile()) == null) {
-            orderRepository.save(order);
-        }
+        orderRepository.save(order);
         return findByProfile(order.getProfile()) != null;
     }
 
@@ -27,22 +25,18 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public boolean update(Order orderToUpdate) {
-        Order order = orderRepository.findByProfile(orderToUpdate.getProfile());
-        if (order != null) {
-            order.setDateClosed(orderToUpdate.getDateClosed());
-            order.setDateGot(orderToUpdate.getDateGot());
-            order.setDateOpened(orderToUpdate.getDateOpened());
-            order.setDatePaid(orderToUpdate.getDatePaid());
-            order.setDateReady(orderToUpdate.getDateReady());
-            order.setDateSent(orderToUpdate.getDateSent());
-            orderRepository.save(order);
-        }
-        return order.equals(orderToUpdate);
+    public List<Order> findByProfile(Profile profile) {
+        return null;
     }
 
     @Override
-    public Order findByProfile(Profile profile) {
+    public boolean update(Order order) {
+        add(order);
+        return findInitial(order.getProfile()).equals(order);
+    }
+
+    @Override
+    public Order findInitial(Profile profile) {
         return orderRepository.findByProfile(profile);
     }
 

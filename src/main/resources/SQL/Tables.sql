@@ -68,7 +68,7 @@ CREATE TABLE "groups" (
 ); 
 
 
-CREATE TABLE "products" (
+CREATE TABLE "orderProducts" (
     id INT PRIMARY KEY,
     name TEXT,
     description_preview TEXT,
@@ -90,7 +90,7 @@ CREATE TABLE "order_products" (
     FOREIGN KEY (id_order)
     	REFERENCES orders (id) ON DELETE CASCADE,    
 	FOREIGN KEY (id_product)
-    	REFERENCES products (id) ON DELETE CASCADE
+    	REFERENCES orderProducts (id) ON DELETE CASCADE
 ); 
 
 
@@ -121,8 +121,8 @@ ALTER SEQUENCE orders_id_seq OWNED BY orders.id;
 
 
 CREATE SEQUENCE products_id_seq START 1;
-ALTER TABLE products ALTER COLUMN id SET DEFAULT nextval('products_id_seq');
-ALTER SEQUENCE products_id_seq OWNED BY products.id; 
+ALTER TABLE orderProducts ALTER COLUMN id SET DEFAULT nextval('products_id_seq');
+ALTER SEQUENCE products_id_seq OWNED BY orderProducts.id;
 
 
 CREATE SEQUENCE groups_id_seq START 1;

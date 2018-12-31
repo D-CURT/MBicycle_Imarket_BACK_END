@@ -16,7 +16,7 @@ public class Coupon {
     private Integer sum;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_profile", nullable = true)
+    @JoinColumn(name = "id_profile")
     private Profile profile;
 
     public Coupon() {

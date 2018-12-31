@@ -1,58 +1,49 @@
 package com.mbicycle.imarket.utils.converters.impl.reversed;
 
 import com.mbicycle.imarket.beans.dto.OrderDTO;
-import com.mbicycle.imarket.beans.dto.ProfileDTO;
 import com.mbicycle.imarket.beans.entities.Order;
+import com.mbicycle.imarket.beans.entities.OrderProduct;
 import com.mbicycle.imarket.beans.entities.Profile;
-import com.mbicycle.imarket.daos.OrderProductRepository;
-import com.mbicycle.imarket.daos.OrderRepository;
-import com.mbicycle.imarket.daos.ProductRepository;
-import com.mbicycle.imarket.facades.interfaces.ProfileFacade;
-import com.mbicycle.imarket.facades.interfaces.UserFacade;
+import com.mbicycle.imarket.beans.entities.User;
+import com.mbicycle.imarket.services.interfaces.ProductService;
 import com.mbicycle.imarket.services.interfaces.ProfileService;
 import com.mbicycle.imarket.services.interfaces.UserService;
 import com.mbicycle.imarket.utils.converters.AbstractConverter;
-import com.mbicycle.imarket.utils.converters.Converter;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
+@SuppressWarnings("ALL")
 public class ReverseOrderConverter extends AbstractConverter<OrderDTO, Order> {
-
-    @Autowired
-    private ProfileFacade facade;
-
-    @Autowired
-    private ProfileService service;
 
     @Autowired
     private UserService userService;
 
     @Autowired
-    private OrderProductRepository repository;
+    private ProfileService profileService;
 
     @Autowired
-    private ProductRepository productRepository;
-
-    @Autowired
-    private Converter<Profile, ProfileDTO> converter;
-
-    @Autowired
-    private Converter<ProfileDTO, Profile> reverseConverter;
+    private ProductService productService;
 
     @Override
-    public void convert(OrderDTO orderDTO, Order order) {
-        order.setId(orderDTO.getId());
-        order.setProfile(reverseConverter.convert(facade.get(converter.
-                convert(service.get(userService.get(orderDTO.getUserLogin()))))));
-        order.setOrderProducts(orderDTO.getProductsNames().stream().map(product-> repository.findByProduct(productRepository.findByName(product))).collect(Collectors.toList()));
-        order.setDelivery(orderDTO.getDelivery());
-        order.setPayment(orderDTO.getPayment());
-        order.setDateOpened(orderDTO.getDateOpened());
-        order.setDateClosed(orderDTO.getDateClosed());
-        order.setDateGot(orderDTO.getDateGot());
-        order.setDatePaid(orderDTO.getDatePaid());
-        order.setDateReady(orderDTO.getDateReady());
-        order.setDateSent(orderDTO.getDateSent());
+    public void convert(OrderDTO source, Order target) {
+        target.setId(source.getId());
+        target.setDelivery(source.getDelivery());
+        target.setPayment(source.getPayment());
+        target.setDateOpened(source.getDateOpened());
+        target.setDateClosed(source.getDateClosed());
+        target.setDateGot(source.getDateGot());
+        target.setDatePaid(source.getDatePaid());
+        target.setDateReady(source.getDateReady());
+        target.setDateSent(source.getDateSent());
+        User user = userService.get(source.getUserLogin());
+        target.setProfile(user.getProfile());
+        List<String> productsNames = source.getProductsNames();
+        if (productsNames != null) {
+            target.setOrderProducts(productsNames.stream()
+                                                 .map(s -> new OrderProduct(productService.get(s)))
+                                                 .collect(Collectors.toList()));
+        }
     }
 }

@@ -11,5 +11,5 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
 
     List<Category> findByOrderByNameAsc();
 
-
+    List<Category> findByOrderByGroupsNameAsc();
 }
