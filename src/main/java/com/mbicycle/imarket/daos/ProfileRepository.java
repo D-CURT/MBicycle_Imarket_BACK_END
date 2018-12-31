@@ -1,5 +1,6 @@
 package com.mbicycle.imarket.daos;
 
+import com.mbicycle.imarket.beans.entities.Order;
 import com.mbicycle.imarket.beans.entities.Profile;
 import com.mbicycle.imarket.beans.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -11,6 +11,7 @@ import com.mbicycle.imarket.services.interfaces.UserService;
 import com.mbicycle.imarket.utils.converters.AbstractConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @SuppressWarnings("ALL")
@@ -38,9 +39,11 @@ public class ReverseOrderConverter extends AbstractConverter<OrderDTO, Order> {
         target.setDateSent(source.getDateSent());
         User user = userService.get(source.getUserLogin());
         target.setProfile(user.getProfile());
-        target.setOrderProducts(source.getProductsNames()
-                                      .stream()
-                                      .map(s -> new OrderProduct(productService.get(s)))
-                                      .collect(Collectors.toList()));
+        List<String> productsNames = source.getProductsNames();
+        if (productsNames != null) {
+            target.setOrderProducts(productsNames.stream()
+                                                 .map(s -> new OrderProduct(productService.get(s)))
+                                                 .collect(Collectors.toList()));
+        }
     }
 }

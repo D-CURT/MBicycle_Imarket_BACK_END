@@ -1,8 +1,5 @@
 package com.mbicycle.imarket.controllers;
 
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mbicycle.imarket.beans.dto.OrderDTO;
 import com.mbicycle.imarket.beans.dto.ProfileDTO;
 
@@ -12,10 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
+import static com.mbicycle.imarket.utils.ResponseEntityBuilder.entityWithContent;
 import static com.mbicycle.imarket.utils.ResponseEntityBuilder.entityWithStatus;
 
 @RestController
@@ -27,8 +23,8 @@ public class OrderController {
     private OrderFacade facade;
 
     @GetMapping(MAPPING + "/all")
-    public List<OrderDTO> getAll(){
-        return facade.getAll();
+    public ResponseEntity<List<OrderDTO>> getAll(){
+        return entityWithContent(facade.getAll());
     }
 
     @PostMapping(MAPPING + "/add")
@@ -41,13 +37,20 @@ public class OrderController {
         return entityWithStatus(facade.delete(dto));
     }
 
-    @PostMapping( MAPPING + "/update")
+    @PostMapping(MAPPING + "/update")
     public ResponseEntity update(@RequestBody OrderDTO dto) {
         return entityWithStatus(facade.update(dto));
     }
 
-    @GetMapping(MAPPING + "/getByProfile")
-    public OrderDTO getByProfile(@RequestBody ProfileDTO profileDTO){
-        return facade.get(profileDTO);
+    @PostMapping(MAPPING + "/buy")
+    public ResponseEntity buy(@RequestBody OrderDTO dto) {
+        return entityWithStatus(facade.buy(dto));
     }
+
+    @GetMapping(MAPPING + "/getByProfile")
+    public ResponseEntity<List<OrderDTO>> getByProfile(@RequestBody ProfileDTO profileDTO){
+        return entityWithContent(facade.get(profileDTO));
+    }
+
+
 }

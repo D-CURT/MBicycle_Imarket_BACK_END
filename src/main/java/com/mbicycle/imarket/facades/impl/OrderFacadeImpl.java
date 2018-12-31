@@ -5,12 +5,11 @@ import com.mbicycle.imarket.beans.entities.OrderProduct;
 import com.mbicycle.imarket.beans.entities.Profile;
 import com.mbicycle.imarket.beans.dto.OrderDTO;
 import com.mbicycle.imarket.beans.dto.ProfileDTO;
-
-import com.mbicycle.imarket.daos.OrderProductRepository;
 import com.mbicycle.imarket.utils.converters.Converter;
 
 import com.mbicycle.imarket.facades.interfaces.OrderFacade;
 import com.mbicycle.imarket.services.interfaces.OrderService;
+import com.mbicycle.imarket.utils.enums.OrderStatusType;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -21,9 +20,6 @@ public class OrderFacadeImpl implements OrderFacade {
 
     @Autowired
     private OrderService service;
-
-    @Autowired
-    private OrderProductRepository orderProductRepository;
 
     @Autowired
     private Converter<Order, OrderDTO> converter;
@@ -38,16 +34,14 @@ public class OrderFacadeImpl implements OrderFacade {
     public boolean add(OrderDTO dto) {
         Order order = reverseConverter.convert(dto);
         List<OrderProduct> orderProducts = order.getOrderProducts();
-        if (service.get(order.getProfile()) == null) {
+        if (service.findInitial(order.getProfile()) == null) {
             service.add(order);
-            order = service.get(order.getProfile());
+            order = service.findInitial(order.getProfile());
             for (OrderProduct o: order.getOrderProducts()) {
                 o.setOrder(order);
-                o = orderProductRepository.getOne(o.getId());
-                orderProductRepository.save(o);
             }
         } else {
-            order = service.get(order.getProfile());
+            order = service.findInitial(order.getProfile());
             for (OrderProduct o: orderProducts) {
                 o.setOrder(order);
             }
@@ -58,7 +52,8 @@ public class OrderFacadeImpl implements OrderFacade {
 
     @Override
     public boolean update(OrderDTO dto) {
-        return service.update(reverseConverter.convert(dto));
+        Order order = service.findInitial(reverseConverter.convert(dto).getProfile());
+        return service.update(OrderStatusType.status(dto).apply(dto, order));
     }
 
     @Override
@@ -72,7 +67,15 @@ public class OrderFacadeImpl implements OrderFacade {
     }
 
     @Override
-    public OrderDTO get(ProfileDTO profileDTO) {
-        return converter.convert(service.findByProfile(profileConverter.convert(profileDTO)));
+    public List<OrderDTO> get(ProfileDTO profileDTO) {
+        return service.findByProfile(profileConverter.convert(profileDTO))
+                      .stream()
+                      .map(converter::convert)
+                      .collect(Collectors.toList());
+    }
+
+    @Override
+    public OrderDTO getInitial(ProfileDTO profileDTO) {
+        return converter.convert(service.findInitial(profileConverter.convert(profileDTO)));
     }
 }
