@@ -50,6 +50,12 @@ public class ProductController {
         return facade.findByNameLikeOrderByName(name);
     }
 
+    @GetMapping(value = MAPPING + "/allProductsSortedByNameWithNameLikeIgnoreCase/{name}"
+            , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public List<ProductDTO> getAllProductsSortedByNameWithNameLikeIgnoreCase(@PathVariable String name) {
+        return facade.findByNameLikeOrderByNameIgnoreCase(name);
+    }
+
     @GetMapping(value = MAPPING + "/allProductsSortedByNameWithNameLikeAndTrueStoreStatus/{name}"
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<ProductDTO> getAllSortedByNameWithNameLikeAndTrueStoreStatus(@PathVariable String name) {

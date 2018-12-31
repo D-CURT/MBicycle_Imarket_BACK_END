@@ -11,16 +11,11 @@ public class HtmlController {
 
 //    @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
 //    public String login2JspView() {
-//        return "login";
+//        return "index2";
 //    }
 
     @GetMapping("/index")
     public String indexHtmlView() {
-        return "index";
-    }
-
-    @GetMapping("/indexLogged")
-    public String indexLoggedHtmlView() {
         return "index";
     }
 }

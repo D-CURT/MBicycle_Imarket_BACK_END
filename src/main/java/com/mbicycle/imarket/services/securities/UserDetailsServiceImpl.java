@@ -29,13 +29,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
 
-        System.out.println("\nlogin = " + login + "\n");
+        System.out.println("***SOUT[UserDetailsServiceImpl.loadUserByUsername()]***: login = " + login );
 
         User user = userRepository.findByLogin(login);
 
         if (user == null) {
-            System.out.println("\nUser not authorized.\n");
-            throw new UsernameNotFoundException("User not authorized.");
+            System.out.println("***SOUT***: User not authorized.");
+            throw new UsernameNotFoundException("***EXCEPTION***: User not authorized.");
         }
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
@@ -44,16 +44,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             grantedAuthorities.add(new SimpleGrantedAuthority(role.getRole().name()));
         }
 
-        System.out.println(grantedAuthorities + "\n");
         org.springframework.security.core.userdetails.User secUser = new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), grantedAuthorities);
-
-        System.out.println(secUser + "\n");
-
+        System.out.println("***SOUT***[secUser]: " + secUser );
         String str = new BCryptPasswordEncoder().encode(user.getPassword());
-
-        System.out.println(str + "\n");
-
-        System.out.println("\nUser authorized!\n");
+        System.out.println("***SOUT***[Encoded Password]: " + str );
+        System.out.println("***SOUT***: Юзер авторизован (если дальше не будет ошибок)" );
         return secUser;
     }
 

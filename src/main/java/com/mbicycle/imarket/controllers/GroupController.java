@@ -24,8 +24,7 @@ public class GroupController {
         return facade.findByOrderByName();
     }
 
-
-    @GetMapping(MAPPING + "/getGroup/{name}")
+    @GetMapping(MAPPING + "/get/{name}")
     public GroupDTO get(@PathVariable String name) {
         return facade.get(name);
     }

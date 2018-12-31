@@ -21,6 +21,8 @@ public interface ProductService {
 
     List<Product> findByNameLikeOrderByName(String name);
 
+    List<Product> findByNameLikeOrderByNameIgnoreCase(String name);
+
     List<Product> findByNameLikeAndStoreStatusIsTrue(String name);
 
     List<Product> findByNameLikeAndDiscountIsNotNull(String name);

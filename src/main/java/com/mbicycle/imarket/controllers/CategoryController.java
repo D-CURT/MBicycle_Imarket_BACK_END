@@ -24,7 +24,7 @@ public class CategoryController {
         return facade.findByOrderByName();
     }
 
-    @GetMapping(MAPPING + "/getCategory/{name}")
+    @GetMapping(MAPPING + "/get/{name}")
     public CategoryDTO get(@PathVariable String name){
         return facade.get(name);
     }
@@ -32,7 +32,6 @@ public class CategoryController {
     @PostMapping(value = MAPPING + "/add", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity add(@RequestBody CategoryDTO categoryDTO) {
         return entityWithStatus(facade.add(categoryDTO));
-
     }
 
     @PostMapping(value = MAPPING + "/delete", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)

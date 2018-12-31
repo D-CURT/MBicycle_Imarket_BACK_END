@@ -37,7 +37,7 @@ public class WebAuthenticationManager implements AuthenticationManager {
         }
 
         List<GrantedAuthority> grantedAuths = new ArrayList<>();
-        grantedAuths.add(new SimpleGrantedAuthority("USER"));
+        grantedAuths.add(new SimpleGrantedAuthority("CUSTOMER"));
         return new UsernamePasswordAuthenticationToken(username, password, grantedAuths);
     }
 }

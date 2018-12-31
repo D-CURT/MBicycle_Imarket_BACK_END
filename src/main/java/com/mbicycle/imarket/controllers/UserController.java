@@ -1,18 +1,16 @@
 package com.mbicycle.imarket.controllers;
 
 import com.mbicycle.imarket.beans.dto.ProfileDTO;
-import com.mbicycle.imarket.beans.entities.Role;
-import com.mbicycle.imarket.beans.entities.User;
+import com.mbicycle.imarket.daos.RoleRepository;
 import com.mbicycle.imarket.facades.interfaces.ProfileFacade;
 import com.mbicycle.imarket.beans.dto.UserDTO;
 import com.mbicycle.imarket.facades.interfaces.UserFacade;
-import com.mbicycle.imarket.services.securities.SecurityService;
+import com.mbicycle.imarket.services.interfaces.UserService;
 import com.mbicycle.imarket.utils.enums.RoleType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,10 +29,10 @@ public class UserController {
     private static final String MAPPING = "/users";
 
     @Autowired
-    private SecurityService securityService;
+    private UserService userService;
 
     @Autowired
-    private  BCryptPasswordEncoder bCryptPasswordEncoder;
+    private RoleRepository roleRepository;
 
     @Autowired
     private UserFacade userFacade;
@@ -49,35 +47,21 @@ public class UserController {
 
     @PostMapping(value = "/registration", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity registration(@RequestBody ProfileDTO profileDTO, BindingResult bindingResult) {
-
-        System.out.println("\nregistration");
-        System.out.println(profileDTO.getLogin());
-        System.out.println(profileDTO.getPassword());
-
-        User user = new User(profileDTO.getLogin(), profileDTO.getPassword());
-
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        List<Role> roles = new ArrayList<>();
-        Role role = new Role(RoleType.CUSTOMER);
-        roles.add(role);
-        user.setRoles(roles);
+        System.out.println("***SOUT***: Registration of login=" + profileDTO.getLogin() + " and password="+profileDTO.getPassword());
         if (!profileFacade.add(profileDTO)){
-            System.out.println("\nЕсть такой юзер\n");
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            System.out.println("***SOUT***: Есть такой юзер");
+            return new ResponseEntity(HttpStatus.valueOf(409));
         }
-
-        securityService.autoLogin(user.getLogin(), user.getPassword());
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @GetMapping(value = MAPPING + "/get", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<UserDTO> get(@RequestBody UserDTO dto) {
+    public ResponseEntity<UserDTO> getByLogin(@RequestBody UserDTO dto) {
          return entityWithContent(userFacade.get(dto));
     }
 
     @PostMapping(value = MAPPING + "/add", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity add(@RequestBody UserDTO dto) {
-
         return entityWithStatus(userFacade.add(dto));
     }
 

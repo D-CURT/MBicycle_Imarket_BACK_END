@@ -19,6 +19,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     List<Product> findByNameContainingOrderByNameAsc(String name);
 
+    List<Product> findByNameIgnoreCaseContainingOrderByNameAsc(String name);
+
     List<Product> findByNameContainingAndStoreStatusIsTrueOrderByNameAsc(String name);
 
     List<Product> findByNameContainingAndDiscountIsNotNullOrderByNameAsc(String name);
