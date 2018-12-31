@@ -53,7 +53,7 @@ public class UserControllerTest extends AbstractControllerTest {
 
     @Test
     public void check_of_user_adding() throws Exception {
-        String json = createMapper().writeValueAsString(createUserDTO(FIRST_VALUE, FIRST_USER_PASSWORD));
+        String json = createMapper().writeValueAsString(createUserDTO("new test", FIRST_USER_PASSWORD));
         mvc.perform(post("/users/add")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(json))

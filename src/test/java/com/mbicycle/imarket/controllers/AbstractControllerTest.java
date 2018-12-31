@@ -102,9 +102,8 @@ public abstract class AbstractControllerTest {
 
         profiles = new ArrayList<>();
         for (UserDTO dto: users) {
-            userFacade.add(dto);
             profileFacade.add(createProfileDTO(dto.getLogin(), dto));
-            profiles.add(profileRepository.findByUser(userService.get(dto.getLogin(), dto.getPassword())));
+            profiles.add(profileRepository.findByUser(userService.get(dto.getLogin())));
         }
 
         String[] names = {FIRST_VALUE
