@@ -8,18 +8,11 @@ import java.util.Date;
 import java.util.function.Predicate;
 
 public enum  OrderStatusType {
-    INITIAL (dto -> dto.getDateOpened() == null) {
+    OPENED (dto -> dto.getDateOpened() == null) {
         @Override
         public Order apply(OrderDTO dto, Order order) {
             order.setPayment(dto.getPayment());
             order.setDelivery(dto.getDelivery());
-            order.setDateOpened(currentDate());
-            return order;
-        }
-    },
-    OPENED (dto -> dto.getDateOpened() != null && dto.getDatePaid() == null && dto.getDateSent() == null) {
-        @Override
-        public Order apply(OrderDTO dto, Order order) {
             order.setDateOpened(currentDate());
             return order;
         }
