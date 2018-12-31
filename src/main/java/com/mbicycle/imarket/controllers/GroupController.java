@@ -19,12 +19,12 @@ public class GroupController {
     @SuppressWarnings("ALL")
     private GroupFacade facade;
 
-    @GetMapping(MAPPING + "/{name}")
-    public List<GroupDTO> getAllGroupsSortedByName(@PathVariable String name) {
+    @GetMapping(MAPPING + "/allGroupsSortedByName")
+    public List<GroupDTO> getAllGroupsSortedByName() {
         return facade.findByOrderByName();
     }
 
-    @GetMapping(MAPPING + "/getGroup/{name}")
+    @GetMapping(MAPPING + "/get/{name}")
     public GroupDTO get(@PathVariable String name) {
         return facade.get(name);
     }
