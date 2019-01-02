@@ -84,6 +84,26 @@ public class ProductFacadeImpl implements ProductFacade {
     }
 
     @Override
+    public List<ProductDTO> findByStoreStatusIsFalseAndDiscountIsNullOrderByName() {
+        return convert(productService.findByStoreStatusIsFalseAndDiscountIsNullOrderByName());
+    }
+
+    @Override
+    public List<ProductDTO> findByStoreStatusIsTrueAndDiscountIsNullOrderByName() {
+        return convert(productService.findByStoreStatusIsTrueAndDiscountIsNullOrderByName());
+    }
+
+    @Override
+    public List<ProductDTO> findByStoreStatusIsFalseAndDiscountIsNotNullOrderByName() {
+        return convert(productService.findByStoreStatusIsFalseAndDiscountIsNotNullOrderByName());
+    }
+
+    @Override
+    public List<ProductDTO> findByStoreStatusIsTrueAndDiscountIsNotNullOrderByName() {
+        return convert(productService.findByStoreStatusIsTrueAndDiscountIsNotNullOrderByName());
+    }
+
+    @Override
     public List<ProductDTO> findByGroupOrderByName(String name) {
         return convert(productService.findByGroupOrderByName(name));
     }

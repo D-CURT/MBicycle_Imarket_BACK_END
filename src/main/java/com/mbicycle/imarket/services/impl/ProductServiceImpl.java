@@ -44,6 +44,26 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> findByStoreStatusIsFalseAndDiscountIsNullOrderByName()  {
+        return repository.findByStoreStatusIsFalseAndDiscountIsNullOrderByNameAsc();
+    }
+
+    @Override
+    public List<Product> findByStoreStatusIsTrueAndDiscountIsNullOrderByName()  {
+        return repository.findByStoreStatusIsTrueAndDiscountIsNullOrderByNameAsc();
+    }
+
+    @Override
+    public List<Product> findByStoreStatusIsFalseAndDiscountIsNotNullOrderByName()  {
+        return repository.findByStoreStatusIsFalseAndDiscountIsNotNullOrderByNameAsc();
+    }
+
+    @Override
+    public List<Product> findByStoreStatusIsTrueAndDiscountIsNotNullOrderByName()  {
+        return repository.findByStoreStatusIsTrueAndDiscountIsNotNullOrderByNameAsc();
+    }
+
+    @Override
     public List<Product> findByGroupOrderByName(String name) {
         return repository.findByGroupOrderByNameAsc(groupByName(name));
     }

@@ -15,6 +15,14 @@ public interface ProductService {
 
     List<Product> findByOrderByPrice();
 
+    List<Product> findByStoreStatusIsFalseAndDiscountIsNullOrderByName();
+
+    List<Product> findByStoreStatusIsTrueAndDiscountIsNullOrderByName();
+
+    List<Product> findByStoreStatusIsFalseAndDiscountIsNotNullOrderByName();
+
+    List<Product> findByStoreStatusIsTrueAndDiscountIsNotNullOrderByName();
+
     List<Product> findByGroupOrderByName(String name);
 
     List<Product> findByGroupOrderByPrice(String name);

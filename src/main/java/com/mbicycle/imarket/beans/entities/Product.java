@@ -30,7 +30,7 @@ public class Product {
     @Column(name = "store_status")
     private boolean storeStatus;
 
-    private int discount;
+    private Integer discount;
 
     @ManyToOne
     @JoinColumn(name = "id_group", nullable = false)
@@ -44,7 +44,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(String name, String descriptionPreview, String descriptionFull, double price, String picture, boolean storeStatus, int discount, Group group, List<OrderProduct> orderProducts) {
+    public Product(String name, String descriptionPreview, String descriptionFull, double price, String picture, boolean storeStatus, Integer discount, Group group, List<OrderProduct> orderProducts) {
         setName(name);
         setDescriptionPreview(descriptionPreview);
         setDescriptionFull(descriptionFull);
@@ -112,11 +112,11 @@ public class Product {
         this.storeStatus = storeStatus;
     }
 
-    public int getDiscount() {
+    public Integer getDiscount() {
         return discount;
     }
 
-    public void setDiscount(int discount) {
+    public void setDiscount(Integer discount) {
         this.discount = discount;
     }
 

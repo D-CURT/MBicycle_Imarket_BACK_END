@@ -13,6 +13,19 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     List<Product> findByOrderByPriceAsc();
 
+    //    False Null
+    //    True Null
+    //    False NotNull
+    //    True NotNull
+    List<Product> findByStoreStatusIsFalseAndDiscountIsNullOrderByNameAsc();
+
+    List<Product> findByStoreStatusIsTrueAndDiscountIsNullOrderByNameAsc();
+
+    List<Product> findByStoreStatusIsFalseAndDiscountIsNotNullOrderByNameAsc();
+
+    List<Product> findByStoreStatusIsTrueAndDiscountIsNotNullOrderByNameAsc();
+
+
     List<Product> findByGroupOrderByNameAsc(Group group);
 
     List<Product> findByGroupOrderByPriceAsc(Group group);
