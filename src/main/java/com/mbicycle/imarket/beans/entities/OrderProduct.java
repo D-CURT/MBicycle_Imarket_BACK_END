@@ -1,5 +1,7 @@
 package com.mbicycle.imarket.beans.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,12 +13,13 @@ public class OrderProduct {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_products_sequence_generator")
     private int id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "id_order")
     private Order order;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "id_product")
+    @JsonIgnore
     private Product product;
 
     public OrderProduct() {

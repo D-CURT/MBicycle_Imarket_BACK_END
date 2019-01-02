@@ -5,8 +5,10 @@ import com.mbicycle.imarket.beans.entities.OrderProduct;
 import com.mbicycle.imarket.beans.entities.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface OrderProductRepository extends JpaRepository<OrderProduct, Integer> {
-    OrderProduct findByOrder(Order order);
+    List<OrderProduct> findByOrder(Order order);
 
     OrderProduct findByProduct(Product product);
 }
