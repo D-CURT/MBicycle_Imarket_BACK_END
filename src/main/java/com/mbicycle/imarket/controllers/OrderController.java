@@ -50,7 +50,6 @@ public class OrderController {
     }
 
     @GetMapping(value = MAPPING + "/products")
-    @ResponseBody
     public ResponseEntity<List<Product>> getProducts() {
         return entityWithContent(facade.getProducts());
     }
