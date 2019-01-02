@@ -2,7 +2,9 @@ package com.mbicycle.imarket.controllers;
 
 import com.mbicycle.imarket.beans.dto.ProfileDTO;
 import com.mbicycle.imarket.facades.interfaces.ProfileFacade;
+import com.mbicycle.imarket.services.securities.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,14 +25,23 @@ public class ProfileController {
     @SuppressWarnings("ALL")
     private ProfileFacade profileFacade;
 
+    @Autowired
+    private SecurityService securityService;
+
     @GetMapping(MAPPING + "/allProfilesSortedByName")
     public List<ProfileDTO> getAllProfilesSortedByName() {
         return profileFacade.findByOrderByName();
     }
 
     @GetMapping(value = MAPPING + "/get", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<ProfileDTO> get(@RequestBody ProfileDTO dto) {
+    public ResponseEntity<ProfileDTO> get(@RequestBody(required = false) ProfileDTO dto) {
         return entityWithContent(profileFacade.get(dto));
+    }
+
+    @PostMapping(value = MAPPING + "/update", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity update(@RequestBody ProfileDTO dto) {
+        entityWithContent(profileFacade.update(dto));
+        return entityWithStatus(true);
     }
 
     @PostMapping(value = MAPPING + "/add", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
