@@ -4,8 +4,10 @@ import com.mbicycle.imarket.beans.dto.OrderDTO;
 import com.mbicycle.imarket.beans.dto.ProfileDTO;
 
 
+import com.mbicycle.imarket.beans.entities.Product;
 import com.mbicycle.imarket.facades.interfaces.OrderFacade;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,5 +47,11 @@ public class OrderController {
     @GetMapping(MAPPING + "/getByProfile")
     public ResponseEntity<List<OrderDTO>> getByProfile(@RequestBody ProfileDTO profileDTO){
         return entityWithContent(facade.get(profileDTO));
+    }
+
+    @GetMapping(value = MAPPING + "/products")
+    @ResponseBody
+    public ResponseEntity<List<Product>> getProducts() {
+        return entityWithContent(facade.getProducts());
     }
 }

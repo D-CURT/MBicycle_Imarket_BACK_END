@@ -1,5 +1,6 @@
 package com.mbicycle.imarket.beans.dto;
 
+import com.mbicycle.imarket.beans.entities.Product;
 import com.mbicycle.imarket.utils.enums.DeliveryType;
 import com.mbicycle.imarket.utils.enums.PaymentType;
 
@@ -13,6 +14,8 @@ public class OrderDTO {
     private String userLogin;
 
     private List<Integer> productsIds;
+
+    private List<Product> products;
 
     private PaymentType payment;
 
@@ -132,5 +135,13 @@ public class OrderDTO {
 
     public void setProductsIds(List<Integer> productsIds) {
         this.productsIds = productsIds;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 }

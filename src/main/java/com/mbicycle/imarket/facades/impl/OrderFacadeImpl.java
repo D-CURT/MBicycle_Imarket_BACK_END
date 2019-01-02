@@ -2,15 +2,20 @@ package com.mbicycle.imarket.facades.impl;
 
 import com.mbicycle.imarket.beans.entities.Order;
 import com.mbicycle.imarket.beans.entities.OrderProduct;
+import com.mbicycle.imarket.beans.entities.Product;
 import com.mbicycle.imarket.beans.entities.Profile;
 import com.mbicycle.imarket.beans.dto.OrderDTO;
 import com.mbicycle.imarket.beans.dto.ProfileDTO;
+import com.mbicycle.imarket.services.interfaces.ProfileService;
+import com.mbicycle.imarket.services.interfaces.UserService;
+import com.mbicycle.imarket.services.securities.SecurityService;
 import com.mbicycle.imarket.utils.converters.Converter;
 
 import com.mbicycle.imarket.facades.interfaces.OrderFacade;
 import com.mbicycle.imarket.services.interfaces.OrderService;
 import com.mbicycle.imarket.utils.enums.OrderStatusType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,11 +35,20 @@ public class OrderFacadeImpl implements OrderFacade {
     @Autowired
     private Converter<ProfileDTO, Profile> profileConverter;
 
+    @Autowired
+    private SecurityService securityService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private ProfileService profileService;
+
     @Override
     public boolean add(OrderDTO dto) {
         Order order = reverseConverter.convert(dto);
         List<OrderProduct> orderProducts = order.getOrderProducts();
-        if (service.findInitial(order.getProfile()) == null) {
+        if (getInitial(order.getProfile()) == null) {
             service.add(order);
             order = fillList(order, order.getOrderProducts());
         } else {
@@ -46,7 +60,8 @@ public class OrderFacadeImpl implements OrderFacade {
 
     @Override
     public boolean update(OrderDTO dto) {
-        Order order = service.findInitial(reverseConverter.convert(dto).getProfile());
+
+        Order order = getInitial(reverseConverter.convert(dto).getProfile());
         return service.update(OrderStatusType.status(dto).apply(dto, order));
     }
 
@@ -68,13 +83,22 @@ public class OrderFacadeImpl implements OrderFacade {
                       .collect(Collectors.toList());
     }
 
-    @Override
-    public OrderDTO getInitial(ProfileDTO profileDTO) {
-        return converter.convert(service.findInitial(profileConverter.convert(profileDTO)));
+
+    public Order getInitial(Profile profile) {
+        return service.findInitial((profile));
+    }
+
+    public List<Product> getProducts() {
+        return getInitial(profileService.get(userService.get(securityService.findLoggedUser()
+                                                                            .getUsername())))
+        .getOrderProducts()
+        .stream()
+        .map(orderProduct -> orderProduct.getProduct())
+        .collect(Collectors.toList());
     }
 
     private Order fillList(Order order, List<OrderProduct> orderProducts) {
-        order = service.findInitial(order.getProfile());
+        order = getInitial(order.getProfile());
         for (OrderProduct o: orderProducts) {
             o.setOrder(order);
         }
