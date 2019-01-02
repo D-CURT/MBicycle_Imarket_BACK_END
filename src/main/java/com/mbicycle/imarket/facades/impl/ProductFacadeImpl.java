@@ -1,12 +1,14 @@
 package com.mbicycle.imarket.facades.impl;
 
 import com.mbicycle.imarket.beans.entities.Product;
+import com.mbicycle.imarket.services.securities.SecurityService;
 import com.mbicycle.imarket.utils.converters.Converter;
 import com.mbicycle.imarket.daos.ProductRepository;
 import com.mbicycle.imarket.beans.dto.ProductDTO;
 import com.mbicycle.imarket.facades.interfaces.ProductFacade;
 import com.mbicycle.imarket.services.interfaces.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -15,6 +17,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @SuppressWarnings("ALL")
