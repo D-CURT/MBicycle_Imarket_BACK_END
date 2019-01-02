@@ -29,6 +29,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Product get(int id) {
+        return repository.getOne(id);
+    }
+
+    @Override
     public Product get(String name) {
         return repository.findByName(name);
     }

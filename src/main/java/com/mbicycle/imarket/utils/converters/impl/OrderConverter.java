@@ -20,9 +20,9 @@ public class OrderConverter extends AbstractConverter<Order, OrderDTO> {
         target.setDateReady(source.getDateReady());
         target.setDateSent(source.getDateSent());
         target.setUserLogin(source.getProfile().getUser().getLogin());
-        target.setProductsNames(source.getOrderProducts()
+        target.setProductsIds(source.getOrderProducts()
                                       .stream()
-                                      .map(orderProduct -> orderProduct.getProduct().getName())
+                                      .map(orderProduct -> orderProduct.getProduct().getId())
                                       .collect(Collectors.toList()));
     }
 }

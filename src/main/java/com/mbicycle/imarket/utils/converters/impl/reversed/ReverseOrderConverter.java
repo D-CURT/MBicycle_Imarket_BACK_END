@@ -8,6 +8,7 @@ import com.mbicycle.imarket.beans.entities.User;
 import com.mbicycle.imarket.services.interfaces.ProductService;
 import com.mbicycle.imarket.services.interfaces.ProfileService;
 import com.mbicycle.imarket.services.interfaces.UserService;
+import com.mbicycle.imarket.services.securities.SecurityService;
 import com.mbicycle.imarket.utils.converters.AbstractConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -26,6 +27,9 @@ public class ReverseOrderConverter extends AbstractConverter<OrderDTO, Order> {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private SecurityService securityService;
+
     @Override
     public void convert(OrderDTO source, Order target) {
         target.setId(source.getId());
@@ -37,12 +41,12 @@ public class ReverseOrderConverter extends AbstractConverter<OrderDTO, Order> {
         target.setDatePaid(source.getDatePaid());
         target.setDateReady(source.getDateReady());
         target.setDateSent(source.getDateSent());
-        User user = userService.get(source.getUserLogin());
+        User user = userService.get(securityService.findLoggedInUsername());
         target.setProfile(user.getProfile());
-        List<String> productsNames = source.getProductsNames();
-        if (productsNames != null) {
-            target.setOrderProducts(productsNames.stream()
-                                                 .map(s -> new OrderProduct(productService.get(s)))
+        List<Integer> productsIds = source.getProductsIds();
+        if (productsIds != null) {
+            target.setOrderProducts(productsIds.stream()
+                                                 .map(integer -> new OrderProduct(productService.get(integer)))
                                                  .collect(Collectors.toList()));
         }
     }

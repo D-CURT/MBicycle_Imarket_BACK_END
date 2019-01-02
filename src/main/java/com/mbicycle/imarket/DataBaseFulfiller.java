@@ -40,7 +40,6 @@ public class DataBaseFulfiller implements CommandLineRunner {
         userRepository.save(userManager);
         userRepository.save(userCustomer);
 
-
         Profile profile = new Profile();
         profile.setName("AD");
         profile.setUser(userRepository.findByLogin(userAdmin.getLogin()));

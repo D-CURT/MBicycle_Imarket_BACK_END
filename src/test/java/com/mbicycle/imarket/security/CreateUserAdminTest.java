@@ -29,7 +29,7 @@ import static org.junit.Assert.assertNotNull;
 @SpringBootTest(classes = Main.class)
 public class CreateUserAdminTest {
 
-    private static final String LOGIN = "admin";
+    private static final String LOGIN = "test";
     private static final String PASSWORD = "$2a$10$kScGGdZpK1kKNdhGOCoKyeHSVXNP59hGfIAa86jpvee2mlMzE2fK.";
 
     @Autowired
