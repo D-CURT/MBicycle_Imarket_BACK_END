@@ -32,6 +32,26 @@ public class ProductController {
         return facade.findByOrderByPrice();
     }
 
+    @GetMapping(MAPPING + "/allProductsWithStoreStatusIsFalseAndDiscountIsNullOrderByName")
+    public List<ProductDTO> findByStoreStatusIsFalseAndDiscountIsNullOrderByName() {
+        return facade.findByStoreStatusIsFalseAndDiscountIsNullOrderByName();
+    }
+
+    @GetMapping(MAPPING + "/allProductsWithStoreStatusIsTrueAndDiscountIsNullOrderByName")
+    public List<ProductDTO> findByStoreStatusIsTrueAndDiscountIsNullOrderByName() {
+        return facade.findByStoreStatusIsTrueAndDiscountIsNullOrderByName();
+    }
+
+    @GetMapping(MAPPING + "/allProductsWithStoreStatusIsFalseAndDiscountIsNotNullOrderByName")
+    public List<ProductDTO> findByStoreStatusIsFalseAndDiscountIsNotNullOrderByName() {
+        return facade.findByStoreStatusIsFalseAndDiscountIsNotNullOrderByName();
+    }
+
+    @GetMapping(MAPPING + "/allProductsWithStoreStatusIsTrueAndDiscountIsNotNullOrderByName")
+    public List<ProductDTO> findByStoreStatusIsTrueAndDiscountIsNotNullOrderByName() {
+        return facade.findByStoreStatusIsTrueAndDiscountIsNotNullOrderByName();
+    }
+
     @GetMapping(value = MAPPING + "/allProductsWithGroupSortedByName/{groupName}"
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<ProductDTO> getAllProductsWithGroupSortedByName(@PathVariable String groupName) {

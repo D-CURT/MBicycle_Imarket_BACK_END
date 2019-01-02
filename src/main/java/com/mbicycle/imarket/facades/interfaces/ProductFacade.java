@@ -18,6 +18,14 @@ public interface ProductFacade {
 
     List<ProductDTO> findByOrderByPrice();
 
+    List<ProductDTO> findByStoreStatusIsFalseAndDiscountIsNullOrderByName();
+
+    List<ProductDTO> findByStoreStatusIsTrueAndDiscountIsNullOrderByName();
+
+    List<ProductDTO> findByStoreStatusIsFalseAndDiscountIsNotNullOrderByName();
+
+    List<ProductDTO> findByStoreStatusIsTrueAndDiscountIsNotNullOrderByName();
+
     List<ProductDTO> findByGroupOrderByName(String name);
 
     List<ProductDTO> findByGroupOrderByPrice(String name);
