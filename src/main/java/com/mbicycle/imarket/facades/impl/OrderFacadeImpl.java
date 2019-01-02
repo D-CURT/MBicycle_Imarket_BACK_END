@@ -36,15 +36,9 @@ public class OrderFacadeImpl implements OrderFacade {
         List<OrderProduct> orderProducts = order.getOrderProducts();
         if (service.findInitial(order.getProfile()) == null) {
             service.add(order);
-            order = service.findInitial(order.getProfile());
-            for (OrderProduct o: order.getOrderProducts()) {
-                o.setOrder(order);
-            }
+            fillList(order, order.getOrderProducts());
         } else {
-            order = service.findInitial(order.getProfile());
-            for (OrderProduct o: orderProducts) {
-                o.setOrder(order);
-            }
+            fillList(order, orderProducts);
             order.getOrderProducts().addAll(orderProducts);
         }
         return service.update(order);
@@ -77,5 +71,12 @@ public class OrderFacadeImpl implements OrderFacade {
     @Override
     public OrderDTO getInitial(ProfileDTO profileDTO) {
         return converter.convert(service.findInitial(profileConverter.convert(profileDTO)));
+    }
+
+    private void fillList(Order order, List<OrderProduct> orderProducts) {
+        order = service.findInitial(order.getProfile());
+        for (OrderProduct o: orderProducts) {
+            o.setOrder(order);
+        }
     }
 }
