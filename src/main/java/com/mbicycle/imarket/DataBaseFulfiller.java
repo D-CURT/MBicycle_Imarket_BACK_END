@@ -19,6 +19,9 @@ public class DataBaseFulfiller implements CommandLineRunner {
     UserRepository userRepository;
 
     @Autowired
+    ProfileRepository profileRepository;
+
+    @Autowired
     CategoryRepository categoryRepository;
 
     @Autowired
@@ -36,6 +39,11 @@ public class DataBaseFulfiller implements CommandLineRunner {
         userRepository.save(userAdmin);
         userRepository.save(userManager);
         userRepository.save(userCustomer);
+
+        Profile profile = new Profile();
+        profile.setName("AD");
+        profile.setUser(userRepository.findByLogin(userAdmin.getLogin()));
+        profileRepository.save(profile);
 
         Category categoryComputerSystems = new Category("Computer Systems");
             Group groupLaptops = new Group("Laptops", categoryComputerSystems);

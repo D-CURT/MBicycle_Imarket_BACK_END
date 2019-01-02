@@ -6,7 +6,6 @@ import com.mbicycle.imarket.facades.interfaces.ProfileFacade;
 import com.mbicycle.imarket.beans.dto.UserDTO;
 import com.mbicycle.imarket.facades.interfaces.UserFacade;
 import com.mbicycle.imarket.services.interfaces.UserService;
-import com.mbicycle.imarket.utils.enums.RoleType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.mbicycle.imarket.utils.ResponseEntityBuilder.entityWithContent;

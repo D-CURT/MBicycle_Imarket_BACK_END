@@ -32,7 +32,7 @@ public class SecurityServiceImpl implements SecurityService {
 
     @Override
     public User findLoggedUser() {
-        User userDetails = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User userDetails = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userDetails;//Contains [username, password, Set<String> SimpleGrantedAuthority (.getAuthority() = String)]
     }
 
