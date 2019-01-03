@@ -46,8 +46,8 @@ public class ReverseOrderConverter extends AbstractConverter<OrderDTO, Order> {
         List<Integer> productsIds = source.getProductsIds();
         if (productsIds != null) {
             target.setOrderProducts(productsIds.stream()
-                                                 .map(integer -> new OrderProduct(productService.get(integer)))
-                                                 .collect(Collectors.toList()));
+                                               .map(integer ->  new OrderProduct(productService.get(integer)))
+                                               .collect(Collectors.toList()));
         }
     }
 }

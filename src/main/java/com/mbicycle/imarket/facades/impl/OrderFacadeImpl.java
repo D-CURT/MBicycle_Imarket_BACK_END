@@ -75,6 +75,11 @@ public class OrderFacadeImpl implements OrderFacade {
     }
 
     @Override
+    public boolean deleteProduct(OrderDTO dto) {
+        return service.deleteOrderProduct(reverseConverter.convert(dto), dto.getProductsIds());
+    }
+
+    @Override
     public List<OrderDTO> getAll() {
         return service.getAll().stream().map(converter::convert).collect(Collectors.toList());
     }

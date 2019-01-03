@@ -14,6 +14,8 @@ public interface OrderService {
 
     boolean delete(Order order);
 
+    boolean deleteOrderProduct(Order order, List<Integer> ids);
+
     Order findInitial(Profile profile);
 
     List<Order> getAll();
