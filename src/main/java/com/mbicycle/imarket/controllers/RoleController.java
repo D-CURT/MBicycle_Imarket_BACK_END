@@ -17,8 +17,8 @@ import static com.mbicycle.imarket.utils.ResponseEntityBuilder.entityWithContent
 @RestController
 @SuppressWarnings("ALL")
 public class RoleController {
-    @Autowired
 
+    @Autowired
     private RoleFacade facade;
 
     @Autowired
