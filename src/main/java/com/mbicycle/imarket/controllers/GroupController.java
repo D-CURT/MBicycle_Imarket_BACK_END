@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.mbicycle.imarket.utils.ResponseEntityBuilder.entityWithContent;
 import static com.mbicycle.imarket.utils.ResponseEntityBuilder.entityWithStatus;
 
 @RestController
@@ -20,8 +21,8 @@ public class GroupController {
     private GroupFacade facade;
 
     @GetMapping(MAPPING + "/allGroupsSortedByName")
-    public List<GroupDTO> getAllGroupsSortedByName() {
-        return facade.findByOrderByName();
+    public ResponseEntity<List<GroupDTO>> getAllGroupsSortedByName() {
+        return entityWithContent(facade.findByOrderByName());
     }
 
     @GetMapping(MAPPING + "/get/{name}")

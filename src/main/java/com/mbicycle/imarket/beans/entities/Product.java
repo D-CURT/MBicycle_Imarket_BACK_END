@@ -38,7 +38,6 @@ public class Product {
     private Group group;
 
     @OneToMany(mappedBy = "product")
-//    @JsonIgnore
     private List<OrderProduct> orderProducts;
 
     public Product() {

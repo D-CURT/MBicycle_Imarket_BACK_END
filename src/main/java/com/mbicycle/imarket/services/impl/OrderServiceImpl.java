@@ -1,17 +1,23 @@
 package com.mbicycle.imarket.services.impl;
 
 import com.mbicycle.imarket.beans.entities.Order;
+import com.mbicycle.imarket.beans.entities.OrderProduct;
 import com.mbicycle.imarket.beans.entities.Profile;
+import com.mbicycle.imarket.daos.OrderProductRepository;
 import com.mbicycle.imarket.daos.OrderRepository;
 import com.mbicycle.imarket.services.interfaces.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
+@SuppressWarnings("ALL")
 public class OrderServiceImpl implements OrderService {
+
     @Autowired
-    @SuppressWarnings("ALL")
     private OrderRepository orderRepository;
+
+    @Autowired
+    private OrderProductRepository orderProductRepository;
 
     @Override
     public boolean add(Order order) {
@@ -42,9 +48,10 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean delete(Order order) {
-        if (findByProfile(order.getProfile()) != null) {
-            orderRepository.delete(order);
+        Order initial;
+        if ((initial = findInitial(order.getProfile())) != null) {
+            orderRepository.delete(initial);
         }
-        return findByProfile(order.getProfile()) == null;
+        return findInitial(order.getProfile()) == null;
     }
 }

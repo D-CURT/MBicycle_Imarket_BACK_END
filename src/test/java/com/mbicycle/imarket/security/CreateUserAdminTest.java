@@ -25,8 +25,8 @@ import static com.mbicycle.imarket.utils.generators.tests.TestObjectsBuilder.cre
 import static com.mbicycle.imarket.utils.generators.tests.TestObjectsBuilder.createOnlyUser;
 import static org.junit.Assert.assertNotNull;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = Main.class)
+/*@RunWith(SpringRunner.class)
+@SpringBootTest(classes = Main.class)*/
 public class CreateUserAdminTest {
 
     private static final String LOGIN = "test";
@@ -69,7 +69,7 @@ public class CreateUserAdminTest {
 //        roleRepository.findByOrderByRoleAsc().forEach(roleRepository::delete);
     }
 
-    @Test
+ /*   @Test
     public void check_of_profile() {
         String str = new BCryptPasswordEncoder().encode("admin");
 
@@ -79,5 +79,5 @@ public class CreateUserAdminTest {
         User user = userRepository.findByLoginAndPassword(LOGIN, PASSWORD);
         Profile profile = profileRepository.findByUser(user);
         assertNotNull(profile);
-    }
+    }*/
 }
