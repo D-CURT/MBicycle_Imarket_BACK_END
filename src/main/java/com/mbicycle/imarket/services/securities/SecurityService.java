@@ -23,4 +23,6 @@ public interface SecurityService {
 
     Collection<SimpleGrantedAuthority> getRoles();
 
+    Set<String> getRolesSet();
+
 }

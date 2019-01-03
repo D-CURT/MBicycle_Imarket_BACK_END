@@ -10,6 +10,8 @@ import java.util.List;
 public interface ProfileService {
     boolean add(Profile profile);
 
+    boolean update(Profile profile);
+
     boolean delete(Profile profile);
 
     Profile get(User user);

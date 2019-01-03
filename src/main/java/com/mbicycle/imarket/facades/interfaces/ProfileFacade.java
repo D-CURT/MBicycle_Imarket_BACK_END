@@ -9,6 +9,8 @@ import java.util.List;
 public interface ProfileFacade {
     boolean add(ProfileDTO dto);
 
+    boolean update(ProfileDTO dto);
+
     boolean delete(ProfileDTO dto);
 
     ProfileDTO get(ProfileDTO dto);
