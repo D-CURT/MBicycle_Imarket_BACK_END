@@ -1,5 +1,6 @@
 package com.mbicycle.imarket.facades.impl;
 
+import com.mbicycle.imarket.beans.dto.ProductDTO;
 import com.mbicycle.imarket.beans.entities.Order;
 import com.mbicycle.imarket.beans.entities.OrderProduct;
 import com.mbicycle.imarket.beans.entities.Product;
@@ -34,6 +35,9 @@ public class OrderFacadeImpl implements OrderFacade {
 
     @Autowired
     private Converter<ProfileDTO, Profile> profileConverter;
+
+    @Autowired
+    private Converter<Product, ProductDTO> productConverter;
 
     @Autowired
     private SecurityService securityService;
@@ -88,12 +92,12 @@ public class OrderFacadeImpl implements OrderFacade {
         return service.findInitial((profile));
     }
 
-    public List<Product> getProducts() {
-        return getInitial(profileService.get(userService.get(securityService.findLoggedUser()
-                                                                            .getUsername())))
+    @Override
+    public List<ProductDTO> getProducts(OrderDTO dto) {
+        return getInitial(reverseConverter.convert(dto).getProfile())
         .getOrderProducts()
         .stream()
-        .map(orderProduct -> orderProduct.getProduct())
+        .map(orderProduct -> productConverter.convert(orderProduct.getProduct()))
         .collect(Collectors.toList());
     }
 
