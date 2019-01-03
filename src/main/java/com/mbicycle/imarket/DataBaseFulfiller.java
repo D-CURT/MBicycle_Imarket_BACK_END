@@ -35,7 +35,6 @@ public class DataBaseFulfiller implements CommandLineRunner {
     PasswordEncoder passwordEncoder;
 
     public void run(String...args) throws Exception {
-
         User userAdmin = new User("admin", passwordEncoder.encode("123"), Collections.singletonList(ADMIN.getRole()));
         User userManager = new User("manager", passwordEncoder.encode("123"), Collections.singletonList(MANAGER.getRole()));
         User userCustomer = new User("customer", passwordEncoder.encode("123"), Collections.singletonList(CUSTOMER.getRole()));
