@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import org.springframework.security.core.userdetails.User;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -43,7 +44,13 @@ public class SecurityServiceImpl implements SecurityService {
     }
 
     @Override
-    public Set<String> getRoles() {
+    public Collection<SimpleGrantedAuthority> getRoles() {
+        Collection<SimpleGrantedAuthority> authorities = (Collection<SimpleGrantedAuthority>)    SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+        return authorities;
+    }
+
+    @Override
+    public Set<String> getRolesSet() {
         User userDetails = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Set<String> setOfRoles = new HashSet<String>();
         for ( GrantedAuthority authority : userDetails.getAuthorities()) {

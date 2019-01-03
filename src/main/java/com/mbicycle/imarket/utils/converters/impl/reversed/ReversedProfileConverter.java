@@ -27,7 +27,7 @@ public class ReversedProfileConverter extends AbstractConverter<ProfileDTO, Prof
     private PasswordEncoder encoder;
 
     @Autowired
-    SecurityService securityService;
+    private SecurityService securityService;
 
     @Override
     public void convert(ProfileDTO source, Profile target) {
@@ -58,14 +58,14 @@ public class ReversedProfileConverter extends AbstractConverter<ProfileDTO, Prof
             String newLogin = source.getLogin()!=null ? source.getLogin() : login;
             User user = null;
             if(source.getPassword()!=null)
-                user = new User(newLogin,bCryptPasswordEncoder.encode(source.getPassword()));
+                user = new User(newLogin,encoder.encode(source.getPassword()));
             else
                 user = new User(newLogin);
             User userInDb = userRepository.findByLogin(user.getLogin());
             if (userInDb == null) {    // Only when registering new user.
                 List<Role> rolesGet = new ArrayList<>();
                 if(source.getRoles()==null) {   //User exists, find role in security service
-                    for (String role : securityService.getRoles()) {  //Assuming default role is already set, or it may produce NullPointerException
+                    for (String role : securityService.getRolesSet()) {  //Assuming default role is already set, or it may produce NullPointerException
                         rolesGet.add(RoleType.valueOf(role).getRole());
                     }
                 }
