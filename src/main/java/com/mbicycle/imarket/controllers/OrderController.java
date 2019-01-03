@@ -45,6 +45,11 @@ public class OrderController {
         return entityWithStatus(facade.update(dto));
     }
 
+    @PostMapping(MAPPING + "/deleteProduct")
+    public ResponseEntity deleteProduct(@RequestBody OrderDTO dto) {
+        return entityWithStatus(facade.deleteProduct(dto));
+    }
+
     @GetMapping(MAPPING + "/getByProfile")
     public ResponseEntity<List<OrderDTO>> getByProfile(@RequestBody ProfileDTO profileDTO){
         return entityWithContent(facade.get(profileDTO));

@@ -24,8 +24,8 @@ public class ProfileController {
     private ProfileFacade profileFacade;
 
     @GetMapping(MAPPING + "/allProfilesSortedByName")
-    public List<ProfileDTO> getAllProfilesSortedByName() {
-        return profileFacade.findByOrderByName();
+    public ResponseEntity<List<ProfileDTO>> getAllProfilesSortedByName() {
+        return entityWithContent(profileFacade.findByOrderByName());
     }
 
     @GetMapping(value = MAPPING + "/get", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

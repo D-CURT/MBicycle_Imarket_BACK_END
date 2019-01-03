@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.mbicycle.imarket.utils.ResponseEntityBuilder.entityWithContent;
 import static com.mbicycle.imarket.utils.ResponseEntityBuilder.entityWithStatus;
 
 @RestController
@@ -20,13 +21,13 @@ public class CategoryController {
     private CategoryFacade facade;
 
     @GetMapping(MAPPING + "/allCategoriesSortedByName")
-    public List<CategoryDTO> getAllCategoriesSortedByName() {
-        return facade.findByOrderByName();
+    public ResponseEntity<List<CategoryDTO>> getAll() {
+        return entityWithContent(facade.findByOrderByName());
     }
 
     @GetMapping(MAPPING + "/get/{name}")
-    public CategoryDTO get(@PathVariable String name){
-        return facade.get(name);
+    public ResponseEntity<CategoryDTO> get(@PathVariable String name){
+        return entityWithContent(facade.get(name));
     }
 
     @PostMapping(value = MAPPING + "/add", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)

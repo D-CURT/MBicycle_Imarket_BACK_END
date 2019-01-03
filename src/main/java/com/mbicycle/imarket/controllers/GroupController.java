@@ -26,8 +26,8 @@ public class GroupController {
     }
 
     @GetMapping(MAPPING + "/get/{name}")
-    public GroupDTO get(@PathVariable String name) {
-        return facade.get(name);
+    public ResponseEntity<GroupDTO> get(@PathVariable String name) {
+        return entityWithContent(facade.get(name));
     }
 
     @PostMapping(value = MAPPING + "/add", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)

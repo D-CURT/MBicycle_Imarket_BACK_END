@@ -19,6 +19,8 @@ public interface OrderFacade {
 
     boolean delete(OrderDTO orderDTO);
 
+    boolean deleteProduct(OrderDTO dto);
+
     List<OrderDTO> getAll();
 
     List<OrderDTO> get(ProfileDTO profileDTO);
