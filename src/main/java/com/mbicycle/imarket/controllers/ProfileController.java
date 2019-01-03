@@ -29,8 +29,8 @@ public class ProfileController {
     private SecurityService securityService;
 
     @GetMapping(MAPPING + "/allProfilesSortedByName")
-    public List<ProfileDTO> getAllProfilesSortedByName() {
-        return profileFacade.findByOrderByName();
+    public ResponseEntity<List<ProfileDTO>> getAllProfilesSortedByName() {
+        return entityWithContent(profileFacade.findByOrderByName());
     }
 
     @GetMapping(value = MAPPING + "/get", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -40,8 +40,7 @@ public class ProfileController {
 
     @PostMapping(value = MAPPING + "/update", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity update(@RequestBody ProfileDTO dto) {
-        entityWithContent(profileFacade.update(dto));
-        return entityWithStatus(true);
+        return entityWithStatus(profileFacade.update(dto));
     }
 
     @PostMapping(value = MAPPING + "/add", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)

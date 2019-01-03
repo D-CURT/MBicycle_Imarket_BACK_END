@@ -39,7 +39,7 @@ public class Profile {
 
     @JsonIgnore
     @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "profile", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Order> orders;
 
     public Profile() {

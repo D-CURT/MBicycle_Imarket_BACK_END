@@ -1,5 +1,6 @@
 package com.mbicycle.imarket.beans.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mbicycle.imarket.utils.enums.DeliveryType;
 import com.mbicycle.imarket.utils.enums.PaymentType;
 import org.hibernate.annotations.Fetch;
@@ -25,6 +26,7 @@ public class Order {
 
     @OneToMany(mappedBy = "order"
             , cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<OrderProduct> orderProducts;
 
     @Column(length = 5)

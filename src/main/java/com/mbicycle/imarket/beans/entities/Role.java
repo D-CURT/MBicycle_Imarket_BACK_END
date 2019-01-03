@@ -20,7 +20,7 @@ public class Role {
     private RoleType role;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<User> users;
 
     public Role() {

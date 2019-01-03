@@ -1,11 +1,14 @@
 package com.mbicycle.imarket.controllers;
 
 import com.mbicycle.imarket.beans.dto.OrderDTO;
+import com.mbicycle.imarket.beans.dto.ProductDTO;
 import com.mbicycle.imarket.beans.dto.ProfileDTO;
 
 
+import com.mbicycle.imarket.beans.entities.Product;
 import com.mbicycle.imarket.facades.interfaces.OrderFacade;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,8 +36,8 @@ public class OrderController {
     }
 
     @PostMapping(MAPPING + "/delete")
-    public ResponseEntity delete(@RequestBody OrderDTO dto){
-        return entityWithStatus(facade.delete(dto));
+    public ResponseEntity delete(){
+        return entityWithStatus(facade.delete(new OrderDTO()));
     }
 
     @PostMapping(MAPPING + "/update")
@@ -42,8 +45,18 @@ public class OrderController {
         return entityWithStatus(facade.update(dto));
     }
 
+    @PostMapping(MAPPING + "/deleteProduct")
+    public ResponseEntity deleteProduct(@RequestBody OrderDTO dto) {
+        return entityWithStatus(facade.deleteProduct(dto));
+    }
+
     @GetMapping(MAPPING + "/getByProfile")
     public ResponseEntity<List<OrderDTO>> getByProfile(@RequestBody ProfileDTO profileDTO){
         return entityWithContent(facade.get(profileDTO));
+    }
+
+    @GetMapping(value = MAPPING + "/products")
+    public ResponseEntity<List<ProductDTO>> getProducts() {
+        return entityWithContent(facade.getProducts(new OrderDTO()));
     }
 }

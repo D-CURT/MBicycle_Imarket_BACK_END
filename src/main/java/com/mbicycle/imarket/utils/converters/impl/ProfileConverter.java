@@ -14,7 +14,7 @@ public class ProfileConverter extends AbstractConverter<Profile, ProfileDTO> {
     public void convert(Profile source, ProfileDTO target) {
         User user = source.getUser();
         target.setLogin(user.getLogin());
-        target.setPassword(user.getPassword());
+//        target.setPassword(user.getPassword());   //TODO: Do we need to send a password?
         target.setRoles(user.getRoles()
                 .stream()
                 .map(role -> role.getRole().name())

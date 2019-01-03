@@ -1,5 +1,6 @@
 package com.mbicycle.imarket.beans.dto;
 
+import com.mbicycle.imarket.beans.entities.Product;
 import com.mbicycle.imarket.utils.enums.DeliveryType;
 import com.mbicycle.imarket.utils.enums.PaymentType;
 
@@ -12,7 +13,9 @@ public class OrderDTO {
 
     private String userLogin;
 
-    private List<String> productsNames;
+    private List<Integer> productsIds;
+
+    private List<Product> products;
 
     private PaymentType payment;
 
@@ -33,9 +36,9 @@ public class OrderDTO {
     public OrderDTO() {
     }
 
-    public OrderDTO(String userLogin,List<String> productsNames, PaymentType payment, DeliveryType delivery, Date dateOpened, Date datePaid, Date dateReady, Date dateClosed, Date dateSent, Date dateGot) {
+    public OrderDTO(String userLogin,List<Integer> productsIds, PaymentType payment, DeliveryType delivery, Date dateOpened, Date datePaid, Date dateReady, Date dateClosed, Date dateSent, Date dateGot) {
         setUserLogin(userLogin);
-        setProductsNames(productsNames);
+        setProductsIds(productsIds);
         setPayment(payment);
         setDelivery(delivery);
         setDateOpened(dateOpened);
@@ -126,11 +129,19 @@ public class OrderDTO {
         this.userLogin = userLogin;
     }
 
-    public List<String> getProductsNames() {
-        return productsNames;
+    public List<Integer> getProductsIds() {
+        return productsIds;
     }
 
-    public void setProductsNames(List<String> productsNames) {
-        this.productsNames = productsNames;
+    public void setProductsIds(List<Integer> productsIds) {
+        this.productsIds = productsIds;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 }

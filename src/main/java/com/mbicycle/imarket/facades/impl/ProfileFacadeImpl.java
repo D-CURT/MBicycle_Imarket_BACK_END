@@ -59,24 +59,7 @@ public class ProfileFacadeImpl implements ProfileFacade {
 
     @Override
     public boolean update(ProfileDTO dto) {
-        //Profile profileFromdDTO = reversedProfileConverter.convert(dto);
-        //User userToUpdate = new User(profileFromdDTO.getUser().getLogin());
-        //Profile profileToUpdate = profileService.get(userToUpdate); //or need to get userToUpdate already find in db?
-
-        Profile profileFromdDTO = reversedProfileConverter.convert(dto);
-        Profile profileFromDB = profileService.get(profileFromdDTO.getUser());
-        profileService.add(profileFromDB);
-
-
-//        userToAdd.setRoles(profileToUpdate.getUser().getRoles());
-//
-//        if(!userService.add(userToAdd)) {
-//            return false;
-//        }
-//        profileToUpdate.setUser(userToAdd);
-//        profileService.add(profileToUpdate);
-//        securityService.autoLogin(userToAdd.getLogin(), userToAdd.getPassword());
-        return true; //FIXME: Should return true ONLY if transactional adding of both profile and user is succesfull AND user is not already exists in DataBase
+        return profileService.update(reversedProfileConverter.convert(dto));
     }
 
     @Override

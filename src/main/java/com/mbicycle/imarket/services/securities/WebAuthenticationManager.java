@@ -2,6 +2,7 @@ package com.mbicycle.imarket.services.securities;
 
 import com.mbicycle.imarket.beans.entities.User;
 import com.mbicycle.imarket.services.interfaces.UserService;
+import com.mbicycle.imarket.utils.enums.RoleType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,10 +18,8 @@ import java.util.List;
 @Service
 public class WebAuthenticationManager implements AuthenticationManager {
 
-
     @Autowired
     private UserService userService;
-
 
     @Override
     public Authentication authenticate(Authentication auth) throws AuthenticationException {
@@ -37,7 +36,7 @@ public class WebAuthenticationManager implements AuthenticationManager {
         }
 
         List<GrantedAuthority> grantedAuths = new ArrayList<>();
-        grantedAuths.add(new SimpleGrantedAuthority("CUSTOMER"));
+        grantedAuths.add(new SimpleGrantedAuthority(RoleType.CUSTOMER.name()));
         return new UsernamePasswordAuthenticationToken(username, password, grantedAuths);
     }
 }

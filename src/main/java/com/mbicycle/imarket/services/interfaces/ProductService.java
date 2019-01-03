@@ -9,6 +9,8 @@ import java.util.List;
 public interface ProductService {
     boolean add(Product product);
 
+    Product get(int id);
+
     Product get(String name);
 
     List<Product> findByOrderByName();

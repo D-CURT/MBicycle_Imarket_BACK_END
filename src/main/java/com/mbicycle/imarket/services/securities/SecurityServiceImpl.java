@@ -26,12 +26,18 @@ public class SecurityServiceImpl implements SecurityService {
 
     @Override
     public String findLoggedInUsername() {
+        Object obj = null;
+        if((obj = SecurityContextHolder.getContext().getAuthentication().getPrincipal() ) == null || !(obj instanceof User))
+            return null;
         User userDetails = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userDetails.getUsername();
     }
 
     @Override
     public User findLoggedUser() {
+        Object obj = null;
+        if((obj = SecurityContextHolder.getContext().getAuthentication().getPrincipal() ) == null || !(obj instanceof User))
+            return null;
         User userDetails = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userDetails;//Contains [username, password, Set<String> SimpleGrantedAuthority (.getAuthority() = String)]
     }

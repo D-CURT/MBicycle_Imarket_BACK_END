@@ -11,6 +11,7 @@ import com.mbicycle.imarket.services.interfaces.UserService;
 import com.mbicycle.imarket.utils.enums.RoleType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,16 +24,23 @@ public class ReversedProfileConverter extends AbstractConverter<ProfileDTO, Prof
     private UserRepository userRepository;
 
     @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private PasswordEncoder encoder;
 
     @Autowired
     SecurityService securityService;
 
     @Override
     public void convert(ProfileDTO source, Profile target) {
+
+        String login = null;
+        String password = null;
+        if (securityService.findLoggedUser()!=null) {
+            login = securityService.findLoggedInUsername();
+            password = securityService.findLoggedUser().getPassword();
+        }
+
         if(source==null) {
-            String login = securityService.findLoggedInUsername();
-            User user  = new User(login);
+            User user  = new User(securityService.findLoggedInUsername());
             User userInDb = userRepository.findByLogin(user.getLogin());
             target.setUser(userInDb);
         }
@@ -47,7 +55,12 @@ public class ReversedProfileConverter extends AbstractConverter<ProfileDTO, Prof
 //                        .stream()
 //                        .map(s -> RoleType.valueOf(s).getRole())
 //                        .collect(Collectors.toList())));
-            User user = new User(source.getLogin());
+            String newLogin = source.getLogin()!=null ? source.getLogin() : login;
+            User user = null;
+            if(source.getPassword()!=null)
+                user = new User(newLogin,bCryptPasswordEncoder.encode(source.getPassword()));
+            else
+                user = new User(newLogin);
             User userInDb = userRepository.findByLogin(user.getLogin());
             if (userInDb == null) {    // Only when registering new user.
                 List<Role> rolesGet = new ArrayList<>();
