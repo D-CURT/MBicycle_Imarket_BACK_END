@@ -10,6 +10,7 @@ import com.mbicycle.imarket.services.interfaces.UserService;
 import com.mbicycle.imarket.utils.enums.RoleType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ public class ReversedProfileConverter extends AbstractConverter<ProfileDTO, Prof
     private UserRepository userRepository;
 
     @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private PasswordEncoder encoder;
 
     @Override
     public void convert(ProfileDTO source, Profile target) {
@@ -37,7 +38,7 @@ public class ReversedProfileConverter extends AbstractConverter<ProfileDTO, Prof
 //                        .stream()
 //                        .map(s -> RoleType.valueOf(s).getRole())
 //                        .collect(Collectors.toList())));
-        User user  = new User(source.getLogin(),bCryptPasswordEncoder.encode(source.getPassword()));
+        User user  = new User(source.getLogin(),encoder.encode(source.getPassword()));
         User userInDb = userRepository.findByLoginAndPassword(user.getLogin(),user.getPassword());
         if(userInDb==null) {    // Only when registering new user.
             List<Role> rolesGet = new ArrayList<>();
