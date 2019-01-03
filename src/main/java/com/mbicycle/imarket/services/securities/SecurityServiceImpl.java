@@ -15,7 +15,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
-
 public class SecurityServiceImpl implements SecurityService {
 
     @Autowired
