@@ -48,11 +48,10 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean delete(Order order) {
-        if ((order = findInitial(order.getProfile())) != null) {
-            List<OrderProduct> orderProducts = order.getOrderProducts();
-            orderProducts.forEach(orderProductRepository::delete);
-            orderRepository.delete(order);
+        Order initial;
+        if ((initial = findInitial(order.getProfile())) != null) {
+            orderRepository.delete(initial);
         }
-        return order != null && findInitial(order.getProfile()) == null;
+        return findInitial(order.getProfile()) == null;
     }
 }
