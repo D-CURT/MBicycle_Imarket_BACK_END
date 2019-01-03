@@ -3,6 +3,7 @@ package com.mbicycle.imarket.services.securities;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
+import java.util.Collection;
 import java.util.Set;
 
 /**
@@ -20,6 +21,6 @@ public interface SecurityService {
 
     User findLoggedUser();
 
-    Set<String> getRoles();
+    Collection<SimpleGrantedAuthority> getRoles();
 
 }
