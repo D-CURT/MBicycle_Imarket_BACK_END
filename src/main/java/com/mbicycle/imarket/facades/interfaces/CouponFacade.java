@@ -9,7 +9,9 @@ import java.util.List;
 public interface CouponFacade {
     boolean add(CouponDTO couponDTO);
 
-    List<CouponDTO> findAll();
+    List<CouponDTO> getAll();
+
+    List<CouponDTO> get(String login);
 
     boolean delete(CouponDTO couponDTO);
 }

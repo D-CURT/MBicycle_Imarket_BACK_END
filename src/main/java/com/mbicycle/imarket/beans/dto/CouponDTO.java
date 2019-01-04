@@ -1,18 +1,20 @@
 package com.mbicycle.imarket.beans.dto;
 
+import java.util.HashMap;
+
 public class CouponDTO {
     private int id;
     private String description;
     private Integer sum;
-    private String profile;
+    private String login;
 
     public CouponDTO() {
     }
 
-    public CouponDTO(String description, Integer sum, String profile) {
+    public CouponDTO(String description, Integer sum, String login) {
         setDescription(description);
         setSum(sum);
-        setProfile(profile);
+        setLogin(login);
     }
 
     public int getId() {
@@ -39,11 +41,11 @@ public class CouponDTO {
         this.sum = sum;
     }
 
-    public String getProfile() {
-        return profile;
+    public String getLogin() {
+        return login;
     }
 
-    public void setProfile(String profile) {
-        this.profile = profile;
+    public void setLogin(String login) {
+        this.login = login;
     }
 }

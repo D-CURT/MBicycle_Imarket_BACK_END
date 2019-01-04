@@ -27,7 +27,12 @@ public class CouponFacadeImpl implements CouponFacade {
     }
 
     @Override
-    public List<CouponDTO> findAll() {
+    public List<CouponDTO> getAll() {
+        return couponService.findAll().stream().map(couponConverter::convert).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CouponDTO> get(String login) {
         return couponService.findAll().stream().map(couponConverter::convert).collect(Collectors.toList());
     }
 

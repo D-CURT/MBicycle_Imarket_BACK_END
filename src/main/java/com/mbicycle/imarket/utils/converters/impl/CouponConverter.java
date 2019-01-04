@@ -10,6 +10,6 @@ public class CouponConverter extends AbstractConverter<Coupon, CouponDTO> {
         target.setId(source.getId());
         target.setDescription(source.getDescription());
         target.setSum(source.getSum());
-        target.setProfile(source.getProfile().getName());
+        //target.setLogin(target.getLogin()); //откуда купондто узнает логин?
     }
 }
