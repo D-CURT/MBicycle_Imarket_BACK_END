@@ -39,16 +39,16 @@ public class ProfileServiceImpl implements ProfileService {
             return false;
         }
         if ( (user = userRepository.findByLogin(user.getLogin())) != null) {
-            Profile profileIdDB = repository.findByUser(user);
-            profile.setId(profileIdDB.getId());
-            profile.setUser(profileIdDB.getUser());     //Assuming that User cannot be changed in the profile
-            profile.setAddress(profile.getAddress() != null ? profile.getAddress() : profileIdDB.getAddress());
-            profile.setEmail(profile.getEmail() != null ? profile.getEmail() : profileIdDB.getEmail());
-            profile.setPhone(profile.getPhone() != null ? profile.getPhone() : profileIdDB.getPhone());
-            profile.setName(profile.getName() != null ? profile.getName() : profileIdDB.getName());
-            profile.setDiscriminator(profile.getDiscriminator() != null ? profile.getDiscriminator() : profileIdDB.getDiscriminator());
-            profile.setOrders(profile.getOrders() != null ? profile.getOrders() : profileIdDB.getOrders());
-            profile.setCoupons(profile.getCoupons() != null ? profile.getCoupons() : profileIdDB.getCoupons());
+            Profile profileInDB = repository.findByUser(user);
+            profile.setId(profileInDB.getId());
+            profile.setUser(profileInDB.getUser());     //Assuming that User cannot be changed in the profile
+            profile.setAddress(profile.getAddress() != null ? profile.getAddress() : profileInDB.getAddress());
+            profile.setEmail(profile.getEmail() != null ? profile.getEmail() : profileInDB.getEmail());
+            profile.setPhone(profile.getPhone() != null ? profile.getPhone() : profileInDB.getPhone());
+            profile.setName(profile.getName() != null ? profile.getName() : profileInDB.getName());
+            profile.setDiscriminator(profile.getDiscriminator() != null ? profile.getDiscriminator() : profileInDB.getDiscriminator());
+            profile.setOrders(profile.getOrders() != null ? profile.getOrders() : profileInDB.getOrders());
+            profile.setCoupons(profile.getCoupons() != null ? profile.getCoupons() : profileInDB.getCoupons());
             repository.save(profile);
         }
         else {

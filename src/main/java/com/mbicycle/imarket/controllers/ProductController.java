@@ -102,6 +102,13 @@ public class ProductController {
         return entityWithStatus(facade.add(productDTO, file));
     }
 
+    @PostMapping(value = MAPPING + "/update")
+    public ResponseEntity updateProduct(@RequestParam("data") String strDTO, @RequestParam(name = "photo", required = false) MultipartFile file)
+            throws IOException {
+        ProductDTO productDTO = new ObjectMapper().readValue(strDTO, ProductDTO.class);  //Convert string param (json) into DTO
+        return entityWithStatus(facade.update(productDTO, file));
+    }
+
     @PostMapping(value = MAPPING + "/delete", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity delete(@RequestBody ProductDTO dto) {
         return entityWithStatus(facade.delete(dto));

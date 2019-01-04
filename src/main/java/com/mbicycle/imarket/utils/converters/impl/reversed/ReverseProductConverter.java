@@ -13,14 +13,15 @@ public class ReverseProductConverter extends AbstractConverter<ProductDTO, Produ
 
     @Override
     public void convert(ProductDTO source, Product target) {
-        target.setId(source.getId());
+        if(source.getId()!=null)
+            target.setId(source.getId());
         target.setName(source.getName());
         target.setDescriptionPreview(source.getDescriptionPreview());
         target.setDescriptionFull(source.getDescription());
         target.setDiscount(source.getDiscount());
         target.setPicture(source.getPicture());
         target.setPrice(source.getPrice());
-        target.setStoreStatus(source.isStoreStatus());
+        target.setStoreStatus(source.getStoreStatus());
         target.setGroup(groupService.get(source.getGroup()));
     }
 }
