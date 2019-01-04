@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class ProductDTO {
 
-    private int id;
+    private Integer id;
 
     private String name;
 
@@ -13,11 +13,11 @@ public class ProductDTO {
 
     private String description;
 
-    private double price;
+    private Integer price;
 
     private String picture;
 
-    private boolean storeStatus;
+    private Boolean storeStatus;
 
     private Integer discount;
 
@@ -38,7 +38,7 @@ public class ProductDTO {
     public ProductDTO() {
     }
 
-    public ProductDTO(String name, String descriptionPreview, String descriptionFull, double price, String picture, boolean storeStatus, Integer discount, String group, List<String> orderProducts) {
+    public ProductDTO(String name, String descriptionPreview, String descriptionFull, Integer price, String picture, Boolean storeStatus, Integer discount, String group, List<String> orderProducts) {
         setName(name);
         setDescriptionPreview(descriptionPreview);
         setDescription(descriptionFull);
@@ -50,11 +50,11 @@ public class ProductDTO {
         setOrderProducts(orderProducts);
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -82,11 +82,11 @@ public class ProductDTO {
         this.description = description;
     }
 
-    public double getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 
@@ -98,11 +98,11 @@ public class ProductDTO {
         this.picture = picture;
     }
 
-    public boolean isStoreStatus() {
+    public Boolean getStoreStatus() {
         return storeStatus;
     }
 
-    public void setStoreStatus(boolean storeStatus) {
+    public void setStoreStatus(Boolean storeStatus) {
         this.storeStatus = storeStatus;
     }
 

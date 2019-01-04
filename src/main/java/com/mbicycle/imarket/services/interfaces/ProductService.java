@@ -9,7 +9,11 @@ import java.util.List;
 public interface ProductService {
     boolean add(Product product);
 
-    Product get(int id);
+    Product addWithReturn(Product product);
+
+    Product update(Product product);
+
+    Product get(Integer id);
 
     Product get(String name);
 

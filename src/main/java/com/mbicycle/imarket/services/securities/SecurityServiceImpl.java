@@ -16,6 +16,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
+
 public class SecurityServiceImpl implements SecurityService {
 
     @Autowired
@@ -26,26 +27,36 @@ public class SecurityServiceImpl implements SecurityService {
 
     @Override
     public String findLoggedInUsername() {
+        Object obj = null;
+        if((obj = SecurityContextHolder.getContext().getAuthentication().getPrincipal() ) == null || !(obj instanceof User))
+            return null;
         User userDetails = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userDetails.getUsername();
     }
 
     @Override
     public User findLoggedUser() {
-        User userDetails = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Object obj = null;
+        if((obj = SecurityContextHolder.getContext().getAuthentication().getPrincipal() ) == null || !(obj instanceof User))
+            return null;
+        User userDetails = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userDetails;//Contains [username, password, Set<String> SimpleGrantedAuthority (.getAuthority() = String)]
     }
 
     @Override
     public Collection<SimpleGrantedAuthority> getRoles() {
-//        User userDetails = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        Set<String> setOfRoles = new HashSet<String>();
-//        for ( GrantedAuthority authority : userDetails.getAuthorities()) {
-//            setOfRoles.add(authority.getAuthority());
-//        }
         Collection<SimpleGrantedAuthority> authorities = (Collection<SimpleGrantedAuthority>)    SecurityContextHolder.getContext().getAuthentication().getAuthorities();
-
         return authorities;
+    }
+
+    @Override
+    public Set<String> getRolesSet() {
+        User userDetails = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Set<String> setOfRoles = new HashSet<String>();
+        for ( GrantedAuthority authority : userDetails.getAuthorities()) {
+            setOfRoles.add(authority.getAuthority());
+        }
+        return setOfRoles;
     }
 
     @Override

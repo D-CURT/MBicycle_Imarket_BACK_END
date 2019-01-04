@@ -23,12 +23,12 @@ public class Product {
     @Column(name = "description_full")
     private String descriptionFull;
 
-    private double price;
+    private Integer price;
 
     private String picture;
 
     @Column(name = "store_status")
-    private boolean storeStatus;
+    private Boolean storeStatus;
 
     private Integer discount;
 
@@ -44,7 +44,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(String name, String descriptionPreview, String descriptionFull, double price, String picture, boolean storeStatus, Integer discount, Group group, List<OrderProduct> orderProducts) {
+    public Product(String name, String descriptionPreview, String descriptionFull, Integer price, String picture, Boolean storeStatus, Integer discount, Group group, List<OrderProduct> orderProducts) {
         setName(name);
         setDescriptionPreview(descriptionPreview);
         setDescriptionFull(descriptionFull);
@@ -88,11 +88,11 @@ public class Product {
         this.descriptionFull = descriptionFull;
     }
 
-    public double getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 
@@ -104,11 +104,11 @@ public class Product {
         this.picture = picture;
     }
 
-    public boolean isStoreStatus() {
+    public Boolean getStoreStatus() {
         return storeStatus;
     }
 
-    public void setStoreStatus(boolean storeStatus) {
+    public void setStoreStatus(Boolean storeStatus) {
         this.storeStatus = storeStatus;
     }
 
