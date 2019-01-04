@@ -44,11 +44,13 @@ public class ProductFacadeImpl implements ProductFacade {
     @Override
     public boolean add(ProductDTO productDTO, MultipartFile file) {
         File picFile = null;
+        if(productDTO.getGroup()==null || productDTO.getGroup().equals(""))
+            return false;   //TODO: Add code with 'NO GROUP ERROR', although its not nescessary if Front can't pass without group.
         if (productRepository.findByName(productDTO.getName()) == null) {
             String strPicture2Add = "default.jpg";
             String strPath = "src\\main\\resources\\static\\assets\\images";
             String fullFilePath;
-            if (!file.isEmpty()) {
+            if (file != null && !file.isEmpty()) {
                 File newFile = new File(strPath);
                 if (!newFile.exists()) {
                     newFile.mkdirs();

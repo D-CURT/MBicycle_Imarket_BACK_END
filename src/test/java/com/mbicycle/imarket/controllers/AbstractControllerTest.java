@@ -127,7 +127,7 @@ public abstract class AbstractControllerTest {
             System.out.println("*** Saving Product. ***");
             Product product = new Product();
             product.setName(name);
-            product.setPrice(1.1);
+            product.setPrice(1);
             product.setGroup(groupService.get(name));
             productService.add(product);
 
