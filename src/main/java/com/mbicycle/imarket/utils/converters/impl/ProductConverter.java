@@ -15,7 +15,7 @@ public class ProductConverter extends AbstractConverter<Product, ProductDTO> {
         target.setDiscount(source.getDiscount());
         target.setPicture(source.getPicture());
         target.setPrice(source.getPrice());
-        target.setStoreStatus(source.isStoreStatus());
+        target.setStoreStatus(source.getStoreStatus());
         target.setGroup(source.getGroup().getName());
         target.setCategory(source.getGroup().getCategory().getName());
     }
