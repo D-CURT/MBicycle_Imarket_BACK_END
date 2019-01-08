@@ -19,7 +19,7 @@ public class ProductDTO {
 
     private boolean storeStatus;
 
-    private int discount;
+    private Integer discount;
 
     private String group;
 
@@ -38,7 +38,7 @@ public class ProductDTO {
     public ProductDTO() {
     }
 
-    public ProductDTO(String name, String descriptionPreview, String descriptionFull, double price, String picture, boolean storeStatus, int discount, String group, List<String> orderProducts) {
+    public ProductDTO(String name, String descriptionPreview, String descriptionFull, double price, String picture, boolean storeStatus, Integer discount, String group, List<String> orderProducts) {
         setName(name);
         setDescriptionPreview(descriptionPreview);
         setDescription(descriptionFull);
@@ -106,11 +106,11 @@ public class ProductDTO {
         this.storeStatus = storeStatus;
     }
 
-    public int getDiscount() {
+    public Integer getDiscount() {
         return discount;
     }
 
-    public void setDiscount(int discount) {
+    public void setDiscount(Integer discount) {
         this.discount = discount;
     }
 

@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
 
+import static com.mbicycle.imarket.utils.ResponseEntityBuilder.entityWithContent;
 import static com.mbicycle.imarket.utils.ResponseEntityBuilder.entityWithStatus;
 
 @RestController
@@ -23,55 +24,75 @@ public class ProductController {
     private ProductFacade facade;
 
     @GetMapping(MAPPING + "/allProductsSortedByName")
-    public List<ProductDTO> getAllProductsSortedByName() {
-        return facade.findByOrderByName();
+    public ResponseEntity<List<ProductDTO>> getAllProductsSortedByName() {
+        return entityWithContent(facade.findByOrderByName());
     }
 
     @GetMapping(MAPPING + "/allProductsSortedByPrice")
-    public List<ProductDTO> getAllProductsSortedByPrice() {
-        return facade.findByOrderByPrice();
+    public ResponseEntity<List<ProductDTO>> getAllProductsSortedByPrice() {
+        return entityWithContent(facade.findByOrderByPrice());
+    }
+
+    @GetMapping(MAPPING + "/allProductsWithStoreStatusIsFalseAndDiscountIsNullOrderByName")
+    public ResponseEntity<List<ProductDTO>> findByStoreStatusIsFalseAndDiscountIsNullOrderByName() {
+        return entityWithContent(facade.findByStoreStatusIsFalseAndDiscountIsNullOrderByName());
+    }
+
+    @GetMapping(MAPPING + "/allProductsWithStoreStatusIsTrueAndDiscountIsNullOrderByName")
+    public ResponseEntity<List<ProductDTO>> findByStoreStatusIsTrueAndDiscountIsNullOrderByName() {
+        return entityWithContent(facade.findByStoreStatusIsTrueAndDiscountIsNullOrderByName());
+    }
+
+    @GetMapping(MAPPING + "/allProductsWithStoreStatusIsFalseAndDiscountIsNotNullOrderByName")
+    public ResponseEntity<List<ProductDTO>> findByStoreStatusIsFalseAndDiscountIsNotNullOrderByName() {
+        return entityWithContent(facade.findByStoreStatusIsFalseAndDiscountIsNotNullOrderByName());
+    }
+
+    @GetMapping(MAPPING + "/allProductsWithStoreStatusIsTrueAndDiscountIsNotNullOrderByName")
+    public ResponseEntity<List<ProductDTO>> findByStoreStatusIsTrueAndDiscountIsNotNullOrderByName() {
+        return entityWithContent(facade.findByStoreStatusIsTrueAndDiscountIsNotNullOrderByName());
     }
 
     @GetMapping(value = MAPPING + "/allProductsWithGroupSortedByName/{groupName}"
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<ProductDTO> getAllProductsWithGroupSortedByName(@PathVariable String groupName) {
-        return facade.findByGroupOrderByName(groupName);
+    public ResponseEntity<List<ProductDTO>> getAllProductsWithGroupSortedByName(@PathVariable String groupName) {
+        return entityWithContent(facade.findByGroupOrderByName(groupName));
     }
 
-    @GetMapping(value = "/products/allProductsWithGroupSortedByPrice/{groupName}"
+    @GetMapping(value = MAPPING + "/allProductsWithGroupSortedByPrice/{groupName}"
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<ProductDTO> getAllProductsWithGroupSortedByPrice(@PathVariable String groupName) {
-        return facade.findByGroupOrderByPrice(groupName);
+    public ResponseEntity<List<ProductDTO>> getAllProductsWithGroupSortedByPrice(@PathVariable String groupName) {
+        return entityWithContent(facade.findByGroupOrderByPrice(groupName));
     }
 
     @GetMapping(value = MAPPING + "/allProductsSortedByNameWithNameLike/{name}"
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<ProductDTO> getAllProductsSortedByNameWithNameLike(@PathVariable String name) {
-        return facade.findByNameLikeOrderByName(name);
+    public ResponseEntity<List<ProductDTO>> getAllProductsSortedByNameWithNameLike(@PathVariable String name) {
+        return entityWithContent(facade.findByNameLikeOrderByName(name));
     }
 
     @GetMapping(value = MAPPING + "/allProductsSortedByNameWithNameLikeIgnoreCase/{name}"
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<ProductDTO> getAllProductsSortedByNameWithNameLikeIgnoreCase(@PathVariable String name) {
-        return facade.findByNameLikeOrderByNameIgnoreCase(name);
+    public ResponseEntity<List<ProductDTO>> getAllProductsSortedByNameWithNameLikeIgnoreCase(@PathVariable String name) {
+        return entityWithContent(facade.findByNameLikeOrderByNameIgnoreCase(name));
     }
 
     @GetMapping(value = MAPPING + "/allProductsSortedByNameWithNameLikeAndTrueStoreStatus/{name}"
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<ProductDTO> getAllSortedByNameWithNameLikeAndTrueStoreStatus(@PathVariable String name) {
-        return facade.findByNameLikeAndStoreStatusIsTrue(name);
+    public ResponseEntity<List<ProductDTO>> getAllSortedByNameWithNameLikeAndTrueStoreStatus(@PathVariable String name) {
+        return entityWithContent(facade.findByNameLikeAndStoreStatusIsTrue(name));
     }
 
     @GetMapping(value = MAPPING + "/allProductsSortedByNameWithNameLikeAndDiscount/{name}"
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<ProductDTO> getAllSortedByNameWithNameLikeAndDiscount(@PathVariable String name) {
-        return facade.findByNameLikeAndDiscountIsNotNull(name);
+    public ResponseEntity<List<ProductDTO>> getAllSortedByNameWithNameLikeAndDiscount(@PathVariable String name) {
+        return entityWithContent(facade.findByNameLikeAndDiscountIsNotNull(name));
     }
 
     @GetMapping(value = MAPPING + "/allProductsSortedByNameWithNameLikeAndTrueStoreStatusAndDiscount/{name}"
             , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<ProductDTO> getAllSortedByNameWithNameLikeAndTrueStoreStatusAndDiscount(@PathVariable String name) {
-        return facade.findByNameLikeAndStoreStatusIsTrueAndDiscountIsNotNull(name);
+    public ResponseEntity<List<ProductDTO>> getAllSortedByNameWithNameLikeAndTrueStoreStatusAndDiscount(@PathVariable String name) {
+        return entityWithContent(facade.findByNameLikeAndStoreStatusIsTrueAndDiscountIsNotNull(name));
     }
 
     @PostMapping(value = MAPPING + "/add")
@@ -79,6 +100,10 @@ public class ProductController {
             throws IOException {
         ProductDTO productDTO = new ObjectMapper().readValue(strDTO, ProductDTO.class);  //Convert string param (json) into DTO
         return entityWithStatus(facade.add(productDTO, file));
+    }
 
+    @PostMapping(value = MAPPING + "/delete", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity delete(@RequestBody ProductDTO dto) {
+        return entityWithStatus(facade.delete(dto));
     }
 }

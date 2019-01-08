@@ -12,9 +12,19 @@ public interface ProductFacade {
 
     ProductDTO get(String name);
 
+    boolean delete(ProductDTO productDTO);
+
     List<ProductDTO> findByOrderByName();
 
     List<ProductDTO> findByOrderByPrice();
+
+    List<ProductDTO> findByStoreStatusIsFalseAndDiscountIsNullOrderByName();
+
+    List<ProductDTO> findByStoreStatusIsTrueAndDiscountIsNullOrderByName();
+
+    List<ProductDTO> findByStoreStatusIsFalseAndDiscountIsNotNullOrderByName();
+
+    List<ProductDTO> findByStoreStatusIsTrueAndDiscountIsNotNullOrderByName();
 
     List<ProductDTO> findByGroupOrderByName(String name);
 

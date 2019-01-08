@@ -3,8 +3,6 @@ package com.mbicycle.imarket.daos;
 import com.mbicycle.imarket.beans.entities.Group;
 import com.mbicycle.imarket.beans.entities.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -14,6 +12,19 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     List<Product> findByOrderByNameAsc();
 
     List<Product> findByOrderByPriceAsc();
+
+    //    False Null
+    //    True Null
+    //    False NotNull
+    //    True NotNull
+    List<Product> findByStoreStatusIsFalseAndDiscountIsNullOrderByNameAsc();
+
+    List<Product> findByStoreStatusIsTrueAndDiscountIsNullOrderByNameAsc();
+
+    List<Product> findByStoreStatusIsFalseAndDiscountIsNotNullOrderByNameAsc();
+
+    List<Product> findByStoreStatusIsTrueAndDiscountIsNotNullOrderByNameAsc();
+
 
     List<Product> findByGroupOrderByNameAsc(Group group);
 

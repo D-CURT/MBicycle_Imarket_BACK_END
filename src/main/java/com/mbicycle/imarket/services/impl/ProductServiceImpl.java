@@ -7,6 +7,7 @@ import com.mbicycle.imarket.services.interfaces.GroupService;
 import com.mbicycle.imarket.services.interfaces.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.File;
 import java.util.List;
 
 @SuppressWarnings("ALL")
@@ -28,6 +29,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Product get(int id) {
+        return repository.getOne(id);
+    }
+
+    @Override
     public Product get(String name) {
         return repository.findByName(name);
     }
@@ -40,6 +46,26 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> findByOrderByPrice() {
         return repository.findByOrderByPriceAsc();
+    }
+
+    @Override
+    public List<Product> findByStoreStatusIsFalseAndDiscountIsNullOrderByName()  {
+        return repository.findByStoreStatusIsFalseAndDiscountIsNullOrderByNameAsc();
+    }
+
+    @Override
+    public List<Product> findByStoreStatusIsTrueAndDiscountIsNullOrderByName()  {
+        return repository.findByStoreStatusIsTrueAndDiscountIsNullOrderByNameAsc();
+    }
+
+    @Override
+    public List<Product> findByStoreStatusIsFalseAndDiscountIsNotNullOrderByName()  {
+        return repository.findByStoreStatusIsFalseAndDiscountIsNotNullOrderByNameAsc();
+    }
+
+    @Override
+    public List<Product> findByStoreStatusIsTrueAndDiscountIsNotNullOrderByName()  {
+        return repository.findByStoreStatusIsTrueAndDiscountIsNotNullOrderByNameAsc();
     }
 
     @Override
@@ -80,7 +106,8 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public boolean delete(Product product) {
         String name = product.getName();
-        if (get(name) != null) {
+        if ((product = get(name)) != null) {
+            new File("images/" + product.getPicture()).delete();
             repository.delete(product);
         }
         return get(name) == null;

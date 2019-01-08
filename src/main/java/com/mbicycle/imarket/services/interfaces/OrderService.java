@@ -10,11 +10,15 @@ import java.util.List;
 public interface OrderService {
     boolean add(Order order);
 
+    boolean update(Order order);
+
     boolean delete(Order order);
+
+    boolean deleteOrderProduct(Order order, List<Integer> ids);
+
+    Order findInitial(Profile profile);
 
     List<Order> getAll();
 
-    boolean update(Order order);
-
-    Order findByProfile(Profile profile);
+    List<Order> findByProfile(Profile profile);
 }
