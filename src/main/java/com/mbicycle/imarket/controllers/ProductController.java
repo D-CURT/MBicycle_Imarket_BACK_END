@@ -16,7 +16,6 @@ import static com.mbicycle.imarket.utils.ResponseEntityBuilder.entityWithContent
 import static com.mbicycle.imarket.utils.ResponseEntityBuilder.entityWithStatus;
 
 @RestController
-//@CrossOrigin(origins = "*", methods = RequestMethod.GET)
 public class ProductController {
     private static final String MAPPING = "/products";
 
@@ -24,7 +23,6 @@ public class ProductController {
     @SuppressWarnings("ALL")
     private ProductFacade facade;
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(MAPPING + "/allProductsSortedByName")
     public ResponseEntity<List<ProductDTO>> getAllProductsSortedByName() {
         return entityWithContent(facade.findByOrderByName());
