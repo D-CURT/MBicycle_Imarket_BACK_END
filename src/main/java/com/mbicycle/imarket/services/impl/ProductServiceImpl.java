@@ -41,6 +41,7 @@ public class ProductServiceImpl implements ProductService {
     public Product update(Product product) {
         Product productInDB;
         if ( (productInDB = get(product.getId())) != null ) {
+            //Assuming that product.id already in product
             product.setPicture(product.getPicture() != null ? product.getPicture() : productInDB.getPicture());
             product.setName(product.getName() != null ? product.getName() : productInDB.getName());
             product.setDescriptionFull(product.getDescriptionFull() != null ? product.getDescriptionFull() : productInDB.getDescriptionFull());
@@ -48,7 +49,7 @@ public class ProductServiceImpl implements ProductService {
             product.setDiscount(product.getDiscount() != null ? product.getDiscount() : productInDB.getDiscount());
             product.setPrice(product.getPrice() != null ? product.getPrice() : productInDB.getPrice());
             product.setStoreStatus(product.getStoreStatus() != null ? product.getStoreStatus() : productInDB.getStoreStatus());
-            //TODO: Add Group changing in product
+            product.setGroup(product.getGroup() != null ? product.getGroup() : productInDB.getGroup());
             return repository.save(product);
         }
         return null;

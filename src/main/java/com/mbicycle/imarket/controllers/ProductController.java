@@ -96,7 +96,7 @@ public class ProductController {
     }
 
     @PostMapping(value = MAPPING + "/add")
-    public ResponseEntity addProduct(@RequestParam("data") String strDTO, @RequestParam("photo") MultipartFile file)
+    public ResponseEntity addProduct(@RequestParam("data") String strDTO, @RequestParam(name = "photo", required = false) MultipartFile file)
             throws IOException {
         ProductDTO productDTO = new ObjectMapper().readValue(strDTO, ProductDTO.class);  //Convert string param (json) into DTO
         return entityWithStatus(facade.add(productDTO, file));
