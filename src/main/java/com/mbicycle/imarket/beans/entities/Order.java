@@ -24,9 +24,9 @@ public class Order {
     @JoinColumn(name = "id_profile", nullable = false)
     private Profile profile;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "order"
             , cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
     private List<OrderProduct> orderProducts;
 
     @Column(length = 5)

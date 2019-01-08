@@ -2,7 +2,6 @@ package com.mbicycle.imarket.controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.mbicycle.imarket.beans.dto.CategoryDTO;
 import com.mbicycle.imarket.beans.dto.ProductDTO;
@@ -127,7 +126,7 @@ public abstract class AbstractControllerTest {
             System.out.println("*** Saving Product. ***");
             Product product = new Product();
             product.setName(name);
-            product.setPrice((int) 1.1);
+            product.setPrice(1);
             product.setGroup(groupService.get(name));
             productService.add(product);
 
