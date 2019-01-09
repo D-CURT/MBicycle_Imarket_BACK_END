@@ -4,6 +4,7 @@ import com.mbicycle.imarket.beans.entities.*;
 import com.mbicycle.imarket.daos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
@@ -30,20 +31,35 @@ public class DataBaseFulfiller implements CommandLineRunner {
     @Autowired
     ProductRepository productRepository;
 
-    public void run(String...args) throws Exception {
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
-        User userAdmin = new User("admin", "123", Collections.singletonList(ADMIN.getRole()));
-        User userManager = new User("manager", "123", Collections.singletonList(MANAGER.getRole()));
-        User userCustomer = new User("customer", "123", Collections.singletonList(CUSTOMER.getRole()));
+    public void run(String...args) throws Exception {
+        User userAdmin = new User("admin", passwordEncoder.encode("123"), Collections.singletonList(ADMIN.getRole()));
+        User userManager = new User("manager", passwordEncoder.encode("123"), Collections.singletonList(MANAGER.getRole()));
+        User userCustomer = new User("customer", passwordEncoder.encode("123"), Collections.singletonList(CUSTOMER.getRole()));
 
         userRepository.save(userAdmin);
         userRepository.save(userManager);
         userRepository.save(userCustomer);
 
-        Profile profile = new Profile();
-        profile.setName("AD");
-        profile.setUser(userRepository.findByLogin(userAdmin.getLogin()));
-        profileRepository.save(profile);
+        Profile profileAdmin = new Profile();
+        profileAdmin.setName("АДМИНИСТРАТОР АДМИН АДМИНОВИЧ");
+        profileAdmin.setEmail("ADMIN@ADMIN.COM");
+        profileAdmin.setUser(userRepository.findByLogin(userAdmin.getLogin()));
+        profileRepository.save(profileAdmin);
+
+        Profile profileManager = new Profile();
+        profileManager.setName("Manager Manag Managovi4");
+        profileManager.setEmail("Manager_Imarket@Imarket.COM");
+        profileManager.setUser(userRepository.findByLogin(userManager.getLogin()));
+        profileRepository.save(profileManager);
+
+        Profile profileCustomer = new Profile();
+        profileCustomer.setName("Покупательный Имя Отвествов");
+        profileCustomer.setEmail("nubas@mail.ru");
+        profileCustomer.setUser(userRepository.findByLogin(userCustomer.getLogin()));
+        profileRepository.save(profileCustomer);
 
         Category categoryComputerSystems = new Category("Computer Systems");
             Group groupLaptops = new Group("Laptops", categoryComputerSystems);

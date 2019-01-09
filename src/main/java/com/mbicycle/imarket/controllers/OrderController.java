@@ -1,6 +1,7 @@
 package com.mbicycle.imarket.controllers;
 
 import com.mbicycle.imarket.beans.dto.OrderDTO;
+import com.mbicycle.imarket.beans.dto.ProductDTO;
 import com.mbicycle.imarket.beans.dto.ProfileDTO;
 
 
@@ -35,13 +36,18 @@ public class OrderController {
     }
 
     @PostMapping(MAPPING + "/delete")
-    public ResponseEntity delete(@RequestBody OrderDTO dto){
-        return entityWithStatus(facade.delete(dto));
+    public ResponseEntity delete(){
+        return entityWithStatus(facade.delete(new OrderDTO()));
     }
 
     @PostMapping(MAPPING + "/update")
     public ResponseEntity update(@RequestBody OrderDTO dto) {
         return entityWithStatus(facade.update(dto));
+    }
+
+    @PostMapping(MAPPING + "/deleteProduct")
+    public ResponseEntity deleteProduct(@RequestBody OrderDTO dto) {
+        return entityWithStatus(facade.deleteProduct(dto));
     }
 
     @GetMapping(MAPPING + "/getByProfile")
@@ -50,8 +56,7 @@ public class OrderController {
     }
 
     @GetMapping(value = MAPPING + "/products")
-    @ResponseBody
-    public ResponseEntity<List<Product>> getProducts() {
-        return entityWithContent(facade.getProducts());
+    public ResponseEntity<List<ProductDTO>> getProducts() {
+        return entityWithContent(facade.getProducts(new OrderDTO()));
     }
 }

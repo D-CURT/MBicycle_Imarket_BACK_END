@@ -15,7 +15,6 @@ public class ProfileServiceImpl implements ProfileService {
     private UserRepository userRepository;
 
     @Autowired
-
     private ProfileRepository repository;
 
     @Override
@@ -25,6 +24,31 @@ public class ProfileServiceImpl implements ProfileService {
             return false;
         }
         if (repository.findByUser(user) == null) {
+            repository.save(profile);
+        }
+        else {
+            return false;
+        }
+        return get(user) != null;
+    }
+
+    @Override
+    public boolean update(Profile profile){
+        User user;
+        if ((user = profile.getUser()) == null) {
+            return false;
+        }
+        if ( (user = userRepository.findByLogin(user.getLogin())) != null) {
+            Profile profileInDB = repository.findByUser(user);
+            profile.setId(profileInDB.getId());
+            profile.setUser(profileInDB.getUser());     //Assuming that User cannot be changed in the profile
+            profile.setAddress(profile.getAddress() != null ? profile.getAddress() : profileInDB.getAddress());
+            profile.setEmail(profile.getEmail() != null ? profile.getEmail() : profileInDB.getEmail());
+            profile.setPhone(profile.getPhone() != null ? profile.getPhone() : profileInDB.getPhone());
+            profile.setName(profile.getName() != null ? profile.getName() : profileInDB.getName());
+            profile.setDiscriminator(profile.getDiscriminator() != null ? profile.getDiscriminator() : profileInDB.getDiscriminator());
+            profile.setOrders(profile.getOrders() != null ? profile.getOrders() : profileInDB.getOrders());
+            profile.setCoupons(profile.getCoupons() != null ? profile.getCoupons() : profileInDB.getCoupons());
             repository.save(profile);
         }
         else {

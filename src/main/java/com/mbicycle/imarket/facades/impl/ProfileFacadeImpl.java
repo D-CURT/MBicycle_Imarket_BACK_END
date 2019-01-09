@@ -58,14 +58,21 @@ public class ProfileFacadeImpl implements ProfileFacade {
     }
 
     @Override
+    public boolean update(ProfileDTO dto) {
+        return profileService.update(reversedProfileConverter.convert(dto));
+    }
+
+    @Override
     public boolean delete(ProfileDTO dto) {
         return profileService.delete(reversedProfileConverter.convert(dto));
     }
 
     @Override
     public ProfileDTO get(ProfileDTO dto) {
-        UserDTO userDTO = new UserDTO(dto.getLogin(), dto.getPassword(), dto.getRoles());
-        return profileConverter.convert(profileService.get(reverseduserConverter.convert(userDTO)));
+//        UserDTO userDTO = new UserDTO(dto.getLogin(), dto.getPassword(), dto.getRoles());
+//        return profileConverter.convert(profileService.get(reverseduserConverter.convert(userDTO)));
+        Profile profileFromdDTO = reversedProfileConverter.convert(dto);
+        return profileConverter.convert(profileService.get(profileFromdDTO.getUser()));
     }
 
     @Override

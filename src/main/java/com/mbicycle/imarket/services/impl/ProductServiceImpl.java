@@ -29,7 +29,34 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product get(int id) {
+    public Product addWithReturn(Product product) {
+        String name = product.getName();
+        if (get(name) == null) {
+            return repository.save(product);
+        }
+        return null;
+    }
+
+    @Override
+    public Product update(Product product) {
+        Product productInDB;
+        if ( (productInDB = get(product.getId())) != null ) {
+            //Assuming that product.id already in product
+            product.setPicture(product.getPicture() != null ? product.getPicture() : productInDB.getPicture());
+            product.setName(product.getName() != null ? product.getName() : productInDB.getName());
+            product.setDescriptionFull(product.getDescriptionFull() != null ? product.getDescriptionFull() : productInDB.getDescriptionFull());
+            product.setDescriptionPreview(product.getDescriptionPreview() != null ? product.getDescriptionPreview() : productInDB.getDescriptionPreview());
+            product.setDiscount(product.getDiscount() != null ? product.getDiscount() : productInDB.getDiscount());
+            product.setPrice(product.getPrice() != null ? product.getPrice() : productInDB.getPrice());
+            product.setStoreStatus(product.getStoreStatus() != null ? product.getStoreStatus() : productInDB.getStoreStatus());
+            product.setGroup(product.getGroup() != null ? product.getGroup() : productInDB.getGroup());
+            return repository.save(product);
+        }
+        return null;
+    }
+
+    @Override
+    public Product get(Integer id) {
         return repository.getOne(id);
     }
 
