@@ -16,6 +16,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -42,11 +43,12 @@ public class ProductFacadeImpl implements ProductFacade {
 
     @Override
     public boolean add(ProductDTO productDTO, MultipartFile file) {
-
+        File picFile = null;
         if (productRepository.findByName(productDTO.getName()) == null) {
             String strPicture2Add = "default.jpg";
+            String strPath = "src\\main\\resources\\static\\assets\\images";
+            String fullFilePath;
             if (!file.isEmpty()) {
-                String strPath = "images";
                 File newFile = new File(strPath);
                 if (!newFile.exists()) {
                     newFile.mkdirs();
@@ -54,7 +56,55 @@ public class ProductFacadeImpl implements ProductFacade {
                 Random random = new Random();
                 String strRandomName = String.valueOf(random.nextInt(Integer.MAX_VALUE) + 1);
                 strPicture2Add = strRandomName + ".jpg";
-                try (FileOutputStream fos = new FileOutputStream(strPath + "\\" + strPicture2Add)) {
+                fullFilePath = strPath + "\\" + strPicture2Add;
+                try (FileOutputStream fos = new FileOutputStream(fullFilePath)) {
+                    fos.write(file.getBytes());
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                picFile = new File(fullFilePath);
+            }
+            Product newProduct = this.reverseProductConverter.convert(productDTO);
+            newProduct.setPicture(strPicture2Add);
+            newProduct = productService.addWithReturn(newProduct);
+            if(picFile!=null) {
+                if(picFile.renameTo(new File(strPath + "\\" + String.valueOf(newProduct.getId())+".jpg")))
+                {
+                    newProduct.setPicture(String.valueOf(newProduct.getId())+".jpg");
+                    productRepository.save(newProduct);
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean update(ProductDTO productDTO, MultipartFile file) {
+        File picFile = null;
+        Product productInDB = null;
+        if(productDTO.getId()==null)
+            return false;
+        Optional<Product> optionalProduct = productRepository.findById(productDTO.getId());
+        if ( optionalProduct.isPresent() ) {
+            productInDB = optionalProduct.get();
+            String strPicture2Update = productInDB.getPicture();
+            String strPath = "src\\main\\resources\\static\\assets\\images";
+            String fullFilePath = strPath + "\\" + strPicture2Update ;
+            if (file != null && !file.isEmpty()) {
+                File newFile = new File(strPath);
+                if (!newFile.exists()) {
+                    newFile.mkdirs();
+                }
+                if(newFile.exists())
+                    newFile.delete();
+                try (FileOutputStream fos = new FileOutputStream(fullFilePath)) {
                     fos.write(file.getBytes());
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
@@ -62,11 +112,9 @@ public class ProductFacadeImpl implements ProductFacade {
                     e.printStackTrace();
                 }
             }
-
-            Product newProduct = this.reverseProductConverter.convert(productDTO);
-            newProduct.setPicture(strPicture2Add);
-            productService.add(newProduct);
-            return true;
+            Product updatedProduct = this.reverseProductConverter.convert(productDTO);
+            if (productService.update(updatedProduct)!=null)
+                return true;
         }
         return false;
     }

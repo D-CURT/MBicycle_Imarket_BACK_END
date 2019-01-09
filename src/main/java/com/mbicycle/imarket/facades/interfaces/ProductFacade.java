@@ -10,6 +10,8 @@ import java.util.List;
 public interface ProductFacade {
     boolean add(ProductDTO productDTO, MultipartFile file);
 
+    boolean update(ProductDTO productDTO, MultipartFile file);
+
     ProductDTO get(String name);
 
     boolean delete(ProductDTO productDTO);

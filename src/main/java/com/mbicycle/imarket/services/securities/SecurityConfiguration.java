@@ -36,7 +36,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 //.antMatchers("/**").permitAll()       //Permit ALL
                 .antMatchers("/login").permitAll()
                 .antMatchers("/index").permitAll()
-                .antMatchers("/products/**").hasAuthority(RoleType.CUSTOMER.name())
+                .antMatchers("/orders/**").hasAuthority(RoleType.CUSTOMER.name())
                 //.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()   //Already fixed in a better way below
                 .and()
                 .logout().logoutUrl("/logout").logoutSuccessUrl("/logoutdone")

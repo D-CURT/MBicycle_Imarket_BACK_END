@@ -15,6 +15,7 @@ import java.util.List;
 import static com.mbicycle.imarket.utils.ResponseEntityBuilder.entityWithContent;
 import static com.mbicycle.imarket.utils.ResponseEntityBuilder.entityWithStatus;
 
+
 @RestController
 public class ProductController {
     private static final String MAPPING = "/products";
@@ -100,6 +101,13 @@ public class ProductController {
             throws IOException {
         ProductDTO productDTO = new ObjectMapper().readValue(strDTO, ProductDTO.class);  //Convert string param (json) into DTO
         return entityWithStatus(facade.add(productDTO, file));
+    }
+
+    @PostMapping(value = MAPPING + "/update")
+    public ResponseEntity updateProduct(@RequestParam("data") String strDTO, @RequestParam(name = "photo", required = false) MultipartFile file)
+            throws IOException {
+        ProductDTO productDTO = new ObjectMapper().readValue(strDTO, ProductDTO.class);  //Convert string param (json) into DTO
+        return entityWithStatus(facade.update(productDTO, file));
     }
 
     @PostMapping(value = MAPPING + "/delete", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
