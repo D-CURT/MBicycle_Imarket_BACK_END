@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
@@ -16,6 +17,7 @@ import java.util.List;
 import static com.mbicycle.imarket.utils.ResponseEntityBuilder.entityWithContent;
 
 @RestController
+@RequestMapping("/roles")
 @SuppressWarnings("ALL")
 public class RoleController {
 
@@ -25,13 +27,12 @@ public class RoleController {
     @Autowired
     private SecurityServiceImpl securityService;
 
-    @GetMapping("/roles/allRolesSortedByRole")
+    @GetMapping("/allRolesSortedByRole")
     public ResponseEntity<List<RoleDTO>> getAllRolesSortedByRole() {
         return entityWithContent(facade.findByOrderByRole());
     }
 
-    @CrossOrigin
-    @GetMapping("/roles/currentRole")
+    @GetMapping("/currentRole")
     public ResponseEntity<Collection<SimpleGrantedAuthority>> getCurrentRole() {
         Object o = securityService.findLoggedUser();
         System.out.println(securityService.getRoles());

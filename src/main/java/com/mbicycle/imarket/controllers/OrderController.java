@@ -18,44 +18,43 @@ import static com.mbicycle.imarket.utils.ResponseEntityBuilder.entityWithContent
 import static com.mbicycle.imarket.utils.ResponseEntityBuilder.entityWithStatus;
 
 @RestController
+@RequestMapping("/orders")
 public class OrderController {
-    private static final String MAPPING = "/orders";
-
     @Autowired
     @SuppressWarnings("ALL")
     private OrderFacade facade;
 
-    @GetMapping(MAPPING + "/all")
+    @GetMapping("/all")
     public ResponseEntity<List<OrderDTO>> getAll(){
         return entityWithContent(facade.getAll());
     }
 
-    @PostMapping(MAPPING + "/add")
+    @PostMapping("/add")
     public ResponseEntity add(@RequestBody OrderDTO dto) {
         return entityWithStatus(facade.add(dto));
     }
 
-    @PostMapping(MAPPING + "/delete")
+    @PostMapping("/delete")
     public ResponseEntity delete(){
         return entityWithStatus(facade.delete(new OrderDTO()));
     }
 
-    @PostMapping(MAPPING + "/update")
+    @PostMapping("/update")
     public ResponseEntity update(@RequestBody OrderDTO dto) {
         return entityWithStatus(facade.update(dto));
     }
 
-    @PostMapping(MAPPING + "/deleteProduct")
+    @PostMapping("/deleteProduct")
     public ResponseEntity deleteProduct(@RequestBody OrderDTO dto) {
         return entityWithStatus(facade.deleteProduct(dto));
     }
 
-    @GetMapping(MAPPING + "/getByProfile")
+    @GetMapping("/getByProfile")
     public ResponseEntity<List<OrderDTO>> getByProfile(@RequestBody ProfileDTO profileDTO){
         return entityWithContent(facade.get(profileDTO));
     }
 
-    @GetMapping(value = MAPPING + "/products")
+    @GetMapping(value = "/products")
     public ResponseEntity<List<ProductDTO>> getProducts() {
         return entityWithContent(facade.getProducts(new OrderDTO()));
     }

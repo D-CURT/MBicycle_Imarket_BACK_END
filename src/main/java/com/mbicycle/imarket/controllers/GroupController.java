@@ -13,29 +13,29 @@ import static com.mbicycle.imarket.utils.ResponseEntityBuilder.entityWithContent
 import static com.mbicycle.imarket.utils.ResponseEntityBuilder.entityWithStatus;
 
 @RestController
+@RequestMapping("/groups")
 public class GroupController {
-    private static final String MAPPING = "/groups";
 
     @Autowired
     @SuppressWarnings("ALL")
     private GroupFacade facade;
 
-    @GetMapping(MAPPING + "/allGroupsSortedByName")
+    @GetMapping("/allGroupsSortedByName")
     public ResponseEntity<List<GroupDTO>> getAllGroupsSortedByName() {
         return entityWithContent(facade.findByOrderByName());
     }
 
-    @GetMapping(MAPPING + "/get/{name}")
+    @GetMapping("/get/{name}")
     public ResponseEntity<GroupDTO> get(@PathVariable String name) {
         return entityWithContent(facade.get(name));
     }
 
-    @PostMapping(value = MAPPING + "/add", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(value = "/add", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity add(@RequestBody GroupDTO groupDTO) {
         return entityWithStatus(facade.add(groupDTO));
     }
 
-    @PostMapping(value = MAPPING + "/delete", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity delete(@RequestBody GroupDTO dto) {
         return entityWithStatus(facade.delete(dto));
     }
