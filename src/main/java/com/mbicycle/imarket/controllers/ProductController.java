@@ -15,6 +15,7 @@ import java.util.List;
 import static com.mbicycle.imarket.utils.ResponseEntityBuilder.entityWithContent;
 import static com.mbicycle.imarket.utils.ResponseEntityBuilder.entityWithStatus;
 
+
 @RestController
 public class ProductController {
     private static final String MAPPING = "/products";

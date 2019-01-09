@@ -1,6 +1,7 @@
 package com.mbicycle.imarket.services.interfaces;
 
 import com.mbicycle.imarket.beans.entities.Profile;
+import com.mbicycle.imarket.beans.entities.Role;
 import com.mbicycle.imarket.beans.entities.User;
 import org.springframework.stereotype.Service;
 
@@ -18,4 +19,5 @@ public interface ProfileService {
 
     List<Profile> findByOrderByName();
 
+    boolean updateRole(Profile convert, List<Role> roles2Update);
 }
