@@ -42,6 +42,11 @@ public class ProductFacadeImpl implements ProductFacade {
     }
 
     @Override
+    public ProductDTO get(Integer id) {
+        return productConverter.convert(productService.get(id));
+    }
+
+    @Override
     public boolean add(ProductDTO productDTO, MultipartFile file) {
         File picFile = null;
         if(productDTO.getGroup()==null || productDTO.getGroup().equals(""))
