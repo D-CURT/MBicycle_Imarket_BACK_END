@@ -7,6 +7,7 @@ import com.mbicycle.imarket.facades.interfaces.CouponFacade;
 import com.mbicycle.imarket.services.interfaces.CouponService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,7 +38,10 @@ public class CouponFacadeImpl implements CouponFacade {
     }
 
     @Override
-    public boolean delete(CouponDTO couponDTO) {
-        return couponService.delete(reverseCouponConverter.convert(couponDTO));
+    public boolean deleteByIds(List<String> strIds) {
+
+       List<Integer> ids = strIds.stream().map(strId -> Integer.parseInt(strId)).collect(Collectors.toList());
+
+        return couponService.deleteByIds(ids);
     }
 }

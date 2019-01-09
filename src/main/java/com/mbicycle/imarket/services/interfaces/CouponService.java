@@ -10,6 +10,8 @@ import java.util.List;
 public interface CouponService {
     boolean add(Coupon coupon);
 
+    boolean deleteByIds(List<Integer> ids);
+
     boolean delete(Coupon coupon);
 
     List<Coupon> findAll();

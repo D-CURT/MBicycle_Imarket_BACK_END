@@ -34,6 +34,16 @@ public class CouponServiceImpl implements CouponService {
     }
 
     @Override
+    public boolean deleteByIds(List<Integer> ids) {
+        boolean result = true;
+        for (int id : ids) {
+            repository.deleteById(id);
+        }
+
+        return result;
+    }
+
+    @Override
     public List<Coupon> findAll() {
         return repository.findAll();
     }

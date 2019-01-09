@@ -13,5 +13,5 @@ public interface CouponFacade {
 
     List<CouponDTO> get(String login);
 
-    boolean delete(CouponDTO couponDTO);
+    boolean deleteByIds(List<String> ids);
 }

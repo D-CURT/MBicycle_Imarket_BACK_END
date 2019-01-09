@@ -12,4 +12,7 @@ public interface CouponRepository extends JpaRepository<Coupon, Integer> {
     List<Coupon> findAll();
 
     List<Coupon> findByProfile(Profile profile);
+
+    boolean deleteById(List<Integer> ids);
+
 }

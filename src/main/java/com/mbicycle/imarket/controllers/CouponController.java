@@ -38,14 +38,8 @@ public class CouponController {
         return entityWithStatus(facade.add(couponDTO));
     }
 
-//    @PostMapping(value = MAPPING + "/delete", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)// descriontion
-//    public ResponseEntity delete(@RequestBody CouponDTO couponDTO){
-//        return entityWithStatus(facade.delete(couponDTO));
-//    }
-
-    @PostMapping(value = MAPPING + "/deleteAll", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)// descriontion
-    public ResponseEntity delete(@RequestBody CouponDTO couponDTO){
-
-        return entityWithStatus(facade.delete(couponDTO));
+    @PostMapping(value = MAPPING + "/deleteAll", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity delete(@RequestBody List<String> ids){
+        return entityWithStatus(facade.deleteByIds(ids));
     }
 }
