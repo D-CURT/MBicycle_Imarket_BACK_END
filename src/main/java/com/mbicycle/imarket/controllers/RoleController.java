@@ -6,6 +6,7 @@ import com.mbicycle.imarket.services.securities.SecurityServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,8 +30,11 @@ public class RoleController {
         return entityWithContent(facade.findByOrderByRole());
     }
 
+    @CrossOrigin
     @GetMapping("/roles/currentRole")
     public ResponseEntity<Collection<SimpleGrantedAuthority>> getCurrentRole() {
+        Object o = securityService.findLoggedUser();
+        System.out.println(securityService.getRoles());
         return entityWithContent(securityService.getRoles());
     }
 

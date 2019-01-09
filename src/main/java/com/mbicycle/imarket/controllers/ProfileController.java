@@ -52,4 +52,9 @@ public class ProfileController {
     public ResponseEntity delete(@RequestBody ProfileDTO dto) {
         return entityWithStatus(profileFacade.delete(dto));
     }
+
+    @PostMapping(value = MAPPING + "/updateRole", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity updateRole(@RequestBody ProfileDTO dto) {
+        return entityWithStatus(profileFacade.updateRole(dto));
+    }
 }
