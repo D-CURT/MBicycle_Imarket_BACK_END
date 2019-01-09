@@ -14,6 +14,8 @@ public interface ProductFacade {
 
     ProductDTO get(String name);
 
+    ProductDTO get(Integer id);
+
     boolean delete(ProductDTO productDTO);
 
     List<ProductDTO> findByOrderByName();

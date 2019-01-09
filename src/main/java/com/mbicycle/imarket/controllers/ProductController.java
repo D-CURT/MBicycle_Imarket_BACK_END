@@ -96,8 +96,14 @@ public class ProductController {
         return entityWithContent(facade.findByNameLikeAndStoreStatusIsTrueAndDiscountIsNotNull(name));
     }
 
+    @GetMapping(value = MAPPING + "/getById/{id}"
+            , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<ProductDTO> getById(@PathVariable Integer id) {
+        return entityWithContent(facade.get(id));
+    }
+
     @PostMapping(value = MAPPING + "/add")
-    public ResponseEntity addProduct(@RequestParam("data") String strDTO, @RequestParam("photo") MultipartFile file)
+    public ResponseEntity addProduct(@RequestParam("data") String strDTO, @RequestParam(name = "photo", required = false) MultipartFile file)
             throws IOException {
         ProductDTO productDTO = new ObjectMapper().readValue(strDTO, ProductDTO.class);  //Convert string param (json) into DTO
         return entityWithStatus(facade.add(productDTO, file));
