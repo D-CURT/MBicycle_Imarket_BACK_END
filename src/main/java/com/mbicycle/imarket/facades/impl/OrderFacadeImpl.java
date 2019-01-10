@@ -14,9 +14,7 @@ import com.mbicycle.imarket.utils.converters.Converter;
 
 import com.mbicycle.imarket.facades.interfaces.OrderFacade;
 import com.mbicycle.imarket.services.interfaces.OrderService;
-import com.mbicycle.imarket.utils.enums.OrderStatusType;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,7 +29,7 @@ public class OrderFacadeImpl implements OrderFacade {
     private Converter<Order, OrderDTO> converter;
 
     @Autowired
-    private Converter<OrderDTO, Order> reverseConverter;
+    private Converter<OrderDTO, Order> reversedConverter;
 
     @Autowired
     private Converter<ProfileDTO, Profile> profileConverter;
@@ -49,34 +47,20 @@ public class OrderFacadeImpl implements OrderFacade {
     private ProfileService profileService;
 
     @Override
-    public boolean add(OrderDTO dto) {
-        Order order = reverseConverter.convert(dto);
-        List<OrderProduct> orderProducts = order.getOrderProducts();
-        if (getInitial(order.getProfile()) == null) {
-            service.add(order);
-            order = fillList(order, order.getOrderProducts());
-        } else {
-            order = fillList(order, orderProducts);
-            order.getOrderProducts().addAll(orderProducts);
-        }
+    public boolean update(OrderDTO dto) {
+        Order order = reversedConverter.convert(dto);
         return service.update(order);
     }
 
     @Override
-    public boolean update(OrderDTO dto) {
-
-        Order order = getInitial(reverseConverter.convert(dto).getProfile());
-        return service.update(OrderStatusType.status(dto).apply(dto, order));
+    public boolean managing_update(OrderDTO dto) {
+        Order order = reversedConverter.convert(dto);
+        return service.managing_update(order);
     }
 
     @Override
     public boolean delete(OrderDTO dto) {
-        return service.delete(reverseConverter.convert(dto));
-    }
-
-    @Override
-    public boolean deleteProduct(OrderDTO dto) {
-        return service.deleteOrderProduct(reverseConverter.convert(dto), dto.getProductsIds());
+        return service.delete(reversedConverter.convert(dto));
     }
 
     @Override
@@ -86,31 +70,50 @@ public class OrderFacadeImpl implements OrderFacade {
 
     @Override
     public List<OrderDTO> get(ProfileDTO profileDTO) {
-        return service.findByProfile(profileConverter.convert(profileDTO))
+        return service.findAllByProfile(profileConverter.convert(profileDTO))
                       .stream()
                       .map(converter::convert)
                       .collect(Collectors.toList());
     }
 
-
-    public Order getInitial(Profile profile) {
-        return service.findInitial((profile));
+    @Override
+    public boolean cart_add(OrderDTO dto) {
+        Order order = reversedConverter.convert(dto);
+        List<OrderProduct> orderProducts = order.getOrderProducts();
+        if (getInitial(order.getProfile()) == null) {
+            service.update(order);
+            order = cart_fillList(order, order.getOrderProducts());
+        } else {
+            order = cart_fillList(order, orderProducts);
+            order.getOrderProducts().addAll(orderProducts);
+        }
+        return service.update(order);
     }
 
     @Override
-    public List<ProductDTO> getProducts(OrderDTO dto) {
-        return getInitial(reverseConverter.convert(dto).getProfile())
+    public boolean cart_deleteProduct(OrderDTO dto) {
+        return service.cart_deleteOrderProduct(reversedConverter.convert(dto), dto.getProductsIds());
+    }
+
+    @Override
+    public List<ProductDTO> cart_getProducts(OrderDTO dto) {
+        return getInitial(reversedConverter.convert(dto).getProfile())
         .getOrderProducts()
         .stream()
         .map(orderProduct -> productConverter.convert(orderProduct.getProduct()))
         .collect(Collectors.toList());
     }
 
-    private Order fillList(Order order, List<OrderProduct> orderProducts) {
+    public Order getInitial(Profile profile) {
+        return service.findByProfile(profile);
+    }
+
+    private Order cart_fillList(Order order, List<OrderProduct> orderProducts) {
         order = getInitial(order.getProfile());
         for (OrderProduct o: orderProducts) {
             o.setOrder(order);
         }
         return order;
     }
+
 }

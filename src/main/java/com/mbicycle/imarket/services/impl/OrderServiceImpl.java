@@ -26,9 +26,17 @@ public class OrderServiceImpl implements OrderService {
     private ProductRepository productRepository;
 
     @Override
-    public boolean add(Order order) {
-        orderRepository.save(order);
-        return findByProfile(order.getProfile()) != null;
+    public boolean update(Order order) {
+        //FIXME: A collection with cascade="all-delete-orphan" was no longer referenced by the owning entity instance: com.mbicycle.imarket.beans.entities.Order.orderProducts
+        save(order);
+        return orderRepository.getOne(order.getId()) != null;
+    }
+
+    @Override
+    public boolean managing_update(Order order) {
+        //FIXME: A collection with cascade="all-delete-orphan" was no longer referenced by the owning entity instance: com.mbicycle.imarket.beans.entities.Order.orderProducts
+        save(order);
+        return orderRepository.getOne(order.getId()) != null;
     }
 
     @Override
@@ -37,33 +45,31 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> findByProfile(Profile profile) {
+    public Order findByProfile(Profile profile) {
+        //FIXME: Find another method to get + all usages + method FindInitial
+        List<Order> orders = orderRepository.findByProfile(profile);
+        if(orders != null && orders.size() == 1)
+            return orders.get(0);
         return null;
     }
 
     @Override
-    public boolean update(Order order) {
-        add(order);
-        return findInitial(order.getProfile()).equals(order);
-    }
-
-    @Override
-    public Order findInitial(Profile profile) {
+    public List<Order> findAllByProfile(Profile profile) {
         return orderRepository.findByProfile(profile);
     }
 
     @Override
     public boolean delete(Order order) {
         Order initial;
-        if ((initial = findInitial(order.getProfile())) != null) {
+        if ((initial = findByProfile(order.getProfile())) != null) {
             orderRepository.delete(initial);
         }
-        return findInitial(order.getProfile()) == null;
+        return findByProfile(order.getProfile()) == null;
     }
 
     @Override
-    public boolean deleteOrderProduct(Order emptyOrder, List<Integer> ids) {
-        Order order = findInitial(emptyOrder.getProfile());
+    public boolean cart_deleteOrderProduct(Order emptyOrder, List<Integer> ids) {
+        Order order = findByProfile(emptyOrder.getProfile());
         List<OrderProduct> relations = new ArrayList<>();
         ids.forEach(integer -> {
             OrderProduct match = productRepository.getOne(integer).getOrderProducts()
@@ -78,5 +84,10 @@ public class OrderServiceImpl implements OrderService {
         });
         return relations.stream()
                         .anyMatch(orderProduct -> orderProductRepository.getOne(orderProduct.getId()) != null);
+    }
+
+
+    public void save(Order order) {
+        orderRepository.save(order);
     }
 }

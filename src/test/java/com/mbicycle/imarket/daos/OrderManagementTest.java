@@ -9,9 +9,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import static com.mbicycle.imarket.utils.generators.tests.TestObjectsBuilder.createProfile;
@@ -38,15 +40,18 @@ public class OrderManagementTest {
     @Autowired
     private OrderProductRepository orderProductRepository;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @Before
     public void setUp() {
-        User user = createUser(TEST_PARAM, TEST_PARAM);
-        if (userRepository.findByLoginAndPassword(TEST_PARAM, TEST_PARAM) == null) {
+        User user = createUser(TEST_PARAM, passwordEncoder.encode(TEST_PARAM));
+        if (userRepository.findByLogin(TEST_PARAM) == null) {
             System.out.println("*** Save User. ***");
             userRepository.save(user);
         }
 
-        user = userRepository.findByLoginAndPassword(TEST_PARAM, TEST_PARAM);
+        user = userRepository.findByLogin(TEST_PARAM);
         Profile profile = createProfile(TEST_PARAM, user);
         if (profileRepository.findByUser(user) == null) {
             System.out.println("*** Save Profile. ***");
@@ -54,7 +59,7 @@ public class OrderManagementTest {
         }
         Order order;
 
-        if (orderRepository.findByProfile(profile) == null) {
+        if (orderRepository.findByProfile(profile).size() == 0) {
             System.out.println("*** Save order. ***");
             order = new Order();
             order.setProfile(profile);
@@ -62,7 +67,7 @@ public class OrderManagementTest {
             orderRepository.save(order);
         }
 
-        order = orderRepository.findByProfile(profile);
+        order = orderRepository.findByProfile(profile).get(0);
 
         OrderProduct orderProduct = new OrderProduct();
         orderProduct.setOrder(order);
@@ -72,9 +77,9 @@ public class OrderManagementTest {
         }
     }
 
-    @After
+    //@After
     public void tearDown() {
-        User user = userRepository.findByLoginAndPassword(TEST_PARAM, TEST_PARAM);
+        User user = userRepository.findByLogin(TEST_PARAM);
         Profile profile = profileRepository.findByUser(user);
         if (profile==null) {
             System.out.println("*** Profile is null ***");
@@ -89,7 +94,7 @@ public class OrderManagementTest {
 
     @Test
     public void check_of_order() {
-        User user = userRepository.findByLoginAndPassword(TEST_PARAM, TEST_PARAM);
+        User user = userRepository.findByLogin(TEST_PARAM);
         Profile profile = profileRepository.findByUser(user);
         Order order = null;
         for (Order o: profile.getOrders()) {

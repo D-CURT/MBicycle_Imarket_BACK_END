@@ -4,14 +4,11 @@ import com.mbicycle.imarket.beans.entities.Product;
 import com.mbicycle.imarket.utils.enums.DeliveryType;
 import com.mbicycle.imarket.utils.enums.PaymentType;
 
-import java.util.Date;
 import java.util.List;
 
 public class OrderDTO {
 
     private int id;
-
-    private String userLogin;
 
     private List<Integer> productsIds;
 
@@ -21,23 +18,22 @@ public class OrderDTO {
 
     private DeliveryType delivery;
 
-    private Date dateOpened;
+    private String dateOpened;
 
-    private Date datePaid;
+    private String datePaid;
 
-    private Date dateReady;
+    private String dateReady;
 
-    private Date dateClosed;
+    private String dateClosed;
 
-    private Date dateSent;
+    private String dateSent;
 
-    private Date dateGot;
+    private String dateGot;
 
     public OrderDTO() {
     }
 
-    public OrderDTO(String userLogin,List<Integer> productsIds, PaymentType payment, DeliveryType delivery, Date dateOpened, Date datePaid, Date dateReady, Date dateClosed, Date dateSent, Date dateGot) {
-        setUserLogin(userLogin);
+    public OrderDTO(List<Integer> productsIds, PaymentType payment, DeliveryType delivery, String dateOpened, String datePaid, String dateReady, String dateClosed, String dateSent, String dateGot) {
         setProductsIds(productsIds);
         setPayment(payment);
         setDelivery(delivery);
@@ -73,60 +69,52 @@ public class OrderDTO {
         this.delivery = delivery;
     }
 
-    public Date getDateOpened() {
+    public String getDateOpened() {
         return dateOpened;
     }
 
-    public void setDateOpened(Date dateOpened) {
+    public void setDateOpened(String dateOpened) {
         this.dateOpened = dateOpened;
     }
 
-    public Date getDatePaid() {
+    public String getDatePaid() {
         return datePaid;
     }
 
-    public void setDatePaid(Date datePaid) {
+    public void setDatePaid(String datePaid) {
         this.datePaid = datePaid;
     }
 
-    public Date getDateReady() {
+    public String getDateReady() {
         return dateReady;
     }
 
-    public void setDateReady(Date dateReady) {
+    public void setDateReady(String dateReady) {
         this.dateReady = dateReady;
     }
 
-    public Date getDateClosed() {
+    public String getDateClosed() {
         return dateClosed;
     }
 
-    public void setDateClosed(Date dateClosed) {
+    public void setDateClosed(String dateClosed) {
         this.dateClosed = dateClosed;
     }
 
-    public Date getDateSent() {
+    public String getDateSent() {
         return dateSent;
     }
 
-    public void setDateSent(Date dateSent) {
+    public void setDateSent(String dateSent) {
         this.dateSent = dateSent;
     }
 
-    public Date getDateGot() {
+    public String getDateGot() {
         return dateGot;
     }
 
-    public void setDateGot(Date dateGot) {
+    public void setDateGot(String dateGot) {
         this.dateGot = dateGot;
-    }
-
-    public String getUserLogin() {
-        return userLogin;
-    }
-
-    public void setUserLogin(String userLogin) {
-        this.userLogin = userLogin;
     }
 
     public List<Integer> getProductsIds() {

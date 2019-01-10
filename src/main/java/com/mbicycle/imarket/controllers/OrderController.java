@@ -3,17 +3,11 @@ package com.mbicycle.imarket.controllers;
 import com.mbicycle.imarket.beans.dto.OrderDTO;
 import com.mbicycle.imarket.beans.dto.ProductDTO;
 import com.mbicycle.imarket.beans.dto.ProfileDTO;
-
-
-import com.mbicycle.imarket.beans.entities.Product;
 import com.mbicycle.imarket.facades.interfaces.OrderFacade;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-
 import static com.mbicycle.imarket.utils.ResponseEntityBuilder.entityWithContent;
 import static com.mbicycle.imarket.utils.ResponseEntityBuilder.entityWithStatus;
 
@@ -29,11 +23,6 @@ public class OrderController {
         return entityWithContent(facade.getAll());
     }
 
-    @PostMapping("/add")
-    public ResponseEntity add(@RequestBody OrderDTO dto) {
-        return entityWithStatus(facade.add(dto));
-    }
-
     @PostMapping("/delete")
     public ResponseEntity delete(){
         return entityWithStatus(facade.delete(new OrderDTO()));
@@ -44,9 +33,9 @@ public class OrderController {
         return entityWithStatus(facade.update(dto));
     }
 
-    @PostMapping("/deleteProduct")
-    public ResponseEntity deleteProduct(@RequestBody OrderDTO dto) {
-        return entityWithStatus(facade.deleteProduct(dto));
+    @PostMapping("/managing/update")
+    public ResponseEntity managing_update(@RequestBody OrderDTO dto) {
+        return entityWithStatus(facade.managing_update(dto));
     }
 
     @GetMapping("/getByProfile")
@@ -54,8 +43,17 @@ public class OrderController {
         return entityWithContent(facade.get(profileDTO));
     }
 
-    @GetMapping(value = "/products")
-    public ResponseEntity<List<ProductDTO>> getProducts() {
-        return entityWithContent(facade.getProducts(new OrderDTO()));
+    @PostMapping("/cart/add")
+    public ResponseEntity cart_add(@RequestBody OrderDTO dto) {
+        return entityWithStatus(facade.cart_add(dto));
+    }
+
+    @PostMapping("/cart/deleteProduct")
+    public ResponseEntity cart_deleteProduct(@RequestBody OrderDTO dto) {
+        return entityWithStatus(facade.cart_deleteProduct(dto));
+    }
+    @GetMapping(value = "/cart/products")
+    public ResponseEntity<List<ProductDTO>> cart_getProducts() {
+        return entityWithContent(facade.cart_getProducts(new OrderDTO()));
     }
 }
