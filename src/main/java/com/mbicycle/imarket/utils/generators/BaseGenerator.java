@@ -119,10 +119,12 @@ public class BaseGenerator {
 
             user.setRoles(roles);
             Profile profile = new Profile(getWord(ENG), getWord(ENG), getWord(DIGIT), getWord(RUS), user, getWord(RUS));
+            List<Profile> profiles = new ArrayList<>();
+            profiles.add(profile);
 
             List<Coupon> coupons = new ArrayList<>();
             for (int j = 0; j < RND.nextInt(4); j++) {
-                Coupon coupon = new Coupon(getSentense(RUS, 8), RND.nextInt(20), profile);
+                Coupon coupon = new Coupon(getSentense(RUS, 8), RND.nextInt(20), profiles);
                 coupons.add(coupon);
             }
             profile.setCoupons(coupons);

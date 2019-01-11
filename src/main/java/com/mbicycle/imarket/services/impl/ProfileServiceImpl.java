@@ -79,4 +79,10 @@ public class ProfileServiceImpl implements ProfileService {
         return repository.findByOrderByNameAsc();
     }
 
+
+    @Override
+    public List<Profile> getCustomers(){
+        return repository.getCustomers();
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.mbicycle.imarket.controllers;
 
 import com.mbicycle.imarket.beans.dto.ProfileDTO;
+import com.mbicycle.imarket.beans.dto.UserDTO;
 import com.mbicycle.imarket.facades.interfaces.ProfileFacade;
 import com.mbicycle.imarket.services.securities.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,11 @@ public class ProfileController {
     @GetMapping(MAPPING + "/allProfilesSortedByName")
     public ResponseEntity<List<ProfileDTO>> getAllProfilesSortedByName() {
         return entityWithContent(profileFacade.findByOrderByName());
+    }
+
+    @GetMapping(MAPPING + "/customers")
+    public ResponseEntity<List<ProfileDTO>> getAllCustomer() {
+        return entityWithContent(profileFacade.getCustomers());
     }
 
     @GetMapping(value = MAPPING + "/get", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

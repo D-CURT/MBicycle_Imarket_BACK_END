@@ -83,4 +83,12 @@ public class ProfileFacadeImpl implements ProfileFacade {
                              .collect(Collectors.toList());
     }
 
+    @Override
+    public List<ProfileDTO> getCustomers(){
+        return profileService.getCustomers()
+                .stream()
+                .map(profileConverter::convert)
+                .collect(Collectors.toList());
+    }
+
 }

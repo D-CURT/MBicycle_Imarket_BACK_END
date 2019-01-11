@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -51,7 +52,11 @@ public class CouponRepositoryTest {
             profileRepository.save(profile);
         }
 
-        Coupon coupon = new Coupon(TEST_PARAM, 1, profile);
+
+        List<Profile> profiles = new ArrayList<>();
+        profiles.add(profile);
+
+        Coupon coupon = new Coupon(TEST_PARAM, 1, profiles);
         if (couponRepository.findByDescription(TEST_PARAM) == null) {
             System.out.println("***  Saving coupon. ***");
             couponRepository.save(coupon);
