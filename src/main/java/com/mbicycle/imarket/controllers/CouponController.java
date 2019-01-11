@@ -42,4 +42,6 @@ public class CouponController {
     public ResponseEntity delete(@RequestBody List<String> ids){
         return entityWithStatus(facade.deleteByIds(ids));
     }
+
+
 }
