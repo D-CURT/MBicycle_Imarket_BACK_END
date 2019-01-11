@@ -58,10 +58,10 @@ public class OrderFacadeImpl implements OrderFacade {
         return service.managing_update(order);
     }
 
-    @Override
-    public boolean delete(OrderDTO dto) {
-        return service.delete(reversedConverter.convert(dto));
-    }
+//    @Override
+//    public boolean delete(OrderDTO dto) {
+//        return service.delete(reversedConverter.convert(dto));
+//    }
 
     @Override
     public List<OrderDTO> getAll() {
@@ -105,7 +105,7 @@ public class OrderFacadeImpl implements OrderFacade {
     }
 
     public Order getInitial(Profile profile) {
-        return service.findByProfile(profile);
+        return service.cart_findByProfile(profile);
     }
 
     private Order cart_fillList(Order order, List<OrderProduct> orderProducts) {

@@ -40,17 +40,17 @@ public class ReversedOrderConverter extends AbstractConverter<OrderDTO, Order> {
 
         SimpleDateFormat sdfGot = new SimpleDateFormat("M/d/yy, h:mm a", Locale.US);
         try {
-            if(source.getDateOpened()!=null)
+            if(source.getDateOpened() != null)
                 target.setDateOpened(sdfGot.parse(source.getDateOpened()));
-            if(source.getDateClosed()!=null)
+            if(source.getDateClosed() != null)
                 target.setDateClosed(sdfGot.parse(source.getDateClosed()));
-            if(source.getDateGot()!=null)
+            if(source.getDateGot() != null)
                 target.setDateGot(sdfGot.parse(source.getDateGot()));
-            if(source.getDatePaid()!=null)
+            if(source.getDatePaid() != null)
                 target.setDatePaid(sdfGot.parse(source.getDatePaid()));
-            if(source.getDateReady()!=null)
+            if(source.getDateReady() != null)
                 target.setDateReady(sdfGot.parse(source.getDateReady()));
-            if(source.getDateSent()!=null)
+            if(source.getDateSent() != null)
                 target.setDateSent(sdfGot.parse(source.getDateSent()));
         }
         catch (ParseException pe) {

@@ -13,13 +13,13 @@ public interface OrderService {
 
     boolean managing_update(Order order);
 
-    boolean delete(Order order);
+//    boolean delete(Order order);
 
     List<Order> getAll();
-
-    Order findByProfile(Profile profile);
 
     List<Order> findAllByProfile(Profile profile);
 
     boolean cart_deleteOrderProduct(Order order, List<Integer> ids);
+
+    Order cart_findByProfile(Profile profile);
 }

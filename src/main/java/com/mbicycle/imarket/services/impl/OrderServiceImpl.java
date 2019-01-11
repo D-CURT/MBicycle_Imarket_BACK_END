@@ -8,6 +8,7 @@ import com.mbicycle.imarket.daos.OrderRepository;
 import com.mbicycle.imarket.daos.ProductRepository;
 import com.mbicycle.imarket.services.interfaces.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,15 +28,43 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean update(Order order) {
-        //FIXME: A collection with cascade="all-delete-orphan" was no longer referenced by the owning entity instance: com.mbicycle.imarket.beans.entities.Order.orderProducts
-        save(order);
+        Order orderInDb = orderRepository.getOne(order.getId());
+        if(order.getDateClosed() != null)
+            orderInDb.setDateClosed(order.getDateClosed());
+        if(order.getDateGot() != null)
+            orderInDb.setDateGot(order.getDateGot());
+        if(order.getDateOpened() != null)
+            orderInDb.setDateOpened(order.getDateOpened());
+        if(order.getDatePaid() != null)
+            orderInDb.setDatePaid(order.getDatePaid());
+        if(order.getDateReady() != null)
+            orderInDb.setDateReady(order.getDateReady());
+        if(order.getDateSent() != null)
+            orderInDb.setDateSent(order.getDateSent());
+        if(order.getDelivery() != null)
+            orderInDb.setDelivery(order.getDelivery());
+        if(order.getPayment() != null)
+            orderInDb.setPayment(order.getPayment());
+        save(orderInDb);
         return orderRepository.getOne(order.getId()) != null;
     }
 
     @Override
     public boolean managing_update(Order order) {
-        //FIXME: A collection with cascade="all-delete-orphan" was no longer referenced by the owning entity instance: com.mbicycle.imarket.beans.entities.Order.orderProducts
-        save(order);
+        Order orderInDb = orderRepository.getOne(order.getId());
+        if(order.getDateClosed() != null)
+            orderInDb.setDateClosed(order.getDateClosed());
+        if(order.getDateGot() != null)
+            orderInDb.setDateGot(order.getDateGot());
+        if(order.getDateOpened() != null)
+            orderInDb.setDateOpened(order.getDateOpened());
+        if(order.getDatePaid() != null)
+            orderInDb.setDatePaid(order.getDatePaid());
+        if(order.getDateReady() != null)
+            orderInDb.setDateReady(order.getDateReady());
+        if(order.getDateSent() != null)
+            orderInDb.setDateSent(order.getDateSent());
+        save(orderInDb);
         return orderRepository.getOne(order.getId()) != null;
     }
 
@@ -45,31 +74,22 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order findByProfile(Profile profile) {
-        //FIXME: Find another method to get + all usages + method FindInitial
-        List<Order> orders = orderRepository.findByProfile(profile);
-        if(orders != null && orders.size() == 1)
-            return orders.get(0);
-        return null;
-    }
-
-    @Override
     public List<Order> findAllByProfile(Profile profile) {
         return orderRepository.findByProfile(profile);
     }
 
-    @Override
-    public boolean delete(Order order) {
-        Order initial;
-        if ((initial = findByProfile(order.getProfile())) != null) {
-            orderRepository.delete(initial);
-        }
-        return findByProfile(order.getProfile()) == null;
-    }
+//    @Override
+//    public boolean delete(Order order) {
+//        Order initial;
+//        if ((initial = findByProfile(order.getProfile())) != null) {
+//            orderRepository.delete(initial);
+//        }
+//        return findByProfile(order.getProfile()) == null;
+//    }
 
     @Override
     public boolean cart_deleteOrderProduct(Order emptyOrder, List<Integer> ids) {
-        Order order = findByProfile(emptyOrder.getProfile());
+        Order order = cart_findByProfile(emptyOrder.getProfile());
         List<OrderProduct> relations = new ArrayList<>();
         ids.forEach(integer -> {
             OrderProduct match = productRepository.getOne(integer).getOrderProducts()
@@ -86,8 +106,13 @@ public class OrderServiceImpl implements OrderService {
                         .anyMatch(orderProduct -> orderProductRepository.getOne(orderProduct.getId()) != null);
     }
 
+    @Override
+    public Order cart_findByProfile(Profile profile) {
+        return orderRepository.findByProfileAndDateOpenedIsNull(profile);
+    }
 
     public void save(Order order) {
         orderRepository.save(order);
     }
+
 }

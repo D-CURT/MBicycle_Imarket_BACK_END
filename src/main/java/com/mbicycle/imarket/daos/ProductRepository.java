@@ -25,7 +25,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     List<Product> findByStoreStatusIsTrueAndDiscountIsNotNullOrderByNameAsc();
 
-
     List<Product> findByGroupOrderByNameAsc(Group group);
 
     List<Product> findByGroupOrderByPriceAsc(Group group);

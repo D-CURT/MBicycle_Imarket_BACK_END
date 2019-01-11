@@ -23,10 +23,10 @@ public class OrderController {
         return entityWithContent(facade.getAll());
     }
 
-    @PostMapping("/delete")
-    public ResponseEntity delete(){
-        return entityWithStatus(facade.delete(new OrderDTO()));
-    }
+//    @PostMapping("/delete")
+//    public ResponseEntity delete(){
+//        return entityWithStatus(facade.delete(new OrderDTO()));
+//    }
 
     @PostMapping("/update")
     public ResponseEntity update(@RequestBody OrderDTO dto) {
@@ -52,6 +52,7 @@ public class OrderController {
     public ResponseEntity cart_deleteProduct(@RequestBody OrderDTO dto) {
         return entityWithStatus(facade.cart_deleteProduct(dto));
     }
+
     @GetMapping(value = "/cart/products")
     public ResponseEntity<List<ProductDTO>> cart_getProducts() {
         return entityWithContent(facade.cart_getProducts(new OrderDTO()));

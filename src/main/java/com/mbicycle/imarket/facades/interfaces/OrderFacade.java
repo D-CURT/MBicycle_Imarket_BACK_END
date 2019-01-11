@@ -15,7 +15,7 @@ public interface OrderFacade {
 
     boolean managing_update(OrderDTO orderDTO);
 
-    boolean delete(OrderDTO orderDTO);
+//    boolean delete(OrderDTO orderDTO);
 
     List<OrderDTO> getAll();
 
