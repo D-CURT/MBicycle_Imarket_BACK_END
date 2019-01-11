@@ -78,6 +78,6 @@ public class ConverterConfig {
 
     @Bean
     public Converter<OrderDTO, Order> reverseOrderConverter(){
-        return new ReverseOrderConverter();
+        return new ReversedOrderConverter();
     }
 }

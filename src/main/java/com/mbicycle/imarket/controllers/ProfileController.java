@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,9 +16,8 @@ import static com.mbicycle.imarket.utils.ResponseEntityBuilder.entityWithContent
 import static com.mbicycle.imarket.utils.ResponseEntityBuilder.entityWithStatus;
 
 @RestController
+@RequestMapping("/profiles")
 public class ProfileController {
-    private static final String MAPPING = "/profiles";
-
     @Autowired
     @SuppressWarnings("ALL")
     private ProfileFacade profileFacade;
@@ -29,33 +25,38 @@ public class ProfileController {
     @Autowired
     private SecurityService securityService;
 
-    @GetMapping(MAPPING + "/allProfilesSortedByName")
+    @GetMapping("/allProfilesSortedByName")
     public ResponseEntity<List<ProfileDTO>> getAllProfilesSortedByName() {
         return entityWithContent(profileFacade.findByOrderByName());
     }
 
-    @GetMapping(MAPPING + "/customers")
+    @GetMapping(value = "/customers", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<ProfileDTO>> getAllCustomer() {
         return entityWithContent(profileFacade.getCustomers());
     }
 
-    @GetMapping(value = MAPPING + "/get", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "/get", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<ProfileDTO> get(@RequestBody(required = false) ProfileDTO dto) {
         return entityWithContent(profileFacade.get(dto));
     }
 
-    @PostMapping(value = MAPPING + "/update", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity update(@RequestBody ProfileDTO dto) {
         return entityWithStatus(profileFacade.update(dto));
     }
 
-    @PostMapping(value = MAPPING + "/add", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(value = "/add", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity add(@RequestBody ProfileDTO dto) {
         return entityWithStatus(profileFacade.add(dto));
     }
 
-    @PostMapping(value = MAPPING + "/delete", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity delete(@RequestBody ProfileDTO dto) {
         return entityWithStatus(profileFacade.delete(dto));
+    }
+
+    @PostMapping(value = "/updateRole", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity updateRole(@RequestBody ProfileDTO dto) {
+        return entityWithStatus(profileFacade.updateRole(dto));
     }
 }

@@ -39,7 +39,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/orders/**").hasAuthority(RoleType.CUSTOMER.name())
                 //.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()   //Already fixed in a better way below
                 .and()
-                .logout().logoutUrl("/logout").logoutSuccessUrl("/logoutdone")
+                .logout().logoutUrl("/logout").logoutSuccessUrl("/logoutdone").addLogoutHandler(new TodosLogoutHandler())
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
                 .and()
@@ -49,11 +49,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
 
-    /* To allow Pre-flight [OPTIONS] request from browser */
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**");
-    }
+//    /* To allow Pre-flight [OPTIONS] request from browser */
+//    @Override
+//    public void configure(WebSecurity web) throws Exception {
+//        web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**");
+//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

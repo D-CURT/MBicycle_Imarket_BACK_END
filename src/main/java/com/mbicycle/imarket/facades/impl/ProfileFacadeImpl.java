@@ -1,6 +1,7 @@
 package com.mbicycle.imarket.facades.impl;
 
 import com.mbicycle.imarket.beans.entities.Profile;
+import com.mbicycle.imarket.beans.entities.Role;
 import com.mbicycle.imarket.beans.entities.User;
 import com.mbicycle.imarket.services.securities.SecurityService;
 import com.mbicycle.imarket.utils.converters.Converter;
@@ -18,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
 @SuppressWarnings("ALL")
 public class ProfileFacadeImpl implements ProfileFacade {
 
@@ -81,6 +81,18 @@ public class ProfileFacadeImpl implements ProfileFacade {
                              .stream()
                              .map(profileConverter::convert)
                              .collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean updateRole(ProfileDTO dto) {
+
+        Profile convert = reversedProfileConverter.convert(dto);
+        List<Role> roles2Update = new ArrayList<>();
+        for (String role : dto.getRoles()) {  //Assuming default role is already set, or it may produce NullPointerException
+            roles2Update.add(RoleType.valueOf(role).getRole());
+        }
+
+        return profileService.updateRole(convert,roles2Update);
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.mbicycle.imarket.facades.interfaces;
 
 import com.mbicycle.imarket.beans.dto.ProfileDTO;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -17,6 +16,8 @@ public interface ProfileFacade {
     ProfileDTO get(ProfileDTO dto);
 
     List<ProfileDTO> findByOrderByName();
+
+    boolean updateRole(ProfileDTO dto);
 
     List<ProfileDTO> getCustomers();
 }

@@ -1,6 +1,7 @@
 package com.mbicycle.imarket.services.impl;
 
 import com.mbicycle.imarket.beans.entities.Profile;
+import com.mbicycle.imarket.beans.entities.Role;
 import com.mbicycle.imarket.beans.entities.User;
 import com.mbicycle.imarket.daos.ProfileRepository;
 import com.mbicycle.imarket.daos.UserRepository;
@@ -72,6 +73,15 @@ public class ProfileServiceImpl implements ProfileService {
             return repository.findByUser(user);
         }
         return null;
+    }
+
+    @Override
+    public boolean updateRole(Profile convert, List<Role> roles2Update) {
+        User profileUser = convert.getUser();
+        profileUser.setRoles(roles2Update);
+        convert.setUser(profileUser);
+        repository.save(convert);
+        return true;
     }
 
     @Override

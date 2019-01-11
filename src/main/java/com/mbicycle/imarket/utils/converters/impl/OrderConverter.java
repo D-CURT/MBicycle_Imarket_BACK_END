@@ -5,6 +5,7 @@ import com.mbicycle.imarket.beans.entities.Order;
 import com.mbicycle.imarket.beans.entities.OrderProduct;
 import com.mbicycle.imarket.utils.converters.AbstractConverter;
 
+import java.text.DateFormat;
 import java.util.stream.Collectors;
 
 public class OrderConverter extends AbstractConverter<Order, OrderDTO> {
@@ -14,13 +15,21 @@ public class OrderConverter extends AbstractConverter<Order, OrderDTO> {
         target.setId(source.getId());
         target.setDelivery(source.getDelivery());
         target.setPayment(source.getPayment());
-        target.setDateOpened(source.getDateOpened());
-        target.setDateClosed(source.getDateClosed());
-        target.setDateGot(source.getDateGot());
-        target.setDatePaid(source.getDatePaid());
-        target.setDateReady(source.getDateReady());
-        target.setDateSent(source.getDateSent());
-        target.setUserLogin(source.getProfile().getUser().getLogin());
+
+        DateFormat dateFormatter = DateFormat.getDateTimeInstance();
+        if(source.getDateOpened() != null)
+            target.setDateOpened(dateFormatter.format(source.getDateOpened()));
+        if(source.getDateClosed() != null)
+            target.setDateClosed(dateFormatter.format(source.getDateClosed()));
+        if(source.getDateGot() != null)
+            target.setDateGot(dateFormatter.format(source.getDateGot()));
+        if(source.getDatePaid() != null)
+            target.setDatePaid(dateFormatter.format(source.getDatePaid()));
+        if(source.getDateReady() != null)
+            target.setDateReady(dateFormatter.format(source.getDateReady()));
+        if(source.getDateSent() != null)
+            target.setDateSent(dateFormatter.format(source.getDateSent()));
+
         target.setProducts(source.getOrderProducts()
                                       .stream()
                                       .map(OrderProduct::getProduct)
