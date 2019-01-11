@@ -34,9 +34,9 @@ public class Profile {
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @Fetch(FetchMode.SUBSELECT)
     @JoinTable(
-            name = "coupons",
-            joinColumns = @JoinColumn(name = "id"),
-            inverseJoinColumns = @JoinColumn(name = "id")
+            name = "profile_coupons",
+            joinColumns = @JoinColumn(name = "id_profile"),
+            inverseJoinColumns = @JoinColumn(name = "id_coupon")
     )
     private List<Coupon> coupons;
 

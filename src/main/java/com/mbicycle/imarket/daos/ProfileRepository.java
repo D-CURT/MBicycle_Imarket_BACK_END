@@ -16,7 +16,7 @@ public interface ProfileRepository extends JpaRepository<Profile, Integer> {
     List<Profile> findByOrderByNameAsc();
 
     @Query(value = "SELECT profiles.* FROM profiles, users, user_roles, roles " +
-            "WHERE roles = 0 AND user_roles.id_user = user.id " +
-            "AND user.id = profiles.id_user ", nativeQuery = true)
+            "WHERE roles.role = 0 AND user_roles.id_user = users.id " +
+            "AND users.id = profiles.id_user ", nativeQuery = true)
     List<Profile> getCustomers();
 }

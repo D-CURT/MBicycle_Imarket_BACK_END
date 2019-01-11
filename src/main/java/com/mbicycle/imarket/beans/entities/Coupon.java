@@ -1,5 +1,6 @@
 package com.mbicycle.imarket.beans.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -19,13 +20,8 @@ public class Coupon {
 
     private Integer sum;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
-    @Fetch(FetchMode.SUBSELECT)
-    @JoinTable(
-            name = "profiles",
-            joinColumns = @JoinColumn(name = "id"),
-            inverseJoinColumns = @JoinColumn(name = "id")
-    )
+    @JsonIgnore
+    @ManyToMany(mappedBy = "coupons", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Profile> profiles;
 
     public Coupon() {
