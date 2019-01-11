@@ -77,7 +77,7 @@ public class OrderManagementTest {
         }
     }
 
-    //@After
+    @After
     public void tearDown() {
         User user = userRepository.findByLogin(TEST_PARAM);
         Profile profile = profileRepository.findByUser(user);
