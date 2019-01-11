@@ -13,6 +13,7 @@ public class OrderConverter extends AbstractConverter<Order, OrderDTO> {
     @Override
     public void convert(Order source, OrderDTO target) {
         target.setId(source.getId());
+        target.setLogin(source.getProfile().getUser().getLogin());
         target.setDelivery(source.getDelivery());
         target.setPayment(source.getPayment());
 
