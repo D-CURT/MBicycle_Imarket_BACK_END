@@ -22,12 +22,11 @@ public class FacadesConfig {
     public RoleFacade roleFacade() {
         return new SimpleRoleFacade();
     }
-//
-//    @Bean
-//    public ProfileFacade profileFacade() {
-//        return new ProfileFacadeImpl();
-//    }
 
+    @Bean
+    public ProfileFacade profileFacade() {
+        return new ProfileFacadeImpl();
+    }
 
     @Bean
     public OrderFacade orderFacade() {

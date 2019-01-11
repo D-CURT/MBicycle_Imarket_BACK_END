@@ -11,10 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,10 +19,9 @@ import static com.mbicycle.imarket.utils.ResponseEntityBuilder.entityWithContent
 import static com.mbicycle.imarket.utils.ResponseEntityBuilder.entityWithStatus;
 
 @RestController
+@RequestMapping("/users")
 @SuppressWarnings("ALL")
 public class UserController {
-    private static final String MAPPING = "/users";
-
     @Autowired
     private UserService userService;
 
@@ -38,7 +34,7 @@ public class UserController {
     @Autowired
     private ProfileFacade profileFacade;
 
-    @GetMapping(MAPPING + "/allUsersSortedByLogin")
+    @GetMapping("/allUsersSortedByLogin")
     public ResponseEntity<List<UserDTO>> getAllUsersSortedByLogin() {
         return entityWithContent(userFacade.findByOrderByLogin());
     }
@@ -53,17 +49,17 @@ public class UserController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @GetMapping(value = MAPPING + "/get", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "/get", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<UserDTO> getByLogin(@RequestBody UserDTO dto) {
          return entityWithContent(userFacade.get(dto));
     }
 
-    @PostMapping(value = MAPPING + "/add", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(value = "/add", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity add(@RequestBody UserDTO dto) {
         return entityWithStatus(userFacade.add(dto));
     }
 
-    @PostMapping(value = MAPPING + "/delete", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity delete(@RequestBody UserDTO dto) {
         return entityWithStatus(userFacade.delete(dto));
     }
