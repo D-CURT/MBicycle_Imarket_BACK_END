@@ -20,4 +20,6 @@ public interface ProfileService {
     List<Profile> findByOrderByName();
 
     boolean updateRole(Profile convert, List<Role> roles2Update);
+
+    List<Profile> getCustomers();
 }

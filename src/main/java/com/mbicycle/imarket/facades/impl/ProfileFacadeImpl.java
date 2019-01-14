@@ -94,4 +94,13 @@ public class ProfileFacadeImpl implements ProfileFacade {
 
         return profileService.updateRole(convert,roles2Update);
     }
+
+    @Override
+    public List<ProfileDTO> getCustomers(){
+        return profileService.getCustomers()
+                .stream()
+                .map(profileConverter::convert)
+                .collect(Collectors.toList());
+    }
+
 }

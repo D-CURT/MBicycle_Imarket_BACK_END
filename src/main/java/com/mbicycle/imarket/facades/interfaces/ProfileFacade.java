@@ -18,4 +18,6 @@ public interface ProfileFacade {
     List<ProfileDTO> findByOrderByName();
 
     boolean updateRole(ProfileDTO dto);
+
+    List<ProfileDTO> getCustomers();
 }

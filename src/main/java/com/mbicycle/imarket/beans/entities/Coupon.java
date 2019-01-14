@@ -1,6 +1,11 @@
 package com.mbicycle.imarket.beans.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "coupons")
@@ -15,17 +20,17 @@ public class Coupon {
 
     private Integer sum;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_profile")
-    private Profile profile;
+    @JsonIgnore
+    @ManyToMany(mappedBy = "coupons", fetch = FetchType.EAGER)
+    private List<Profile> profiles;
 
     public Coupon() {
     }
 
-    public Coupon(String description, Integer sum, Profile profile) {
+    public Coupon(String description, Integer sum, List<Profile> profiles) {
         setDescription(description);
         setSum(sum);
-        setProfile(profile);
+        setProfiles(profiles);
     }
 
     public Coupon(String description, Integer sum) {
@@ -57,12 +62,12 @@ public class Coupon {
         this.sum = sum;
     }
 
-    public Profile getProfile() {
-        return profile;
+    public List<Profile> getProfiles() {
+        return profiles;
     }
 
-    public void setProfile(Profile profile) {
-        this.profile = profile;
+    public void setProfiles(List<Profile> profiles) {
+        this.profiles = profiles;
     }
 
 }

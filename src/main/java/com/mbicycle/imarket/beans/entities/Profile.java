@@ -31,7 +31,13 @@ public class Profile {
     @JoinColumn(name = "id_user", nullable = false)
     private User user;
 
-    @OneToMany(mappedBy = "profile", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @Fetch(FetchMode.SUBSELECT)
+    @JoinTable(
+            name = "profile_coupons",
+            joinColumns = @JoinColumn(name = "id_profile"),
+            inverseJoinColumns = @JoinColumn(name = "id_coupon")
+    )
     private List<Coupon> coupons;
 
     @Column(length = 2)

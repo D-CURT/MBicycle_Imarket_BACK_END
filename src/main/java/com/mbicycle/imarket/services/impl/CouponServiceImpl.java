@@ -50,7 +50,7 @@ public class CouponServiceImpl implements CouponService {
 
     @Override
     public List<Coupon> findByProfile(Profile profile) {
-        return repository.findByProfile(profile);
+        return repository.findByProfiles(profile);
     }
 
 }

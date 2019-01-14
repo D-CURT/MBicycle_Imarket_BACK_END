@@ -35,6 +35,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         if (user == null) {
             System.out.println("***SOUT***: User not authorized.");
+            System.out.println(new BCryptPasswordEncoder().encode("admin"));
             throw new UsernameNotFoundException("***EXCEPTION***: User not authorized.");
         }
 
