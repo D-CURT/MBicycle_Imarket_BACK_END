@@ -21,7 +21,7 @@ public class Coupon {
     private Integer sum;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "coupons", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "coupons", fetch = FetchType.EAGER)
     private List<Profile> profiles;
 
     public Coupon() {
