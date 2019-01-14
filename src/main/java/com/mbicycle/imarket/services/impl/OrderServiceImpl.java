@@ -111,8 +111,13 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.findByProfileAndDateOpenedIsNull(profile);
     }
 
-    public void save(Order order) {
-        orderRepository.save(order);
+    @Override
+    public boolean cart_update(Order order) {
+        return save(order);
+    }
+
+    public boolean save(Order order) {
+        return orderRepository.save(order) != null;
     }
 
 }

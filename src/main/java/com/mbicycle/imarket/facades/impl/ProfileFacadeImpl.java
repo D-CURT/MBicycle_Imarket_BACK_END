@@ -13,7 +13,6 @@ import com.mbicycle.imarket.services.interfaces.ProfileService;
 import com.mbicycle.imarket.services.interfaces.UserService;
 import com.mbicycle.imarket.utils.enums.RoleType;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,11 +67,10 @@ public class ProfileFacadeImpl implements ProfileFacade {
     }
 
     @Override
-    public ProfileDTO get(ProfileDTO dto) {
-//        UserDTO userDTO = new UserDTO(dto.getLogin(), dto.getPassword(), dto.getRoles());
-//        return profileConverter.convert(profileService.get(reverseduserConverter.convert(userDTO)));
-        Profile profileFromdDTO = reversedProfileConverter.convert(dto);
-        return profileConverter.convert(profileService.get(profileFromdDTO.getUser()));
+    public ProfileDTO get() {
+        User user = new User(securityService.findLoggedInUsername());
+        Profile profile = profileService.get(user);
+        return profileConverter.convert(profile);  //Autoinserting loggined user.
     }
 
     @Override

@@ -22,4 +22,6 @@ public interface OrderService {
     boolean cart_deleteOrderProduct(Order order, List<Integer> ids);
 
     Order cart_findByProfile(Profile profile);
+
+    boolean cart_update(Order order);
 }

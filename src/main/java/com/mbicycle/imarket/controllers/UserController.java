@@ -39,16 +39,6 @@ public class UserController {
         return entityWithContent(userFacade.findByOrderByLogin());
     }
 
-    @PostMapping(value = "/registration", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity registration(@RequestBody ProfileDTO profileDTO, BindingResult bindingResult) {
-        System.out.println("***SOUT***: Registration of login=" + profileDTO.getLogin() + " and password="+profileDTO.getPassword());
-        if (!profileFacade.add(profileDTO)){
-            System.out.println("***SOUT***: Есть такой юзер");
-            return new ResponseEntity(HttpStatus.valueOf(409));
-        }
-        return new ResponseEntity(HttpStatus.OK);
-    }
-
     @GetMapping(value = "/get", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<UserDTO> getByLogin(@RequestBody UserDTO dto) {
          return entityWithContent(userFacade.get(dto));

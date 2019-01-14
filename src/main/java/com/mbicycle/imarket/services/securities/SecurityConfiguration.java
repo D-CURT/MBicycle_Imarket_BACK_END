@@ -1,5 +1,6 @@
 package com.mbicycle.imarket.services.securities;
 
+import com.mbicycle.imarket.controllers.filters.CorsFilter;
 import com.mbicycle.imarket.utils.enums.RoleType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -12,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.session.SessionManagementFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -19,6 +21,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 //@Order(80)
 //@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+
+    @Bean
+    CorsFilter corsFilter() {
+        CorsFilter filter = new CorsFilter();
+        return filter;
+    }
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -30,6 +38,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 
     httpSecurity
+                .addFilterBefore(corsFilter(), SessionManagementFilter.class)
                 .userDetailsService(userDetailsService)
                 .csrf().disable()       // Временно пока не добавим токен ф форму
                 .authorizeRequests()
@@ -37,7 +46,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login").permitAll()
                 .antMatchers("/index").permitAll()
                 .antMatchers("/orders/**").hasAuthority(RoleType.CUSTOMER.name())
-                //.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()   //Already fixed in a better way below
+//                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()   //Already fixed in a better way below
                 .and()
                 .logout().logoutUrl("/logout").logoutSuccessUrl("/logoutdone").addLogoutHandler(new TodosLogoutHandler())
                 .invalidateHttpSession(true)
@@ -48,12 +57,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(new MyBasicAuthenticationEntryPoint());
     }
 
-
-//    /* To allow Pre-flight [OPTIONS] request from browser */
-//    @Override
-//    public void configure(WebSecurity web) throws Exception {
-//        web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**");
-//    }
+    /* To allow Pre-flight [OPTIONS] request from browser */
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**");
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

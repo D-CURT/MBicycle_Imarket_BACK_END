@@ -53,7 +53,7 @@ public class OrderController {
         return entityWithStatus(facade.cart_deleteProduct(dto));
     }
 
-    @GetMapping(value = "/cart/products")
+    @GetMapping(value = "/cart/getProducts")
     public ResponseEntity<List<ProductDTO>> cart_getProducts() {
         return entityWithContent(facade.cart_getProducts(new OrderDTO()));
     }

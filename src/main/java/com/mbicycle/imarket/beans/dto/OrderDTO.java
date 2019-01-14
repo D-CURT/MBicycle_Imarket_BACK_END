@@ -10,6 +10,8 @@ public class OrderDTO {
 
     private int id;
 
+    private String login;
+
     private List<Integer> productsIds;
 
     private List<Product> products;
@@ -33,7 +35,8 @@ public class OrderDTO {
     public OrderDTO() {
     }
 
-    public OrderDTO(List<Integer> productsIds, PaymentType payment, DeliveryType delivery, String dateOpened, String datePaid, String dateReady, String dateClosed, String dateSent, String dateGot) {
+    public OrderDTO(String login, List<Integer> productsIds, PaymentType payment, DeliveryType delivery, String dateOpened, String datePaid, String dateReady, String dateClosed, String dateSent, String dateGot) {
+        setLogin(login);
         setProductsIds(productsIds);
         setPayment(payment);
         setDelivery(delivery);
@@ -51,6 +54,14 @@ public class OrderDTO {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public PaymentType getPayment() {
