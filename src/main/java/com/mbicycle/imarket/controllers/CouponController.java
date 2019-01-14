@@ -33,8 +33,9 @@ public class CouponController {
         return entityWithContent(facade.get(dto.getLogin()));
     }
 
-    @PostMapping(MAPPING + "/add")
+    @PostMapping(value = MAPPING + "/add", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity add(@RequestBody CouponDTO couponDTO){
+        System.out.println(couponDTO);
         return entityWithStatus(facade.add(couponDTO));
     }
 
