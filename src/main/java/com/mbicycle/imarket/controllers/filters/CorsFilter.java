@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-@Component
+//@Component
 public class CorsFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
@@ -22,16 +22,12 @@ public class CorsFilter extends OncePerRequestFilter {
         String origin = httpServletRequest.getHeader("Origin");
         httpServletResponse.setHeader("Access-Control-Allow-Origin", allowedOrigins.contains(origin) ? origin : "");
         httpServletResponse.setHeader("Access-Control-Allow-Credentials", "true");
-        //        httpServletResponse.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
-
+//        httpServletResponse.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
 //        httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
-
         httpServletResponse.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
         httpServletResponse.setHeader("Access-Control-Max-Age", "3600");
-        httpServletResponse.setHeader("Access-Control-Allow-Headers", "*, authorization");
+        httpServletResponse.setHeader("Access-Control-Allow-Headers", "*, authorization, Content-Type");
 //        httpServletResponse.setHeader("Access-Control-Allow-Headers", "authorization");
-
-
 //        httpServletResponse.setHeader("Access-Control-Allow-Credentials","true");
         if (HttpMethod.OPTIONS.name().equalsIgnoreCase(httpServletRequest.getMethod())) {
             httpServletResponse.setStatus(HttpServletResponse.SC_OK);

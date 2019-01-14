@@ -81,13 +81,13 @@ public class OrderFacadeImpl implements OrderFacade {
         Order order = reversedConverter.convert(dto);
         List<OrderProduct> orderProducts = order.getOrderProducts();
         if (getInitial(order.getProfile()) == null) {
-            service.update(order);
+            service.cart_update(order);
             order = cart_fillList(order, order.getOrderProducts());
         } else {
             order = cart_fillList(order, orderProducts);
             order.getOrderProducts().addAll(orderProducts);
         }
-        return service.update(order);
+        return service.cart_update(order);
     }
 
     @Override
