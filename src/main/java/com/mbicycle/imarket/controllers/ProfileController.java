@@ -31,7 +31,7 @@ public class ProfileController {
 
     @GetMapping(value = "/get", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<ProfileDTO> get(@RequestBody(required = false) ProfileDTO dto) {
-        return entityWithContent(profileFacade.get(dto));
+        return entityWithContent(profileFacade.get());
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)

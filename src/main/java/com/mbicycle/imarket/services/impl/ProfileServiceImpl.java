@@ -19,7 +19,7 @@ public class ProfileServiceImpl implements ProfileService {
     private ProfileRepository repository;
 
     @Override
-    public boolean add(Profile profile){
+    public boolean add(Profile profile) {
         User user;
         if ((user = profile.getUser()) == null) {
             return false;
@@ -34,7 +34,7 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public boolean update(Profile profile){
+    public boolean update(Profile profile) {
         User user;
         if ((user = profile.getUser()) == null) {
             return false;
@@ -59,7 +59,7 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public boolean delete(Profile profile){
+    public boolean delete(Profile profile) {
         User user = profile.getUser();
         if (get(user) != null) {
             repository.delete(profile);
@@ -68,7 +68,7 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public Profile get(User user){
+    public Profile get(User user) {
         if ((user = userRepository.findByLogin(user.getLogin())) != null) {
             return repository.findByUser(user);
         }
